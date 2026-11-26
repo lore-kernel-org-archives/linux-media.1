@@ -1,100 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713246;
-	b=nemtAdE/KB7DcK2Guf+nRwcqtMFvTZ9mZE0toUEVIytD09zU9mhXImaBvjULdaeH1sL+
-	 cxpiP6uB3ms0RUNRf3ajUU26ojvhS/eF2IAxh26NjpXzuhD5DMo0nM/olMYKBZa+HUtJZ
-	 GQEOGGsf5qN1jeuKRrXW+OO0rqJNr1JIX1HkDV89/LR/lwVJOJOSv0DlTtbt1VtvlxfVz
-	 t+EVTTRPFtjQc4B3dLOueokgVtOC+s7B+D6ZgThgsMePOQb9wEiO+XGrmiJ7k8LN7LMcp
-	 5XruG2IP31/BsCpn1yBSMl0rfyJfmuYte7o91lLWGajzpgZU+Mkx44rowK7XDUgQyiw==
+	t=1795713445;
+	b=i/VOkCCTz7IcuOMNx/yZy743HA+AuKwX1FETEFI8FVKVszBkCgU5Nf/W4XuNwow+Jb1Q
+	 2HZThoHihQuSpHDmaMPG2hEWAgq7bWnr+80OU94G3Z6wjo4XkWUEgA6OOJ5L244KIlXHg
+	 WXxrvWraSV5Dd+V80IJM6ueQBkNYDk7TnMTIyxpEO8AuivYUUjeOUtqDf6YYWF0lc83Bw
+	 TU4fPPi9QXDbcTfptOxOoWbtPI2WOIgRQL6B3pYg5l4Wmyj05wiig7HGQQp/vrNf6tMmC
+	 xg3mDA0pa9yu4JlOT2X7pydTKmeEwFhYPIajY3wEFL33scKBLuD5l06oHwRD6EivMzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713445;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=Yi/ivCTbo4DPg8u3yeaJ2VRoY8CK+U4XBvUgOwH9f/A=;
-	b=ZlRKOwGq6g5liGgkPSXAvXOGpkE4MU24pQANEDEGpB48+A95PARZh19wtdLKvqmF9wsc
-	 L6qDqtHWwbGKVv1liTtSIU8oLFnM0I56YaSk1Q2FvsOGK/+K3V0Vv9pn6v8cLZ9B/ofyU
-	 C51YNhwik9i8MKaTtjmJBKRNYhRcfXAcVe1keeLUQSywowbba70064oEBFtXAhY+ATBOg
-	 RR1NHb492UOVxOAjPxmF/8ecutQC/TmDOtLZPKvzicydO673OhwRKpJvuZWXxUSJ4g05Z
-	 5290MmLiAosIRrkh/1CuZIdL4LCj4qzexo2z/crSVcLe5KtNfxI/FT846uAHzDc8E2g==
+	bh=EILph5uN4fSM4fF0EevcsLMkCO+dSIG9bRlB+rnqTxk=;
+	b=isx3zwWK2nU9QWCuQOOKZQQ9krzp3AnAKsjgkE23+3a2NrYV9bIjEC/IgdELAWJluoMz
+	 8Axva7v299N8bL2eE9q14SI4LTWsHmkSwtcXRRcDbTAv2mbPhXjS+xB0i3fviaqxqOIDb
+	 ebkRoLr6/fpOh0KeXtkMbIuH48QxQWHbypAQbnP25nXSyXtMBNAi1d72psxmwjqKeB4it
+	 KxNT0s7sPuOjTt0qgvip2cPt4477uilf3fcV/fF1AQ/FEoswelpx9ZgPa4twl3YYt2GCu
+	 nlmmr5MqY5Iv3fcIGL4CWY9xLbbj+xeldEDPYpditzer40FGJPaWuP5AR5+NMUCjBcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HedOyocz;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wrn4bv9i;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA47F606A31E
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 17:14:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA47F606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A0B606A326
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 17:17:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A0B606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HedOyocz
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4a42b34e930so6354023f8f.2
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 09:14:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wrn4bv9i
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490f38e9688so5066764f8f.0
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 09:17:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795713244; x=1796318044; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795713443; x=1796318243; darn=vger.kernel.org;
         h=content-type:content-transfer-encoding:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Yi/ivCTbo4DPg8u3yeaJ2VRoY8CK+U4XBvUgOwH9f/A=;
-        b=HedOyocz3bUj9Abr8/XiWePoUlAIQnt7wd+6V6mVyb2wM2vQyQmtSw733SpRjIyBQ+
-         lQnWjYZm+abaNML6a5hWwo1tDe15MDFyeolv9MmFEfeAxOKAcWFpZ+v6bQiRq0KSSpru
-         pZzsS6JqplYKFKBWKpI5+l+w8EJA/CBxc1nxAfK2tSe0S3/RRHgaWF5IpO49a3Qsdxsg
-         a9w7ybxewff/ZKSOZAozSD7Cdm9qYkiHjJJjxZk0AzSmxv5CnRVZN1oSMG+zJXADqTfd
-         47YYNWqBO1PF0A8EGF76FQJteuj6V9uO7cgbqzJF6iE4GOSjwaFI8TQyaklcqIvyrHhb
-         bNyA==
+        bh=EILph5uN4fSM4fF0EevcsLMkCO+dSIG9bRlB+rnqTxk=;
+        b=wrn4bv9i2F7ZbfsSqvLyZK6M43Y/6Zr+ZtT98bumoX1W8gq3NagIWl18dtnUg25j+Y
+         KldCdvPomCfgjMpEf6etltlFwDr5eLg7UIdd55al5Z6NtRn1RK8MIcUtla//xrrbpgdD
+         GZSdKgjgkT97w/AfxKl/wsKGobZq27BZPJUmSk98ybh62MpxAo3Bm5Xd1UDJn0aOreg0
+         GV3ZO4kmlpO5qqHmgkXDeuR4L4C+RJxTrUrvDxBfaSOGOqzzXtdZ45hyLzgOYJUJQZuT
+         qYQXg7w/QFbG8eA4da8Bk2ArsLHGe1+fHsDxEdZC4v3ksrOe36G+FeZAkUQA66Y0l/Y1
+         p+pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795713244; x=1796318044;
+        d=1e100.net; s=20260707; t=1795713443; x=1796318243;
         h=content-type:content-transfer-encoding:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yi/ivCTbo4DPg8u3yeaJ2VRoY8CK+U4XBvUgOwH9f/A=;
-        b=JGEWRIWY+qDurE+dcpClj+qNarZkoEqS+3MPldJIyUkvZuudbR1l+PNG+mg8sNd0GX
-         vobRwQC0Bf4PLsdIKQLqLHlR09DB1o0iaqOp9d+bmsQgmUR7FzTyMqWKgUPWZTZGNxUd
-         Nfj8NwLHvh10Y5JAdKeKjeSxJQpdKy/4zoHxd9RbH8dpwF1RIJrLWLNwYRZr5Pdr7WmG
-         VAns+uuOBD3PXDM4+d6EZloezqOCdZkMffp3QJwjqQy38sCPq2BRoxsd/Bmy40cyGjWF
-         U8LbsFuCFc/At4ncNRpfWkJKnM13+DJqGU365947OY3s+Yzh2pI/aYa19D5YfACZebum
-         +EBw==
-X-Forwarded-Encrypted: i=1; AL+hErGfIJ+2c7nqTmVktZw8tPSQY91k8EnR74Pfuj2DzIRUDYUtMnNciIUbIC+djK6XnzKNrfRhcToh48wVgQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TCwr5JbYU7cCDm9PttxTwrrkh1tzUApiASvVmTASHdtQUatse
-	p7HI+j10jRjjF6/EAOAEydV/C6mtvRKT+0gzKwVymxJcyKGmvc+1fCOG
-X-Gm-Gg: AZFdTZf5ka5QSAC01I6JaoNoL4YuvigDaDxQnTMi9KOQhoMhMZNg7F43ytzunfi4mir
-	mv8GKn8Zkvw9KvmsGAtzynqLi+1jWuGvqtBnD+NrleAwazx+AVbzZBpLIfEuUkTNKl3O0uk6WQf
-	Ci5dxFuF6mxy0eywgDYpFDhPejJiU+OzLVYD1wnBdxwIX1EdJcVDodGiNSP6Vh+5fgMgm6FOWn5
-	0l7jPJfutizyxTKkjVc3FfZofC9NUdG0tvfMXxYYsRXCFxo6VSWS7Dqj98uqRm0ITKjtpPh5Md1
-	b6nqHRCBY4KZTzYH+V5I2NVy0bb7UEAmp/LAb1XiyKxko8g95ZAIrUwLDo/FdBRhya7KSdisu20
-	hPcvNg09biKub/oCYY947eQBbNa8cU3o6FzIVecWenA+hFDQn2CkviRiw0bqqF8q8xp9yUsZFjx
-	Y2nTADezxX6tZFKLXVGhjX/A+dMCMbL82iiZslSp8WAoAhWejOyvEe7KYq+H/P0IFXK4c0fZIeh
-	2hyE1ejp4rhviWBbP81aLaxxrkVRC7wNf6DXsPeBb53ISMQBmbAQgrIGBJ3w2XgEAvyXwYd/BEb
-	4Gx2wjY0hlNTC0kTdC1f2+pIOxnbLYPIJq7NthdTh4CHzYGqjhgge/UZ8WexBRjK72noxLErMmS
-	lK3QRRECjqzdF9ylTFiw/gsff3Lm99w0WrfHCl7zNz4HDjzTKb2auhMqyBqstHlM0PbS8PDEjot
-	SZZBgwvG5VAc4bTtHMOy+MuF+2rsK46zA4JzlTdXMB9vZtYNcKTLvvyh9KZ7rMt8JsmIAzGKqFy
-	rH7IgUB8v34Hx/s16+NPWek4hy2k30O2OyGxBoGgDsTesmXAq+GeT9t6yQJp0h3
-X-Received: by 2002:a05:6000:4704:b0:491:6a7:b4ac with SMTP id ffacd0b85a97d-4abb5eabd6bmr42342899f8f.56.1795713244030;
-        Thu, 26 Nov 2026 09:14:04 -0800 (PST)
+        bh=EILph5uN4fSM4fF0EevcsLMkCO+dSIG9bRlB+rnqTxk=;
+        b=uH1G0FhcmmPtxlZtlhqtfYOZ1LLfn/pktarMcmOCQKOvrJIlhw3Id32lS7jU0Oh29n
+         IINQ+B3Fmix7Z6gqi4ph2EuMpwJ0+GH3Gtc+eNi+G2un5GFYSxfC+96rASRg4JdzEv3u
+         2HdoBluVBaWURGagny/DffZKaGU2wAaSxmV0BUof6yhdhW9v5cNJ/NaPjlNtdxSdj6VZ
+         8eK1dG2brTuZb27nX08LDXS7fQRRAdwtWao1QM301WGOPIqKfX/epQsoctvrt5xqHEYf
+         RMSyGMq/Ne9ul7V5MYQW1BEH7zL7277WyjnvmU80c3OrcowK/krScQy5irBZU9xKuxO3
+         M8IA==
+X-Forwarded-Encrypted: i=1; AL+hErHozqZwW3jdv+k/MXC46FLiO7MEuHFVIDxgToMo+M/heD03Vz3gYKewIWuXNDoNx14wlc5cIDlOmx5q7g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yzBELoiudSbP4uWI1kqRSDMcPqvW9UdLbQm18I3M4kwYzallC
+	dtmAXVHnQnLnpkZ6AFbnyd2Agio74iA3cfXp7SEEcdD+ZPI/Foyyo61+
+X-Gm-Gg: AZFdTZdQz1gbLlCG33B1Wtlx2FfG/wHyjWPtc3XCeLJ8Q/iVtYFAIdXET+x7F9IJPic
+	JoCMrvDv36k94MQyVIeW1A98jqbDCDvXndryrH+mL/Ic0EUs3NUVWeHOXBeF6ymi+T6j/V/v/y3
+	kJ2db7MCj74M2fjlOPQHIE83fn9vBP2osQokD6u5I2OkLIGH4j/VqL1/oPBV2ii8nxAkQk9UlOG
+	DQkOFBGX5W1fu1kPUTSNF4J6iIK4jdwqTZcRUOJyWXhfgQAyQLmnMEw+MojzjQYqEZiomosJfpO
+	XQfxXIVTp6Okne9PWSC9vn+HRbmrWgA10SzmTkYJhN/P0U2WJHcUK3WO/DhoncrkOxkvZtctejW
+	heMTI6rZsQhsIRF5llp+3Qs2i3Ay/4yh8Gb2cckWNbj8PTkaboJ0RdP8ZyYtk5wXK1BqLRU/483
+	dg41P59XG/HMNzhOEgJ+kJR+5f8MMU7v2QhhxNQ+D72HRocP++gOexRMlM71jhIFwIq/PSQ9xCi
+	lCee9UU24ypJ5XSQT6IRuCP+B5B57mU6lNlrsssaOAui6+6fYGnRnTbZ8jNSxXQcakf7b24kFR+
+	4pTBkeYtbLgjHH1BmQDX89E6hvG+kzI9y6xACBYq1te02kCshtlaorcTIkJpvB49cD9ZhDyrqfD
+	+WnNpoTEYg89kZpDasEmnysTq7FUE4Enul3TcEhNvRX4FKRHdkAUA/Qjco1U7qC6M4nD4Un5jjF
+	LPEPUAvCx2phej9wni9Di6Ys79AvVgUwHNShnA3LhFr6CsV9UAcglcDxr4//a9O1qfVLvo3GMU3
+	PFWUfLbTUVcCC1Hytcp9PwSSeuDE7G6vPhdHmqe9194Ruv/+2+3hkqYF9DwUWUt5oDjdhQO5qhk
+	X889yG4F
+X-Received: by 2002:a05:6000:4028:b0:4b7:6dcb:e909 with SMTP id ffacd0b85a97d-4b76dcbeaa9mr18536789f8f.8.1795713442699;
+        Thu, 26 Nov 2026 09:17:22 -0800 (PST)
 Received: from jernej-laptop.localnet (77-38-7-250.dynamic.telemach.net. [77.38.7.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b10b5f6sm39494189f8f.34.2026.11.26.09.14.02
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67fec7sm39409423f8f.26.2026.11.26.09.17.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 09:14:03 -0800 (PST)
+        Thu, 26 Nov 2026 09:17:22 -0800 (PST)
 From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: mripard@kernel.org, paulk@sys-base.io, mchehab@kernel.org,
- Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
-Cc: gregkh@linuxfoundation.org, wens@kernel.org, samuel@sholland.org,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
-Subject: Re: [PATCH] media: cedrus: fix typo in comment
-Date: Thu, 26 Nov 2026 18:14:02 +0100
-Message-ID: <A2PFvd_UTOK2TCyMMfkywg@gmail.com>
-In-Reply-To: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
-References: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
+ aiyengar1990@gmail.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+Subject:
+ Re: [PATCH] media: cedrus: vp8: do not disable the engine when a context
+ stops
+Date: Thu, 26 Nov 2026 18:17:20 +0100
+Message-ID: <G0WUYb9qQ46JcwzsVuhrfA@gmail.com>
+In-Reply-To: <20261112-cedrus-vp8-stop-v1-1-27d5ca038578@gmail.com>
+References: <20261112-cedrus-vp8-stop-v1-1-27d5ca038578@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -107,37 +114,118 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
 
-Dne sreda, 7. oktober 2026 ob 16:00:56 Srednjeevropski standardni =C4=8Das =
-je Caio Vinicius Ferreira napisal(a):
-> Fix a spelling mistake in a comment: Neightbor -> Neighbor.
+Dne =C4=8Detrtek, 12. november 2026 ob 17:08:44 Srednjeevropski standardni =
+=C4=8Das je Arun Iyengar via B4 Relay napisal(a):
+> From: Arun Iyengar <aiyengar1990@gmail.com>
 >=20
-> Signed-off-by: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
+> All the contexts of the device share the one video engine, and the m2m
+> framework keeps running the jobs of the other contexts while one of them
+> stops streaming: stop_streaming() runs under the device mutex, which
+> device_run() does not take. Writing VE_MODE_DISABLED from the VP8 stop
+> callback can therefore switch the engine off under a picture that
+> another context is decoding, which then never completes and fails on
+> the watchdog.
+>=20
+> Every job selects the engine mode it needs in its setup callback, and
+> runtime suspend resets the engine, so there is nothing to disable when
+> a context stops. Drop the call, and the helper, which has no other user.
+>=20
+> Fixes: 3c39a16d30d8 ("media: cedrus: Add support for VP8 decoding")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+This is correct, I have similar patch on stack. However, helper to disable
+engine is useful, but in different place. No worries, I can reintroduce it
+once I came around to post fixes for concurrently decoding issues.
+
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
 Best regards,
 Jernej
 
 > ---
->  drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Tested on an Orange Pi Zero2 (H616) with the same change on a 7.3.3
+> kernel that carries further, out-of-tree H616 cedrus patches (VE behind
+> the sun50i IOMMU). The old behaviour was brought back on the same boot
+> by a temporary test switch for comparison. The test is a 4K H.264 decode
+> through FFmpeg v4l2-request while a second process opens VP8 contexts
+> and starts/stops their OUTPUT queue in a loop. With the old VP8 stop the
+> watchdog fired 12 times ("frame processing timed out!", after two IOMMU
+> page faults at address 0), only 289 of 300 frames came out and the md5
+> changed. With this patch all 300 frames match the reference md5 and
+> dmesg stays clean.
 >=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/s=
-taging/media/sunxi/cedrus/cedrus_h265.c
-> index 780da4a8b5af..f57642c0d8fa 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-> @@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->  	}
->  	cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
+> On media-committers next, the base of this patch, it is build-tested
+> only (arm64, W=3D1, no warnings); it has not been run on that tree.
+>=20
+> This patch is independent of Jernej's pending series "staging: media:
+> cedrus: assorted fixes and VP8 4K support" (v2) and also applies on top
+> of it.
+>=20
+> This patch was developed with Claude (Anthropic) as a coding assistant,
+> which found the bug and wrote the code and the commit message. I
+> reviewed it and tested it as described above, and take responsibility
+> for it (Documentation/process/generated-content.rst).
+> ---
+>  drivers/staging/media/sunxi/cedrus/cedrus_hw.c  | 5 -----
+>  drivers/staging/media/sunxi/cedrus/cedrus_hw.h  | 1 -
+>  drivers/staging/media/sunxi/cedrus/cedrus_vp8.c | 2 --
+>  3 files changed, 8 deletions(-)
+>=20
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c b/drivers/sta=
+ging/media/sunxi/cedrus/cedrus_hw.c
+> index 444fb53878d1..a22a8402fc60 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+> @@ -71,11 +71,6 @@ int cedrus_engine_enable(struct cedrus_ctx *ctx)
+>  	return 0;
+>  }
 > =20
-> -	/* Neightbor information address. */
-> +	/* Neighbor information address. */
->  	reg =3D VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neighbor_in=
-fo_buf_addr);
->  	cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
+> -void cedrus_engine_disable(struct cedrus_dev *dev)
+> -{
+> -	cedrus_write(dev, VE_MODE, VE_MODE_DISABLED);
+> -}
+> -
+>  void cedrus_dst_format_set(struct cedrus_dev *dev,
+>  			   struct v4l2_pix_format *fmt)
+>  {
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_hw.h b/drivers/sta=
+ging/media/sunxi/cedrus/cedrus_hw.h
+> index 6f1e701b1ea8..4edf729c556d 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_hw.h
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_hw.h
+> @@ -17,7 +17,6 @@
+>  #define _CEDRUS_HW_H_
 > =20
+>  int cedrus_engine_enable(struct cedrus_ctx *ctx);
+> -void cedrus_engine_disable(struct cedrus_dev *dev);
+> =20
+>  void cedrus_dst_format_set(struct cedrus_dev *dev,
+>  			   struct v4l2_pix_format *fmt);
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c b/drivers/st=
+aging/media/sunxi/cedrus/cedrus_vp8.c
+> index 969677a3bbf9..4438c7e1bbda 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
+> @@ -856,8 +856,6 @@ static void cedrus_vp8_stop(struct cedrus_ctx *ctx)
+>  {
+>  	struct cedrus_dev *dev =3D ctx->dev;
+> =20
+> -	cedrus_engine_disable(dev);
+> -
+>  	dma_free_coherent(dev->dev, CEDRUS_ENTROPY_PROBS_SIZE,
+>  			  ctx->codec.vp8.entropy_probs_buf,
+>  			  ctx->codec.vp8.entropy_probs_buf_dma);
+>=20
+> ---
+> base-commit: 3fc9303dba01676c2090768126e5327e341b7761
+> change-id: 20261112-cedrus-vp8-stop-cb2d66d855ff
+>=20
+> Best regards,
+> -- =20
+> Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+>=20
 >=20
 
 
