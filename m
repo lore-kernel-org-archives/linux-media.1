@@ -1,87 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795692204;
-	b=HTH3ydY5GsYvXy9us03ncie6/+yKoozu2soKLwlMKq9GD6f+d0SoySiW+fkWFEO5gDhd
-	 aaSSUkuGNUw2Dkc2VihwDbbCgdwqE+35bCZvsTnES7h53WOvdn02mEPbly7hIUT/ipQz3
-	 89CArKz0sTyxkli5YUDe4OyrQRyxx6df72IyIk4xn8/wBYuVi+VC6qc/Qfjhw4F1sC3nz
-	 le9Db5mUT4ZCSb9LTr4hNZUjZ972/QE+j3ahdosqMl0sJPwGx+Q987tw1xTNLoVgABJXk
-	 P2elZMLJ3zkWzOxoEJfrhlTaKL/iAi2emq54HJ9P4WvgDGeNfKGUS7vxnK1uL1sS42g==
+	t=1795699038;
+	b=f98AJegMr710U08LmvsMYCMkRCxB0B2pg3Rtr3zafKpdE1fYeFOMIJflbvwhIrMGm0By
+	 I8bunrgxgc4GguSTwq1WUQsMxL9ig2Yn/qQdnB5crzjVrpIlsgCzPeTu5dcnoOZVNmcJD
+	 602giPpwh9jQOFY1Fvrqr/nhNX/Qdj0SjVdAkZ6veepR8qCwyS3J8uOzgeJobkxp96HhV
+	 rbFYk6DghiPeRBO/NjowdI3lmgtCugKgNyML3AoTNDMguEXAAvyYQlbq+ZEKUN4cZt75o
+	 GMJm9b0thvAO1nXBmxcce6daQp5hK35bPOVZUSxtQFgM60Lb2JKFmZKbcXrhp6c9JXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795692204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=nkVHTBWGRkEmPj0y0p+bGJ739Ifet0BlvM+VCtljhP0=;
-	b=pT9hn3p4YvFYFUCMauxGYxhg5DfE5RYqIylXDBJjPa3GV6nvrJRn+oJmv7N+QyRLSaXF
-	 FuH9f2m3fHpxB3gBSsVa4ZylLI3K1nazEDDeUtoYHVBgjNqWrJFPTrXZMO80RiVbJlLJ4
-	 GZ8VTQ3BYCm9EgJ7yV02p0vnbuSxSnw4a6D93DGc1oT86yJNzrJqVqzAk9QKsE0+oFwaf
-	 6TXvx7wiT4/S89/JDSk7oHZ22R7N/UTN/Y9Ju2ZDyjI/Q85eUI/3GzTmzMsYDkdK7mzbJ
-	 tSdlEvX5gIpKiJ5OjIgw8ohJlxbl0mEHfXh0WD8cKeRPlZhuK3Tz2ggRbp/mGsmPvdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795699038;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=iGhcK9aeLpuBQFCiWB+nJdiq9m9MtnI1NySrRc5PaoY=;
+	b=ywRWUbVPmvU6FaVpKFpYkpfLaW1ZVWt2i0xCCERYEf/voHfM8/ecwDxh3U1OYlruEkzm
+	 yQDnvVQOI8ETsAaXMJsP7d61dfhzzbFkvx5C695I8GIkD0JsRPkcxmTCNZm8uXsTJ8dTy
+	 GCbY6oogQolxB5dCXD7QBD1aLCUcEdauPy77MsodUrin1zDS9xRcf20Ip1VEjRAs8HBdi
+	 OPJSS6RvZqOUi1GhjqCXYnktErYlY2QjTVNNYtaqBV/VMUt5ZRIFLha1SFLO6jX5cz74l
+	 Io9cN2hygmDj2+6rW8carOd8HNXxPfiYL8XTZIV62hA3zqRaIxx2bZGzMx/DoXS8wyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lrYSgtMC;
-	arc=none smtp.remote-ip=209.85.208.178
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gXZ0JAqx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD1F606A695
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 11:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DD1F606A695
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C05C606A31E;
+	Thu, 26 Nov 2026 13:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lrYSgtMC
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3adf222704dso7660491fa.0
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 03:23:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795692202; x=1796297002; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nkVHTBWGRkEmPj0y0p+bGJ739Ifet0BlvM+VCtljhP0=;
-        b=lrYSgtMCrESJBFokuoEjstgT0mV42/g7ywFU2W8mYFTCtK2+ri2Nw5YeyTEfXxzUFz
-         uxh78hcP/h6G4FxUzs1L+xG13Y9Eh+8HlWzvc3xanKDMUDfHCsDomSD2R6kBBvormnkv
-         pqeUyY0AL39Cw22AksXMAPwAes7vNWB7hxEE+AhrCG+XGTCeMIelkoBRi5bQAQvVoHrZ
-         m3T9I3UtIN3KbkNwKlU6p5cMNZ4lqAACgJMl1jeAxQX9yJrYZdktam9OXCguCvZzyQaH
-         NBjRs06aWGpKVKlSlGRTAhqk3AvKukeUxZ9JvsJzNrYJEKL9LlS/FW8I2HiiUP4KO2bh
-         tCoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795692202; x=1796297002;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nkVHTBWGRkEmPj0y0p+bGJ739Ifet0BlvM+VCtljhP0=;
-        b=UQTlgVf8febWUfPPe4q/QF4W5Zi4ZZc20qDbNO0ZbsWC+epvOXrb0VnOGFZqTEd50T
-         GOXszylMGhb/95xiWqew4AARuTAWEF2sDCTmNE8L8II64VXpw+8Plkf9WD1OIZTL2Dee
-         hbVCtQ8y7+heSdkbohM+S970PZd9I2cht7YWouzBvnBy68vSwU89/W/2cWhn7/lLLRki
-         2DhYx0Qrap5n0NHID7btT4/gBDzPgvwrcgpS05IraB/ZP9h2aIZtdxiMdCcAWlbyaD5o
-         UTD63mA+JFDnNJj47NBifPKeBReDlcaZ0DJJjgXCjgG68C7g5muVDLv3aK6Qun3aiYsX
-         QxPQ==
-X-Forwarded-Encrypted: i=1; AL+hErE41POP4Z4PLqDok1AAPQzyiR/mP7cxrStNrgIkDYXJQpW9lKatf1U0UxAaeD7K/k0KM5253pMTKSGKkg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+KSJOg+xO2nRCJJCvK9PA1O8cTjMX64xjl3TDXWhXgeT7MSKP
-	zhiWC4RfozeO4ojHEtTfIeVs9MhT1AuUt+W1+N1oipRt0za0rpJYpskRnuxODYKRWq8=
-X-Gm-Gg: AZFdTZd2ZwmYiGj/tvQqLIsoSuT54gla7MEKm2qX+aW62quWF293bvRaViZyyCPsGWx
-	OzDaNZa/8kKH/cbT3PuvGz86ihpUZxk+9CoMtyqDQM0nZyjTEQWbhNCXH3GDbyOW3uPM+MeiDgM
-	QnZ3sDV3uGthS4Sn8QAwxAZHREKq6Mv6xh5MS69p2UR/8pqfUrf/AR8dc39BSD6gnnskE4bSEWy
-	XoLUCWZhxObQV9Zr0zKgD/3yKpGSQGQUU3b49zUCT6u4IuqDNzxaHhtnteRwSm+f9rzMeVpSu2F
-	i0g6NDlBqxQvOnUN4cfm1bZNAPp1ioVLpXqD3ggLwGSANQMLbXxwGu2YzVnsBjEhkw4xqViEbaR
-	pC+ehcUTo5CwvPQDUhgqQo4vOm+MJb6LjK0W9lb8vFwUX1KFeh6GAb/w0rHpjxXE+X8hfU8nh22
-	rVvHjehur3OepCdE+vOkq6rWlScqE//Uw06A9Z4HdIbFKj+Jgo1g5056T8cwOuQbfrdJlP5X2JZ
-	OOKI+r3mJkd3MoujeWVb+304LFDe9oB7wzO5TYHFaU0x9rMagazBebGsEoiNiy2mVvzcvxbUzlA
-	QtTYIMA4xAKPHQdwAwOsnjdDwX42JgLzAVqv36L4V+ZfUrjVYTo06k3wHpEKAK6XcAhlzsaUgUA
-	Ij7Phk6Y=
-X-Received: by 2002:a05:6512:6313:b0:5c1:ac32:9904 with SMTP id 2adb3069b0e04-5c1bc80e619mr6458406e87.3.1795692201670;
-        Thu, 26 Nov 2026 03:23:21 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd077b37sm5089736e87.74.2026.11.26.03.23.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 03:23:21 -0800 (PST)
-Message-ID: <8a34e083-f364-4eee-9a46-9533647f323a@linaro.org>
-Date: Thu, 26 Nov 2026 13:23:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gXZ0JAqx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCAF71F000C6;
+	Thu, 26 Nov 2026 13:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795699038;
+	bh=iGhcK9aeLpuBQFCiWB+nJdiq9m9MtnI1NySrRc5PaoY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=gXZ0JAqxrE9sEKxe36izAsGvMAvY7wkvbyQ9rnA423vEse+xcyZp12R/GcUI+wR0b
+	 TZ9t/Ql+XHtB3eN9s+vJBNL0j86hlesdsR5QuCxrS88BPFZoLT22yOyHyR8j0kxqlU
+	 e99WF0cqhKV9ERUkTIbGViNLlGTHFR+Ildx6M+BN6p0ggC4zcMna8Nm4jnnOyuY44k
+	 RbN9h5YWvZScwRZFqwtKB2zm8FCKyid/BjrhaMpig1FDc0iZLH+/eZqMBGjoJ/h290
+	 Ic8xHH7Zdr2KKjg5ja7H93NyOB2dVwlU0/ER0q9AaPfmH0O77x1VmkmAzBpyINlxoQ
+	 Pe13uLCUKvqxw==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,134 +49,63 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: media: qcom,sm8650-camss: Add test
- pattern generators
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
- <20261031112203.545319-2-vladimir.zapolskiy@linaro.org>
- <CAFEp6-0Ykn4VNMMAa-WzCDcJ9=Z0x9Vd5e7z8FSNf72gGL7c2Q@mail.gmail.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <CAFEp6-0Ykn4VNMMAa-WzCDcJ9=Z0x9Vd5e7z8FSNf72gGL7c2Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 1/3] media: qcom: camss: x1e80100: Use the lite
+ clocks for the lite CSIDs
+From: bod@kernel.org
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jesse Casco <jesse.casco@gmail.com>
+In-Reply-To: <20261126-purwa_camss-v6-1-5ab97aea3832@oss.qualcomm.com>
+References: <20261126-purwa_camss-v6-0-5ab97aea3832@oss.qualcomm.com>
+ <20261126-purwa_camss-v6-1-5ab97aea3832@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 13:17:13 +0000
+Message-Id: <179569903303.596873.12740701508586858816.b4-reply@b4>
+X-Mailer: b4 0.17-dev-cdd92
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1024; i=bod@kernel.org;
+ h=from:subject:message-id; bh=4XHZmc7iJS9QgSksNiDbY65D3r5x08TTl+qG8U8o0hY=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBrCDFZXR1cTd+3OFrVL8CvZvqJdOdC9gCmCFW5a
+ l5jmUSCPjuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCawgxWQAKCRAicTuzoY3I
+ OjOYEAC49GTH2/8C15ID2wpZdcW6RaJj1mVvyG7MVrCpFy3dsT7xIw/5niRoGRDXjoo/BnQRlV2
+ ccHLbSVbrIxHRH9AFL2tTVnYJvNQboPPYBqZ20aD7qss45p3f+JCaVJWDkzqvlzUQkR0+CBnRHx
+ pr83RDYlG6prwbbLhGIKhLkMKeYVfN2w8qZ0LexOSyOraBWcpShMsCcIJiQpI+ao9izFh5dsPw1
+ ukwi8cjG8zxhvcqnVr1eZNMaVGWYXfLriC4U/nSM59UZEr/poS/4Yq3bAhFsFiNF3+etEe99RGl
+ 3Iwa4ir90zUMGKB6FVi5jiyxKYSrpc68zTW2fVPuPwUR9m8GaTehcRhFlI/vflEgIQz75KJ/IvW
+ pQBHYKpzzTAi7PyxvGObVqCggvXl75nCTdfL0ycvecXWiJEzln2VB5k4kL7U5IO0lQW+lR07/pZ
+ gWizBDjCO8KTdQrheeaN/goXJVEl3xrG+sApIdX2e4bw2jtPHtlTFXVebQXSoKN+GflB3TjU32R
+ kQTweLUwsvSqXunjYX5tzg5ZhET/ULAZVulgZtTMCqBAkt0AzFmuH7vHfW/3G0E0DLCPUqNlfwQ
+ Fi6NX1gHyGRKc/E3vASo6+eeRKcC4+tBZJz3dMZf2sJ45d9l7fRl7In3tMntZoVpBEdVMmcr8O+
+ u6fcyGEOgDaMD7w==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Hi Loic.
-
-On 11/26/26 12:52, Loic Poulain wrote:
-> On Sat, Oct 31, 2026 at 12:22 PM Vladimir Zapolskiy
-> <vladimir.zapolskiy@linaro.org> wrote:
->>
->> Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks.
->> Describe their register spaces and the non-real time CAMNOC AXI clock,
->> which is required to get TPG output frames passed to VFE.
+On 2026-11-26 19:15 +0800, Wenmeng Liu wrote:
+> From: Jesse Casco <jesse.casco@gmail.com>
 > 
-> Do you know why TPG support requires the non-RT CAMNOC AXI clock? Does
-> the TPG perform any memory accesses?
+> The X1E80100 CSID_LITE0 and CSID_LITE1 resources list the full CSID
+> clocks, "csid" and "csid_csiphy_rx", instead of "vfe_lite_csid" and
+> "vfe_lite_cphy_rx", which the binding provides for them. The lite CSIDs
+> then run with their own CSI-2 receiver unclocked: their registers can be
+> read and they raise the reset interrupt, but they never report RX, RDI
+> or buffer-done interrupts, so no frame arrives.
+> 
+> Use the lite clocks, with the vfe_lite_csid rates the IFE_LITE entries
+> already use.
+> 
+> Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
+> Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 
-No, I don't know the details, here it is a simple experimental evidence,
-basically TPG works with this clock enabled and does not work without it.
+Already applied.
+---
+bod
 
-I believe the NRT clock is "cheaper" and good enough for TPG usecase, and
-to some extent it is a buffer data copying from some (static?) memory page
-sitting inside a TPG IP block, while dealing with PHYs requires more
-expensive RT clock.
-
->>
->> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->> ---
->>   .../bindings/media/qcom,sm8650-camss.yaml     | 24 ++++++++++++++-----
->>   1 file changed, 18 insertions(+), 6 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
->> index 9c8de722601e..50ae30cdcb82 100644
->> --- a/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
->> +++ b/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
->> @@ -17,7 +17,7 @@ properties:
->>       const: qcom,sm8650-camss
->>
->>     reg:
->> -    maxItems: 17
->> +    maxItems: 20
->>
->>     reg-names:
->>       items:
->> @@ -38,9 +38,12 @@ properties:
->>         - const: vfe2
->>         - const: vfe_lite0
->>         - const: vfe_lite1
->> +      - const: tpg0
->> +      - const: tpg1
->> +      - const: tpg2
->>
->>     clocks:
->> -    maxItems: 33
->> +    maxItems: 34
->>
->>     clock-names:
->>       items:
->> @@ -77,6 +80,7 @@ properties:
->>         - const: vfe_lite_ahb
->>         - const: vfe_lite_cphy_rx
->>         - const: vfe_lite_csid
->> +      - const: camnoc_nrt_axi
->>
->>     interrupts:
->>       maxItems: 16
->> @@ -226,7 +230,10 @@ examples:
->>                     <0 0x0ac71000 0 0xf000>,
->>                     <0 0x0ac80000 0 0xf000>,
->>                     <0 0x0accc000 0 0x2000>,
->> -                  <0 0x0acd1000 0 0x2000>;
->> +                  <0 0x0acd1000 0 0x2000>,
->> +                  <0 0x0acf6000 0 0x400>,
->> +                  <0 0x0acf7000 0 0x400>,
->> +                  <0 0x0acf8000 0 0x400>;
->>               reg-names = "csid_wrapper",
->>                           "csid0",
->>                           "csid1",
->> @@ -243,7 +250,10 @@ examples:
->>                           "vfe1",
->>                           "vfe2",
->>                           "vfe_lite0",
->> -                        "vfe_lite1";
->> +                        "vfe_lite1",
->> +                        "tpg0",
->> +                        "tpg1",
->> +                        "tpg2";
->>               clocks = <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
->>                        <&camcc CAM_CC_CPAS_AHB_CLK>,
->>                        <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
->> @@ -276,7 +286,8 @@ examples:
->>                        <&camcc CAM_CC_IFE_LITE_CLK>,
->>                        <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
->>                        <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
->> -                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
->> +                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
->> +                     <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>;
->>               clock-names = "camnoc_axi",
->>                             "cpas_ahb",
->>                             "cpas_fast_ahb",
->> @@ -309,7 +320,8 @@ examples:
->>                             "vfe_lite",
->>                             "vfe_lite_ahb",
->>                             "vfe_lite_cphy_rx",
->> -                          "vfe_lite_csid";
->> +                          "vfe_lite_csid",
->> +                          "camnoc_nrt_axi";
->>               interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
->>                            <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
->>                            <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-
--- 
-Best wishes,
-Vladimir
