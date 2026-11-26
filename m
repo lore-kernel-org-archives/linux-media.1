@@ -1,95 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.247.34.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795685289;
-	b=1Ao8wkYvtronyk7VFVgJx53D/WE0kET8NnO5ASBfkT+5pqnIw+c+0koV/ZvdnHrj1mp1
-	 ECepQq1272mZ7qvii9m5qwQkQT1xuVJRng9jUq3Eajse4WB+YYUQATvOI5akbM4yYVhR9
-	 wh+PLfSGeFT0kGPZcbAdxKQIcNHS/yReGMlSTqFVxiT6wJH91T9VdCQhfd5VvQI4VGroa
-	 x2SCKc7Ysn6xm3JCI75XNPQeHHKh6KDxBXCC6jCenEc7O0hOVAe4KtFdJKw2qYzLJOAFN
-	 d2PXxUln5YSueXJRAZnH8QLFwwqyPK5xar+KInumzIeVL1Mf0CDe6T1sdq0AT4qnulA==
+	t=1795686062;
+	b=4zwE/Fs//+EmeMbN+XKTu1BQqnimeZVDSsUyxwVPMWPRn6ueqqrUWelR9qeMx02zDrzj
+	 wrErpwj+voiUwlX64QDkwvtsOPkL3KgRvX46sjPJ3hQkWGGOj68NZh+vhxYiRbpdVuU/4
+	 wt939HDBTZlFixVW14pzjwL1Hfhi/U0OaRl+l9SJwUQ2/bNExUiVXFV9jsuQOnXXiug1Z
+	 0gWkU5MEG7v6s0On5oTBmrV8niA63DjCBGSMmGP8Cm6bfI7Q4fDqDF/H1IAG22TVFZs/4
+	 RtEIiogaMNxEwzWa1Zz3Y2M3Kka+Szrytr6uHxqZ7BkfYo59Kr4vo2jwZHYRomGu76w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685289;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:Content-Type:
-	 Content-ID:Content-Transfer-Encoding:MIME-Version:X-SM-outgoing;
-	bh=svWs/aM38Vlawjp8seZdqmsqok/OpRYqNFaPL6I7pEA=;
-	b=zsQSGPLE3A77a0az3BIDjzzmDFzJijZGEcxELtbFaCpVd7dLlGUhOMVd1wFoZn3w7BN5
-	 qc0ABaouoVl9+oJqG1ZRkxMO/wA5PPsJnJKXFEpRfE8w8sQNSuGl8LYFY8HyiPYWKXpn5
-	 OMLpIoZhvrv77RmaHi3oyUS1LmhC7Sunp6pM4TqT0HhVZK6FfIPaPzQwWZzconPF3AcY+
-	 9ad9WPwhNQB7Er/TBnRlr+fWsB5Pf4YhAz9DWqU1UiyyPUKogzOYY7IqW3DXwTvhJsP3h
-	 2T1PO/RMKykga8xMdrqPxSc726t5o5VgKSx751gkXLPqhg5d+wMGy/JYH4D4jbV3I8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795686062;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=735t4smTBHJjdrev072+xgkgfP0p8t6Cn5jtJexCNKg=;
+	b=J7p8M7BCJ6sHk/CbaOtmXr/GKyjVne5rkXUICn/p+pgEguZgiP/2G4Mc0wyTlqBV1cG3
+	 X27WYWG8lVvq/CSwHKacSQp7+KhV/KSuFUZ1ErId6r0hytOSAYcEbk7mH8dRyKfDPAQD2
+	 ftuiiWo15wyltKCLw9oP0aQyA081IY6BcMemzr1azTxTLgIlvqdtYoIz45COtF6/r/zjI
+	 9ROrKlJJNFi+zNnyh3V+VGfc/si1ufXzfPk6ah+sB2M0OMlRgVZjLrYRUcgWUX3Lsp6pu
+	 32PM42AO/h3BVsz1YBy2eR1dF3s3nrkJ3GNb5jXG9QejY6+aYjJRIVSQ6s09zd65XSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stiftung-kifa.ch;
-	spf=pass smtp.mailfrom=stiftung-kifa.ch;
-	dkim=pass header.d=stiftung-kifa.ch header.i=@stiftung-kifa.ch header.a=rsa-sha256 header.s=default header.b=qPRELP+m;
-	arc=none smtp.remote-ip=46.247.34.138
-Received: from hin.itze.ch (hin.itze.ch [46.247.34.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="d6mB/Qwh";
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7377606A31E;
-	Thu, 26 Nov 2026 09:28:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7377606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=stiftung-kifa.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stiftung-kifa.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58D4606A31C;
+	Thu, 26 Nov 2026 09:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B58D4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=stiftung-kifa.ch header.i=@stiftung-kifa.ch header.a=rsa-sha256 header.s=default header.b=qPRELP+m
-Received: from hin (localhost [127.0.0.1])
-	by hin.itze.ch (Postfix) with SMTP id 4jZrnC5qhSz1wsv;
-	Thu, 26 Nov 2026 10:27:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=stiftung-kifa.ch; h=from
-	:to:cc:subject:date:message-id:references:in-reply-to
-	:content-type:content-id:content-transfer-encoding:mime-version;
-	 s=default; bh=svWs/aM38Vlawjp8seZdqmsqok/OpRYqNFaPL6I7pEA=; b=q
-	PRELP+mB9j3QpEmFCd8GgxnWJWFoj/quSythpZbhq95jIqhIT5FKS3evyuhyVit0
-	GgjElkaudUccOLrezItpS8snZ+m8d9U2TptNGZfphMjZd1We5p4HiCXgECpnkIFe
-	YOcl5hTX+PF0PHdJd7KwL6L8OIpW0LjJBSqV2nIeDWqVtZQnZSUahn0xPoVvotgu
-	SH7x2i7IF6yCzZG0p3lHPa8r1kDF1+pACjreHSjDX7Q3/bMWnx+tAmqpQ9rwlXGV
-	kLQ9yPl3RGqzyZPGOTr1SZmqGQWslY9BtlZ9QmbZEfS8g+gM+YZnxXJkQABAS20t
-	N062rg7TAh+IRMSqFyq6A==
-Received: from owa.itze.ch (unknown [10.200.0.109])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hin.itze.ch (Postfix) with ESMTPS;
-	Thu, 26 Nov 2026 10:27:58 +0100 (CET)
-Received: from owa.itze.ch (ITZE-EXC-42.intranet.itze.ch [10.200.0.152])
-	by itze-smtp-02.intranet.itze.ch (Postfix) with ESMTPS id 907DC380104;
-	Thu, 26 Nov 2026 10:27:58 +0100 (CET)
-Received: from ITZE-EXC-42.intranet.itze.ch (10.200.0.152) by
- ITZE-EXC-42.intranet.itze.ch (10.200.0.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Thu, 26 Nov 2026 10:27:58 +0100
-Received: from ITZE-EXC-42.intranet.itze.ch ([fe80::423d:c966:8c82:e690]) by
- ITZE-EXC-42.intranet.itze.ch ([fe80::423d:c966:8c82:e690%9]) with mapi id
- 15.02.2562.057; Thu, 26 Nov 2026 10:27:58 +0100
-From: Kettler Christian <christian.kettler@stiftung-kifa.ch>
-To: "michal.pecio@gmail.com" <michal.pecio@gmail.com>
-CC: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"stern@rowland.harvard.edu" <stern@rowland.harvard.edu>
-Subject: Re: Logitech BRIO (046d:085e) stops answering control requests when
- hot-plugged together with a USB-C hub; usbhid probe blocks hub_wq for 60 s
-Thread-Topic: Logitech BRIO (046d:085e) stops answering control requests when
- hot-plugged together with a USB-C hub; usbhid probe blocks hub_wq for 60 s
-Thread-Index: AQHdfE3oSkrSsszgEUuTDYAdvXeAA7c+zRyAgAAHjwCAAEsGgIAA58eA
-Date: Thu, 26 Nov 2026 09:27:58 +0000
-Message-ID: <cf179ae63e1a3fabc1a1869e0bc1b158ca62d1be.camel@stiftung-kifa.ch>
-References: <3cd5f994a6260960cf7751d6383f2b9afc1baeb5.camel@stiftung-kifa.ch>
-		<6118ad01-65a0-4357-8118-3122479b554d@rowland.harvard.edu>
-		<2ced9c1fb45e08a94f56b0f569b01369044b5553.camel@stiftung-kifa.ch>
-	 <20261125203823.15fc4478.michal.pecio@gmail.com>
-In-Reply-To: <20261125203823.15fc4478.michal.pecio@gmail.com>
-Accept-Language: de-CH, de-DE, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D30050BA81E86B43B5746C58E226F464@intranet.itze.ch>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6mB/Qwh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795686061; x=1827222061;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wwdSlOcN2YWeM8YQ6aQhTofY8Mq+pxUKnNjkobTx6FU=;
+  b=d6mB/QwhWPVUW6nQAf2JSLwxh0UWGpeWYTL0GCcOSLTDbo8850mheqDu
+   ZTiJ6wfR2nQyRssGJS/G8B1NpAK57V7givmO224DhYk4xhrNYzVZAB7Ko
+   dOn8zgOaA+Aj5djZ45jNa+MfxED7KAGAERxDSSJYzrTCyyKjhUlYrlTYF
+   /yTgwIMFhkE2zde44eNUdKw76nWiDKJiWoN+5QYLlOCGyLDLy1n6b2FJG
+   WzfIAY5qzAJ8R8vwbJv00xlxXZDdFJzxdGSbCB/BahjeCCBLb5hBvKOBr
+   SvsJ1lx6uoEsw8+cZEghFtymezUxikm2hfyLGevaI01+7fkwbZsMAjNrW
+   w==;
+X-CSE-ConnectionGUID: NL4238YWQZCPHcUVz+dyuw==
+X-CSE-MsgGUID: PaNtKm+LQDqXQ6Dje81/Vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4604361"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
+   d="scan'208";a="4604361"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 01:41:00 -0800
+X-CSE-ConnectionGUID: 76HcdsA4RsaOztSZJIG0ow==
+X-CSE-MsgGUID: UQBBaVwbRD6XGcCNvft1jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
+   d="scan'208";a="12451760"
+Received: from ubuntu26.bj.intel.com ([172.16.121.122])
+  by fmviesa006.fm.intel.com with ESMTP; 26 Nov 2026 01:40:58 -0800
+From: Lin Yang <linx.yang@intel.com>
+To: hverkuil-cisco@xs4all.nl,
+	mchehab@kernel.org
+Cc: laurent.pinchart@ideasonboard.com,
+	dan.scally@ideasonboard.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lin Yang <linx.yang@intel.com>
+Subject: [PATCH] media: i2c: Add driver for Lontium LT6911GXD HDMI to MIPI CSI-2 bridge
+Date: Thu, 26 Nov 2026 17:39:06 +0800
+Message-ID: <20261126093908.471446-1-linx.yang@intel.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,42 +82,937 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SM-outgoing: yes
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-QW0gTWl0dHdvY2gsIGRlbSAyNS4xMS4yMDI2IHVtIDIwOjM4ICswMTAwIHNjaHJpZWIgTWljaGFs
-IFBlY2lvOg0KPiBPbiBXZWQsIDI1IE5vdiAyMDI2IDE1OjA5OjUyICswMDAwLCBLZXR0bGVyIENo
-cmlzdGlhbiB3cm90ZToNCj4gPiBUaGUgdGltZW91dHMgYXJlIG5vdCBsaW1pdGVkIHRvIHRoZSBC
-UklPLCB0aG91Z2guIER1cmluZyB0aGVzZSBydW5zDQo+ID4gdGhlIGh1YiBpdHNlbGYgKFZJQSAy
-MTA5OjA4MjQpIG9uY2UgZmFpbGVkIHdpdGggImRldmljZSBkZXNjcmlwdG9yDQo+ID4gcmVhZC9h
-bGwsIGVycm9yIC0xMTAiLCB0aGUgUmVhbHRlayBMQU4gYWRhcHRlciBpbnNpZGUgdGhlIGh1YiBn
-b3QgYQ0KPiA+IC0xMTAgYW5kIHdhcyByZXNldCwgYW5kIHRoZSBodWIncyBjYXJkIHJlYWRlciB3
-YXMgcmVzZXQgYXMgd2VsbC4NCj4gPiBSZS1hdXRob3JpemluZyB0aGUgaHViIChhdXRob3JpemVk
-IDAvMSkgbmV2ZXIgdHJpZ2dlcnMgdGhlIGhhbmcsDQo+ID4gb25seQ0KPiA+IHBoeXNpY2FsbHkg
-cGx1Z2dpbmcgaXQgaW4gZG9lcy4gT24gdGhlIGxhcHRvcCdzIG93biBwb3J0cyB0aGUgQlJJTw0K
-PiA+IG5ldmVyIGh1bmcgKDE0IHBsdWdzLCA0IG9mIHRoZW0gb24gdGhlIFVTQi1DIHBvcnQgb24g
-dGhlIHNhbWUgeEhDSQ0KPiA+IGNvbnRyb2xsZXIsIHdpdGggdGhlIHNhbWUgY2FibGUgYW5kIHBs
-dWcgYWRhcHRlcikuDQo+ID4gDQo+ID4gU28gdGhpcyBsb29rcyBsaWtlIGEgcHJvYmxlbSB3aXRo
-IHRoaXMgaHViIHJhdGhlciB0aGFuIHdpdGggdGhlDQo+ID4gY2FtZXJhLiBJJ20gdXNpbmcgdGhl
-IEJSSU8gZGlyZWN0bHkgb24gdGhlIGxhcHRvcCBub3cgYW5kIGNvbnNpZGVyDQo+ID4gdGhpcyBj
-bG9zZWQgb24gbXkgc2lkZS4NCj4gDQo+IEhpLA0KPiANCj4gTXVsdGlwbGUgZGV2aWNlcyBtaXNi
-ZWhhdmluZyBjb3VsZCBiZSB0aGUgaHViIG9yIHBlcmhhcHMgdGhlIHhIQ0kNCj4gY29udHJvbGxl
-ciAobG9va3MgbGlrZSBzb21lIEludGVsIGNoaXBzZXQ/KS4gWW91IGNvdWxkIHRyeSBhDQo+IGRp
-ZmZlcmVudA0KPiBvbmUgaWYgeW91IGhhdmUgYW4gb3Bwb3J0dW5pdHkuDQo+IA0KPiBUaG91Z2gg
-SSBoYXZlIG5vIGV4cGxhbmF0aW9uIHdoeSB0aGUgY2FtZXJhIHdvcmtzIG9uIHRoZSBzYW1lIHBv
-cnQgaWYNCj4gdGhlIGh1YiBpcyByZW1vdmVkIGZyb20gdGhlIGNoYWluLiBJdCBtYXkgYmUgdGhl
-IGh1YiBhZnRlciBhbGwuDQo+IA0KPiBSZWdhcmRzLA0KPiBNaWNoYWwNCg0KSGkgTWljaGFsLA0K
-DQpUaGFua3MuIEkgZG9uJ3QgaGF2ZSBhIFVTQi1DIHBvcnQgb24gYW5vdGhlciBjb250cm9sbGVy
-LCBidXQgdGhlDQprZXJuZWwgbG9nIHNpbmNlIE9jdCAzMCBhbHJlYWR5IGhhcyBhIGNvbXBhcmlz
-b24gb24gdGhlIHNhbWUNCmNvbnRyb2xsZXIgKDAwMDA6MDA6MGQuMCwgc2FtZSBwb3J0KTogYXQg
-d29yayB0aGUgbGFwdG9wIGdvZXMgaW50bw0KYW4gSFAgVVNCLUMgRG9jayBHNSAoTWljcm9jaGlw
-IGh1YnMpLCBhdCBob21lIGludG8gdGhpcyBWSUEtYmFzZWQNCmFkYXB0ZXIuDQoNCiAgVklBIGFk
-YXB0ZXI6IDk4IGVudW1lcmF0aW9ucywgdGhlIGh1YiBpdHNlbGYgZmFpbGVkIDE0IHRpbWVzDQog
-ICAgKCJEZXZpY2Ugbm90IHJlc3BvbmRpbmcgdG8gc2V0dXAgYWRkcmVzcyIgb3IgImRldmljZSBk
-ZXNjcmlwdG9yDQogICAgcmVhZC9hbGwsIGVycm9yIC0xMTAiKSwgdGhlIHI4MTUyIGJlaGluZCBp
-dCB0aW1lZCBvdXQgMjkgdGltZXMNCiAgSFAgZG9jazogNDUgZW51bWVyYXRpb25zLCBub25lIG9m
-IHRoZXNlIGVycm9ycywgaW5jbHVkaW5nIGl0cw0KICAgIHI4MTUyIChzYW1lIFJlYWx0ZWsgMGJk
-YTo4MTUzIGNoaXApDQoNClRoZSBWSUEgZXJyb3JzIGdvIGJhY2sgd2Vla3MgYmVmb3JlIEkgZmly
-c3QgcGx1Z2dlZCB0aGUgQlJJTyBpbnRvDQppdC4gU28gSSdtIGZhaXJseSBzdXJlIGl0J3MgdGhl
-IGh1Yiwgbm90IHRoZSBjb250cm9sbGVyLiBJJ20gZ29pbmcNCnRvIHJlcGxhY2UgdGhlIGFkYXB0
-ZXIsIHNvIHRoaXMgaXMgY2xvc2VkIG9uIG15IHNpZGUuDQoNClRoYW5rcyB0byBib3RoIG9mIHlv
-dSBmb3IgeW91ciBoZWxwLg0KDQpDaHJpc3RpYW4NCg==
+Add support for the Lontium LT6911GXD HDMI to MIPI CSI-2 bridge chip.
+The device converts HDMI 2.0 input signals to MIPI CSI-2 (C-PHY) output
+and supports resolutions up to 4K@60fps.
+
+The driver implements:
+- Standard V4L2 subdev and media controller interfaces.
+- Video timing detection and reporting via V4L2 DV timings ops
+  (s_dv_timings, g_dv_timings, query_dv_timings, enum_dv_timings,
+  and dv_timings_cap).
+- Hotplug detection (HPD) through a threaded interrupt handler.
+- Active state and format management synchronized with HDMI source
+  status changes.
+- Register access abstraction using the V4L2 CCI framework.
+
+Also register the ACPI hardware ID (INTC1124) in Intel IPU bridge
+supported sensor list so that the bridge can enumerate and connect
+the device on Intel IPU platforms.
+
+Signed-off-by: Lin Yang <linx.yang@intel.com>
+---
+ drivers/media/i2c/Kconfig            |  14 +
+ drivers/media/i2c/Makefile           |   1 +
+ drivers/media/i2c/lt6911gxd.c        | 845 +++++++++++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c |   2 +
+ 4 files changed, 862 insertions(+)
+ create mode 100644 drivers/media/i2c/lt6911gxd.c
+
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 11c30252540e9c..2ec15c0dd64345 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -1373,6 +1373,20 @@ config VIDEO_IT6625
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called it6625.
+ 
++config VIDEO_LT6911GXD
++	tristate "Lontium LT6911GXD decoder"
++	depends on ACPI && VIDEO_DEV && I2C
++	select V4L2_FWNODE
++	select V4L2_CCI_I2C
++	select MEDIA_CONTROLLER
++	select VIDEO_V4L2_SUBDEV_API
++	help
++	  This is a Video4Linux2 subdevice driver for the Lontium
++	  LT6911GXD HDMI to MIPI CSI-2 bridge.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called lt6911gxd.
++
+ config VIDEO_LT6911UXE
+ 	tristate "Lontium LT6911UXE decoder"
+ 	depends on ACPI && VIDEO_DEV && I2C
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 59e31af457cd3e..9d68d9227dfe4b 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -71,6 +71,7 @@ obj-$(CONFIG_VIDEO_IT6625) += it6625.o
+ obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
+ obj-$(CONFIG_VIDEO_LM3560) += lm3560.o
+ obj-$(CONFIG_VIDEO_LM3646) += lm3646.o
++obj-$(CONFIG_VIDEO_LT6911GXD) += lt6911gxd.o
+ obj-$(CONFIG_VIDEO_LT6911UXE) += lt6911uxe.o
+ obj-$(CONFIG_VIDEO_M52790) += m52790.o
+ obj-$(CONFIG_VIDEO_MAX9271_LIB) += max9271.o
+diff --git a/drivers/media/i2c/lt6911gxd.c b/drivers/media/i2c/lt6911gxd.c
+new file mode 100644
+index 00000000000000..02f4a41b7ff7ea
+--- /dev/null
++++ b/drivers/media/i2c/lt6911gxd.c
+@@ -0,0 +1,845 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2023 - 2025 Intel Corporation.
++
++#include <linux/acpi.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/v4l2-dv-timings.h>
++
++#include <media/v4l2-cci.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-dv-timings.h>
++#include <media/v4l2-event.h>
++#include <media/v4l2-fwnode.h>
++
++#define LT6911GXD_CHIP_ID		0x2204
++#define REG_CHIP_ID			CCI_REG16(0xe100)
++
++#define REG_ENABLE_I2C			CCI_REG8(0xe0ee)
++#define REG_PIX_CLK			CCI_REG24(0xe085)
++#define REG_BYTE_CLK			CCI_REG24(0xe092)
++#define REG_H_TOTAL			CCI_REG16(0xe088)
++#define REG_V_TOTAL			CCI_REG16(0xe08a)
++#define REG_H_ACTIVE			CCI_REG16(0xe08c)
++#define REG_V_ACTIVE			CCI_REG16(0xe08e)
++#define REG_MIPI_TX_CTRL		CCI_REG8(0xe0b0)
++
++/* Interrupts */
++#define REG_INT_HDMI			CCI_REG8(0xe084)
++#define INT_VIDEO_DISAPPEAR		0x0
++#define INT_VIDEO_READY			0x1
++
++#define LT6911GXD_DEFAULT_LANES		2
++#define LT6911_PAGE_CONTROL		0xff
++
++static const struct v4l2_dv_timings_cap lt6911gxd_timings_cap_4kp60 = {
++	.type = V4L2_DV_BT_656_1120,
++	/* keep this initialization for compatibility with CLANG */
++	.reserved = { 0 },
++	V4L2_INIT_BT_TIMINGS(1280, 3840,			/* min/max width */
++			     720, 2160,			/* min/max height */
++			     50000000, 600000000,	/* min/max pixelclock */
++			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
++			     V4L2_DV_BT_STD_CVT,
++			     V4L2_DV_BT_CAP_PROGRESSIVE |
++			     V4L2_DV_BT_CAP_CUSTOM |
++			     V4L2_DV_BT_CAP_REDUCED_BLANKING)
++};
++
++static const struct regmap_range_cfg lt6911gxd_ranges[] = {
++	{
++		.name = "register_range",
++		.range_min =  0,
++		.range_max = 0xffff,
++		.selector_reg = LT6911_PAGE_CONTROL,
++		.selector_mask = 0xff,
++		.selector_shift = 0,
++		.window_start = 0,
++		.window_len = 0x100,
++	},
++};
++
++static const struct regmap_config lt6911gxd_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = 0xffff,
++	.ranges = lt6911gxd_ranges,
++	.num_ranges = ARRAY_SIZE(lt6911gxd_ranges),
++};
++
++struct lt6911gxd_mode {
++	u32 width;
++	u32 height;
++	u32 htotal;
++	u32 vtotal;
++	u32 code;
++	u32 fps;
++	u32 lanes;
++	s64 link_freq;
++	u64 pixel_clk;
++};
++
++struct lt6911gxd {
++	struct v4l2_subdev sd;
++	struct media_pad pad;
++	struct v4l2_ctrl_handler ctrl_handler;
++	struct v4l2_ctrl *pixel_rate;
++	struct v4l2_dv_timings timings;
++	struct lt6911gxd_mode cur_mode;
++	struct regmap *regmap;
++	struct gpio_desc *reset_gpio;
++	struct gpio_desc *irq_gpio;
++};
++
++static const struct v4l2_event lt6911gxd_ev_source_change = {
++	.type = V4L2_EVENT_SOURCE_CHANGE,
++	.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
++};
++
++static const struct v4l2_event lt6911gxd_ev_stream_end = {
++	.type = V4L2_EVENT_EOS,
++};
++
++static inline struct lt6911gxd *to_lt6911gxd(struct v4l2_subdev *sd)
++{
++	return container_of(sd, struct lt6911gxd, sd);
++}
++
++static s64 get_pixel_rate(struct lt6911gxd *lt6911gxd)
++{
++	s64 pixel_rate;
++
++	if (!lt6911gxd->cur_mode.lanes)
++		return 0;
++
++	pixel_rate = (s64)lt6911gxd->cur_mode.width *
++		     lt6911gxd->cur_mode.height *
++		     lt6911gxd->cur_mode.fps * 16;
++	do_div(pixel_rate, lt6911gxd->cur_mode.lanes);
++
++	return pixel_rate;
++}
++
++static bool lt6911gxd_match_dv_timings(const struct v4l2_dv_timings *t,
++				       const struct lt6911gxd_mode *mode)
++{
++	const struct v4l2_bt_timings *bt = &t->bt;
++	u64 pclk_delta = div_u64(mode->pixel_clk, 100); /* 1% margin */
++
++	if (t->type != V4L2_DV_BT_656_1120)
++		return false;
++
++	if (bt->width == mode->width &&
++	    bt->height == mode->height &&
++	    V4L2_DV_BT_FRAME_WIDTH(bt) == mode->htotal &&
++	    V4L2_DV_BT_FRAME_HEIGHT(bt) == mode->vtotal &&
++	    bt->pixelclock >= mode->pixel_clk - pclk_delta &&
++	    bt->pixelclock <= mode->pixel_clk + pclk_delta)
++		return true;
++
++	return false;
++}
++
++static int lt6911gxd_get_detected_timings(struct v4l2_subdev *sd,
++					  struct v4l2_dv_timings *timings)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	struct v4l2_bt_timings *bt = &timings->bt;
++	int i;
++
++	if (!lt6911gxd->cur_mode.width || !lt6911gxd->cur_mode.height)
++		return -ENOLCK;
++
++	memset(timings, 0, sizeof(*timings));
++
++	/* Check if detected timings match standard presets (CEA-861 / DMT) */
++	for (i = 0; v4l2_dv_timings_presets[i].bt.width; i++) {
++		if (v4l2_valid_dv_timings(&v4l2_dv_timings_presets[i],
++					  &lt6911gxd_timings_cap_4kp60,
++					  NULL, NULL) &&
++		    lt6911gxd_match_dv_timings(&v4l2_dv_timings_presets[i],
++					       &lt6911gxd->cur_mode)) {
++			*timings = v4l2_dv_timings_presets[i];
++			v4l2_find_dv_timings_cap(timings,
++						 &lt6911gxd_timings_cap_4kp60,
++						 (u32)div_u64(timings->bt.pixelclock, 100),
++						 NULL, NULL);
++			return 0;
++		}
++	}
++
++	timings->type = V4L2_DV_BT_656_1120;
++
++	bt->width = lt6911gxd->cur_mode.width;
++	bt->height = lt6911gxd->cur_mode.height;
++	bt->vsync = lt6911gxd->cur_mode.vtotal - lt6911gxd->cur_mode.height;
++	bt->hsync = lt6911gxd->cur_mode.htotal - lt6911gxd->cur_mode.width;
++	bt->pixelclock = lt6911gxd->cur_mode.pixel_clk;
++
++	v4l2_find_dv_timings_cap(timings, &lt6911gxd_timings_cap_4kp60,
++				 (u32)div_u64(timings->bt.pixelclock, 100),
++				 NULL, NULL);
++
++	return 0;
++}
++
++static int lt6911gxd_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
++				  struct v4l2_dv_timings *timings)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	struct v4l2_subdev_state *state;
++
++	if (pad != 0)
++		return -EINVAL;
++
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++	if (v4l2_match_dv_timings(&lt6911gxd->timings, timings, 0, false)) {
++		v4l2_subdev_unlock_state(state);
++		return 0;
++	}
++
++	if (!v4l2_valid_dv_timings(timings, &lt6911gxd_timings_cap_4kp60,
++				   NULL, NULL)) {
++		v4l2_subdev_unlock_state(state);
++		return -ERANGE;
++	}
++	lt6911gxd->timings = *timings;
++	v4l2_subdev_unlock_state(state);
++
++	return 0;
++}
++
++static int lt6911gxd_g_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
++				  struct v4l2_dv_timings *timings)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	struct v4l2_subdev_state *state;
++
++	if (pad != 0)
++		return -EINVAL;
++
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++
++	*timings = lt6911gxd->timings;
++	v4l2_subdev_unlock_state(state);
++
++	return 0;
++}
++
++static int lt6911gxd_query_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
++				      struct v4l2_dv_timings *timings)
++{
++	struct v4l2_subdev_state *state;
++	int ret;
++
++	if (pad != 0)
++		return -EINVAL;
++
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++	ret = lt6911gxd_get_detected_timings(sd, timings);
++	if (ret) {
++		v4l2_subdev_unlock_state(state);
++		return ret;
++	}
++
++	if (!v4l2_valid_dv_timings(timings, &lt6911gxd_timings_cap_4kp60,
++				   NULL, NULL)) {
++		v4l2_subdev_unlock_state(state);
++		return -ERANGE;
++	}
++
++	v4l2_subdev_unlock_state(state);
++	return 0;
++}
++
++static int lt6911gxd_enum_dv_timings(struct v4l2_subdev *sd,
++				     struct v4l2_enum_dv_timings *timings)
++{
++	if (timings->pad != 0)
++		return -EINVAL;
++
++	return v4l2_enum_dv_timings_cap(timings,
++			&lt6911gxd_timings_cap_4kp60, NULL, NULL);
++}
++
++static int lt6911gxd_dv_timings_cap(struct v4l2_subdev *sd,
++				    struct v4l2_dv_timings_cap *cap)
++{
++	if (cap->pad != 0)
++		return -EINVAL;
++
++	*cap = lt6911gxd_timings_cap_4kp60;
++	return 0;
++}
++
++static int lt6911gxd_status_update(struct lt6911gxd *lt6911gxd)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(&lt6911gxd->sd);
++	u64 int_event;
++	u64 byte_clk, pixel_clk, fps, fps_x100;
++	u64 htotal, vtotal, width, height;
++	int ret = 0;
++
++	/* Read interrupt event */
++	cci_read(lt6911gxd->regmap, REG_INT_HDMI, &int_event, &ret);
++	if (ret) {
++		dev_err(&client->dev, "failed to read interrupt event: %d\n",
++			ret);
++		return ret;
++	}
++
++	switch (int_event) {
++	case INT_VIDEO_READY:
++		cci_read(lt6911gxd->regmap, REG_BYTE_CLK, &byte_clk, &ret);
++		byte_clk *= 1000;
++		cci_read(lt6911gxd->regmap, REG_PIX_CLK, &pixel_clk, &ret);
++		pixel_clk *= 1000;
++
++		if (ret || byte_clk == 0 || pixel_clk == 0) {
++			dev_dbg(&client->dev,
++				"invalid ByteClock or PixelClock\n");
++			return -EINVAL;
++		}
++
++		cci_read(lt6911gxd->regmap, REG_H_TOTAL, &htotal, &ret);
++		cci_read(lt6911gxd->regmap, REG_V_TOTAL, &vtotal, &ret);
++		if (ret || htotal == 0 || vtotal == 0) {
++			dev_dbg(&client->dev, "invalid htotal or vtotal\n");
++			return -EINVAL;
++		}
++
++		fps = div_u64(pixel_clk, htotal * vtotal);
++		fps_x100 = div_u64(pixel_clk * 100ULL, htotal * vtotal);
++		if (fps_x100 > 6050) {
++			dev_dbg(&client->dev,
++				"max fps is 60, current fps: %llu.%02llu\n",
++				fps_x100 / 100, fps_x100 % 100);
++			return -EINVAL;
++		}
++
++		cci_read(lt6911gxd->regmap, REG_H_ACTIVE, &width, &ret);
++		cci_read(lt6911gxd->regmap, REG_V_ACTIVE, &height, &ret);
++		if (ret || width == 0 || width > 3840 ||
++		    height == 0 || height > 2160) {
++			dev_dbg(&client->dev,
++				"invalid width (%llu) or height (%llu)\n",
++				width, height);
++			return -EINVAL;
++		}
++
++		if (lt6911gxd->cur_mode.width != width ||
++		    lt6911gxd->cur_mode.height != height ||
++		    lt6911gxd->cur_mode.fps != fps) {
++			lt6911gxd->cur_mode.height = height;
++			lt6911gxd->cur_mode.width = width;
++			lt6911gxd->cur_mode.fps = fps;
++			/* MIPI Clock Rate = ByteClock × 4, defined in lt6911gxd spec */
++			lt6911gxd->cur_mode.link_freq = byte_clk * 4;
++			lt6911gxd->cur_mode.pixel_clk = pixel_clk;
++			lt6911gxd->cur_mode.vtotal = vtotal;
++			lt6911gxd->cur_mode.htotal = htotal;
++			v4l2_subdev_notify_event(&lt6911gxd->sd,
++						 &lt6911gxd_ev_source_change);
++			dev_dbg(&client->dev,
++				"notify new resolution or fps: %llux%llu@%llu.%02llu\n",
++				width, height,
++				fps_x100 / 100, fps_x100 % 100);
++		}
++		break;
++
++	case INT_VIDEO_DISAPPEAR:
++		cci_write(lt6911gxd->regmap, REG_MIPI_TX_CTRL, 0x0, &ret);
++		lt6911gxd->cur_mode.height = 0;
++		lt6911gxd->cur_mode.width = 0;
++		lt6911gxd->cur_mode.fps = 0;
++		lt6911gxd->cur_mode.link_freq = 0;
++		v4l2_subdev_notify_event(&lt6911gxd->sd,
++					 &lt6911gxd_ev_stream_end);
++		dev_dbg(&client->dev, "notify video disappear\n");
++		break;
++
++	default:
++		ret = -ENOLINK;
++	}
++
++	dev_dbg(&client->dev, "event 0x%llx, ret: %d\n", int_event, ret);
++	return ret;
++}
++
++static int lt6911gxd_init_controls(struct lt6911gxd *lt6911gxd)
++{
++	struct v4l2_ctrl_handler *ctrl_hdlr;
++	s64 pixel_rate;
++	int ret;
++
++	ctrl_hdlr = &lt6911gxd->ctrl_handler;
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 1);
++	if (ret)
++		return ret;
++
++	pixel_rate = get_pixel_rate(lt6911gxd);
++	lt6911gxd->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
++						  V4L2_CID_PIXEL_RATE,
++						  pixel_rate, pixel_rate, 1,
++						  pixel_rate);
++
++	if (ctrl_hdlr->error) {
++		ret = ctrl_hdlr->error;
++		goto hdlr_free;
++	}
++	lt6911gxd->sd.ctrl_handler = ctrl_hdlr;
++
++	return 0;
++
++hdlr_free:
++	v4l2_ctrl_handler_free(ctrl_hdlr);
++	return ret;
++}
++
++static void lt6911gxd_update_pad_format(const struct lt6911gxd_mode *mode,
++					struct v4l2_mbus_framefmt *fmt)
++{
++	fmt->width = mode->width;
++	fmt->height = mode->height;
++	fmt->code = mode->code;
++	fmt->field = V4L2_FIELD_NONE;
++}
++
++static int lt6911gxd_enable_streams(struct v4l2_subdev *sd,
++				    struct v4l2_subdev_state *state,
++				    u32 pad, u64 streams_mask)
++{
++	struct i2c_client *client = v4l2_get_subdevdata(sd);
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(&client->dev);
++	if (ret < 0)
++		return ret;
++
++	cci_write(lt6911gxd->regmap, REG_MIPI_TX_CTRL, 0x1, &ret);
++	if (ret) {
++		dev_err(&client->dev, "failed to start stream: %d\n", ret);
++		goto err_rpm_put;
++	}
++
++	return 0;
++
++err_rpm_put:
++	pm_runtime_put(&client->dev);
++	return ret;
++}
++
++static int lt6911gxd_disable_streams(struct v4l2_subdev *sd,
++				     struct v4l2_subdev_state *state,
++				     u32 pad, u64 streams_mask)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	struct i2c_client *client = v4l2_get_subdevdata(&lt6911gxd->sd);
++	int ret;
++
++	ret = cci_write(lt6911gxd->regmap, REG_MIPI_TX_CTRL, 0x0, NULL);
++	if (ret)
++		dev_err(&client->dev, "failed to stop stream: %d\n", ret);
++
++	pm_runtime_put(&client->dev);
++	return 0;
++}
++
++static int lt6911gxd_set_format(struct v4l2_subdev *sd,
++				const struct v4l2_subdev_client_info *ci,
++				struct v4l2_subdev_state *sd_state,
++				struct v4l2_subdev_format *fmt)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	u64 pixel_rate;
++
++	if (fmt->pad != 0)
++		return -EINVAL;
++
++	lt6911gxd_update_pad_format(&lt6911gxd->cur_mode, &fmt->format);
++	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
++	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
++		return 0;
++
++	pixel_rate = get_pixel_rate(lt6911gxd);
++	v4l2_ctrl_modify_range(lt6911gxd->pixel_rate, pixel_rate,
++			       pixel_rate, 1, pixel_rate);
++
++	return 0;
++}
++
++static int lt6911gxd_enum_mbus_code(struct v4l2_subdev *sd,
++				    struct v4l2_subdev_state *sd_state,
++				    struct v4l2_subdev_mbus_code_enum *code)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++
++	if (code->pad != 0 || code->index != 0)
++		return -EINVAL;
++
++	code->code = lt6911gxd->cur_mode.code;
++
++	return 0;
++}
++
++static int lt6911gxd_get_mbus_config(struct v4l2_subdev *sd,
++				     unsigned int pad,
++				     struct v4l2_mbus_config *cfg)
++{
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	struct v4l2_subdev_state *state;
++
++	if (pad != 0)
++		return -EINVAL;
++
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++	cfg->type = V4L2_MBUS_CSI2_CPHY;
++	cfg->link_freq = lt6911gxd->cur_mode.link_freq;
++	v4l2_subdev_unlock_state(state);
++
++	return 0;
++}
++
++static int lt6911gxd_init_state(struct v4l2_subdev *sd,
++				struct v4l2_subdev_state *sd_state)
++{
++	struct v4l2_subdev_format fmt = {
++		.which = sd_state ? V4L2_SUBDEV_FORMAT_TRY
++		: V4L2_SUBDEV_FORMAT_ACTIVE,
++	};
++
++	return lt6911gxd_set_format(sd, NULL, sd_state, &fmt);
++}
++
++static const struct v4l2_subdev_video_ops lt6911gxd_video_ops = {
++	.s_stream = v4l2_subdev_s_stream_helper,
++};
++
++/*
++ * lt6911gxd provides editable EDID for customers, but only can be edited like
++ * updating flash. Due to this limitation, it is not possible to implement
++ * EDID support.
++ */
++static const struct v4l2_subdev_pad_ops lt6911gxd_pad_ops = {
++	.set_fmt = lt6911gxd_set_format,
++	.get_fmt = v4l2_subdev_get_fmt,
++	.enable_streams = lt6911gxd_enable_streams,
++	.disable_streams = lt6911gxd_disable_streams,
++	.enum_mbus_code = lt6911gxd_enum_mbus_code,
++	.get_frame_interval = v4l2_subdev_get_frame_interval,
++	.s_dv_timings = lt6911gxd_s_dv_timings,
++	.g_dv_timings = lt6911gxd_g_dv_timings,
++	.query_dv_timings = lt6911gxd_query_dv_timings,
++	.enum_dv_timings = lt6911gxd_enum_dv_timings,
++	.dv_timings_cap = lt6911gxd_dv_timings_cap,
++	.get_mbus_config = lt6911gxd_get_mbus_config,
++};
++
++static const struct v4l2_subdev_core_ops lt6911gxd_subdev_core_ops = {
++	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
++	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
++};
++
++static const struct v4l2_subdev_ops lt6911gxd_subdev_ops = {
++	.core = &lt6911gxd_subdev_core_ops,
++	.video = &lt6911gxd_video_ops,
++	.pad = &lt6911gxd_pad_ops,
++};
++
++static const struct media_entity_operations lt6911gxd_subdev_entity_ops = {
++	.link_validate = v4l2_subdev_link_validate,
++};
++
++static const struct v4l2_subdev_internal_ops lt6911gxd_internal_ops = {
++	.init_state = lt6911gxd_init_state,
++};
++
++static int lt6911gxd_fwnode_parse(struct lt6911gxd *lt6911gxd,
++				  struct device *dev)
++{
++	struct fwnode_handle *endpoint;
++	struct v4l2_fwnode_endpoint bus_cfg = {
++		.bus_type = V4L2_MBUS_CSI2_CPHY,
++	};
++	int ret;
++
++	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
++						   FWNODE_GRAPH_ENDPOINT_NEXT);
++	if (!endpoint)
++		return dev_err_probe(dev, -EPROBE_DEFER,
++				     "endpoint node not found\n");
++
++	ret = v4l2_fwnode_endpoint_parse(endpoint, &bus_cfg);
++	fwnode_handle_put(endpoint);
++	if (ret) {
++		dev_err(dev, "failed to parse endpoint node: %d\n", ret);
++		goto out_err;
++	}
++
++	/*
++	 * Check the number of MIPI CSI2 data lanes,
++	 * lt6911gxd only support 2 lanes.
++	 */
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != LT6911GXD_DEFAULT_LANES) {
++		dev_err(dev, "only 2 data lanes are currently supported\n");
++		ret = -EINVAL;
++		goto out_err;
++	}
++	lt6911gxd->cur_mode.lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
++	lt6911gxd->cur_mode.code = MEDIA_BUS_FMT_UYVY8_1X16;
++
++	return 0;
++
++out_err:
++	v4l2_fwnode_endpoint_free(&bus_cfg);
++	return ret;
++}
++
++static int lt6911gxd_identify_module(struct lt6911gxd *lt6911gxd,
++				     struct device *dev)
++{
++	u64 val;
++	int ret = 0;
++
++	/* Chip ID should be confirmed when the I2C slave is active */
++	cci_write(lt6911gxd->regmap, REG_ENABLE_I2C, 0x1, &ret);
++	cci_read(lt6911gxd->regmap, REG_CHIP_ID, &val, &ret);
++	cci_write(lt6911gxd->regmap, REG_ENABLE_I2C, 0x0, &ret);
++	if (ret)
++		return dev_err_probe(dev, ret, "fail to read chip id\n");
++
++	if (val != LT6911GXD_CHIP_ID) {
++		return dev_err_probe(dev, -ENXIO, "chip id mismatch: %x!=%x\n",
++				     LT6911GXD_CHIP_ID, (u16)val);
++	}
++
++	return 0;
++}
++
++static irqreturn_t lt6911gxd_threaded_irq_fn(int irq, void *dev_id)
++{
++	struct lt6911gxd *lt6911gxd = dev_id;
++	struct v4l2_subdev *sd = &lt6911gxd->sd;
++	struct v4l2_subdev_state *state;
++	struct v4l2_subdev_format fmt = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE
++	};
++	int ret;
++
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++	ret = lt6911gxd_status_update(lt6911gxd);
++	if (!ret && lt6911gxd->cur_mode.width) {
++		/*
++		 * As a HDMI to CSI2 bridge, it needs to update the format in time
++		 * when the HDMI source changes.
++		 */
++		lt6911gxd_set_format(sd, NULL, state, &fmt);
++	}
++	v4l2_subdev_unlock_state(state);
++
++	return IRQ_HANDLED;
++}
++
++static void lt6911gxd_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	free_irq(gpiod_to_irq(lt6911gxd->irq_gpio), lt6911gxd);
++	v4l2_subdev_cleanup(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_ctrl_handler_free(&lt6911gxd->ctrl_handler);
++	pm_runtime_disable(&client->dev);
++	pm_runtime_set_suspended(&client->dev);
++}
++
++static int lt6911gxd_probe(struct i2c_client *client)
++{
++	struct lt6911gxd *lt6911gxd;
++	struct device *dev = &client->dev;
++	int ret;
++
++	lt6911gxd = devm_kzalloc(dev, sizeof(*lt6911gxd), GFP_KERNEL);
++	if (!lt6911gxd)
++		return -ENOMEM;
++
++	lt6911gxd->regmap = devm_regmap_init_i2c(client,
++						 &lt6911gxd_regmap_config);
++	if (IS_ERR(lt6911gxd->regmap))
++		return dev_err_probe(dev, PTR_ERR(lt6911gxd->regmap),
++				     "failed to init CCI\n");
++
++	v4l2_i2c_subdev_init(&lt6911gxd->sd, client, &lt6911gxd_subdev_ops);
++
++	lt6911gxd->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(lt6911gxd->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(lt6911gxd->reset_gpio),
++				     "failed to get reset gpio\n");
++
++	lt6911gxd->irq_gpio = devm_gpiod_get(dev, "hpd", GPIOD_IN);
++	if (IS_ERR(lt6911gxd->irq_gpio))
++		return dev_err_probe(dev, PTR_ERR(lt6911gxd->irq_gpio),
++				     "failed to get hpd gpio\n");
++
++	ret = lt6911gxd_fwnode_parse(lt6911gxd, dev);
++	if (ret)
++		return ret;
++
++	/* Wait for the device to stabilize after reset */
++	usleep_range(10000, 10500);
++
++	ret = lt6911gxd_identify_module(lt6911gxd, dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to find chip\n");
++
++	ret = lt6911gxd_init_controls(lt6911gxd);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to init control\n");
++
++	lt6911gxd->sd.dev = dev;
++	lt6911gxd->sd.internal_ops = &lt6911gxd_internal_ops;
++	lt6911gxd->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	lt6911gxd->sd.entity.ops = &lt6911gxd_subdev_entity_ops;
++	lt6911gxd->sd.entity.function = MEDIA_ENT_F_VID_IF_BRIDGE;
++	lt6911gxd->pad.flags = MEDIA_PAD_FL_SOURCE;
++	ret = media_entity_pads_init(&lt6911gxd->sd.entity, 1, &lt6911gxd->pad);
++	if (ret) {
++		dev_err(dev, "failed to init entity pads: %d\n", ret);
++		goto v4l2_ctrl_handler_free;
++	}
++
++	/*
++	 * Device is already turned on by i2c-core with ACPI domain PM.
++	 * Enable runtime PM and turn off the device.
++	 */
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_idle(dev);
++
++	ret = v4l2_subdev_init_finalize(&lt6911gxd->sd);
++	if (ret) {
++		dev_err(dev, "failed to init v4l2 subdev: %d\n", ret);
++		goto media_entity_cleanup;
++	}
++
++	/* Setting irq */
++	ret = request_threaded_irq(gpiod_to_irq(lt6911gxd->irq_gpio), NULL,
++				   lt6911gxd_threaded_irq_fn,
++				   IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING |
++				   IRQF_ONESHOT,
++				   NULL, lt6911gxd);
++	if (ret) {
++		dev_err(dev, "failed to request IRQ: %d\n", ret);
++		goto subdev_cleanup;
++	}
++
++	ret = v4l2_async_register_subdev_sensor(&lt6911gxd->sd);
++	if (ret) {
++		dev_err(dev, "failed to register V4L2 subdev: %d\n", ret);
++		goto free_irq;
++	}
++
++	/* Initial status check in case cable was already connected before boot */
++	ret = lt6911gxd_status_update(lt6911gxd);
++	if (!ret && lt6911gxd->cur_mode.width) {
++		struct v4l2_subdev_state *state;
++		struct v4l2_subdev_format fmt = {
++			.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++		};
++
++		state = v4l2_subdev_lock_and_get_active_state(&lt6911gxd->sd);
++		lt6911gxd_set_format(&lt6911gxd->sd, NULL, state, &fmt);
++		v4l2_subdev_unlock_state(state);
++	}
++
++	return 0;
++
++free_irq:
++	free_irq(gpiod_to_irq(lt6911gxd->irq_gpio), lt6911gxd);
++
++subdev_cleanup:
++	v4l2_subdev_cleanup(&lt6911gxd->sd);
++
++media_entity_cleanup:
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
++	media_entity_cleanup(&lt6911gxd->sd.entity);
++
++v4l2_ctrl_handler_free:
++	v4l2_ctrl_handler_free(lt6911gxd->sd.ctrl_handler);
++
++	return ret;
++}
++
++static int lt6911gxd_suspend(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++
++	/* Active low gpio reset, set 1 to power off sensor */
++	gpiod_set_value_cansleep(lt6911gxd->reset_gpio, 1);
++
++	return 0;
++}
++
++static int lt6911gxd_resume(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct lt6911gxd *lt6911gxd = to_lt6911gxd(sd);
++	int ret = 0;
++	int count = 0;
++
++	if (lt6911gxd->reset_gpio) {
++		do {
++			gpiod_set_value_cansleep(lt6911gxd->reset_gpio, 0);
++			ret = gpiod_get_value_cansleep(lt6911gxd->reset_gpio);
++			msleep(200);
++
++			if (++count >= 20) {
++				dev_err(&client->dev,
++					"failed to power on reset gpio, reset gpio is %d\n", ret);
++				ret = -ETIMEDOUT;
++				break;
++			}
++		} while (ret != 0);
++	}
++
++	return ret;
++}
++
++static const struct dev_pm_ops lt6911gxd_pm_ops = {
++	SET_SYSTEM_SLEEP_PM_OPS(lt6911gxd_suspend, lt6911gxd_resume)
++};
++
++static const struct acpi_device_id lt6911gxd_acpi_ids[] = {
++	{ "INTC1124" },
++	{}
++};
++MODULE_DEVICE_TABLE(acpi, lt6911gxd_acpi_ids);
++
++static struct i2c_driver lt6911gxd_i2c_driver = {
++	.driver = {
++		.name = "lt6911gxd",
++		.pm = pm_sleep_ptr(&lt6911gxd_pm_ops),
++		.acpi_match_table = ACPI_PTR(lt6911gxd_acpi_ids),
++	},
++	.probe = lt6911gxd_probe,
++	.remove = lt6911gxd_remove,
++};
++
++module_i2c_driver(lt6911gxd_i2c_driver);
++
++MODULE_AUTHOR("Xiaohong Zou <xiaohong.zou@intel.com>");
++MODULE_AUTHOR("Lin Yang <linx.yang@intel.com>");
++MODULE_DESCRIPTION("Lontium lt6911gxd HDMI to MIPI Bridge Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 3739c4a2a8c436..c31cbefc065a52 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -90,6 +90,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("INT3537", 1, 437000000),
+ 	/* Lontium lt6911uxe */
+ 	IPU_SENSOR_CONFIG("INTC10C5", 0),
++	/* Lontium lt6911gxd */
++	IPU_SENSOR_CONFIG("INTC1124", 0),
+ 	/* Omnivision OV01A10 / OV01A1B / OV01A1S */
+ 	IPU_SENSOR_CONFIG("OVTI01A0", 1, 400000000),
+ 	IPU_SENSOR_CONFIG("OVTI01AB", 1, 400000000),
+-- 
+2.53.0
+
