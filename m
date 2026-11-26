@@ -1,109 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795726702;
-	b=lyrNCSOyyLRKo9rqzE0KWTarA6IYY8nj/mLTKIMGkyAq++b0o+GsGQ33zESlS4V+xDcK
-	 uOr6g6Sr2AvYaWJ8rIRNC/E0joPdej4NYzqmzxybgt6SWxe7+tuEvVAMNgR1ZkhOjbBjW
-	 kcj6GnsgmsD8RQyFb4+uS7rKQM8SUwhJpWtmz82JGoQwKqrrH9gxftkAe2z9wp8ngZjIn
-	 IABHyvanUck0NMsK+ZxyoYKim7jHk2ASPIryndnlPArL67SPRE9obMzVfwhIw9F/lSw6t
-	 R/z0Wtme9OdGx180p/qPJ49DBvSkWnYBKBCIs5z5Dxe5VMId283PNQ4K1NjijI/hTUA==
+	t=1795728619;
+	b=wny6+oDrwMblBXFdRiKVYGoKD0sc8zC+AB9XbxYbJ+TmDkfKAtOkiUL61XZeHFr6Lsp7
+	 EodbM9Z/lT5FjTIF6ADLO9ZgX9BE7eY28NaKkfUnGx7E3QyBdJj1t1u2SWo/SdtzrJTL2
+	 zDd9e1rsiE34xkfPKryCyimMNlkugU2GDFXp3GSzPgZADBAgXEx6FQYOaEaux0eAXx/JF
+	 qQXtdZDp0tUBooQaSQDc8TjD43a60Gyn0c3+D9lZnktl3T8JJAcQo/RaZR4gOKybNTnTJ
+	 zmdxOnwZI+p23f/e/jIrj5Jes7k/YY+l5Jx9ZWmIgjhdt1yNIVf5pY5zVnkNyaNxXoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795726702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795728619;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=64p4jkLLf3hJWd/mZVm38nQSWNZQPlgWDMk1O/6JppA=;
-	b=lu8Yuco/jilPSsdwLN1SHovmbjstIuIzMU0zkYTWV3xTEnJo/hTTQsjO+fUosl4w+8Ko
-	 8kI2gUSY+CeWXkk/cFDD0v26C+JMlcAyKRSle4bD+NsuyrT2EQ/tZRFtz2Jhc7icvHt8V
-	 pM2pjtzCIXQQ7zgAIkTZfBPIjfxlYQnAR+qrr1aesDaZtWZfpDFQdf0Od0PEPb1A4Yx4F
-	 spzosYhkELTTb2+1VLnbKMBL/JTsIiGoWxbq/bpmEJQrmwl19+SleRCg4vAnl1LE+HIGB
-	 xezCLkLsjufl19K/GY5n/GJI2eJ7rPxU4FUaedJ1Va1s80K6IiI47NiMRtMQlTvHvAw==
+	bh=iOPO62h/bywbh8sInLBXyMX7z+WqEK1+RUSrIN2sZII=;
+	b=s3EAtike1wVu0F0tp+vPq2xSAJ9MQIugt6arVbJPPyfc+7xnzWCnd7uEsqERM9TXhQYV
+	 FzMGD/b5rozgyrWeEjH/EpNkX1SjBuBXN1afMpzLiIOFxtHuo7noqH/kM13QXBQW7Xt2t
+	 U9sfUBiFQDr74K+uBWnCIIaSbj2CyF50eK4YOfVuAsF5oxe8OUgkFAIu4gwFY5hiGTsLV
+	 5zj584ySUWYQXjIDsVqqEG67Ohf+C0S+u52ItbZ4B4Sm8zkoJU+V3WIupQE/Psz69H8qL
+	 KgxWj/E7E/tfX4i7+HhQKbvjcEg/q4xZM7NGFwJCxdBIwKBbeLcRr/Hna10sUMCr5Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kwTd3Lj3;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I53YA52V;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A8D606A68B
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 20:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A8D606A68B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53244606A32A
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 21:30:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53244606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kwTd3Lj3
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so73798585e9.1
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 12:58:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I53YA52V
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so2640621eec.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:30:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795726700; x=1796331500; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795728618; x=1796333418; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=64p4jkLLf3hJWd/mZVm38nQSWNZQPlgWDMk1O/6JppA=;
-        b=kwTd3Lj3h7gWSW4hlXU7Y2Hp7NK6wwUFZYWzo69CLtKgp7bKq49pvznF1x1J6oforz
-         XpSSx3rnD8ZJQv9ZLR1VR+o1l/woT4ePSmOxQfX8szP1xqALfPIu1f4q3yHVUIt4uuVj
-         D6prSF1or6k2cZJnoVZFpsUgYFpC8ZfltX9MOTwzgbK2+UwuBE4xTL6eRy/hn3cF/KwK
-         Q+segsBL2WT+V9Ix4WcDdLwge9WKoL/8jqr07iHJsSXiAIJrB86R8yxDCCkKByPJrzfj
-         mhhKYRfrOZWsFnvvaEWOog1B2GXqjLL0aKHJDoZXoB9cJanXc4Q7EB6tM3MyXASpkqBS
-         vNQA==
+        bh=iOPO62h/bywbh8sInLBXyMX7z+WqEK1+RUSrIN2sZII=;
+        b=I53YA52VS7cLPkGcXcn3YJRSmNvOvESU6KsDMe5/nmW/v1W3Yon18BsQkYZe3KPKZA
+         nH8Nar0mfXk2ugXmjESGCq6Ng+oTds1uE8CtK1dYDogmtWW26KNqpLtJSKXCfBZXq+9v
+         SlAVBsK2G2kovZj3YqhFHEmegv+Tknc0P7LGL8sxMjUE/63SlWzlfjmLiyG7KzGVtyP/
+         a64tF+sYGjZChHj9TG0x8vUW/jb4TvB+37bbXz0IgNpuLHfmgfkuGouTe1E5Dc/fNher
+         hYfXKzSQwJuqELTvNNYBeah4PA0DHLtNQ1V92xO0OYln3F4HmNJgdfgMUs9vUtbmsQYE
+         dRgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795726700; x=1796331500;
+        d=1e100.net; s=20260707; t=1795728618; x=1796333418;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=64p4jkLLf3hJWd/mZVm38nQSWNZQPlgWDMk1O/6JppA=;
-        b=0T6S7Q+e6lgiYFhJIpqG/DIcAGEBO99EEpem6Yhzo1ONylo9mRdkSIZza4StfGOzX2
-         ed65WtqJ0scPuvXvj1TsBfSuYQ75aboG2rT0HmFcR1qamg8stkD0g6sKUBUEyAaURMxQ
-         w1Cmrxa6DWw9bkj0nc/2/8pqhiEAajoNG2hwYCmBddLYCwAbC0AL6jpzq823b8ycgKyA
-         n+7/5Tg363EBZbdIoiUj5FjFf395bF77GcQOBceJ+uhLIx08SskXZBB7jnTm4z2ILTT6
-         W8+y/KQ9bcBEj/fvznefq4D8/FbZSZYBcH4U6h3D6tej1FxmwMsdwOJ6FZrglmNv+t+M
-         QbKg==
-X-Forwarded-Encrypted: i=1; AL+hErGzeJRxAkuHymYbn8Q8fj0spDQ/DC51/g0KocQr3qXw3f+wsnyhMqjVRsTR7ltMcLnD9VyhKPDVlnv5fw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UWtT+7I/uK8FX9l4AeQAAQilFYmqhH0ZlNUE7cHjaRZaMJf3a
-	OHHXyocom0mavEjkS4pWh/L1So/v4Wsl7P2FhXrweW3dxBqXKK8H2Iu+
-X-Gm-Gg: AZFdTZcbvj+i1pYy4GT+ks5PhpFU+LyH+4gMzrLoKZxeYu1IrV7zQhQQdNhgeIYhKDl
-	jhSCpywnDquOr5v5G5owwfBYcWvVGmu45cd7X2cbXUhhCGxNYEE5RCMj8UX583N82uNRG68sXGd
-	29SlQB04VkVAe8unekt31q1PCyi33CLOj9b/U6ejt88Xc3AEAFhzrXw+eiElVTaVtPaCUyqo0u9
-	c8npBELSle0nip0f20G78BAKgkahW3u56c5rZHEytAcfnqlos43QkmMfUYhBxDbxwcv2AO+AMNO
-	xbu4Sc6NkDv2qt1jgqFTVQVWOJWci5+CD6A0w8sCRfH9MTMRBf3NJ+OuyunYp5XK+mwqH8can2q
-	BxbiHdSsJct/jrix+hT7eecmm2jmXpSefYuccGwATunO9SIY/avXM6M1UV0ZY72ovVRK3tfPqud
-	d1AQzIlpeYFwEIJs1ELuOcxRn4TN94g2ovyJAQv1kZGYSSfQShlcnqjWYRvoVbRYyrPTOotFpbT
-	fmBCUUpmUfZOOmiowh/VPQ+kPwxGc5RyJmgSVEN6hx6zVkUSnbGVfGmlbN6jfnDgEXGmzu0fxPV
-	U0vWPZ02igAeiKGMCi3KACgTE9YMCyC+YFmzV5twy/6cVAqFik8JuGf1xtIUk6eW30vGWIKHgI/
-	WIeo=
-X-Received: by 2002:a05:600c:4585:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4bb8882948dmr457925855e9.18.1795726699905;
-        Thu, 26 Nov 2026 12:58:19 -0800 (PST)
-Received: from localhost (2001-1ae9-5b-ad10--33.ip6.tmcz.cz. [2001:1ae9:5b:ad10::33])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb85399d52sm611178075e9.6.2026.11.26.12.58.18
+        bh=iOPO62h/bywbh8sInLBXyMX7z+WqEK1+RUSrIN2sZII=;
+        b=AcPnFy6hhx7NyMFLaMMQocrnEdR46LUWaHrlraUEFZBlUq8x/a9iVmxTrkkNQ+O+6l
+         dsO8UzEzf7zHdht3PXZpRMa3WsMqH42Ln9deou63lqPsAjRvIOM5Toh4CJl0oOQJo5RY
+         GORdRdIfpws7i+TRlxDBneh03T/6AUJDNTgiotdsieCg5u+wQ+gaYq8fGQl7bbMTwhj+
+         18+5VrzyvV9hRVDBvZEPS9a4FEEujpFLbcrJlajeLArpLLVK18df4RopxkZQComWrflr
+         zOFYzdQ6p8P0r1xw79VcQ3beivRrJIFHZ759273ypoWkbaiGjleGh+Iqykd51SAbx6fK
+         Xatg==
+X-Forwarded-Encrypted: i=1; AL+hErEtawVt+jzMdbV2V+KpoN6LMhHIIKwDenO3dVn5WykM+BlPWd/cE4YEYPyvqm9Cl7mITR72xPfdifp9Gg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z88somIkkwtmkj5d+SVMw37JummwgvAIxvYojdFS0/Uc/doze6K
+	7NFf7WYeLMDZ099DdI2LC5lXqILSwdUftq31zxCU6aRZoa1bE/AW4QZk
+X-Gm-Gg: AZFdTZdnoDkeYQJzfh65Pty9tgU3iiRjlZMk5K1XZh+ww4tTkpuMc24jfsZKoI+IxwT
+	gC8w0ltazEU7rQche1dsmM3quh+6Zd8OFJpKLr7JWuXJvgYpHSXjrzSO4136Dfm0xhsbI1SbkxJ
+	bIm2araiqPSjDF79l1zg003KvISrG+g751cMZQoWM1soYHX2MV5z4b4PRfwe3vyZ2V7HmdL/LDT
+	rsdPDundDWMGoT5frL7G3KtLisDrhuAcoD91YygW2qOvceDH4Xr2UpQqJeJ/VhKwD0fOuWPy5fT
+	6J/rlVy03dj5FzgJu3PyxuBMC6qQA8La/HjQhLVjgIAxIlYINZZ7DTGfubrqPKDUlX9Z4kgj9v6
+	0HNGoDrdxaef+teeNo0NV8bmwnYhPKpJY7qIJyEHgNOEHIiEfdwWH1ZuCbEOSXz6un6ThKgC7MZ
+	puerodgkK4/lhd8Ch649NyTP9aTFbIrYbPI/XZeBQHjKYC8md6zzfRjyffIzh/mGlNNC8Z/F6nn
+	+gK0c8MWlz8BkUdS9eIPREk23vHq0hhW950kaRqn4cRw8egl4XeosXwgt/N5ie5806xXE1Rx4I3
+	mYT01olwW6yqvrBOWV/1AxgBI2iI+acF5acYpeOwIx8aRT0IM+UzYjIxQMX/emqdxn7dYI7heMw
+	eaXrVtO7RaxGVMdYCHoupl3979JRoi4EVTHA4HuoFNt+ONA5FDpD1YWfvbGFzcq4=
+X-Received: by 2002:a05:693c:638d:20b0:375:c862:31c with SMTP id 5a478bee46e88-38571816d35mr21751213eec.40.1795728618321;
+        Thu, 26 Nov 2026 13:30:18 -0800 (PST)
+Received: from localhost.localdomain ([76.33.234.50])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386b9bdafb5sm33434219eec.9.2026.11.26.13.30.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 12:58:19 -0800 (PST)
-From: Arisa Snowbell <arisa.snowbell@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
-	Arisa Snowbell <arisa.snowbell@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	linux-kernel@vger.kernel.org,
+        Thu, 26 Nov 2026 13:30:18 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev,
+	bod@kernel.org,
+	konrad.dybcio@oss.qualcomm.com,
+	mchehab@kernel.org,
+	hverkuil@kernel.org,
+	stefan.schmidt@linaro.org,
 	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 4/5] drm/xe: hold video decode work and HuC queries for a pending DG2 HuC load
-Date: Thu, 26 Nov 2026 21:57:56 +0100
-Message-ID: <20261126205758.49845-5-arisa.snowbell@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126205758.49845-1-arisa.snowbell@gmail.com>
-References: <20261126205758.49845-1-arisa.snowbell@gmail.com>
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH v2 1/3] media: iris: reject packets that are smaller than the size field
+Date: Thu, 26 Nov 2026 21:29:02 +0000
+Message-ID: <20261126212904.27207-2-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261126212904.27207-1-dennylin0707@gmail.com>
+References: <20261126212904.27207-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,99 +109,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On DG2 the HuC load by the GSC completes asynchronously after probe, a GT
-reset or a resume. Media submitted before then would run without the HuC,
-and userspace querying the HuC version (as Mesa and the media driver do at
-init) would see a device without one.
+iris_hfi_queue_read() only rejects a packet size of zero. For a size of
+1 to 3 it copies less than the size field, returns success and leaves
+the read index where it was, because the index counts 32-bit words. The
+gen1 response handler drops such a packet as too small and reads the
+queue again, so it gets the same entry again and again and the interrupt
+thread does not return.
 
-Like i915 (i915_request_await_huc()), make video decode jobs depend on the
-fence of the pending load. The HuC version query waits for it too,
-interruptibly and bounded by the load's own 10 s deadline; document that.
+venus_read_queue() converts the size to words before it checks it for
+zero. Reject a size that is smaller than one word here as well.
 
-Signed-off-by: Arisa Snowbell <arisa.snowbell@gmail.com>
+Fixes: fb583a214337 ("media: iris: introduce host firmware interface with necessary hooks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_exec.c  | 13 +++++++++++++
- drivers/gpu/drm/xe/xe_query.c |  5 +++++
- include/uapi/drm/xe_drm.h     |  5 +++++
- 3 files changed, 23 insertions(+)
+ drivers/media/platform/qcom/iris/iris_hfi_queue.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_exec.c b/drivers/gpu/drm/xe/xe_exec.c
-index f9b0fdb96..65e445205 100644
---- a/drivers/gpu/drm/xe/xe_exec.c
-+++ b/drivers/gpu/drm/xe/xe_exec.c
-@@ -14,6 +14,8 @@
+diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+index bf6db23b53e2..12a7fd0982c5 100644
+--- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
++++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+@@ -81,7 +81,7 @@ static int iris_hfi_queue_read(struct iris_iface_q_info *qinfo, void *packet)
+ 		return -ENODATA;
  
- #include "xe_device.h"
- #include "xe_exec_queue.h"
-+#include "xe_gt_types.h"
-+#include "xe_huc_mei.h"
- #include "xe_hw_engine_group.h"
- #include "xe_macros.h"
- #include "xe_pm.h"
-@@ -317,6 +319,17 @@ int xe_exec_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
- 	if (err)
- 		goto err_put_job;
+ 	packet_size = *read_ptr;
+-	if (!packet_size)
++	if (packet_size < sizeof(u32))
+ 		return -EINVAL;
  
-+	/* as on i915, video decode must not run before a pending HuC load */
-+	if (q->class == XE_ENGINE_CLASS_VIDEO_DECODE) {
-+		struct dma_fence *huc_load = xe_huc_mei_load_fence(&q->gt->uc.huc);
-+
-+		if (huc_load) {
-+			err = drm_sched_job_add_dependency(&job->drm, huc_load);
-+			if (err)
-+				goto err_put_job;
-+		}
-+	}
-+
- 	if (!xe_vm_in_lr_mode(vm)) {
- 		err = xe_svm_notifier_lock_interruptible(vm);
- 		if (err)
-diff --git a/drivers/gpu/drm/xe/xe_query.c b/drivers/gpu/drm/xe/xe_query.c
-index 9cc35fc83..696bae5ee 100644
---- a/drivers/gpu/drm/xe/xe_query.c
-+++ b/drivers/gpu/drm/xe/xe_query.c
-@@ -22,6 +22,7 @@
- #include "xe_gt.h"
- #include "xe_gt_topology.h"
- #include "xe_guc_hwconfig.h"
-+#include "xe_huc_mei.h"
- #include "xe_macros.h"
- #include "xe_mmio.h"
- #include "xe_oa.h"
-@@ -600,6 +601,7 @@ query_uc_fw_version(struct xe_device *xe, struct drm_xe_device_query *query)
- 	case XE_QUERY_UC_TYPE_HUC: {
- 		struct xe_gt *media_gt = NULL;
- 		struct xe_huc *huc;
-+		int ret;
- 
- 		if (MEDIA_VER(xe) >= 13) {
- 			struct xe_tile *tile;
-@@ -619,6 +621,9 @@ query_uc_fw_version(struct xe_device *xe, struct drm_xe_device_query *query)
- 			break;
- 
- 		huc = &media_gt->uc.huc;
-+		ret = xe_huc_mei_wait(huc);
-+		if (ret)
-+			return ret;
- 		if (huc->fw.status == XE_UC_FIRMWARE_RUNNING)
- 			version = &huc->fw.versions.found[XE_UC_FW_VER_RELEASE];
- 		break;
-diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-index 578f0c1eb..db893d041 100644
---- a/include/uapi/drm/xe_drm.h
-+++ b/include/uapi/drm/xe_drm.h
-@@ -628,6 +628,11 @@ struct drm_xe_query_engine_cycles {
-  *
-  * Given a uc_type this will return the branch, major, minor and patch version
-  * of the micro-controller firmware.
-+ *
-+ * On platforms where the GSC loads the HuC (DG2), the load runs asynchronously
-+ * after probe, reset and resume. A query of %XE_QUERY_UC_TYPE_HUC then waits
-+ * (interruptibly, for at most 10 seconds) until a pending load settled, so
-+ * that it does not report a HuC that is about to run as missing.
-  */
- struct drm_xe_query_uc_fw_version {
- 	/** @uc_type: The micro-controller type to query firmware version */
+ 	new_read_idx = read_idx + packet_size;
 -- 
-2.56.1
+2.43.0
 
