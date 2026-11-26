@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795732797;
-	b=tt9pgTN9QM6kaRXAxEEA+osijsfg6qKO2KBFl6rLkLwk5FY++vm57B2VbVDuSV+Xt57H
-	 8L6pyukSEn7GPatffN/3/x9lAY+reVUX8dje/ukGmUg4oGjHsRONy9zqRLRe/H6/uPcNv
-	 O2Sa8w2EXeW8L92i0k1JUkkZyjfj6Xz4duM++NO//dsC67BjESIMd14Z6dYkL0PCUuDb+
-	 MNbRul/vpLR7wb/ODNoBFnJ1OLKEFK5TIemR/QcsWdknZ1O1JbvW933UeW5dvlrlFfRk6
-	 uhmwwugDuflrZqzBpx9UpZgBw/DUqLkRxt19nPolNtNhGI8QP8RnpcDr16rrE5bvLfQ==
+	t=1795735717;
+	b=YzLE4MI3afTut41+sY/8cqbhFLCeDELSyjtSvQqLzpcvC5GUGRKVxzepom7yMiRZX1GA
+	 bZbwbYQVMTEbvq/1X6LVtHV3RphAU+pTeR16s6mLDueu/ncxZLV3GyTYjXC5XIZl4Y2Wx
+	 ANj6AS4ZW48JGsi7Sfg9EWrbBFXAtcxYTPHGbeodbfs1hbih8mrqW2ytMFaZsmPthZKBT
+	 cY7sHM9BPF6Y+0FhZUdJileQG7w1CroTgYIod2iT5nYmBpvxNd3NRhA8ZDY8sBNJUD/Bc
+	 PdoJRC/yBP3S27GL0DUGf33/qzCYOB3R+8nfyO76MtDH2bm5jr2lI98Hyn3wZELIAWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795732797;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=qHZSQgp+ZGSrefrl/qFSuVdRUTJkF4L772VuAEgGZS0=;
-	b=iToAomjYWS1UWaJpC424XCud6cj7lKb0UDWI5Shujv4Gv7Xe+d0BYhYY1/xfACwdClQA
-	 J9eBQc6vmmmLCv9rXtqqMrAE2U1qqvYkt20k1Km5oBMco1T3qYvs3TxnyU1a77yNA6u+z
-	 0Swg8x0gFSkZ3pvUMIThLowzYBIT+0TYce/U1HZHiKS8aEzWWgCQwU4dw5i5AIMqGqyjg
-	 pBD+wRWrnmzTT+2c4Wt3Oxsks2RFoqx0EHu9Gl/asJWkIfL0iePAa9Gb5V6KBOb8yy49F
-	 gKFvI/DcJd+8hOyp/1fhWNWTYC+InneY5Yb5TUxUA5f8HoXHQdmbzvpjX4o9Bq7LEkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795735717;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=twJo0s/v3DoMCfRKsRe0tacmP7SwLMnarbIHRsOnhSk=;
+	b=NRYueYPWc3wtaGVe9/p7do/rDZqt6QsSm4877RRe/uRfGUFn0xJvizCtqU6rHzmiZseE
+	 krb9xRuf6jOLm/fpMsgCarCZMHbG8Riq7DWYfI5m73yJsyio4FYxXASr3rKPYAStYNtqx
+	 GPGrdP8u1aeor/H7ZLI8j+eS4A+AxtYQoGxGrY+itMWmRW3MNth/No2t81ayyidUrxERi
+	 sjXaa7z7TrOhB265mrA19FopO/vwIYMKjJKpsqhpAktN2xeH486/9k7RHPooJ8PrQXOU8
+	 E9QEbeyqkhsBMTQ6Kh3980kfz+epsvKuBxkQTKoWMpOnIsJ21vjiBEPk3STe3cSfo3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=M9qESV1T;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7ZbglIA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94038606A321;
-	Thu, 26 Nov 2026 22:39:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94038606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F386606A31C;
+	Thu, 26 Nov 2026 23:28:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=M9qESV1T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795732794;
-	bh=LvFMCCC7vYA0WRTmw7yaSVoqNSLrrtzP/zmD039djFY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=M9qESV1TneP491akknSQldHyUKeqsmvePtINaq8qZulgUEXUaTh60cVqC/540GeXA
-	 MhPTiKP8qCot8MrOz1li1DMaMhfxozFWL2avyWLKp/yvkmq9sN2kd9zOeWDDAlZvYd
-	 Kt8elf40RubUyYmUlrjgY5DedjUjyHGdKeCZ7YK5doXXR5qj7XngdnjSBUS53oXPjC
-	 qwNbAs0nO+VtqAFcOhLxnlXfc44KAkjbT74lSTTcdqk6HDfBcZ8w2f/qq0dP/vH9Ka
-	 sYmh2lsCqlvEzYBtd0gYnJCRFI/Phk/brDKTF9qJSLpfe9Dxya4vOenoqYlQx1VFpC
-	 VjsMwk8vU+exA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2E4F517E0DCD;
-	Thu, 26 Nov 2026 23:39:53 +0100 (CET)
-Message-ID: <bf4467491ed1fefd634911530bf19b5e428a300f.camel@collabora.com>
-Subject: Re: [PATCH v2 10/11] staging: media: cedrus: h264: clear the DRAM
- buffer sizes on start
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
- <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 26 Nov 2026 17:39:52 -0500
-In-Reply-To: <20261109175016.42061-11-jernej.skrabec@gmail.com>
-References: <20261109175016.42061-1-jernej.skrabec@gmail.com>
-	 <20261109175016.42061-11-jernej.skrabec@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-DIoTfJOE3v4BowFGg5IO"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7ZbglIA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42ADD1F00896;
+	Thu, 26 Nov 2026 23:28:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795735716;
+	bh=twJo0s/v3DoMCfRKsRe0tacmP7SwLMnarbIHRsOnhSk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=U7ZbglIAgnBUb1FyCSiXFC/ZLo+9zT0z6Rt0oYfS0FYCrrx0KP156t2tkIKtHpWEK
+	 NIjkkPBlILs1Nl9hWUJhwXS9XzOswgun92FX6zjFxTqRFWBjTz1wBwkpuj+9Yd4/NL
+	 FEwBDtI/ozU6QXG/vlVTgWe5QS4KqFtNjat6LydP7Ju+Zby4sNb4c1uSTBR4yw7mFn
+	 +43A3SIRkTFFygfMy9H3nxOJaQ+Myf1ny6Ghm8lwp6tH66KnTXvBRwnLDLKp/s0Hxw
+	 OGCTZY3mbEpcjqoBer0xN88h7eBbyJ0Kt9StiYi/3OnCNnd697vLhQKdy3DhnWduPs
+	 yKWvN4Qt1gihg==
+Message-ID: <cf06a649-a5ef-45d3-a103-a71ba5e1d3d3@kernel.org>
+Date: Thu, 26 Nov 2026 23:28:33 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,63 +51,86 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] media: qcom: camss: icp: Add HFI/ICP v4l m2m driver
+ for x1e80100 BPS/IPE
+To: =?UTF-8?Q?Ram=C3=B3n_Jes=C3=BAs_Miranda_Hern=C3=A1ndez?=
+ <ramonjesusmiranda@gmail.com>
+Cc: vladimir.zapolskiy@linaro.org, rfoss@kernel.org, todor.too@gmail.com,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <3_3nc2zwTAg_ilwaJQ7XHrQP0IbIlCBzBpK9k8iKBgiG8UyinhJKSas3kGkpfyPoaD7YrdqwgL1w06xY1yoa5g==@protonmail.internalid>
+ <CAP08=V0F+A9AP7ShGDXqgWgpX3EMi5sFeqPBEWK0WM1PQ4GN5w@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CAP08=V0F+A9AP7ShGDXqgWgpX3EMi5sFeqPBEWK0WM1PQ4GN5w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---=-DIoTfJOE3v4BowFGg5IO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 26/11/2026 22:58, Ramón Jesús Miranda Hernández wrote:
+> Not working yet: frames wider than one stripe (1920 gives a bus
+> write violation) and enabling demosaic (luma stalls).
+> 
+> Not related to camera, but found on the way: qcom_scm_assign_mem()
+> accumulates the destination VMIDs in an int with BIT(), so *srcvm comes
+> back as 0 for any VMID >= 32.
+> 
+> I am happy to share the code or test patches on this machine if that
+> helps.
+> 
+> For transparency: the reverse engineering and the test code were done
+> with the help of an AI coding assistant (Claude). Everything above was
+> checked on the hardware.
+> 
+> Thanks for the RFC,
+> Ramón Jesús Miranda
 
-Le lundi 09 novembre 2026 =C3=A0 18:50 +0100, Jernej Skrabec a =C3=A9crit=
-=C2=A0:
-> Above 2048 pixels, the H.264 decoder puts its deblocking and intra
-> prediction buffers into DRAM, and stop() frees them when their sizes
-> are not zero. start() only sets the sizes for wide pictures and nothing
-> clears them, so a narrow stream after a wide one on the same file
-> handle frees the buffers of the wide one again. The codec data is also
-> shared with the other codecs, whose data can end up in the sizes.
->=20
-> Clear the sizes at the start of start().
->=20
-> Fixes: 03e612e701a6 ("media: cedrus: Fix H264 4k support")
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Great thanks for trying.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+We have an update pretty much ready to roll in the next few weeks please 
+hold tight.
 
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus_h264.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers/s=
-taging/media/sunxi/cedrus/cedrus_h264.c
-> index 97958ceee8d1..e7a3bfbc3531 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-> @@ -573,6 +573,14 @@ static int cedrus_h264_start(struct cedrus_ctx *ctx)
->  =09unsigned int pic_info_size;
->  =09int ret;
-> =20
-> +=09/*
-> +=09 * The sizes tell stop() whether the DRAM buffers below were
-> +=09 * allocated. Clear them, as they are only set for wide pictures and
-> +=09 * the codec data is shared with the other codecs.
-> +=09 */
-> +=09ctx->codec.h264.deblk_buf_size =3D 0;
-> +=09ctx->codec.h264.intra_pred_buf_size =3D 0;
-> +
->  =09/*
->  =09 * NOTE: All buffers allocated here are only used by HW, so we
->  =09 * can add DMA_ATTR_NO_KERNEL_MAPPING flag when allocating them.
-
---=-DIoTfJOE3v4BowFGg5IO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawi1OAAKCRDZQZRRKWBy
-9JLDAQCY9nvwXakP5rK1ZSCdsq/tton1rjmCPvOqGBQwxsAkJgEApQCaKxATUqDr
-oi4UrAEljUMab2bf+2jLF918X/Q1aAs=
-=s/wX
------END PGP SIGNATURE-----
-
---=-DIoTfJOE3v4BowFGg5IO--
+---
+bod
