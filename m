@@ -1,85 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795710136;
-	b=e1iWU/+MWgayDb4nnBM+OvOiH3gz6jQu1fgxu5lr7XIV7RoDuBAF3VB6zAPWPCuOcNvK
-	 c+xABMDDjSw6jMjkcZaYN98b6K/jDZBTzAusnthNzF+hcOrTUtDO1pRgRzdNzuzn0rr9U
-	 CjqI+0gOzwZkzsWlJaCliLBVOZXJmdDOAKQbgq7mlPVuKIwTnA3Trw/PzsHl+N/S4GdJk
-	 KFDUaMtS/kajG/timc3EPD5XkHxTX0dpwF1y279vCxgrHbYOlvlmy1r1q3v4EgZEYM6T/
-	 EA6o5RuBDqLjrJvQd7e/3uLCgG+cQpsbZSzPi/ujk3QW97rS7X65ZhF3PcR7/B8rm4g==
+	t=1795710700;
+	b=0batFNcBtwUj6jtP5EcxwOTQJY4udslsu4jYwXIlDEiohj/FPCID46WX9iLUgqfZf8D1
+	 4w0Cm64U/X4QbaeUN56EdvuscDCKhOnYVrBxjyufyahozWktFtJyUvUfsNBaFliFUztVB
+	 +MlnWbMEj2XswX7FKaL1sL3k3TL//pR61rn+eK4gPc2KKrSf5XGfySQyK89RZrEAQi1un
+	 rQBXp5zasK7IQc39ZM6nLcTJCmP0BMBbm780GyWocBjcOc8zTlPjNSkGuUSY7OJ5m2l1S
+	 dzi8Uy14G1bo4wWU2o5XaAm8v2/TyDCKYqu5tP2keI62YAJ3gI4d3AbMEykV758DLUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=LhXW6WWxyK5q9TLN7DF86Y32xXd7qR1sGyUm/tXFhic=;
-	b=rT0B94FkKTCfeQknyf87H9NgVOX32fkgHkVdZtZoiIABDoDNqdYJ+34rcRHLFBQSl7W6
-	 bD7FyHa/KdPA61huungrPkQCOcplibokCWHReAh67y1eogRJ53mUoryN8rwn7Zi3Y1XtZ
-	 WUiSG4ro+PCavdoE0i4FL2zCoHXGORHFYZTK6DNvXEfs2JbyM3qrNKukXcqo3l45MKVua
-	 1ni05gHteW4P0J/H9JPaTLBRZ/Y9YGpORHkzRIH2/4iKrSpyD0Fyf/4YbnsNF2uJ+81fc
-	 I6vK/e18I/AleLPTajLwLMrVfKd9pAqipbXiHzhCXsPnxlAUwhkpZRxBn0+SI8tq7Ng==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mKMGXbvF/sfX9s9vl5jaq/5p/tKCIj66clg+e7onQEc=;
+	b=0lms9kYE1fwfUpOcsDy3z9T292Erh4FK1Y+cobSzsYuw48TvKLGf5W9MXOQYoTj0DZLQ
+	 9VH27TLNUOy2kJrm8MJayNVkTur208AvZj6UI1hnxR6R5yB8MhPWRaegG18dg/UU3DRyH
+	 MMNsZGUZpCJHuTuJmFEYuHEtVvLt2eKxdPURlOQFL6L6l/ZNwGGS9QbrBTfF2UThrngBw
+	 xt81tcAyMnu5FKzGJvuS8MnVegYjZOSlJOjgTyJ1NdK9G2KmgVikWVlUt84JoZSPsA1l9
+	 DaKJTBMWsxAWQqWYC+D0N3yds63/juZbKw5uEW/PqWIZkbORlfMFI310nE+cMnN0P4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sTXcBPYS;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=mAA7XOzm;
+	arc=none smtp.remote-ip=74.125.224.45
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F232D606A323
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 16:22:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F232D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56688606A31E
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 16:31:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56688606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sTXcBPYS
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso52370795e9.2
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 08:22:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=mAA7XOzm
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67c0bd676eeso5085034d50.3
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 08:31:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795710134; x=1796314934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LhXW6WWxyK5q9TLN7DF86Y32xXd7qR1sGyUm/tXFhic=;
-        b=sTXcBPYSeisnxxEwCZoFkwQP+w7rdOFVMnhCKwiTziMru4eR0LHtPa3aha6YYT1ceV
-         CpmeE513GLsWm9+qqjK7wKXB7vapqRlPYKpQoB2Ffc9EdCY+CCjbwfy+QZtVgr+irFW7
-         t7ufYEZ20H0Co2XeU4yJTf+3t5lazV15Y+cqlO2YwdB+787Modeuo0nGWcjCuGYRXVs4
-         1akr24E0Xmdr7WT1m0mICXL/8lEGMedXGadIfV4wgf3HNI8HwypKypK5K0gSj5mGxN/v
-         JA8ugjrD5VOLGnQbchT19EMbtRo1ALPIhUVBZwx+eaKKg/diWEezfOsKAZtwL1w1todn
-         U0rA==
+        d=ziepe.ca; s=google; t=1795710699; x=1796315499; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mKMGXbvF/sfX9s9vl5jaq/5p/tKCIj66clg+e7onQEc=;
+        b=mAA7XOzm4ooCRVLkWm1vyqEs90jtrmQ5RLrClIv7UTeNG6VGuaK8xf+RZKFZJgtqoq
+         SxwGt9IDVDfzg1AVeFrJ7kl56uujHLr/J8TtCc53pQFQV51xKwsNAAiLBlR/6Ubh8lPT
+         jw2GxaHg4WDO9FxXlj16HttZg0fzEirSb86SzUmZRrb5pOhtTrQqqlHKNg03Zm5S4taF
+         ySE2fgM5UBBgBTwSNLIsjlsS0MUbkNJJna/LPTB5tG1w6f7OfN+9p//xg6znRZWTupHg
+         l0/1u2FmCZmH0QyS2AuQCE8eV9PN+DAF9PMbvmfKGG9v6mu64Ae6dLeA+y9f3knmqwzL
+         dVzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795710134; x=1796314934;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LhXW6WWxyK5q9TLN7DF86Y32xXd7qR1sGyUm/tXFhic=;
-        b=zAgOWcFOzttnqH2mmZjfqzTilQVQbVySFrkd11BmniOC+ehcjs0nx86hofk1lLw0Pv
-         Szez5Za9XpHez2+DoAUnUOVxwGssKk2lhVxPwUJoveq7eZcP4mVSYhE0oS4iuStjdp+v
-         5Jz6p3NEe3/BfcOcse0V2xsL+sixC3+JZHJI9VEn+RKT8t5W6ErpyzgkX231PNzYsyWE
-         jMG9+yu6bHZp7/oRI1Z8r1EDzrNomaF5pWUUqxzBZsJ2FNtqG+JzJ0jO6GuqBYi5glZL
-         WPUTH1igVjfhH4nfE4v8QgSdVoHY9dakxQ2ExjhLx93dj1jO7Mwi3PSoo2jhqjyAo7F8
-         3yaA==
-X-Gm-Message-State: APuU4Z+Kz1ZKdhRcv3Ty8mJckv+rI8eErEXyT9jBEMamwzoRB9nuhsnz
-	Z+3kVx0Iw3EOpNGt/ZW3xOd0DqL3T7CRaBuBR2WCN5cDn2910ejufxoPLHZwZ1MJLcg=
-X-Gm-Gg: AZFdTZc3Tq48kwuWnFNOoLPZq4YsFPYbyNlwOooe+YAzSJ5dcpcQ3bnK3iw49PxykNk
-	gBqXhJGiD9UUxTfXVZFDky3Bwy1Ub35i/ixFIZp+Z7UV72UdpQb0/mdyPkYWipboTfFDLlm9mDN
-	jNcCfYDTXffkxVWJEi7VfyfgNa+oXP2H+zaX7q+uiugQye8fCe8IRijV5pzNpY67FpHvdK5byJE
-	NiaVF68pxHnMOP3MBDTkQM+/Vqbx2dxYvPMUntqU3mee/DRVhBNbbAibOCVYcsQDChIdLrnVjkL
-	JO46Eb/zXxLMGqPHPs/Mdxden/80/QZWhrUJXA1qgrGyls2kZRurZ18EDGQtWkYPPlGo9CYveHS
-	+zw0PH4sy4ATJPOYb7S9GFealFr9zFuwh1khWmt+sFSPDy0LSbwoa3Ys1/UmRK8d17vsrlUIKkE
-	G/xy3uac1b5197hpfgHBWRSIk3Lr1BtecaJ/dVs9xAYYImIyWY4VS2BPVHAy8m1Xcl3DZwv1RVf
-	Fi/96nA9IB+ZmT/FoMUtShTHVUSe6tQdN6otOK+9K4PSTGw+PadUROgchJSrU9nP3cS1+cQe8lB
-	yKAGUjYCggSLSynp1JVeo817+XQ2WdscTWKetK9g1W7Kzm7VggVun6oLwDmsCNc=
-X-Received: by 2002:a05:600c:4e02:b0:4bb:5d39:95fa with SMTP id 5b1f17b1804b1-4bb88811c82mr422575235e9.12.1795710134157;
-        Thu, 26 Nov 2026 08:22:14 -0800 (PST)
-Received: from [192.168.0.167] ([109.77.24.219])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm42722484f8f.2.2026.11.26.08.22.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 08:22:13 -0800 (PST)
-Message-ID: <c7e1b25b-23c4-4598-9a22-577e105cacf0@linaro.org>
-Date: Thu, 26 Nov 2026 16:22:12 +0000
+        d=1e100.net; s=20260707; t=1795710699; x=1796315499;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mKMGXbvF/sfX9s9vl5jaq/5p/tKCIj66clg+e7onQEc=;
+        b=kiLCQjytxGSqctWcDB5D01xb2Oos7iliLXNG6BaFJeMKJlWikmYHX4xCux/8MHwWzR
+         lhsAUSVQJ0DpPxjFr6UeOH9HC/bV4jERxhRwmdzGRvNEyD/OiaYPebQ1gUHaoOgjmAZr
+         1hCybCYwBtKJTfV1tYmpJbEOZYTniyhOWLHunI/PkVdvoeJ5H3EdMyIi5/Q5JQfTmhY6
+         ffebaTXcLabcdDmfk4xEwhsuPjkz10ragSJQhv17lPkmT4TOAb0qBozTGsgGST26fuzn
+         fJxwEBjjKiaMysqtjAALylkAEB1Q+0hK7UnFm45sPW2D2s2Bu4NIF+gSulSS+JA6Z8f6
+         412w==
+X-Forwarded-Encrypted: i=1; AL+hErGSb8pn25ctlCMTXY9sjayS9xX97yZh1GWFvoblzockW7CyUIQzYPTOwU5+zj36O92TseGl6mvlpFXg0A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rmddMGji5xKXNk6C4enYSW1/7g0ozvhzH7Hhd+XG+yqDZao0R
+	/5STatnPXH38oFwycIM6LvMP7J+16oiZcAv0mXDirLxK5cKQT5fYFsOhfDsMZdx5epg=
+X-Gm-Gg: AZFdTZfqhryxWL1eWZN60plOGKSDvE1BByP3tJmFMYa6gdF5k1IZcSx1nVZa2S4rSAg
+	hz2IrfOmU8TTQPI7jxP10igs7ca8opRSHaWAaG3EQwiumx3zGA7k0EkGu3xswpy7ameMuofsKd0
+	xhZnK1bUz9KJqts5H7RZd/DMYksI5S4oTv67cdOB29MOtRp2olOf07vb1OPmqow4Wu5MavLPKv5
+	lAbUgRsDZkFqOH9thLpM08M771xuFit3RLWz7pGu0v6anksy7sd83/ueMnHQLf/99sLGVUfNCwL
+	DgQz1nANqxBAXxsfu8ZzVbu7aAIlqNliCt2H4aqTgvHI5fbapkX4mtWO3EorVzQGeEv7RavuMpm
+	If/4OHNcHs+sFXoj0NM7KkOtBWt1MdY7HoY7h3AElL8eSOHwy/ddBHaH/nOKDIfouivTFe/sBl9
+	/bbIJjSC4ZlPTi38wWD8r2O1UfJ9M4e1ILUoE/4LgbyFHK4U4AE9137S3wZd1YOGPa+I3WRkHiL
+	brhnyO1AEOGraM2FSP7tj9927GGczGollQB2Znp8n/KdInjx9CyVbI96it2CUp3i4JuuUFf8quu
+	e3l1hA==
+X-Received: by 2002:a05:690e:13cb:b0:66f:c1be:a64f with SMTP id 956f58d0204a3-67df4444c30mr10219064d50.65.1795710699306;
+        Thu, 26 Nov 2026 08:31:39 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92134a15b99sm192865986d6.38.2026.11.26.08.31.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 08:31:38 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xWcNl-00000004WQW-3ltS;
+	Thu, 26 Nov 2026 12:31:37 -0400
+Date: Thu, 26 Nov 2026 12:31:37 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Christian K?nig <christian.koenig@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
+ using CoCo shared memory allocator
+Message-ID: <20261126163137.GQ246011@ziepe.ca>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-5-aneesh.kumar@kernel.org>
+ <awQd81MwZqi55gf8@arm.com>
+ <yq5aa4mybbmv.fsf@kernel.org>
+ <20261124134621.GI9566@ziepe.ca>
+ <awhVoDXluqpncgcd@arm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,79 +151,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] media: qcom: camss: x1e80100: Fix CSID2 routing to
- nowhere
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-References: <20261122-camss-routing-fixes-v1-0-0deeeaca2622@kernel.org>
- <20261122-camss-routing-fixes-v1-1-0deeeaca2622@kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261122-camss-routing-fixes-v1-1-0deeeaca2622@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awhVoDXluqpncgcd@arm.com>
 
-On 22/11/2026 02:10, bryan.odonoghue@linaro.org wrote:
-> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On Thu, Nov 26, 2026 at 03:52:00PM +0000, Catalin Marinas wrote:
+> On Tue, Nov 24, 2026 at 09:46:21AM -0400, Jason Gunthorpe wrote:
+> > On Tue, Nov 24, 2026 at 07:00:00PM +0530, Aneesh Kumar K.V wrote:
+> > 
+> > > Taking Jason's feedback into account, we could have the allocator
+> > > request compound pages and recover the actual allocation order with
+> > > compound_order(). That would avoid passing an order to free:
+> > > 
+> > > void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
+> > > void *alloc_cc_shared(gfp_t gfp, unsigned int order);
+> > > void free_cc_shared(void *addr);
+> > 
+> > It probably shouldn't be order here, that is hard to use. Just size_t
+> > len
+> > 
+> > And round up internally
 > 
-> CSID2 doesn't actually have a corresponding VFE it can receive CSIPHY input
-> and raise an interrupt but it can't drive any VFE write-master. This is
-> basically useless and not worth coding around in the upstream driver. If we
-> find a real use for this we can turn this back on. In the meantime drop the
-> definition, it only confuses things.
-> 
-> Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 21 ---------------------
->   1 file changed, 21 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 26e3f2aa3ef24..aa6d01d8fcb2a 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4515,27 +4515,6 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
->   			.formats = &csid_formats_gen2
->   		},
->   	},
-> -	/* CSID2 */
-> -	{
-> -		.regulators = {},
-> -		.clock = { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb",
-> -			   "cpas_fast_ahb", "csid", "csid_csiphy_rx" },
-> -		.clock_rate = { { 0 },
-> -				{ 0 },
-> -				{ 64000000, 80000000 },
-> -				{ 80000000,  100000000, 200000000,
-> -				  300000000, 400000000 },
-> -				{ 300000000, 400000000, 480000000 },
-> -				{ 300000000, 400000000, 480000000 }, },
-> -		.reg = { "csid2" },
-> -		.interrupt = { "csid2" },
-> -		.csid = {
-> -			.frame_sync_en = true,
-> -			.hw_ops = &csid_ops_680,
-> -			.parent_dev_ops = &vfe_parent_dev_ops,
-> -			.formats = &csid_formats_gen2
-> -		},
-> -	},
->   	/* CSID_LITE0 */
->   	{
->   		.regulators = {},
-> 
+> Minor point in favour of keeping the '_pages' naming and order is that
+> it makes it more obvious what alignment is returned for code that needs
+> it like the ITS. Otherwise we can just document it, I don't have a
+> strong opinion either way (only that it's simpler than what was proposed
+> earlier).
 
-This patch is too naive, it leads to:
+All our allocators return things aligned to their size, does ITS need
+higher alignment than that?
 
-20261126-purwa_camss-v6-2-5ab97aea3832@oss.qualcomm.com
-
-I'm going to NAK myself here and do something better.
-
-v2 incoming
-
----
-bod
+Jason
