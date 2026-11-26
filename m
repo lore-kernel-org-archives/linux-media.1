@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729653;
-	b=VO/c2PBvyWzLYSdrRQRDYechP60B2iQh+ZHBBud5Bu3F2mqS+EwDpdB6xHyPojXAU+Su
-	 qjeE2NkLqcyaZHUhtpeQTvBi5T91KUdzaT/suqhTRM3dIIIQe216RlNSver+bdnmmVtb8
-	 zQg3jeShqMoE21tEUb9929dkY5LCjKMy4BHGbowDuojGv01wjc4CeCaTcVGFbSq2hTwhd
-	 qG+jZFdlw+32neePOKmzWCNxcb7hAp0T2rQ0imrAjPiXDQHPI+re4E/jL+oAAtnbkDpdc
-	 HFqXNMXl7lW1eqGE5IviBPEDuBc4v/Hqmrd3Gh/wTpctWQuFwB32Hjm/x4NdXiPv3Lw==
+	t=1795730015;
+	b=CX5w1osU1ShiaYaNLXGtgNVR+FgFe735zaqkCviot/3NrlPO/gACO4AZVPcD1uBZzLn9
+	 QMHxDXwY5x0loyJdN3q9oQMI7aWWBnNEblDIRQAQ9sprbp5yWn5esc/V71c/OaKYLZV7Q
+	 RiECuu5GdyeTOGyANHCOKq5i5YKLkTwaRPPZ1mqLEx5l3cOyfH0iUDL6RZAkGQjvJRG5Z
+	 +KzvnKwqrE0Dt3VbRkRAK/biAmPeyNhRS3x7mF8b/nX1t7Bic8PMkSDLQmiIS7AmLYxAM
+	 flq1Fi6fLZC2kkkP4PRfdap4fYqiXaGE8H9THBPglYaLUB33kMHLO+Zkd4D6uXpk0DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729653;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795730015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
 	 Content-Type:User-Agent:MIME-Version;
-	bh=4WhzaWPljb0SrZHlQ+9mxsjwiIar78ZdlRX5uWCA24c=;
-	b=F8FyAYXkuewiuhYsBBJsgFrKxdQqKG2oxifivBrC5r05FQlmk7POERHVs/m+Fx3NrVlf
-	 GCjWINoihNlwlGWVjeHsjckfMC6mKtAm8Z7eF7cGbr0rFNoqih/ajjNY4LDvokp88E1QB
-	 Lcw067DzxbWzG3n4Hsb6SWs5vpL0yfDtt1Nyil5PylAJRdik8Ivd0CtA9VyEC17q3w+CV
-	 Eo5Gm6iQMouiK008PUCFx8YJz4Vp/b7e1uoylixZS1Ke8d1t6TMWIg/wSUKLOMsdtcIYr
-	 qbEAZ8IbHhVHnhuNo7noSnZEQbAW8ObAbjK0A4j4CLzJU8NHPYsgXZs4An1G1WY6Vog==
+	bh=env9OD6WJ5uGqN3vphpmLPvAyZWACc9jYsEiViZZwfI=;
+	b=B1IlyiTAOigJ+nvVf0+AlX48vqCsau2vaATnBVqgGVJUmQtEp3soJ7KpEt9y104n2pad
+	 5baYbZZ7r2gIOafhrsIflFj6lehDDGC1mvt7HW8ZROLOhoBZnS4EO2h6CQLDWf1NUasOz
+	 ErxXhJg9r17LaHZ4WFZzrscWGgog4uOgjjkyUtw8HH4o4VuxeEqOpyp3tPPYS4swlhmBl
+	 yNh4ntOVW+CaU/UrTchdbtWjbaK006zbDcB5GJmciYjTfuMAa41Px4PzZh2SRFaxu62Up
+	 z4gZN8x/Y7dR4Qih268f9oE/qoVPOgkyipX+9B60tai6t6cSiHpsA3ZxyGNu4yq+Z/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ndufresne.ca;
 	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gfAv9hgm;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="HuAe/wTW";
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8A6606A31E
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 21:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD8A6606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D06606A31C
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 21:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81D06606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gfAv9hgm
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9495f083657so806184085a.0
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:47:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HuAe/wTW
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-949b0d32315so607398285a.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:53:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795729647; x=1796334447; darn=vger.kernel.org;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795730014; x=1796334814; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4WhzaWPljb0SrZHlQ+9mxsjwiIar78ZdlRX5uWCA24c=;
-        b=gfAv9hgmCUfUhVt9yp1cqZC3M+vVpjuvorFSUJ8lZZK7Yz6RfXYnP0V+3Tnok443+K
-         bqPmsTHPQIg7G9Rst9BYY43B9uOOIGtdiRXGOQvNjM4lATa+EX7DhmE7r5a0VwuYRKRJ
-         groWQvzoTpcB6PwuAG86bCI9eieAnAN3pxhauqOGR2VOVv5y9W8NqzMX+FGjTXr19KEI
-         gAt0batfBCQziImW9g0m1NzpoSWJ1j35W4PBT8pXvwJ4Sgq/fuFZBKqvT2qK2pgxtSUn
-         mwuekw1hX67rYb/Snknm/t7SPGami937f7gwI11amehttNorP2u1oHYu+kplgs/qtfTI
-         cthg==
+        bh=env9OD6WJ5uGqN3vphpmLPvAyZWACc9jYsEiViZZwfI=;
+        b=HuAe/wTWSVBcTgkxqCs3FJVZTgk/EcI6TOIk/kQi88nOHPAz0IshwbNbEr9Us7ruS9
+         oUhp8H+XFRHy66KiBCKv5x7c1t25JuGVrf/6gTpXoX/Q4yi8td24zb+qNt4vl+x8JF9j
+         3TePrqRHUwd96jczTkAsWm2Sc2zluXhSr7i95q5wn4+m6CJ1OaMe3tfBOPWVU/GMp1/f
+         yaqEplLMmytsHbZf9bChl1Te1JVAbwU1f6gs44bw89kfVDemUCWTSnBRBWgBxq4Dh9Vl
+         vvCtLyecMfxLcxBGfFCNqqVrcDk7aLV2HDYFOUllwxc2aWPqsfEgKcRyr2ZFRNHT5WmC
+         I5WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795729647; x=1796334447;
+        d=1e100.net; s=20260707; t=1795730014; x=1796334814;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4WhzaWPljb0SrZHlQ+9mxsjwiIar78ZdlRX5uWCA24c=;
-        b=h4SAVzCiC4KfI4FfReWdmKfRJbbBYj6OUpXs5Tmv2/1OeUBiCp3899f9eJh1qV6srH
-         U72zSPynH3/oKy4vvx/WpusKB0mKTY0K5tLWhDNKmK671ATagvy0x8E6J+RcPZV3oYNW
-         wkzAQDmfTTmM0pClGPbauCDsFfd65uonWclQXptPiq6d0jNMO2QiD/J9JOyjl4CqsNUF
-         ncjqPim3bvMWhY6A9n0DnSrvo/uTinMDn/CbmNWonNWZBHDTWpjWWXT4wqUOupf/W4kB
-         EaBnfi5C+JyqqJCkFrIOYNBPuWXcict/72ZaGPEewHnCm8LE+S2g5Flpn03a2h72BDPK
-         UgFQ==
-X-Forwarded-Encrypted: i=1; AL+hErFcXQJ0WPo1nXguInUtMB09beWhSHE2fgDL7eeQ1SmqJnwUjchhW1j6XP/0I1toRvvWiTg6z5ZCJ8X98g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Dbl+qn6DcC0zUPpGMHigiYuIa2ZAEO9jhC+XwPfSLFCtiLxjG
-	uhRUTCrbVIMv9FudA5bShiZpzYoZ7Hr95KguCWfhavBHsA2NWr4J15jzzM9Qy5hCQjw=
-X-Gm-Gg: AZFdTZfMFJmtk1uMg0O7LL+WLrDCGCKKGUFBdJOWIfDRClclErzcA2fkBDzgC2zVO4M
-	L0DyLvsu1fJsiH3xcQQThuMu2d159O9kYp7b14nrXmIjYd8xvznKoBumA2tOO1FippNSvIcDnHn
-	GYwgkcfYa6155crTid+/lCrS/RO8UyBhCtTDBbJ4hacFZAojFH/s0165KLbEJ0vS0+8bkVdgU1o
-	H56GPP97ZD6BP06GPWZizZyt6Rs7Xw8KsrQ8KIQYius23YCDwA4+KGK3p5C3IQKIQWr0bO+0j+J
-	pBz0cQYr21pCj+fYht8XZ/c/3ZsFhuI8+aZICWauxF4PRx/9P5ss6OFaDLv+5GdDVFXEYwfGF2n
-	Z3bj66W4HVZ1QZADuctBcDKHk8Vfjwo1i5rQsH/kpCTdILB3sbm8XtwFb9gy6oMHZ1UTHDZvSQU
-	NngEAAGGFIi9/xyju8RRW6d5IKSNqtQKb0DWFxa6C1ZhwFg4IfFsaNBB+HnG6zQNRy/EWdg4WaG
-	MShXeWLeiQWUe+21LObbyX1NiTVMm0ipNDMOpAn3MW4SXYvgCLANkDrtfXFT2PXEJzS3j2k8+i7
-	8oWfGHqwgXq0sUxTfDBnwkIaZ/rA6xnbZ/ALNUVorwAW25E2Q6pcDIxnvvk5trOxsg6buchgjgO
-	4
-X-Received: by 2002:a05:620a:1a0e:b0:93c:a40d:e3cf with SMTP id af79cd13be357-949ba828099mr4010614885a.1.1795729646763;
-        Thu, 26 Nov 2026 13:47:26 -0800 (PST)
+        bh=env9OD6WJ5uGqN3vphpmLPvAyZWACc9jYsEiViZZwfI=;
+        b=0FRMgU7AyCEESARtVcE+nbhwOZC286gVvih059C6CoBHJxVIIwirY0IVt1KZnARL9t
+         EasbumiknvEGbFkHVlIWgxWHsvR2ld2KKWmq6fcqTd38Zm4l0JzRocVQbW85XSZu9GlL
+         IC8iCCw2Wziv2iIDqmlfdDKvQkmY3j9iY6uWKwm7BDxjvO6dsdkf6FA3FSpRrsNlWIpU
+         pkPqU2O70pZwITr9c1iLNZLyTlh2I70upw3aQPgyGoTC67spN62JqM7n3YKZsYzXb1ZG
+         ogaXQ9DEN557+rAWywJshkWlU3+4SWL+9CDwFKD4Z8eTib5Bg09fTu385b0s4MnrG+v9
+         AJKw==
+X-Forwarded-Encrypted: i=1; AL+hErHmU7zCZNw4m4kPyQ5MIBPdfOujg2iZ/YDbP3CsuEWHXaEU5YnSbwAJQKpPxpKMGSe/2BeXdpqsiFKcdQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z83dxA9P29hmYBLBY3x4Oh4G6wKVoYmM2Fyf7NTCK5z8GGKCHi/
+	yQ8EI+mBJz5Qfc0taCT+TG/SrXuLErjPjvZBPdpWb/92ylwq4C35iUGMpX+b+ET169w=
+X-Gm-Gg: AZFdTZf6r/ZXzLLbhG08Mld2p8g2bengE5WQrDgFG3Lwgk2fE+KsJxo0UMxHQiEd0C1
+	Tgvs5ccn1zPRjODTedpPEIKeFJf0il39jzwaZnnfoYib+FTHZ6qjDyuZIozWWpEAS6WrXsLAUNH
+	LdU+LJDqWpFJFAbvol7fpISjjucmwbMdg8P2vhKz/d2KlJbDRdw9ddvTo6HxerdNnlXLB0P9afZ
+	gtiUMX8+X2Jj/JIDougC7x7iukRzRUTCgDa+H1EkavK1n9QntdZh2AWX+2PO4SG+E0s08hmM4Sr
+	szyRe454ohGmS1k0qwazTsEfcK5s4/xiFwLfwTCRB2LWd0DW9Yp6KEA5afG7aQsjMaxYHM7Ok7c
+	TXUIihZ7Y6korTyd5z1VFNCOXpXOUHqGohY90GNJLrmY69wdfaz5oOGCcgEoHvy1rh0wVi7oLVU
+	omgIe3xrxiGyIn+2anQ9/RhTIOFymPvuScU4AFj+xEsXPT2yLxMUg/JtsXk0+cA4ffHa7/u8iVf
+	cu4mbLxutD3E6Ity2xsZSM7FK3WugMTWre6boQF9XVGbvpdxHYTBpjuE2FVfItqCrpk4ZwItHRj
+	74Z7vcoLvuDabTStQZCP0A/Q+YJZYV1veRSiFm8x87fPRfuiz6Q1Uxg=
+X-Received: by 2002:a05:620a:6011:b0:93c:c1e8:6504 with SMTP id af79cd13be357-949ba9555e2mr3721601785a.23.1795730014488;
+        Thu, 26 Nov 2026 13:53:34 -0800 (PST)
 Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41a341sm1673622885a.37.2026.11.26.13.47.25
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb349db3sm1654907285a.7.2026.11.26.13.53.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 13:47:26 -0800 (PST)
-Message-ID: <efe647d6ebb9583696527ee044093ba54ff0b9a7.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: st-delta: fix decoder use-after-free on release
+        Thu, 26 Nov 2026 13:53:33 -0800 (PST)
+Message-ID: <a7e72cdb67e7ab8578b9ce44a4817ba35d1f822b.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vcodec: NUL-terminate debugfs input
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sicong Huang <congei42@163.com>, linux-media@vger.kernel.org, 
- "hugues.fruchet" <hugues.fruchet@foss.st.com>
-Cc: mchehab@kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 26 Nov 2026 16:47:24 -0500
-In-Reply-To: <20261028074439.2515928-1-congei42@163.com>
-References: <20261028074439.2515928-1-congei42@163.com>
+To: Jiale Yao <yaojiale02@163.com>, Tiffany Lin <tiffany.lin@mediatek.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong
+ <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Hans Verkuil
+ <hverkuil@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 16:53:32 -0500
+In-Reply-To: <20261029053024.2526059-1-yaojiale02@163.com>
+References: <20261029053024.2526059-1-yaojiale02@163.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -103,7 +108,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ZnfXehKJCjfHNFCFp1+S"
+	protocol="application/pgp-signature"; boundary="=-DlJB1J9haeeqeVzf+bdm"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -115,34 +120,61 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-ZnfXehKJCjfHNFCFp1+S
+--=-DlJB1J9haeeqeVzf+bdm
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Le jeudi 29 octobre 2026 =C3=A0 13:30 +0800, Jiale Yao a =C3=A9crit=C2=A0:
+> mtk_vdec_dbgfs_write() allows userspace to overwrite every byte in the
+> persistent debugfs buffer. The read handler later searches that buffer wi=
+th
+> strstr(), which can read past its end when no NUL remains.
+>=20
+> Reserve one byte and terminate the copied input at the updated file
+> position before releasing the debugfs lock.
+>=20
+> Fixes: 5e488a4fd859 ("media: mediatek: vcodec: Add a debugfs file to get =
+different useful information")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-Le mercredi 28 octobre 2026 =C3=A0 15:44 +0800, Sicong Huang a =C3=A9crit=
-=C2=A0:
-> Found by code inspection.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-All the changes in this driver since 2022 (and even there I'm not sure) are
-"found by code inspection". Is there any users left of this? Shall we just
-remove this driver ?
+> ---
+>  .../media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbg=
+fs.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+> index 2da11521fc7b..8528534e41ef 100644
+> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+> @@ -77,8 +77,11 @@ static ssize_t mtk_vdec_dbgfs_write(struct file *filp,=
+ const char __user *ubuf,
+>  =09struct mtk_vcodec_dbgfs *dbgfs =3D &vcodec_dev->dbgfs;
+> =20
+>  =09mutex_lock(&dbgfs->dbgfs_lock);
+> -=09dbgfs->buf_size =3D simple_write_to_buffer(dbgfs->dbgfs_buf, sizeof(d=
+bgfs->dbgfs_buf),
+> +=09dbgfs->buf_size =3D simple_write_to_buffer(dbgfs->dbgfs_buf,
+> +=09=09=09=09=09=09 sizeof(dbgfs->dbgfs_buf) - 1,
+>  =09=09=09=09=09=09 ppos, ubuf, count);
+> +=09if (dbgfs->buf_size > 0)
+> +=09=09dbgfs->dbgfs_buf[*ppos] =3D '\0';
+>  =09mutex_unlock(&dbgfs->dbgfs_lock);
+>  =09if (dbgfs->buf_size > 0)
+>  =09=09return count;
 
-I'll hold on any changes until I ear back from Hugues or someone at ST.
-
-Nicolas
-
---=-ZnfXehKJCjfHNFCFp1+S
+--=-DlJB1J9haeeqeVzf+bdm
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawio7AAKCRDZQZRRKWBy
-9GH+AP9Oqg4ss3SaCoTvoVSD5gtzy2jhoZwSztR/b+sN5AhqhQD/U00yLZRBQByA
-DzpUMteYjIWOXG0T5S+VF5c1A5P2wQY=
-=+D6r
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiqXAAKCRDZQZRRKWBy
+9HvlAQC+KcPKwSaD7Ix8GCPtMRz0njYszGlIhj94VYNm0BjnnQEA8O7IpD79HTUk
+JcUCeKPKDEyp+qT34NJFPS+wfxGcZwY=
+=kTt2
 -----END PGP SIGNATURE-----
 
---=-ZnfXehKJCjfHNFCFp1+S--
+--=-DlJB1J9haeeqeVzf+bdm--
