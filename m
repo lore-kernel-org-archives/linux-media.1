@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795655726;
-	b=xfLtAd0F0OF7eds3z1/NuVMt5ClfP4ql3UtD7dOtMz6d4Z/0Oi5+4iLWKxlRGH1/zIis
-	 pm4EVtJAm1uCpjqtA+4uyptGCazhZsbWCqXPGI/4/CvW2VcEknnTElfcrtVzr1a8Wq7NW
-	 /G5x4liO25hr485jbL/AV07pChIl8RRN1I/aR3unI+qm4mabqH4KNhX3Rq4cbdMRmj3bI
-	 irlmMDt/nV64rv39XTF3Rtfrhuu7GlUZDOzuIO42zzr9DnzU4i6atqWgd2d1izYLcWQ8b
-	 q6IYKs+CEC5bS/Nm9792+pQ3yB/XdPtt2aZnt+b/HQqnqWJfvWbPkHay6u81Qb9dCrQ==
+	t=1795656374;
+	b=nUKlAJ2Pec+4MPSVWgwdekG5SS17nmfpHhM2vFg70T/+U8QELHFPxglbcZBVFd7O553L
+	 AG1q+5yd2sHdDHvthcybIEqEQpyLAKvp9iNv2HO5HyDXAhhAmZAZU3SRKETC/scFYj7tA
+	 aiFfUO579d5L8OZNFss+W5uHanuInjjrlgErkUIVMd+FXXbXjyhsrlAoEifJLM2FX48gU
+	 siTEqead/F8hwNdyyn4iVsQ0ZgSIbiuH7twtABUVyzag/cbm9CguFa2W63h7u37RtCr5I
+	 tRAsN1D42Cw4i/Sixizp4ADlzU/3Gn8n6J1JKPe0pGtlttetMCaQFcUBOXJkgcgCEBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795655726;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795656374;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=nILVZaqxC2rH9z83PsO5LQ8bJDjN0yQgfBnavVLDKK8=;
-	b=PgBZc4t3gQ5T2uQfN/GiJFH/bpTZGi42S2khRN7nfV2aYbNtDQYIF43o/v6IwFkAv5D9
-	 UNzxjIKmjNqKwvm//ReyYvMjlo0Te0r7MBEQmZMKgGd6Wufnp7maGagWVKfy9djuYzSPr
-	 4gvknkFdxRPxKElXo/z9iYq4Kycz00tt98X2OFfuW4pl58DlkEiey8hkmbBPaDEf/K0QR
-	 Sq0uyEQtkUtAB48i2Zl8c51nI+umM/PSfAT169cX3I8amxY9Rggnl4DgCrKp1gcik0B6R
-	 hs5tRqRCPO5lPjyJGzQMAK0D7HRt1fvQtsypo5wcWsxgB9QAJFhOzUegweTi6p4aXkQ==
+	bh=Z/SO45JEq1Tj9RqYNIrS64ldH+SeEVWmw+AWikVk48g=;
+	b=PDusf3lJY9O5Nq6CTHC+BBtiJVo7PNfn7vB87ePUy0/Ywi4XwsO7SqMGyZuGEg6Jx82h
+	 OuOGXKyXCgE1rANA71FZYFG3NveLellD3VZvn9E+KI0grrNdasFxLd0CIEW/QjZ+iJzVH
+	 xFqyzKgticfUgcBF8Wt4hX9+eapoGYooKP/AEdAYdeyF5OfWIgd1ZzCBapwhZ7BlVscUn
+	 e/wOnZ3qk9oC5lyp6o3dtCoDv0TpXrjkaT3DBw5h+iVbNRTufeDfK+exr2FN2YZjjedoa
+	 fY37sCty4aaBrz7zyvXId2p0dnkgl6M6GYFM658b6sO4+3pxU/d5/yZOgiYoXKU2v3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=innora.ai;
-	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=Lc0Mof7h;
-	arc=none smtp.remote-ip=79.135.106.24
-Received: from mail-10624.protonmail.ch (mail-10624.protonmail.ch [79.135.106.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6bYfjcN;
+	arc=none smtp.remote-ip=95.215.58.49
+Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB427606A323
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 01:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB427606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8829F606A326
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 01:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8829F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=Lc0Mof7h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1795655722; x=1795914922;
-	bh=nILVZaqxC2rH9z83PsO5LQ8bJDjN0yQgfBnavVLDKK8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Lc0Mof7hQKkYmv7/G6BIu2XFgaALAcmHUMgfUh4D63hAmroF6gbpmY82JhqmXgb9U
-	 ACHtCHj5Plm29MEWBsTxDzxIWxTcMM25swGooKSYZiauV9kanviDQku72wVeOZH9Os
-	 ZEsX/1Zncy2lrt1/A3Yz8Y9QGvR4M09nhFY1O6+pzHuX/VF8U7nyIEWgvY5PAN4X90
-	 xjlh9hI3T7sGpyAIvs4oY4J/ovTWZeZYqMKyQxQhmPn4tKZIaHYmF0Cy8AVrfBhFve
-	 9Lh/Owlh9Fespe/rqzNKW8b8J+XqSCrURWx34wyhazg1mrtppyq7+iMWGDhJPNsh9d
-	 u6aegnXlWAhxA==
-Date: Thu, 26 Nov 2026 01:15:16 +0000
-To: linux-media@vger.kernel.org
-From: Feng Ning <feng@innora.ai>
-Cc: linux-staging@lists.linux.dev, Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v2] staging: media: atomisp: validate DVS 6-axis config dimensions
-Message-ID: <20261126011505.85041-1-feng@innora.ai>
-Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: 5bea168c82dd945e48247ec9b5e175bce03788e1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6bYfjcN
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=D1UHaW0a6adTmdkfzXoJGoIQXD78CQO3jmkmbRoDsZs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795656371; v=1; x=1796261171;
+ b=L6bYfjcNYybhhuAVVhb7iBrxhLzwKq7EhTzcqEdESqr11X8cdCB5XjO3qbSpeZWBTjZ4xss/
+ liRSHvH+4jDFcp65egpcgJst3HGCejvq1kqdvJViI4JVAeyIt/BHdA3vvTW5pZhYgH0LBVB4Cjc
+ BmQYa4wSViD9pFO+KwXTAlZo=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f65ccc0d161a6465;
+	Thu, 26 Nov 2026 01:26:10 +0000
+X-Mizu-Trace-ID: f65ccc0d161a6465
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3bce3a69-e41c-4683-b1ca-9477dd41a7e0@linux.dev>
+Date: Thu, 26 Nov 2026 09:25:51 +0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,81 +58,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+To: Anuj Gupta <anuj20.g@samsung.com>, Christoph Hellwig <hch@lst.de>,
+ Pavel Begunkov <asml.silence@gmail.com>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Anuj Gupta <anuj1072538@gmail.com>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Theodore Ts'o <tytso@mit.edu>,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+ <20261120154153.GC28611@lst.de>
+ <361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
+ <CGME20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d@epcas5p3.samsung.com>
+ <20261124084025.2101804-1-anuj20.g@samsung.com>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+In-Reply-To: <20261124084025.2101804-1-anuj20.g@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The atomisp driver allocates the DVS 6-axis coordinate buffers using the
-stream geometry, but copies from userspace using the dimensions supplied
-in the ioctl argument.  If the user-supplied dimensions are larger than
-the stream geometry, copy_from_compatible() writes past the end of the
-allocated buffer.
+On 11/24/26 16:40, Anuj Gupta wrote:
+> On Mon, Nov 23, 2026 at 09:51:41AM +0800, Mengmeng Zhao wrote:
+>> Hi Anuj, I'd be happy to help pull our patches together into a single
+>> unified series and send it out for review, if you're okay with that—and
+>> would appreciate your review once it's posted as well. Please let me know how
+>> you'd like to coordinate, or if you have any updates in progress on your
+>> side before I put the series together.
+> 
+> Hi Mengmeng,
+> 
+> We already have updates in progress on the XFS side.
+> 
+> We will consolidate the combined series along with your ext4 work and
+> related patches, keeping your authorship.
+> 
+> One more thing that we are looking at combining is the ability to share
+> the registration across files. Pavel had mentioned this earlier in our
+> xfs series [1] and posted a series too [2] which needs some more work.
+> 
+> FWIW, we also had ext4 changes, but intentionally started with one
+> filesystem (XFS) so that the common interface could settle first.
+> 
+> [1] https://lore.kernel.org/linux-block/4649a20f-aba9-418e-987f-66f21ab24410@gmail.com/
+> [2] https://lore.kernel.org/linux-block/cover.1793751001.git.asml.silence@gmail.com/
 
-Validate that the user-supplied dimensions match the allocated table
-before copying.
+Hi Anuj,
 
-Note on commit d178c7ca8fef ("staging: media: atomisp: use array3_size()
-for overflow-safe allocation"): that commit fixed the multiplication
-wrap in these same allocations.  It does not change which dimensions are
-used for the copy, so the two issues are independent.
+Sounds good, that makes sense given the ongoing XFS and shared registration
+updates. Thanks for including our ext4 patches and keeping the authorship.
+Feel free to loop me in once you post the combined series—I'd be happy to
+help review and test it.
 
-Signed-off-by: Feng Ning <feng@innora.ai>
----
-Changes in v2:
-- Use the existing error path (set ret to -EINVAL and goto error)
-  instead of an open-coded free and return, as reported by the Media
-  CI smatch check ("missing unwind goto?").
-- Wrap the dev_err_ratelimited() call.
-- Cc all atomisp and staging maintainers.
-
-v1: https://lore.kernel.org/r/0c2Zqei57CqmMI6Dh34hKZdsp1D1ar1jHsyfzY4owI-GI=
-Au-jshsaBCptOXe6b81ZwQ39udm6hHTgalp23YhtChJnYEuYu4pW5oPsu42acA=3D@innora.ai
-
- .../staging/media/atomisp/pci/atomisp_cmd.c   | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/stag=
-ing/media/atomisp/pci/atomisp_cmd.c
-index e66a7d1..91d38ca 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -2629,6 +2629,16 @@ int atomisp_cp_dvs_6axis_config(struct atomisp_sub_d=
-evice *asd,
- =09=09=09=09return -ENOMEM;
- =09=09}
-=20
-+=09=09if (t_6axis_config.width_y !=3D dvs_6axis_config->width_y ||
-+=09=09    t_6axis_config.height_y !=3D dvs_6axis_config->height_y ||
-+=09=09    t_6axis_config.width_uv !=3D dvs_6axis_config->width_uv ||
-+=09=09    t_6axis_config.height_uv !=3D dvs_6axis_config->height_uv) {
-+=09=09=09dev_err_ratelimited(asd->isp->dev,
-+=09=09=09=09=09    "invalid DVS 6-axis table dimensions\n");
-+=09=09=09ret =3D -EINVAL;
-+=09=09=09goto error;
-+=09=09}
-+
- =09=09dvs_6axis_config->exp_id =3D t_6axis_config.exp_id;
-=20
- =09=09if (copy_from_compatible(dvs_6axis_config->xcoords_y,
-@@ -2681,6 +2691,16 @@ int atomisp_cp_dvs_6axis_config(struct atomisp_sub_d=
-evice *asd,
- =09=09=09}
- =09=09}
-=20
-+=09=09if (source_6axis_config->width_y !=3D dvs_6axis_config->width_y ||
-+=09=09    source_6axis_config->height_y !=3D dvs_6axis_config->height_y ||
-+=09=09    source_6axis_config->width_uv !=3D dvs_6axis_config->width_uv ||
-+=09=09    source_6axis_config->height_uv !=3D dvs_6axis_config->height_uv)=
- {
-+=09=09=09dev_err_ratelimited(asd->isp->dev,
-+=09=09=09=09=09    "invalid DVS 6-axis table dimensions\n");
-+=09=09=09ret =3D -EINVAL;
-+=09=09=09goto error;
-+=09=09}
-+
- =09=09dvs_6axis_config->exp_id =3D source_6axis_config->exp_id;
-=20
- =09=09if (copy_from_compatible(dvs_6axis_config->xcoords_y,
---=20
-2.55.0
-
-
+I looked at Pavel's patchset as well, and noticed it adds a new f_dma_io_tag
+field to struct file, whereas Christoph and Christian want to avoid bloating
+struct file. Did I miss something, or do you have a different approach in mind
+to avoid adding fields to struct file?
