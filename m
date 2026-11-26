@@ -1,52 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795700565;
-	b=ZVCRvBRdI5zbQiXb+hYWERlsqWD361QGGyrXarVK66fVgehO3pNOTyo2TJU7Db6h/ccG
-	 LhZ7siq6l/vmQTGrD73zWUk8pFNT7zjn8JGkCrjAoNPf6wNqVIP7TAB8ANwmoBG8iS+9j
-	 dMuCbmw9sTANTM9SoaGKrkpZsgXVvRm1nMI0O8BdSIgdVAAo2K1T3iUXzq1QXNRvjfwRD
-	 QaLLnKpo5szxGRKdIEtiLBMkAixQERq9UbimdNHQREgHI/CoxL0ywJW1I6wDQOi+VtXFd
-	 Nupsxwg7gF6LRKYzN3TLj6DJiiFd4UZS8MN+cJABq3SenB/Xbpl2s7uTDbGJc97EQyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700565;
-	h=Received:DKIM-Signature:From:To:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=7UohWGYrgb5unULELNqv7/Zf0JQWouauZ8dcJPMNMyU=;
-	b=IfOBPlpFdCJC9flT6y1X32D6NvhVqp96Oi181Q96eYGmveWCALu9zbQ2GqZhnzYX64LJ
-	 mGA0DhzePqNCVHUrAGZQMV90f+8mOQiAnDtK0vau3zRASqe2Jihda7yf1ks7AN32Kmmh1
-	 8rKc2hT+C0dQ/siTLU6gPDY5GXMuIER/JLB2fbDfA/4eSuwV6hiymPc6OWsZBL4fKV3Q3
-	 drUy6UwIZaMOh60NL4wKWdm/N0UKYpCXUO+OomSZWdTFW0+oVxGcpyy1Dew4ERrik3gaC
-	 Ni8rOSA9ODHel16YBqDCmojBQMstWme9wOpWY3JC3KhWKh115mwSOjd7nF+lKIH6ESA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZHh9EV2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795704482;
+	b=UhKORsj97HcjEkMTtEt5YZnCUJQvBEaNMAvz3UTJXQQzbH2oJJndXtmvtJWhC/kNr8gk
+	 Ht8Z+hiUZq+OBOChQjviBfZUFscmwjIVeKy9F2sXc866xnE8ldrmGkiXbMRMXnE3kMPE3
+	 mqO2b+aaOQikjgPlEZfs1ML7eKrtDPI4J6ByTX+/7csXL+UjEhv+RITJhayyqNGHK7Ejn
+	 O+GhYHCr5/V9H+ijaX7UYk+X9SEaVdgVvC2/SKxu4fs8D+baw06uDcqlSf1CrX7syaSfA
+	 CtZoD2UgmNg7/JRQoF5OdCIQKuwwMNjdLvWerclpCpu+SW0ZeoTGEZNVDOSJU+qoiBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704482;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=CwSn3IxPnWQnNuEMWigXgquDOhOEOJkNnTuCOP0I400=;
+	b=ngxTPmW4ksUOzAeKUPT5EUN534KOXkYZeDixmwXSUKD7YSjv3FhxqxOlzWfK8TkyM8u4
+	 PI3qNjEZSWHTa1udiMeOKs+EqbTa7q3VK8mDHlXlZa0HZRCDkqN1m0gIjY6V7BQmaL9dT
+	 1XTV8E/xf3CsETZThzbJ4Pihw/hucNCCNhMXZpvmpTCcP1dL5fwOqAdffxTuLNnz41T7H
+	 fkJRtiiIymDBayNZDtTalpmbn4hnoFgG8HjOP83VkViAABuzhYp2lm+iS9rWYosFKZrME
+	 S2Pk5lQQuYzAAolch7r4dJO1uUqzHsOeCNljKKKiorG6Y1nyw6OklxRS1Hnyp9knNGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="bYajAI/I";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DFD606A339
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:42:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09681606A31E;
+	Thu, 26 Nov 2026 14:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09681606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZHh9EV2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EE31F000C4;
-	Thu, 26 Nov 2026 13:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795700565;
-	bh=7UohWGYrgb5unULELNqv7/Zf0JQWouauZ8dcJPMNMyU=;
-	h=From:To:Subject:In-Reply-To:References:Date;
-	b=HZHh9EV2DSvh0w8Qlg9SW0X11H7PBCCiB34Jll+BCCwCckgk5S5LpIEAkYy0jLZxy
-	 ZnaTWbUnsD3CDMWj7q8kjs07HTfPtCYcKi0NZrOcE+jj49R4HLS5VK10WS3JPZE/Mf
-	 QRlxy4dY8HPYT//mqyncZiCV6Wl4mRwdxj0cdQ6Jmegz5sLB3rgMmTHBPE8U9p+j8Y
-	 9yribrZe0WZvJpKA2qzmW1og82BLwkCup+X7bIvZqS2WTTYKliaFXkgZZg0ra8ddRN
-	 44aqBOFvf3Zw81ECSFZtyc+rWJ+zK8kIMpfydp4AP2Nb+H2KS94caORox6G74nIpa9
-	 rA2dUCQhQN67A==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: linux-media@vger.kernel.org, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>
-Subject: Re: [yavta] [PATCH] COPYING.GPL: Fix license text to match gnu.org
-In-Reply-To: <20261104155613.764306-1-mkorpershoek@kernel.org>
-References: <20261104155613.764306-1-mkorpershoek@kernel.org>
-Date: Thu, 26 Nov 2026 14:42:42 +0100
-Message-ID: <xhkdb33snzp2l.fsf@mkorpers-koolstof.csb>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bYajAI/I
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 150E7200509;
+	Thu, 26 Nov 2026 15:47:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795704479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CwSn3IxPnWQnNuEMWigXgquDOhOEOJkNnTuCOP0I400=;
+	b=bYajAI/IsMcgPwVKbmzV1C2VEFHKncFPeMKWUYz3Fbzh+bPnqUDSzIzQhx7dBhYoN8B6HE
+	w/avMgyXjGpbhljnE8DcRaSNgXUknPJW5//lJrWP2pTu9nwdgz9kD2VY+t/8oT7AaBZot/
+	7sgWmZQxvmR75fWZFz9h6vOt9kld1KxZPkt35vucKNjZnaNHA/9OZ6zZqMNBTw/0POfEXO
+	k8ITLZjERy6vnl4BcY1Lk6Omr7wyCmgdxucCDzABvviWnrJ40Lp1Fgzv6tUgbzwZCjozti
+	O9cDr2EUlLz/jo3PmVL95YCRve7G5jSZBGHNwycbDoTxE6V522vATosrvvhBWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795704479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CwSn3IxPnWQnNuEMWigXgquDOhOEOJkNnTuCOP0I400=;
+	b=bMxE2pAfkjuYOU8JXx17mkmz0Wpo1GrA1s0dSUR19VscEfYiqyEfs6Z8OMVLA59ELxCk47
+	kHH+HDP7dPAKNpn9hkuQgNA6eHTGJ80GpC9SCkfv/Tsi7nAjT0AMHmZz3TdxDEfnoG8pOv
+	FB2VPxi9i6NL2ODawYaqy8ZZJRW4vkBb0vE8dJjeunOp9vM3LLp/7PEcwFRsglmffmlTij
+	J7SFHESrM7XzSZU5nnupDMPykTshvDJPQ2My8344MOIsAphZFSjBlaRGpEplmNsog92uhI
+	AkDXSFg8wElO7Rt63paCm4b0J6bGcvmU5TGu6U8F0DxmHXey4P8decFnQNx1HA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795704479; a=rsa-sha256;
+	cv=none;
+	b=d2ILFSzrXVxsxurlL6rz4hrNp1SV0/ovD5q3PfTA+KoJX6TiY0vYZ1T3PZ4gz6hccwg1lt
+	5HL2FEvlhtfjAcTHWofQTIg979QG8ApWapNB16xrAJtJIN9eTiPYF6+iy3xapW6iGfANjX
+	6kBIf1BUV4WODK/IlV3LceA72Ai519c0N6+RL+7Qe7EroUEmSS2/LNSo5EbexE7ldXv00C
+	UwjUW+aX3yhanFu+MlhXLHoNcaD2BmNYaCWH1NGRBONTgIR19UYnETL5a9Wfi/RDSCYhje
+	D3JZQ+iCK1KHi83OMqBCdZ4WRKjr6M7H29DupVo1MxDHINW+SYrfWRyv44N1dw==
+Message-ID: <2445b4e1-9aa7-46fa-bc97-5c0048532f05@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v4 0/9] media: synopsys: hdmirx: support an HDMI bridge
+ in front of the receiver
+To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil" <hverkuil@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Dingxian Wen" <shawn.wen@rock-chips.com>, "Shreeya
+ Patel" <shreeya.patel@collabora.com>, "Gerald Loacker" <gerald.loacker@wolfvision.net>, "Lucas
+ Sinn" <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, kernel@collabora.com, linux-kernel@vger.kernel.org, "Conor
+ Dooley" <conor.dooley@microchip.com>
+In-Reply-To: <3a633b4a-8b48-42d3-b197-05cad11f7f71@kernel.org>
+References: <20261116-hdmirx-media-v4-0-7aee4a0a273e@pengutronix.de>
+ <3a633b4a-8b48-42d3-b197-05cad11f7f71@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 14:47:58 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -55,119 +96,103 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
 
-Hi Laurent,
+Hi Hans,
 
-On Wed, Nov 04, 2026 at 16:56, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+On 2026-11-25 19:47, Hans Verkuil wrote:
+> Hi Sascha,
+>=20
+> On 16/11/2026 16:19, Sascha Hauer wrote:
+> > The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
+> > it: the connector's +5V line arrives on hpd-gpios, and there is nothing
+> > between the source and the receiver. On the board this series comes from
+> > that is not the case. An HDMI bridge owns the connector, the receiver
+> > sits behind it, and the two are described by an OF graph endpoint.
+> >=20
+> > Three things follow from that, and the series is arranged in that order.
+> >=20
+> > Patches 1-2 give the driver a media device and register the video device
+> > as an entity with a sink pad. On their own they add a graph with one no=
+de
+> > in it; they exist so that there is somewhere for the bridge to appear.
+> >=20
+> > Patches 3-4 add the endpoint to the binding and bind the remote subdev
+> > through a v4l2 async notifier, linking its source pad to the receiver's
+> > sink pad. Such a board cannot provide hpd-gpios, so the binding requires
+> > either hpd-gpios or the port. Without an endpoint in the device tree the
+> > driver keeps working exactly as before, so boards wired straight to the
+> > connector are unaffected.
+> >=20
+> > Patch 5 is fallout from the wait for signal lock, which was bounded by =
+an
+> > iteration count whose duration came from the 5V debounce it called
+> > each time round. That debounce goes away on a board with no hpd-gpios
+> > later in the series, so the wait gets a real timeout first.
+> >=20
+> > Patches 6-9 are the 5V state itself. Patch 6 stops probe requiring an
+> > interrupt for hpd-gpios. Patch 7 makes v4l2_device_unregister_subdev()
+> > wait for notifications already in flight. Nothing kept a subdev from
+> > notifying a v4l2_device that was unbinding it; that is not new with this
+> > series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
+> > race the same way today. Patch 8 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESE=
+NT,
+> > and patch 9 has the receiver set v4l2_dev.notify and take the state from
+> > whatever is bound in front of it. The notification is only an edge, as
+> > the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
+> > subdev through g_input_status(), so nothing is cached that could go
+> > stale against bind or unbind. Without a det_irq there is nothing to
+> > disable across suspend and remove either, so patch 9 disables the
+> > hotplug work items themselves instead of cancelling them. Patch 7 is
+> > what lets the notify callback read sd->v4l2_dev while the subdev is
+> > being unbound.
+>=20
+> So I would like to merge patches 1-6, but take more time reviewing 7-9.
+>=20
+> So those may or may not go in in time for the next rc1. Would that be
+> OK with you? Or do you prefer that I just wait with that?
 
-> When packing this for fedora, rpmlint complains about the license:
+I am happy with patches 1-6 going upstream now. I'll then send a rework
+for patches 7-9 only next time.
+
+>=20
+> I'm not really happy with patches 7 and 9, but I can't put my finger on t=
+he
+> 'why' yet. Well, other than that it feels overly complicated. I think that
+> AI did part of the work, since it definitely has that feel: long and some=
+what
+> rambling commit logs, use of rarely used APIs (scru), etc.
+
+I'll shorten the commit messages, they are really too long and not to the p=
+oint.
+
 >
->   yavta.x86_64: E: incorrect-fsf-address /usr/share/licenses/yavta/COPYING.GPL
->
-> Update the license file with the new address. This has been generated
-> with the following command:
->
-> $ wget https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt \
->        -O COPYING.GPL
->
-> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+> Perhaps look into rewriting the commit logs for 7 and 9, and see if there
+> is an easier-to-understand implementation for patch 7.
 
-I've submitted yavta for inclusion in fedora here:
-https://bugzilla.redhat.com/show_bug.cgi?id=2572963#c2
+Patch 7 isn't grown on my own motivation, it goes down to a sashiko finding
+here:
 
-Upon package review, it seems that there are still some discrepancies
-with the licensing.
+https://sashiko.dev/#/patchset/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@peng=
+utronix.de?part=3D9
 
-I used "GPL-2.0-only" as licence (because this matches the COPYING.GPL)
-file but the yavta code uses "GPL-2.0-or-later" (or GPL-2.0+).
+An alternative approach would be to forbid calling v4l2_subdev_notify()
+from unregistered subdevices. struct v4l2_subdev_internal_ops has
+(un)registered hooks which subdev drivers could use to stop sending
+notifications. That would require fixing some drivers though. Would you
+prefer that?
 
-Do you agree that this code is GPL-2.0-or-later?
+> It might also be better
+> to move patch 7 to the end since it is really independent of the other ch=
+anges.
 
-I do think that the COPYING.GPL is still correct here, since it's only
-the license header that changes between
-- https://spdx.org/licenses/GPL-2.0-only.html
-- https://spdx.org/licenses/GPL-2.0-or-later.html
+Ok.
 
-Thanks
-Mattijs
+Regards,
+ Sascha
 
-> ---
->  COPYING.GPL | 23 +++++++++++------------
->  1 file changed, 11 insertions(+), 12 deletions(-)
->
-> diff --git a/COPYING.GPL b/COPYING.GPL
-> index d511905c1647..9efa6fbc9628 100644
-> --- a/COPYING.GPL
-> +++ b/COPYING.GPL
-> @@ -1,12 +1,12 @@
-> -		    GNU GENERAL PUBLIC LICENSE
-> -		       Version 2, June 1991
-> +                    GNU GENERAL PUBLIC LICENSE
-> +                       Version 2, June 1991
->  
->   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
-> - 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> + <https://fsf.org/>
->   Everyone is permitted to copy and distribute verbatim copies
->   of this license document, but changing it is not allowed.
->  
-> -			    Preamble
-> +                            Preamble
->  
->    The licenses for most software are designed to take away your
->  freedom to share and change it.  By contrast, the GNU General Public
-> @@ -56,7 +56,7 @@ patent must be licensed for everyone's free use or not licensed at all.
->    The precise terms and conditions for copying, distribution and
->  modification follow.
->  
-> -		    GNU GENERAL PUBLIC LICENSE
-> +                    GNU GENERAL PUBLIC LICENSE
->     TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
->  
->    0. This License applies to any program or other work which contains
-> @@ -255,7 +255,7 @@ make exceptions for this.  Our decision will be guided by the two goals
->  of preserving the free status of all derivatives of our free software and
->  of promoting the sharing and reuse of software generally.
->  
-> -			    NO WARRANTY
-> +                            NO WARRANTY
->  
->    11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
->  FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
-> @@ -277,9 +277,9 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
->  PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
->  POSSIBILITY OF SUCH DAMAGES.
->  
-> -		     END OF TERMS AND CONDITIONS
-> +                     END OF TERMS AND CONDITIONS
->  
-> -	    How to Apply These Terms to Your New Programs
-> +            How to Apply These Terms to Your New Programs
->  
->    If you develop a new program, and you want it to be of the greatest
->  possible use to the public, the best way to achieve this is to make it
-> @@ -304,8 +304,7 @@ the "copyright" line and a pointer to where the full notice is found.
->      GNU General Public License for more details.
->  
->      You should have received a copy of the GNU General Public License along
-> -    with this program; if not, write to the Free Software Foundation, Inc.,
-> -    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> +    with this program; if not, see <https://www.gnu.org/licenses/>.
->  
->  Also add information on how to contact you by electronic and paper mail.
->  
-> @@ -329,8 +328,8 @@ necessary.  Here is a sample; alter the names:
->    Yoyodyne, Inc., hereby disclaims all copyright interest in the program
->    `Gnomovision' (which makes passes at compilers) written by James Hacker.
->  
-> -  <signature of Ty Coon>, 1 April 1989
-> -  Ty Coon, President of Vice
-> +  <signature of Moe Ghoul>, 1 April 1989
-> +  Moe Ghoul, President of Vice
->  
->  This General Public License does not permit incorporating your program into
->  proprietary programs.  If your program is a subroutine library, you may
-> -- 
-> 2.56.0
+--
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+
