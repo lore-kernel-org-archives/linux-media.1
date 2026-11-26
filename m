@@ -1,97 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795687668;
-	b=Tt2Ff9byqShyxiEHYnahxO+bAU5rq07V0b4TTht55YF2jixb9RNia6G2fCJZh3DBZ0vw
-	 8gUgKdtf/UOsvB5P6fVwCoTx94AiY6yk4V/mYIxk9qEECFyRQ9ek/Bh9RsZng/51EZ6mY
-	 OJNxNBploQlijAeutBawCDVh7pc9WaZpnJx3KCGw0HzS307m4NYkunEzXLfoME6jWvqrc
-	 Z85qmlEw3TWrpw0cmmkVSJRoBmRAjqQZ5MHknO43d/m+Hp/ZGlEwqIDhXrbj9osGsXHQN
-	 aTwvBQkmhgGMdZFHP3RX5TwqP/cIpBQQC2UlZuOLRK4XhLgNXZEe1GLznMIijc1CmzA==
+	t=1795687708;
+	b=rGjhBfbmmgszl7QzZJzT5L4sd1+oHa6Lb6NYl+34+Kaea/KMg8yseZqlyqf6HjBmd3bL
+	 b0MXugPJH0xIs40P2FVneQlcH1zl98bihAVP6tBAYmhpEr6EVFuOMnjUODeJQTU23J4w7
+	 fbnI0YAa1s1Yh101C/gEcPXp2TflVLI3a55I7VPt1uzcGeQsFX/kZwDe2Vcz8Pw5aaoN+
+	 v2qmTS/HIl8RXoQ/FL/CXC7iSd/is0Gn9v5Y2ZQPtMdXvgwSPdOdovJhRA5JMKTf3NiSt
+	 s8lJGzPCAyy9OANlsnlxffoqOGPxwb5fZTF7lBJf1NROdoP3iOq0mxquN265u6lPhdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795687668;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2FQzcmdWuR6mzCWiHNw819pdvBvln6aeaDVrWUxMTqU=;
-	b=RtVxJWaY4lZR7R1NNzdh0fBiO+SStC5XvbS3n/NlzyrCY3rTUjkdnmRhsGtG7lN5KlYR
-	 CFLsigL3hpuvGnYASzv5tbXJzG4F+4RwNyuZm0qBIRsTpA+ZNPqbxnq12PvzHtMhFXn2S
-	 tYqj3wTxZzFS4bnM7sPnB9S3DKQqoHw//sxhe9m7Pm9mqMioKHEVRjD2k+1RoWik5Zj7x
-	 a/lMaUG83TL1RnK/Mi4KhK7BFVmd20+H0YISzDIwny4bfM4k6f1hi42H7O8/f0cLc4t0H
-	 8NPiyQAqTKqRH1XI35Y8/YMcTThEzhr/aKXbx+2JxUUMdBDxxCULUGHsUInPzsAiy+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795687708;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=yhJLheRK2k8iW0h1BrUFUeUwi944GYqdiiaue7ukRoM=;
+	b=t/oNK8tZSafJr7TunCPpDE1cYO9DMMvqU3O5EBV+Wi9RUcntIMwTk0iwEbWc1HoPfKe8
+	 5e7ZEWUljlVMnCphHw9h1j16X4rnFVEo3C1NwQvSLtjwhA8ua5DcSFTi8EtRv4hcizrM9
+	 AsDdoa8mz2MumtxeT27lJUi2XxQMFC+4hxZ5lu6uJlQ6n9pWeGqo/fBe6fTwX/fHdCPET
+	 ZSnw9tvepPDMVDpgZjqYqvcL+6qciH4I5W2h6GeE0HV1MrLthWDtS6T/K3pS1vXwhLhw9
+	 Las/M63DMZhy9QU+0LT1hPAeOstggn7tEmx7ZEUSWgkYgQcAT5FaWBwwgotsoL4+aXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q2ZsT1LY;
-	arc=none smtp.remote-ip=95.215.58.70
-Received: from mta1.migadu.com (out-70.mta1.migadu.com [95.215.58.70])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmgTBLo2;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E85606A329
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 10:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32E85606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D047F606A331
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 10:08:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D047F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q2ZsT1LY
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GI1XpP+ljsyfP43UHLv7NCLXQmakxhCuFxYt4ZNGCiQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795687665; v=1; x=1796292465;
- b=q2ZsT1LYL7XNWQlSSK245hDe30mzFMYXHMpjfIFgyJKLOOdn7rfuNq7K2u2B01yqAx+su3Zo
- 2gsrnYb6Qp0Z+NE2EwidQ/OutEvG7gnh1Zof7AhYCaS5RnUFBOJabmLvAxvr461VWbcupMUMxXW
- 0BU0HA/NoGaLUfCueUC0jG7E=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2480f8a893a63f48;
-	Thu, 26 Nov 2026 10:07:44 +0000
-X-Mizu-Trace-ID: 2480f8a893a63f48
-X-Migadu-Flow: FLOW_OUT
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-To: arsenova@a7snv.com
-Cc: adilger.kernel@dilger.ca,
-	anuj1072538@gmail.com,
-	anuj20.g@samsung.com,
-	asml.silence@gmail.com,
-	axboe@kernel.dk,
-	brauner@kernel.org,
-	christian.koenig@amd.com,
-	corbet@lwn.net,
-	djbw@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	hch@lst.de,
-	jack@suse.cz,
-	libaokun@linux.alibaba.com,
-	linaro-mm-sig@lists.linaro.org,
-	linux-block@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmgTBLo2
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so61279215e9.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 02:08:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795687706; x=1796292506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yhJLheRK2k8iW0h1BrUFUeUwi944GYqdiiaue7ukRoM=;
+        b=zmgTBLo27luXCYwakoBn1tfqpIuR9XRYiH9hY97k2rY8emO8toHDfYZY+poj9cEtzN
+         hlTWo05Wqnl9HaB94VSrynltCn8bZMciKwMxdHw/x1s3+MOupcVx5SluLOcUbCT5x2Lp
+         k8SAgaUMrI7vFCBw9/Je04NioiV62CJ9hmq2TmQxNkURZUl+LnGHLOS2IruzdawKfklp
+         sNaDUbnNAbxssrV0wf+GqDlijXrymPnOfdqV+hLEyvuwL2JGbh9X7AIdvRe8GYxDO0au
+         xLF2/UcHQQ6IOvXN4O3Cv9kNIAaYQxgFjkm9HDzrd4JYpdq06cg+Fg94pO3y1SnSoO0N
+         vhMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795687706; x=1796292506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yhJLheRK2k8iW0h1BrUFUeUwi944GYqdiiaue7ukRoM=;
+        b=Xkb+3a9+mGYW10bcNLOpm6zTLt9lMXzcfqIVu5QpYr1Pyl1Y8W+ZjNjrYCBwB5CWDQ
+         G/Qa4ClVFOyYhaHmdOEHp1HgEDYOxb0Ym/iWSxTk2XbR24150d/G8qvRC9Xhn72YeMnQ
+         Qpm9n9/rL4Yei58Rh0KCAY5MK2rOaaa7MSHD3u3SHyMsxRQV5DHhplfOy1o+f4TMuiIP
+         1uOn6Lqhlq1HwrjGcn12ZRpfi/7QNOmBB1CkBmtqhQg0nZeINojSY3eQW3ixu5Rwgg3/
+         uXwcTxRMB2OhZxSJlIemW7GXs1kkdOw6eA9p609PY8DvxltE2BR5tzOxv83FEANHvLrB
+         h5sA==
+X-Gm-Message-State: APuU4Z8a2FbUrC0a/xCX/WOWcEUl8WCdbyF0kqy1lRU33mGuD7tk4oUQ
+	+S0pimJp8qo2SL9ynbJmfLyT2M1l+HJ+eVZIokjwN+0Y2CWj/1BoU7xaBjgJk96c
+X-Gm-Gg: AZFdTZeHRnTAvLk/qWYBBjbpm65n3VcT7q/WPaL4TX2fu4IIFpVQI1jt7Pakz41fMlm
+	KiUUwXRpsDKv6sHq095oqSITMhQQwfzJwN1R3VLVDVXir9YJ2RKe2jHm79iAurAhx++KOQFU7wc
+	wVg0fyaK1xch7mZtz0doLVcn/3G1UjARcMVcvwJINP40JcfQO6ygFa6FBEvhC7PMHqY1rpW7chn
+	4Zp4PdLkVi+oI4z8jrWFkH/pBCVy5wIamULTCRaZlwliJXrY7N/ccVGDSVSTAnvxo3h3Tzv/ziP
+	1Gtk1qn9weffCjvDi62f/gJBAAMY7IsPeGOaAjW2HcVTKMmXo9MszQm14KV6dwh30ZwXuwatlO1
+	pscYvztY7M3UFvsf5qGp6mbdHSXWrL6r5at9BGWW9r/vcjdkhYvM43DpGdhyvTzRtcFlEyEEjco
+	X5IFUKgrnsc/miEx5937X9EK+KmuVimSdmZuF+Oeaqg2Flkk8YL6ltBJg5jytx6MkoPa8N+AorD
+	bOBNleJgo86eeM0hARi427Isv3IfjjQ6T5UbEwmVDI57PPNZcwe/qmFFY9kephmNnza1z0z7tMr
+	sTGJGgsLDts3lnGTIRAzm2CdtCVG5kkMZt90YlFdkRILK+iVns554r68vP5BJ4T9vFXCT/PvUd1
+	E
+X-Received: by 2002:a05:600c:e549:10b0:4bb:a60a:fc8 with SMTP id 5b1f17b1804b1-4bba60a11d2mr59103625e9.35.1795687706012;
+        Thu, 26 Nov 2026 02:08:26 -0800 (PST)
+Received: from DESKTOP-V28CTA4.localdomain ([37.111.157.27])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853b2437sm830600705e9.13.2026.11.26.02.08.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 02:08:25 -0800 (PST)
+From: Arbab Haider <arbabhaider649@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	liwang@kylinos.cn,
-	mcgrof@kernel.org,
-	mengmeng.zhao@linux.dev,
-	nj.shetty@samsung.com,
-	nvdimm@lists.linux.dev,
-	ojaswin@linux.ibm.com,
-	phasta@kernel.org,
-	rdunlap@infradead.org,
-	ritesh.list@gmail.com,
-	skhan@linuxfoundation.org,
-	sumit.semwal@linaro.org,
-	tytso@mit.edu,
-	viro@zeniv.linux.org.uk,
-	willy@infradead.org,
-	yi.zhang@huawei.com,
-	zhaomengmeng@kylinos.cn
-Subject: [RFC PATCH v3 2/8] iomap: add dma-buf direct I/O guards
-Date: Thu, 26 Nov 2026 18:07:21 +0800
-Message-ID: <20261126100721.313677-1-mengmeng.zhao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261125171600.4053585-1-arsenova@a7snv.com>
-References: <20261125171600.4053585-1-arsenova@a7snv.com>
+	Arbab Haider <arbabhaider649@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] media: em28xx: defer media device cleanup until final device release
+Date: Thu, 26 Nov 2026 15:08:07 +0500
+Message-ID: <20261126100807.356864-1-arbabhaider649@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,95 +98,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nitesh Shetty <nj.shetty@samsung.com>
+em28xx_unregister_media_device() clears v4l2_dev.mdev and frees the
+media device during disconnect. The driver holds dev->lock, but
+v4l2_release() checks whether the device supports media requests before
+calling the driver's release callback, which takes that lock. A
+concurrent close can still dereference the media device after it has
+been freed.
 
-Direct I/O copies data from the CPU in four places, zero-filling
-holes, inline data, bounce pages and integrity metadata. A dma-buf
-iterator has no pages behind it, so refuse it there.
+Unregister the media device on disconnect and defer cleanup and freeing
+it to em28xx_free_device(). The V4L2 instance holds an em28xx device
+reference until the last V4L2 device reference is dropped, which keeps
+v4l2_dev.mdev valid throughout V4L2 release. Keep immediate cleanup in
+the probe error path, before any V4L2 nodes have been registered.
 
-Reads that encounter a hole or unwritten extent before i_size
-therefore return -EOPNOTSUPP for the entire operation, even if I/O
-for an earlier mapped extent was already submitted.
-
-Holes that start at or beyond i_size are stepped over since reads
-are truncated to i_size before completion.
-
-Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
-Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
-Co-developed-by: Yun Wang <arsenova@a7snv.com>
-Signed-off-by: Yun Wang <arsenova@a7snv.com>
-Reviewed-by: Li Wang <liwang@kylinos.cn>
-[Mengmeng Zhao: remove the registration helper and fold in
-Yun Wang's past-EOF step-over fix]
-Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Fixes: 37ecc7b1278f ("[media] em28xx: add media controller support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
 ---
- fs/iomap/direct-io.c | 32 +++++++++++++++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
+Changes in v3:
+- Rebase onto media-committers/next and replace its disconnect-time
+  mdev pointer clear with a lifetime guarantee for V4L2 users.
+- Send the cleanup fix on its own, following acceptance of v2 patch 2.
 
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index ad041ac3252a..de07a4efcbf7 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -425,6 +425,11 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 	unsigned int alignment;
- 	ssize_t ret = 0;
- 
-+	/* integrity metadata is generated from the data pages */
-+	if (iov_iter_is_dmabuf_map(dio->submit.iter) &&
-+	    (iomap->flags & IOMAP_F_INTEGRITY))
-+		return -EOPNOTSUPP;
-+
- 	/*
- 	 * File systems that write out of place and always allocate new blocks
- 	 * need each bio to be block aligned as that's the unit of allocation.
-@@ -589,7 +594,24 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 
- static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+Changes in v2:
+- Add the Fixes tag as requested by Media CI.
+
+Validation
+- Built drivers/media/usb/em28xx/ on x86_64 with MEDIA_CONTROLLER,
+  KASAN and UBSAN enabled.
+- Booted QEMU x86_64 with MEDIA_CONTROLLER, KASAN and UBSAN and passed
+  three em28xx and em28xx-v4l module load/unload cycles. This smoke test
+  ran without an attached em28xx device.
+
+Codex assisted with the rebase, source review, commit message and build.
+
+ drivers/media/usb/em28xx/em28xx-cards.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index f4b6dcf597..cf0312fc46 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -3773,11 +3773,16 @@ static int em28xx_media_device_init(struct em28xx *dev,
+ static void em28xx_unregister_media_device(struct em28xx *dev)
  {
--	loff_t copied = iov_iter_zero(iomap_length(iter), dio->submit.iter);
-+	loff_t copied;
+ #ifdef CONFIG_MEDIA_CONTROLLER
+-	if (dev->media_dev) {
++	if (dev->media_dev)
+ 		media_device_unregister(dev->media_dev);
++#endif
++}
 +
-+	if (iov_iter_is_dmabuf_map(dio->submit.iter)) {
-+		u64 length = iomap_length(iter);
-+
-+		/* zero-filling walks the data pages */
-+		if (iter->pos < dio->i_size)
-+			return -EOPNOTSUPP;
-+		/*
-+		 * Past EOF there is nothing to zero: the read is truncated to
-+		 * i_size before it is reported, so step over the hole.
-+		 */
-+		iov_iter_advance(dio->submit.iter, length);
-+		dio->size += length;
-+		return iomap_iter_advance(iter, length);
-+	}
-+
-+	copied = iov_iter_zero(iomap_length(iter), dio->submit.iter);
++static void em28xx_cleanup_media_device(struct em28xx *dev)
++{
++#ifdef CONFIG_MEDIA_CONTROLLER
++	if (dev->media_dev) {
+ 		media_device_cleanup(dev->media_dev);
+-		if (dev->v4l2)
+-			dev->v4l2->v4l2_dev.mdev = NULL;
+ 		kfree(dev->media_dev);
+ 		dev->media_dev = NULL;
+ 	}
+@@ -3828,6 +3833,8 @@ void em28xx_free_device(struct kref *ref)
+ 	if (!dev->disconnected)
+ 		em28xx_release_resources(dev);
  
- 	if (dio->flags & IOMAP_DIO_FSBLOCK_ALIGNED) {
- 		loff_t aligned_copied = round_down(copied,
-@@ -619,6 +641,10 @@ static int iomap_dio_inline_iter(struct iomap_iter *iomi, struct iomap_dio *dio)
- 	loff_t pos = iomi->pos;
- 	u64 copied;
- 
-+	/* inline data is copied from the CPU */
-+	if (iov_iter_is_dmabuf_map(iter))
-+		return -EOPNOTSUPP;
++	em28xx_cleanup_media_device(dev);
 +
- 	if (WARN_ON_ONCE(!inline_data))
- 		return -EIO;
+ 	if (dev->ts == PRIMARY_TS)
+ 		kfree(dev->alt_max_pkt_size_isoc);
  
-@@ -717,6 +743,10 @@ __iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
- 	if (!iomi.len)
- 		return NULL;
+@@ -4000,6 +4007,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
+ 	em28xx_i2c_unregister(dev, 0);
+ err_deinit_media:
+ 	em28xx_unregister_media_device(dev);
++	em28xx_cleanup_media_device(dev);
+ 	return retval;
+ }
  
-+	/* bouncing copies the data from the CPU */
-+	if (iov_iter_is_dmabuf_map(iter) && (dio_flags & IOMAP_DIO_BOUNCE))
-+		return ERR_PTR(-EOPNOTSUPP);
-+
- 	dio = kmalloc_obj(*dio);
- 	if (!dio)
- 		return ERR_PTR(-ENOMEM);
+
+base-commit: b4e3c4b6a36fd76f57bf3e48638f68ddecc54ba4
 -- 
-2.43.0
+2.53.0
 
