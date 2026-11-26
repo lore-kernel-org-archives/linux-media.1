@@ -1,97 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795732424;
-	b=hjjqfohovULkI6kGcJgFV1E2WJYizHSEfnlU0Q/wKq9sXB9t4wdhL9czvfx/7I4Sb3mw
-	 kcKqbfVqRRmmdNpsmtaebZMrXSaF2ra5OhSmUC2WfpONWlIyliDqV2CSIvStoak6sEEk2
-	 MVzMnrZCLKC/cKXtWNxMP8bL7mjfNrhK4nZ39A2J3OM9lT9Qj1dXN3kcuiRoHvzFutu+t
-	 EQtoxY7gTxX+KMtBFnbexzlSm/5Yl2sItNpYsa0vnl5ny/nIkVNwZHD46H0g6TlnGF/42
-	 Ln6FDpo8e40ozXSAHpaZOeDYDQX1ghX7LxQ6wEwKvNbPDTG93+LlyB3jYKjipMgHCvQ==
+	t=1795732663;
+	b=ZzMEuwkQuCz5Yocq6eRe2NKpjgqFsywn4wMnMwTOu94qgdpMG4wiY6DaI9PeqDlcjf9z
+	 KxzOpBBNZyz+e4naU20nFL04O18W8CmOBMuOMzuLoyuJU6kwZDbbj+pL8VZAax8iAKBSX
+	 TpsOzNR7wFCs2k28R9Ewfd70IEZzpZqFSIvR13DXdUROg88P5Bws2C075ongUCF2KdnCP
+	 rCDFXqK4Gxstm/tX44soh7l9UDChMQ3hsaDp4PUpB0V8MKuIIqFPpA27cZt2CWnaKqMHV
+	 8OWdNWG5u14iwGTfeGSNwDWewW6dIZc4MMrOWgeIRDoJh3smyI4Fz8K3eAO83bN94mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795732424;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795732663;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=VAuiL2sK9KgcCNS1LCu1ZR6hGD2zR58kg8DLcx9J16M=;
-	b=iwtY8+d12Hjt3U+uBkQ2Ja3IvOslZjkDsmPHOAB7lI72TPlvHlZGnS1s8cQ4dBQ+AjCe
-	 XZlvf8fmNCoNvCXClxULBXjUSsRByMXmIU1mOXrTeHPNrLZtWTzI7I8Wk+uuHu7FrEU4J
-	 moHlIO5ZwXTrBYw/qUvwiA3vPfzKom5xv5qu49nrJCe4dUPYHvtcpPDH7Mnxt7ObXyq2U
-	 rl0ZtT0kPc4kKZ4CNSM6uL0pbm3cQxDubgwt+/cjNUoMHJ+HRNIXSMQ3v5akiSbQV0RCK
-	 cgwUfGDM+NDldh4vyq6g9zor+StEJ7tqVI4qQEknwBWIKvfcbwRoew58yRqUy2HCT9Q==
+	bh=nU7JvJls8+BK1T4tqOKjGDMIPhugRu8aj2ala05k94s=;
+	b=TJhIYzU9RNLM72hjWBFOQtXwscMfnCBND3zMKkIzHqaiDl0cjfaaWlGpCF0D3MFwrTG7
+	 Sny4GZeNC17OqpqKnSrt+vlk+XbidXieBzH+yBdbPTWTA9EwizwfX7QVnIgjaGqYhFJm/
+	 FwAAlZrj9m5/B3K7ibhiO3+IBLh2vNIroDWIXky/aGnQjetzKDoVC2oFJi8BF0cc3DN+2
+	 4VEbHV9EDv76/SQkl0dAl99YddEXtskoLEWBYBVD5uZx2yKWP+miahH/Ofwdc3AObHJfI
+	 7ptXOZz1Jde+UP2fA8qANF3TsxtoSHBX3FNpezFG0JyDqKsYj8WNH/PAOwxpf0JZUgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cH937ij2;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BukykUC1;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B439A606A31C
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:33:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B439A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02683606A31E;
+	Thu, 26 Nov 2026 22:37:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02683606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cH937ij2
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-94965745d92so736877685a.2
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:33:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795732423; x=1796337223; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VAuiL2sK9KgcCNS1LCu1ZR6hGD2zR58kg8DLcx9J16M=;
-        b=cH937ij2nMOWPoz0H5x4MFp2v9WgHpeKWcVvHdiWudTu1+mHzfN+xsH0r5sysQq0e+
-         hVehXwboI8oGm7ES8S2H4MwQDdzT5l+mvdFj7FBrAUlK7UmwWGal5RipzB5JXFweg5OV
-         BCWq0X0vj/9/SwWidxEBznO4XKR/YgPKWV/MTC4xdygHfoEetio1WTOSWOlcRWKLc1az
-         hvEQLRYLHac0Akgb51dtM3v3qe2d4GHdQ0012O4zn8ArLtd/Va6wP/FN9SUqxNB4loxx
-         0R7HDjh3/9Z3bNpp1UvrX/b5i1HgbtRH/KiNgzy7Ewc+gPRJ+L+DcMcx76Ksid8KI89t
-         e9Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795732423; x=1796337223;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VAuiL2sK9KgcCNS1LCu1ZR6hGD2zR58kg8DLcx9J16M=;
-        b=nToqnOW1OVLIzUV7SVZ+b5axzz/KcAxu2EUVf4GfR8uKGkxjQbMrIzRHX+dUeDRJOe
-         0lvD4bSVlbyxxaJRegFvRtutA+cojLaiyQ81aV1ktkZ1pInFyt1Oy9b7aZzi266WE3z+
-         uGCfyCbJSjEToHAfd31N0PwS48TfrkCreGDL6mLsv+HP0dgt4XaE1S/ECmos+yEMDJ9y
-         BlpHaeve+GyyHa1hqpy78gNwdkiobyJaT8yuItq314esiODIBZ75dBTjKDI/QnzU+gry
-         Mb06wt7QsiWfKOhWVOOU0kep9ArQG1No+c4ANkYLO8E4Kl4dgLOQvI16s6tX7PButZHb
-         UKhg==
-X-Gm-Message-State: APuU4Z9SKYaEGvpTSbniWPnIQWstAEv3jTqk8a0OGS+lABovocquwu2T
-	TmlNkmCotGfZBmjizYCUzPVoGBIbRllrHitqdJRuXLNJ+xFAJdF88DQOGlcYLIJyNGs=
-X-Gm-Gg: AZFdTZetjnRO1X800KyYSZsBRbjUf0miX1gYNGTNPhQUzuz6QsbPbcTk7ag8grHj5Jf
-	B1wMXpeGY3n4/S9SjLvSDzqQQrycDw61wg9PiaEiihR5dsjGgMWm0jdmQqdfD+5vTw2P06L6iNH
-	X2en3w0CdQAgv0jU4GQFmotrPNV9aaXEZq5hR8fIGo0iA+hHSucruZhJKp9EjqelDZZKoTBFWIR
-	hh3QBC++47B7z4q3Hm15PbRW0o+QP7Tz0qPqm+6n7KLGkiG12S6ux0Ba6tgvj6NXXNPBOHLwI2w
-	R3pAydqnUCa6o/Gr5qJPj6Kao3ChPPwIGmurP/xHA/J5Q4PHf4XBTjUJcLzU8mbsfdBcDM5pj+v
-	dRhy/vuVh9McQNvMz0xgw4KQnQvNDc8uOfPP7HWef42A9QBOPGsxLTaUqBAYsPIGpsM2nFfT2jC
-	dVQ/b6CQxzOmQlLdCu8NsN3+YPmlAmw8suo7wIz1vssHwikVoLDuqhnkXMZQyK8UQvLHNhIVyVV
-	VItzXkg8ho0YhgTnJDjqP0n81wf2eJRrfQX4VGfyo8a4hxRCCMPkfn5fexKdNgAIXftdcVEjn98
-	vgLSyFM9BdH86WRyMR7606IoUXO0+mDfqFIm71A4iGRH308Fb/Smt1Y=
-X-Received: by 2002:a05:620a:459f:b0:948:48b8:6736 with SMTP id af79cd13be357-949ba965a61mr3942304285a.16.1795732422570;
-        Thu, 26 Nov 2026 14:33:42 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41a341sm1681380685a.37.2026.11.26.14.33.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 14:33:41 -0800 (PST)
-Message-ID: <c0fc91738531352473bb7c830c4a1b6fb928bf60.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mediatek: mdp3: Fix potential use-after-free on
- SCP removal
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Moudy
- Ho <moudy.ho@mediatek.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Date: Thu, 26 Nov 2026 17:33:40 -0500
-In-Reply-To: <20261107-0d0c29e10a-media-mediatek-mdp3-1@mail.sdu.edu.cn>
-References: <20261107-0d0c29e10a-media-mediatek-mdp3-1@mail.sdu.edu.cn>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BukykUC1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795732660;
+	bh=Owe8kxDEvzCOhmlF/Weij9GtmDLQR7uOC/feDg+FZLo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=BukykUC1j20vf/NtwUJdpGMYEkq30q7wc7l3DwgOGFRNABI+YqNZ9zdJ0QQA3MuLu
+	 iq+U0TYNJiXGNO/iFxyyvsy730usRkuXDRA02Y1XlgiyWSptnJxka2DXNTVpFyQUK8
+	 HtD1eeh9kGu/4dyNBWUjqyLwIz8paDW+2/opwX8g996VRMCkjjMGFQnjnNzVFGa8Zx
+	 S1RHeTOCqQH1Dm/QKyio9ddg22AWAmDVSG4Th2bJ98RrLDlXzZrxbsZUn2MXCR/isY
+	 LHmcAbyqMaraafczSwEZwA9WM8iF4+R2+EmxL92L66pJZpL+6NlM8IkNITbvT+Ay9Y
+	 +RSe75VEPEd7Q==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6721C17E09ED;
+	Thu, 26 Nov 2026 23:37:38 +0100 (CET)
+Message-ID: <9f9f220a3b7189184fed9e94420b30122c37746f.camel@collabora.com>
+Subject: Re: [PATCH v2 02/11] staging: media: cedrus: reject too large
+ H.264/HEVC SPS
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
+ <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 26 Nov 2026 17:37:36 -0500
+In-Reply-To: <20261109175016.42061-3-jernej.skrabec@gmail.com>
+References: <20261109175016.42061-1-jernej.skrabec@gmail.com>
+	 <20261109175016.42061-3-jernej.skrabec@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
  cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
@@ -104,8 +79,9 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Wo+4Av8llfy936qRJ+9C"
+	protocol="application/pgp-signature"; boundary="=-ETJLAagiiSV4GyW2Gs0L"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -117,369 +93,225 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-Wo+4Av8llfy936qRJ+9C
+--=-ETJLAagiiSV4GyW2Gs0L
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-
-Le samedi 07 novembre 2026 =C3=A0 14:54 +0800, Guangshuo Li a =C3=A9crit=C2=
-=A0:
-> MDP contexts can outlive the SCP driver whose data they use for VPU
-> teardown. Unregistering only the V4L2 parent neither disconnects the
-> video node nor finishes these sessions.
+Le lundi 09 novembre 2026 =C3=A0 18:50 +0100, Jernej Skrabec a =C3=A9crit=
+=C2=A0:
+> The H.264 decoder takes the picture size from the SPS, and the HEVC
+> decoder the position of the slices. An SPS beyond CEDRUS_MAX_WIDTH/HEIGHT=
+,
+> or beyond the capture buffers, makes the hardware overrun memory and
+> hang. On H616, the JCT-VC PICSIZE_A..D streams (1056x8440, 8440x1056,
+> 528x4216 and 4216x528) leave the hardware wedged, so that every
+> following job times out until reboot.
 >=20
-> Link MDP to SCP and disconnect the video node before draining jobs and
-> closing every VPU session. Release hardware dependencies during remove,
-> while retaining the software state for the last open file. Balance the
-> remoteproc references on session shutdown and failed initialization.
+> Reject an SPS beyond the hardware limits in try_ctrl, and move the
+> limits to cedrus_video.h for that.
 >=20
-> This issue was found by our static analysis tool under development.
+> Whether the picture fits the buffers can only be checked when a job
+> runs: the SPS can be set before the buffers are allocated, while the
+> OUTPUT format they are sized from can still change, and a request
+> doesn't have to carry an SPS at all. Check it in the setup callbacks,
+> so that such a job fails with an error buffer instead.
 >=20
-> Fixes: 61890ccaefaf ("media: platform: mtk-mdp3: add MediaTek MDP3 driver=
-")
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> Fixes: 6eb9b758e307 ("media: cedrus: Add H264 decoding support")
+> Fixes: 86caab29da78 ("media: cedrus: Add HEVC/H.265 decoding support")
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Moudy, can you help with review please. Meanwhile there is enough sashiko
-complaints for me to skip.
-
-Nicolas
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
-> Validation: Changed-object compilation passed with W=3D1 in the recorded
-> configuration. No hardware/kernel runtime test or full linked-kernel
-> build.
-> OpenAI Codex assisted with source review, patch implementation and
-> commit-message drafting. The submitter has reviewed the changes.
+>  drivers/staging/media/sunxi/cedrus/cedrus.c   | 16 +++++++++
+>  drivers/staging/media/sunxi/cedrus/cedrus.h   | 34 +++++++++++++++++++
+>  .../staging/media/sunxi/cedrus/cedrus_h264.c  |  6 ++++
+>  .../staging/media/sunxi/cedrus/cedrus_h265.c  |  4 +++
+>  .../staging/media/sunxi/cedrus/cedrus_video.c |  5 ---
+>  .../staging/media/sunxi/cedrus/cedrus_video.h |  5 +++
+>  6 files changed, 65 insertions(+), 5 deletions(-)
 >=20
->  .../platform/mediatek/mdp3/mtk-mdp3-core.c    | 84 ++++++++++++++-----
->  .../platform/mediatek/mdp3/mtk-mdp3-core.h    |  1 +
->  .../platform/mediatek/mdp3/mtk-mdp3-m2m.c     | 34 ++++++--
->  .../platform/mediatek/mdp3/mtk-mdp3-m2m.h     |  3 +-
->  .../platform/mediatek/mdp3/mtk-mdp3-vpu.c     |  2 +-
->  5 files changed, 96 insertions(+), 28 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drive=
-rs/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-> index f412aadb5996..9fe42181a08c 100644
-> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-> @@ -108,6 +108,7 @@ int mdp_vpu_get_locked(struct mdp_dev *mdp)
->  err_init_vpu:
->  =09mdp_vpu_unregister(mdp);
->  err_reg_vpu:
-> +=09rproc_shutdown(mdp->rproc_handle);
->  err_load_vpu:
->  =09mdp->vpu_count--;
->  =09return ret;
-> @@ -118,19 +119,24 @@ void mdp_vpu_put_locked(struct mdp_dev *mdp)
->  =09if (--mdp->vpu_count =3D=3D 0) {
->  =09=09mdp_vpu_dev_deinit(&mdp->vpu);
->  =09=09mdp_vpu_unregister(mdp);
-> +=09=09rproc_shutdown(mdp->rproc_handle);
->  =09}
->  }
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/stagin=
+g/media/sunxi/cedrus/cedrus.c
+> index c3331b4f3f02..197213911bf7 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
+> @@ -28,6 +28,15 @@
+>  #include "cedrus_dec.h"
+>  #include "cedrus_hw.h"
 > =20
-> -void mdp_video_device_release(struct video_device *vdev)
-> +static void mdp_hardware_cleanup(struct mdp_dev *mdp)
->  {
-> -=09struct mdp_dev *mdp =3D (struct mdp_dev *)video_get_drvdata(vdev);
->  =09int i;
-> =20
-> +=09flush_workqueue(mdp->job_wq);
-> +=09flush_workqueue(mdp->clock_wq);
-> +
->  =09for (i =3D 0; i < mdp->mdp_data->pp_used; i++)
->  =09=09if (mdp->cmdq_clt[i])
->  =09=09=09cmdq_mbox_destroy(mdp->cmdq_clt[i]);
-> =20
-> +=09mdp_vpu_shared_mem_free(&mdp->vpu);
->  =09scp_put(mdp->scp);
-> +=09mdp->scp =3D NULL;
-> =20
->  =09destroy_workqueue(mdp->job_wq);
->  =09destroy_workqueue(mdp->clock_wq);
-> @@ -151,10 +157,16 @@ void mdp_video_device_release(struct video_device *=
-vdev)
->  =09=09if (!IS_ERR_OR_NULL(m))
->  =09=09=09mtk_mutex_put(m);
->  =09}
+> +/*
+> + * Reject picture sizes beyond the hardware limits. Whether the picture =
+fits
+> + * the buffers is checked when a job is set up, see cedrus_check_pic_siz=
+e().
+> + */
+> +static bool cedrus_pic_size_supported(u32 width, u32 height)
+> +{
+> +=09return width <=3D CEDRUS_MAX_WIDTH && height <=3D CEDRUS_MAX_HEIGHT;
 > +}
 > +
-> +void mdp_video_device_release(struct video_device *vdev)
-> +{
-> +=09struct mdp_dev *mdp =3D video_get_drvdata(vdev);
+>  static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
+>  {
+>  =09if (ctrl->id =3D=3D V4L2_CID_STATELESS_H264_SPS) {
+> @@ -42,6 +51,9 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
+>  =09=09if (sps->bit_depth_luma_minus8 !=3D 0)
+>  =09=09=09/* Only 8-bit is supported */
+>  =09=09=09return -EINVAL;
+> +=09=09if (!cedrus_pic_size_supported(cedrus_h264_sps_width(sps),
+> +=09=09=09=09=09       cedrus_h264_sps_height(sps)))
+> +=09=09=09return -EINVAL;
+>  =09} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_HEVC_SPS) {
+>  =09=09const struct v4l2_ctrl_hevc_sps *sps =3D ctrl->p_new.p_hevc_sps;
+>  =09=09struct cedrus_ctx *ctx =3D container_of(ctrl->handler, struct cedr=
+us_ctx, hdl);
+> @@ -52,6 +64,10 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
+>  =09=09=09/* Only 4:2:0 is supported */
+>  =09=09=09return -EINVAL;
 > =20
-> -=09mdp_vpu_shared_mem_free(&mdp->vpu);
->  =09v4l2_m2m_release(mdp->m2m_dev);
-> +=09ida_destroy(&mdp->mdp_ida);
->  =09kfree(mdp);
-> +=09video_device_release(vdev);
+> +=09=09if (!cedrus_pic_size_supported(sps->pic_width_in_luma_samples,
+> +=09=09=09=09=09       sps->pic_height_in_luma_samples))
+> +=09=09=09return -EINVAL;
+> +
+>  =09=09bit_depth =3D max(sps->bit_depth_luma_minus8,
+>  =09=09=09=09sps->bit_depth_chroma_minus8) + 8;
+> =20
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/stagin=
+g/media/sunxi/cedrus/cedrus.h
+> index 54f867949fba..c2318521d7e5 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus.h
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
+> @@ -274,6 +274,40 @@ cedrus_is_capable(struct cedrus_ctx *ctx, unsigned i=
+nt capabilities)
+>  =09return (ctx->dev->capabilities & capabilities) =3D=3D capabilities;
 >  }
 > =20
->  static void mdp_put_device(void *_dev)
-> @@ -213,11 +225,45 @@ static int mdp_mm_subsys_deploy(struct mdp_dev *mdp=
-, enum mdp_infra_id id)
->  =09return 0;
->  }
-> =20
-> +static int mdp_get_scp(struct mdp_dev *mdp)
+> +/*
+> + * The decoders take the picture size, or the position of the slices, fr=
+om
+> + * the bitstream headers. Check that the picture fits the buffers, which=
+ are
+> + * sized from the OUTPUT format and padded to at least 16 pixels in both
+> + * directions, so that the hardware doesn't overrun them and hang.
+> + */
+> +static inline int cedrus_check_pic_size(struct cedrus_ctx *ctx,
+> +=09=09=09=09=09unsigned int width, unsigned int height)
 > +{
-> +=09struct device_node *node;
-> +=09struct platform_device *scp_pdev;
-> +=09struct device_link *link;
-> +=09int ret =3D -EPROBE_DEFER;
+> +=09if (width > ALIGN(ctx->src_fmt.width, 16) ||
+> +=09    height > ALIGN(ctx->src_fmt.height, 16))
+> +=09=09return -EINVAL;
 > +
-> +=09node =3D of_parse_phandle(mdp->pdev->dev.of_node, "mediatek,scp", 0);
-> +=09if (node) {
-> +=09=09scp_pdev =3D of_find_device_by_node(node);
-> +=09=09of_node_put(node);
-> +=09} else {
-> +=09=09scp_pdev =3D __get_pdev_by_id(mdp->pdev, NULL, MDP_INFRA_SCP);
-> +=09}
-> +=09if (!scp_pdev)
-> +=09=09return -EPROBE_DEFER;
-> +
-> +=09link =3D device_link_add(&mdp->pdev->dev, &scp_pdev->dev,
-> +=09=09=09       DL_FLAG_AUTOREMOVE_CONSUMER);
-> +=09if (!link) {
-> +=09=09ret =3D -ENOMEM;
-> +=09=09goto err_put;
-> +=09}
-> +=09if (!device_is_bound(&scp_pdev->dev))
-> +=09=09goto err_put;
-> +
-> +=09mdp->scp =3D platform_get_drvdata(scp_pdev);
-> +=09if (mdp->scp)
-> +=09=09return 0;
-> +
-> +err_put:
-> +=09put_device(&scp_pdev->dev);
-> +=09return ret;
+> +=09return 0;
 > +}
 > +
->  static int mdp_probe(struct platform_device *pdev)
+> +static inline unsigned int
+> +cedrus_h264_sps_width(const struct v4l2_ctrl_h264_sps *sps)
+> +{
+> +=09return (sps->pic_width_in_mbs_minus1 + 1) * 16;
+> +}
+> +
+> +static inline unsigned int
+> +cedrus_h264_sps_height(const struct v4l2_ctrl_h264_sps *sps)
+> +{
+> +=09unsigned int height =3D (sps->pic_height_in_map_units_minus1 + 1) * 1=
+6;
+> +
+> +=09/* Map units are macroblock pairs, unless only frames are coded. */
+> +=09if (!(sps->flags & V4L2_H264_SPS_FLAG_FRAME_MBS_ONLY))
+> +=09=09height *=3D 2;
+> +
+> +=09return height;
+> +}
+> +
+>  void *cedrus_find_control_data(struct cedrus_ctx *ctx, u32 id);
+>  u32 cedrus_get_num_of_controls(struct cedrus_ctx *ctx, u32 id);
+> =20
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers/s=
+taging/media/sunxi/cedrus/cedrus_h264.c
+> index 892193c12b2f..e8229c60d3f5 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> @@ -518,9 +518,15 @@ static void cedrus_h264_irq_disable(struct cedrus_ct=
+x *ctx)
+> =20
+>  static int cedrus_h264_setup(struct cedrus_ctx *ctx, struct cedrus_run *=
+run)
 >  {
->  =09struct device *dev =3D &pdev->dev;
->  =09struct mdp_dev *mdp;
-> -=09struct platform_device *mm_pdev;
->  =09struct resource *res;
->  =09int ret, i, mutex_id;
+> +=09const struct v4l2_ctrl_h264_sps *sps =3D run->h264.sps;
+>  =09struct cedrus_dev *dev =3D ctx->dev;
+>  =09int ret;
 > =20
-> @@ -285,27 +331,16 @@ static int mdp_probe(struct platform_device *pdev)
->  =09=09goto err_destroy_job_wq;
->  =09}
-> =20
-> -=09mdp->scp =3D scp_get(pdev);
-> -=09if (!mdp->scp) {
-> -=09=09mm_pdev =3D __get_pdev_by_id(pdev, NULL, MDP_INFRA_SCP);
-> -=09=09if (WARN_ON(!mm_pdev)) {
-> -=09=09=09dev_err(&pdev->dev, "Could not get scp device\n");
-> -=09=09=09ret =3D -ENODEV;
-> -=09=09=09goto err_destroy_clock_wq;
-> -=09=09}
-> -=09=09mdp->scp =3D platform_get_drvdata(mm_pdev);
-> -=09}
-> -
-> -=09if (!mdp->scp) {
-> -=09=09ret =3D -EPROBE_DEFER;
-> +=09ret =3D mdp_get_scp(mdp);
+> +=09ret =3D cedrus_check_pic_size(ctx, cedrus_h264_sps_width(sps),
+> +=09=09=09=09    cedrus_h264_sps_height(sps));
 > +=09if (ret)
->  =09=09goto err_destroy_clock_wq;
-> -=09}
-> =20
->  =09mdp->rproc_handle =3D scp_get_rproc(mdp->scp);
->  =09dev_dbg(&pdev->dev, "MDP rproc_handle: %p", mdp->rproc_handle);
-> =20
->  =09mutex_init(&mdp->vpu_lock);
->  =09mutex_init(&mdp->m2m_lock);
-> +=09INIT_LIST_HEAD(&mdp->contexts);
-> =20
->  =09for (i =3D 0; i < mdp->mdp_data->pp_used; i++) {
->  =09=09mdp->cmdq_clt[i] =3D cmdq_mbox_create(dev, i);
-> @@ -373,10 +408,19 @@ static int mdp_probe(struct platform_device *pdev)
->  static void mdp_remove(struct platform_device *pdev)
->  {
->  =09struct mdp_dev *mdp =3D platform_get_drvdata(pdev);
-> +=09struct video_device *vdev =3D mdp->m2m_vdev;
-> =20
-> -=09v4l2_device_unregister(&mdp->v4l2_dev);
-> +=09if (!vdev) {
-> +=09=09kfree(mdp);
-> +=09=09return;
-> +=09}
-> =20
-> -=09dev_dbg(&pdev->dev, "%s driver unloaded\n", pdev->name);
-> +=09/* Keep the software state until removal and all open files finish. *=
-/
-> +=09get_device(&vdev->dev);
-> +=09mdp_m2m_device_unregister(mdp);
-> +=09mdp_hardware_cleanup(mdp);
-> +=09v4l2_device_unregister(&mdp->v4l2_dev);
-> +=09put_device(&vdev->dev);
->  }
-> =20
->  static int __maybe_unused mdp_suspend(struct device *dev)
-> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h b/drive=
-rs/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-> index 05cade1d098e..cf9662bd2792 100644
-> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-> @@ -134,6 +134,7 @@ struct mdp_dev {
->  =09struct v4l2_m2m_dev=09=09=09*m2m_dev;
->  =09/* synchronization protect for m2m device operation */
->  =09struct mutex=09=09=09=09m2m_lock;
-> +=09struct list_head=09=09=09contexts;
->  =09atomic_t=09=09=09=09suspended;
->  =09refcount_t=09=09=09=09job_count;
->  };
-> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c b/driver=
-s/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-> index ad3ae89c231c..ce0efe15866d 100644
-> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-> @@ -490,7 +490,7 @@ static int mdp_m2m_queue_init(void *priv,
->  =09src_vq->buf_struct_size =3D sizeof(struct v4l2_m2m_buffer);
->  =09src_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
->  =09src_vq->dev =3D &ctx->mdp_dev->pdev->dev;
-> -=09src_vq->lock =3D &ctx->ctx_lock;
-> +=09src_vq->lock =3D &ctx->mdp_dev->m2m_lock;
-> =20
->  =09ret =3D vb2_queue_init(src_vq);
->  =09if (ret)
-> @@ -504,7 +504,7 @@ static int mdp_m2m_queue_init(void *priv,
->  =09dst_vq->buf_struct_size =3D sizeof(struct v4l2_m2m_buffer);
->  =09dst_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
->  =09dst_vq->dev =3D &ctx->mdp_dev->pdev->dev;
-> -=09dst_vq->lock =3D &ctx->ctx_lock;
-> +=09dst_vq->lock =3D &ctx->mdp_dev->m2m_lock;
-> =20
->  =09return vb2_queue_init(dst_vq);
->  }
-> @@ -577,6 +577,11 @@ static int mdp_m2m_open(struct file *file)
->  =09=09goto err_free_ctx;
->  =09}
-> =20
-> +=09if (!video_is_registered(vdev)) {
-> +=09=09ret =3D -ENODEV;
-> +=09=09goto err_unlock_mutex;
-> +=09}
+> +=09=09return ret;
 > +
->  =09ret =3D ida_alloc(&mdp->mdp_ida, GFP_KERNEL);
->  =09if (ret < 0)
->  =09=09goto err_unlock_mutex;
-> @@ -593,7 +598,6 @@ static int mdp_m2m_open(struct file *file)
->  =09ctx->fh.ctrl_handler =3D &ctx->ctrl_handler;
->  =09v4l2_fh_add(&ctx->fh, file);
+>  =09cedrus_engine_enable(ctx);
 > =20
-> -=09mutex_init(&ctx->ctx_lock);
->  =09ctx->m2m_ctx =3D v4l2_m2m_ctx_init(mdp->m2m_dev, ctx, mdp_m2m_queue_i=
-nit);
->  =09if (IS_ERR(ctx->m2m_ctx)) {
->  =09=09dev_err(dev, "Failed to initialize m2m context\n");
-> @@ -609,8 +613,6 @@ static int mdp_m2m_open(struct file *file)
->  =09=09goto err_release_m2m_ctx;
->  =09}
+>  =09cedrus_write(dev, VE_H264_SDROT_CTRL, 0);
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/s=
+taging/media/sunxi/cedrus/cedrus_h265.c
+> index 6c643862ab73..aa772a8d71c8 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+> @@ -445,6 +445,10 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx,=
+ struct cedrus_run *run)
+>  =09cedrus_buf =3D vb2_to_cedrus_buffer(&run->dst->vb2_buf);
+>  =09slice_bytes =3D vb2_get_plane_payload(&run->src->vb2_buf, 0);
 > =20
-> -=09mutex_unlock(&mdp->m2m_lock);
+> +=09if (cedrus_check_pic_size(ctx, sps->pic_width_in_luma_samples,
+> +=09=09=09=09  sps->pic_height_in_luma_samples))
+> +=09=09return -EINVAL;
+> +
+>  =09/*
+>  =09 * If entry points offsets are present, we should get them
+>  =09 * exactly the right amount.
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.c b/drivers/=
+staging/media/sunxi/cedrus/cedrus_video.c
+> index adc7f255d7cf..2521315abdb7 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+> @@ -29,11 +29,6 @@
+>  #define CEDRUS_DECODE_SRC=09BIT(0)
+>  #define CEDRUS_DECODE_DST=09BIT(1)
+> =20
+> -#define CEDRUS_MIN_WIDTH=0916U
+> -#define CEDRUS_MIN_HEIGHT=0916U
+> -#define CEDRUS_MAX_WIDTH=094096U
+> -#define CEDRUS_MAX_HEIGHT=092304U
 > -
->  =09/* Default format */
->  =09default_format.type =3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
->  =09default_format.fmt.pix_mp.width =3D limit->out_limit.wmin;
-> @@ -620,6 +622,9 @@ static int mdp_m2m_open(struct file *file)
->  =09default_format.type =3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
->  =09mdp_m2m_s_fmt_mplane(file, &ctx->fh, &default_format);
-> =20
-> +=09list_add_tail(&ctx->list, &mdp->contexts);
-> +=09mutex_unlock(&mdp->m2m_lock);
-> +
->  =09dev_dbg(dev, "%s:[%d]", __func__, ctx->id);
-> =20
->  =09return 0;
-> @@ -647,6 +652,7 @@ static int mdp_m2m_release(struct file *file)
->  =09struct device *dev =3D &mdp->pdev->dev;
-> =20
->  =09mutex_lock(&mdp->m2m_lock);
-> +=09list_del(&ctx->list);
->  =09v4l2_m2m_ctx_release(ctx->m2m_ctx);
->  =09if (mdp_m2m_ctx_is_state_set(ctx, MDP_VPU_INIT))
->  =09=09mdp_vpu_put_locked(mdp);
-> @@ -727,7 +733,25 @@ int mdp_m2m_device_register(struct mdp_dev *mdp)
-> =20
->  void mdp_m2m_device_unregister(struct mdp_dev *mdp)
->  {
-> +=09struct mdp_m2m_ctx *ctx;
-> +
-> +=09mutex_lock(&mdp->m2m_lock);
->  =09video_unregister_device(mdp->m2m_vdev);
-> +=09v4l2_m2m_suspend(mdp->m2m_dev);
-> +
-> +=09list_for_each_entry(ctx, &mdp->contexts, list) {
-> +=09=09vb2_queue_error(v4l2_m2m_get_src_vq(ctx->m2m_ctx));
-> +=09=09vb2_queue_error(v4l2_m2m_get_dst_vq(ctx->m2m_ctx));
-> +=09=09v4l2_m2m_streamoff(NULL, ctx->m2m_ctx,
-> +=09=09=09=09   V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
-> +=09=09v4l2_m2m_streamoff(NULL, ctx->m2m_ctx,
-> +=09=09=09=09   V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-> +=09=09if (mdp_m2m_ctx_is_state_set(ctx, MDP_VPU_INIT)) {
-> +=09=09=09mdp_vpu_put_locked(mdp);
-> +=09=09=09atomic_andnot(MDP_VPU_INIT, &ctx->curr_param.state);
-> +=09=09}
-> +=09}
-> +=09mutex_unlock(&mdp->m2m_lock);
->  }
-> =20
->  void mdp_m2m_job_finish(struct mdp_m2m_ctx *ctx)
-> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h b/driver=
-s/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
-> index dfc59e5b3b87..f473f5f20aa2 100644
-> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
-> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
-> @@ -27,6 +27,7 @@ struct mdp_m2m_ctrls {
+>  static struct cedrus_format cedrus_formats[] =3D {
+>  =09{
+>  =09=09.pixelformat=09=3D V4L2_PIX_FMT_MPEG2_SLICE,
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.h b/drivers/=
+staging/media/sunxi/cedrus/cedrus_video.h
+> index 8e1afc16a6a1..367e52158f01 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_video.h
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.h
+> @@ -22,6 +22,11 @@ struct cedrus_format {
+>  =09unsigned int=09capabilities;
 >  };
 > =20
->  struct mdp_m2m_ctx {
-> +=09struct list_head=09=09=09list;
->  =09u32=09=09=09=09id;
->  =09struct mdp_dev=09=09=09*mdp_dev;
->  =09struct v4l2_fh=09=09=09fh;
-> @@ -36,8 +37,6 @@ struct mdp_m2m_ctx {
->  =09u32=09=09=09=09frame_count[MDP_M2M_MAX];
+> +#define CEDRUS_MIN_WIDTH=0916U
+> +#define CEDRUS_MIN_HEIGHT=0916U
+> +#define CEDRUS_MAX_WIDTH=094096U
+> +#define CEDRUS_MAX_HEIGHT=092304U
+> +
+>  extern const struct v4l2_ioctl_ops cedrus_ioctl_ops;
 > =20
->  =09struct mdp_frameparam=09=09curr_param;
-> -=09/* synchronization protect for mdp m2m context */
-> -=09struct mutex=09=09=09ctx_lock;
->  };
-> =20
->  int mdp_m2m_device_register(struct mdp_dev *mdp);
-> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c b/driver=
-s/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
-> index 67f3001153ae..c1fd639930e5 100644
-> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
-> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
-> @@ -62,7 +62,7 @@ void mdp_vpu_shared_mem_free(struct mdp_vpu_dev *vpu)
->  {
->  =09struct device *dev;
-> =20
-> -=09if (IS_ERR_OR_NULL(vpu))
-> +=09if (IS_ERR_OR_NULL(vpu) || !vpu->scp)
->  =09=09return;
-> =20
->  =09dev =3D scp_get_device(vpu->scp);
->=20
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+>  int cedrus_queue_init(void *priv, struct vb2_queue *src_vq,
 
---=-Wo+4Av8llfy936qRJ+9C
+--=-ETJLAagiiSV4GyW2Gs0L
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawizxAAKCRDZQZRRKWBy
-9HTSAQCdw6kGRzy5B9+zXqQyV6Ynggd/rTVkgWVWQNpWAi2INgEAnB8jCbkkM0v6
-MPp3EnFDNhhmxlGQsiF3CnGD5qAX7gA=
-=PsR4
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawi0sAAKCRDZQZRRKWBy
+9BRlAP9eK2kDg6lH7en/MTu+oLKI1ss9mEyXuvEqaPE3BjozhwEAz1wtjPv4Hwkz
+aSmEaVfKC1WBZ9ZuUIjyeHs7dwmqEQM=
+=Ka3t
 -----END PGP SIGNATURE-----
 
---=-Wo+4Av8llfy936qRJ+9C--
+--=-ETJLAagiiSV4GyW2Gs0L--
