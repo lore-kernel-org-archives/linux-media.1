@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795773339;
-	b=dytjm3lxSF+JgaWsjIYm+EHUZJ/S8RDQTMmJyRWaMY2w6Ovl4+uLvx3SbBegvAGWFqpi
-	 Vw1hs9ODsBlE2kBQTRdM6GgpZOa78Zi8j/1ArODgAPfFaPKxYcARrN8WKvYbY5mnis5Xv
-	 EKzvpUaTauS9AGjZCmZ2UgOI4rO5d/6epBiS/Kvf5+Y4JSAYnDlJMSG28N8D1tZkmMPMX
-	 d2mXgg9wdHdD059+ZsgBhgNWmFUwyfD/ByZygzU4mg+pMkFu+Hua94gUmBlKovAuUvzhT
-	 v51mEhemA1E7EYrU9GDx2Ij5CPEZzE3mUjEAid3K2KpKaU8rNimZe7gPUbbde3Ei4Xg==
+	t=1795773343;
+	b=Fu5TJYBvGfmy7OofiVl363cwHZOSoOkK1P2bZkDF6XEwtfsTGGfspjvHaKJWAa9VQJIP
+	 /hQtd24FrK8+LW4n9IaTh5tPMHBOugY399oPeNLcugeQ0KyHTD5Zab9uq/w+D+5jHF+jP
+	 956FqQbJ6j//93omFfmOH/Nx987QTJG5Ndxz23Dxwwdz7DRhSMEWB1BFMIjqENsD37uWm
+	 EI5a3yEQZsgvYuvn4zirhmE9kKE6zRBeHwVlnG06YrgWCqvFHSiGgKM3icXFR1NHosAwp
+	 hHMeJerUQUYdgtvRm4Ofb2/W1mtGdKBQV++FACkE5blxI7p19VuQjpZLT8OCcfFD3VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795773339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795773343;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=A2En8s7gc8e1QOJN7yIgdC3ZHh4VMZbn4LZ/89SawUI=;
-	b=I8ZfTjOqtrWK4yhB7L9XhbYi26MMZdmz5Bz7YPhII9R2qsecE9Fvar2mKt36Nps3pw9O
-	 jWPgEycJQnlaVAsRF4GkNnb1iDZ+8LWkq67pbzaBiDGB8B+5ieX6CHOtf+BrGcDWdv1GV
-	 yNqdMDd5rY79gmQluBtc5o1r40FSAX2r/DzxTmLXQxuvugVIXO+3HMA9l/56v8vHM/k4d
-	 lT7qqFIcOG1ro+JpvCfaLT6/lShmgtdPZTjhhBGay38oIJmQpzsREOzN0W5w8wiojnvax
-	 bJmc6X3NimMFE/FsvxNLk/gxovTK1Q7rTJ9hHJJmXexbfs1cs7j6JcbwWWjpEliAwXQ==
+	bh=ACxoQP1MF+GzFlqiKuoUajC8aDkgrIQRATa/Cgcdw18=;
+	b=XlvLqnB99GyplLFos7VhPIzLGTd7B6w5CYD9aYuvtllagnx1SYEGNJfpaZ6T/YmfzuLN
+	 biFIkxwl+jjKRDPiUyCrXlQgEQ5/xTcc5tp6LgIpW58M0J/VW58LRQzHVm7pYe6fWWeDZ
+	 hJGLJZHNOHnU6kwqgWvvghC86uD/BoM1XUJ/gXlH0t6p36cN5OozDwcdEe4t5XadW4azP
+	 Swic4HoFawvyxu+/3F7+1jZqTennYNMbPOVBaltM4lcqPxqgTTP8SjOkdWKoZKaANrAAn
+	 lhVx71qD5BDTdc+X58lpdvacc0GLs/omFXDFT9kHzOGcup1BjsaCOnR4c3Dx5J1HIFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXFzBaBk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWjyXYBZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6698606A334;
-	Fri, 27 Nov 2026 09:55:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61678606A32C;
+	Fri, 27 Nov 2026 09:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXFzBaBk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29EE1F00933;
-	Fri, 27 Nov 2026 09:55:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWjyXYBZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D851F0089B;
+	Fri, 27 Nov 2026 09:55:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795773339;
-	bh=A2En8s7gc8e1QOJN7yIgdC3ZHh4VMZbn4LZ/89SawUI=;
+	s=k20260515; t=1795773342;
+	bh=ACxoQP1MF+GzFlqiKuoUajC8aDkgrIQRATa/Cgcdw18=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=bXFzBaBkeIRUYbu8+mXSz10ZllCcdt4P4XlnsrtU1HXd6d/Pnu1Jxa3qNoQhwD4bw
-	 cXZp1DSA6S3KPaKg9PbC31Di1Tu33jO48BdvMubRnrJYWF66Sh5+2B0cPBxm7d7aYt
-	 P/Nb3nB1JvisGQkTgNi1aiisYlhcbCiYdy/lk16mYAGXh2EUZnYBd6pRm82dYkIfrt
-	 fBBVEvq3FaQw+79AkHj8sj2pR9wEZno9iW3yMHf3xoQQMoylW8ctn7KaTqDGaPiM6g
-	 1KnZCL6oNj7jHXsaxmK5AcMv6TSeG8/fB7vSA07kkEttKXHtiGRE34V5+37lytadwV
-	 wDNSfv3R6RjwA==
+	b=JWjyXYBZFLodQ2ukOB716EuV2QW6f1pXKynVGgFfPt5HmZeFFlhyjEvpc43jJVJCm
+	 PnOC5fU/YFjpdraX5ojxPK0AGcuV/RVDPp6sR8jbR8kd22rMPVUGXnRbI5jbO2/Cvg
+	 tLn9mz3lwbmbI2e64+gjagae3S4BSPuVyWixHq0EBv+tHtyJ5f+Zx+H+3s48TBsDYZ
+	 3Ucfgr63uKDX3zkX0fmckQjYtlC+LcpncyBl8urhMyr5qHZbwbLwbpuLsdOP5jcOrR
+	 6BwmeiCqwEY7aBf2Q5veA7ud9lRorvUBQpllYTR4cRHtxlmB28HhM3An0qHeD00em/
+	 A66Ms1ZzG3Mjg==
 From: Srinivas Kandagatla <srini@kernel.org>
 To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
  Jianping Li <jianping.li@oss.qualcomm.com>
@@ -52,12 +52,12 @@ Cc: Arnd Bergmann <arnd@arndb.de>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com, stable@kernel.org
-In-Reply-To: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
-References: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
-Subject: Re: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in
+In-Reply-To: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+References: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+Subject: Re: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in
  fastrpc_create_maps()
-Message-Id: <179577333662.9695.16850584437035345885.b4-ty@kernel.org>
-Date: Fri, 27 Nov 2026 09:55:36 +0000
+Message-Id: <179577334009.9695.7128272976897775662.b4-ty@kernel.org>
+Date: Fri, 27 Nov 2026 09:55:40 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,7 +72,7 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Wed, 05 Aug 2026 14:09:40 +0800, Jianping Li wrote:
+On Mon, 14 Sep 2026 18:40:19 +0800, Jianping Li wrote:
 > DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
 > to the same dma_buf fd as an input/output buffer argument. Taking an
 > extra reference for such DMA handle maps leads to duplicate mappings and
