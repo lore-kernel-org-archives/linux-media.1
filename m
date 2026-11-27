@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795773320;
-	b=i4OhyjMgvhc/y7/Ey4GBh3dq3fPuG4FmI0AcLN3iF9/IWv++jQeiPzwVb1WGsQvJFDMj
-	 y6sWnzbUMo3Sxm7t3K2Oj9izyrNzcUxd6jQuPRZMfUOfxzYTkp+DPFzrk4P/JD99/jNeT
-	 2qPulYsWegSvJhg/FWaD9ij1t45Y7P6b9BWzOZCGjpWKLbqTlnQWUzuLc2FL0QrJVw06x
-	 R7rYLl/DXJ763WyuYZzU5zVKQaUQNHV19G8U6xuzKwIIt6tw9EHol4DsNH+7WYmSrKB+b
-	 B9+x91giTrCGTsVmar4xRgVcoQWynhnFK9Jwo/aLBlApVJdG729tn+axCgFlAa35tHw==
+	t=1795773339;
+	b=dytjm3lxSF+JgaWsjIYm+EHUZJ/S8RDQTMmJyRWaMY2w6Ovl4+uLvx3SbBegvAGWFqpi
+	 Vw1hs9ODsBlE2kBQTRdM6GgpZOa78Zi8j/1ArODgAPfFaPKxYcARrN8WKvYbY5mnis5Xv
+	 EKzvpUaTauS9AGjZCmZ2UgOI4rO5d/6epBiS/Kvf5+Y4JSAYnDlJMSG28N8D1tZkmMPMX
+	 d2mXgg9wdHdD059+ZsgBhgNWmFUwyfD/ByZygzU4mg+pMkFu+Hua94gUmBlKovAuUvzhT
+	 v51mEhemA1E7EYrU9GDx2Ij5CPEZzE3mUjEAid3K2KpKaU8rNimZe7gPUbbde3Ei4Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795773320;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dTrW+ugQeCUDhYN5x3PZPy/j2Ws0a4l3FCniePr73/o=;
-	b=lSv+DbEOYCSAWboe3Owb0uwkN88bKl7zkeku/NDFcqfVO20x2dddJa1jGdVhdGFeIdAq
-	 RdVMe4CJT7DmY5vt/AvyJJ2u7Yj+0YkFjDrb+Wz794fuJrDUmKzlAVXNHoul5OlxujGN2
-	 otTRFbZozfkIEM3p9KxndjuW1oa4wluiBtfaBwsX+mHylkNJ7Sh4hLooOKt0CfJxnymK7
-	 m3rFZGflBiYF+G44V7IykLNpk80t8J5Df3XqWcV8UK3kehuKhelcptfUAgNFotIuNazVI
-	 QYgdoaF3YpY1q1igYP3q9eukRAfGdUlSJSBJwsZQdXcysuYmVWd2UVun1NBFp2BRUrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795773339;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=A2En8s7gc8e1QOJN7yIgdC3ZHh4VMZbn4LZ/89SawUI=;
+	b=I8ZfTjOqtrWK4yhB7L9XhbYi26MMZdmz5Bz7YPhII9R2qsecE9Fvar2mKt36Nps3pw9O
+	 jWPgEycJQnlaVAsRF4GkNnb1iDZ+8LWkq67pbzaBiDGB8B+5ieX6CHOtf+BrGcDWdv1GV
+	 yNqdMDd5rY79gmQluBtc5o1r40FSAX2r/DzxTmLXQxuvugVIXO+3HMA9l/56v8vHM/k4d
+	 lT7qqFIcOG1ro+JpvCfaLT6/lShmgtdPZTjhhBGay38oIJmQpzsREOzN0W5w8wiojnvax
+	 bJmc6X3NimMFE/FsvxNLk/gxovTK1Q7rTJ9hHJJmXexbfs1cs7j6JcbwWWjpEliAwXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=SnRfAqTi;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXFzBaBk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A0B606A338;
-	Fri, 27 Nov 2026 09:55:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07A0B606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6698606A334;
+	Fri, 27 Nov 2026 09:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=SnRfAqTi
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=dTrW+ugQeCUDhYN5x3PZPy/j2Ws0a4l3FCniePr73/o=; t=1795773318; x=2111133318; 
-	b=SnRfAqTiqSZJiQY4+12cRCdtpdSKcKCu9pGQl9t2ajSUN4F9uN6s6wpSW6BO1pWAGxzniFDwB9K
-	qJMbg8yjbX/QiESGzuYlByuCZSUt/FJyonb8Ag0UawIApvVbMRz4tBYUVwrCLwXffXMZWoM5GD8zp
-	NIiiVdIVLnrbrYqJM8xvpELC+Xakvtd199R+i8zgDGDJsaVGRxkZeS4ZlsWG1LZv2p6a4dk4n/c4G
-	8JYH2UJhkrqSlU2T4cE/HA/mvDf7ThOBIWGtZRQteoi7XEJMaiRADqs3z+8XlhuXoEpABP3wndqlR
-	RaSH76eWRGApvQm7v5i58tj73YtobedbsZxg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xWsfd-00000004jsI-2PMn;
-	Fri, 27 Nov 2026 10:55:09 +0100
-Message-ID: <50bf27a3-5475-4bc4-83ee-37312c7e4e1e@igalia.com>
-Date: Fri, 27 Nov 2026 09:55:08 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXFzBaBk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29EE1F00933;
+	Fri, 27 Nov 2026 09:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795773339;
+	bh=A2En8s7gc8e1QOJN7yIgdC3ZHh4VMZbn4LZ/89SawUI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=bXFzBaBkeIRUYbu8+mXSz10ZllCcdt4P4XlnsrtU1HXd6d/Pnu1Jxa3qNoQhwD4bw
+	 cXZp1DSA6S3KPaKg9PbC31Di1Tu33jO48BdvMubRnrJYWF66Sh5+2B0cPBxm7d7aYt
+	 P/Nb3nB1JvisGQkTgNi1aiisYlhcbCiYdy/lk16mYAGXh2EUZnYBd6pRm82dYkIfrt
+	 fBBVEvq3FaQw+79AkHj8sj2pR9wEZno9iW3yMHf3xoQQMoylW8ctn7KaTqDGaPiM6g
+	 1KnZCL6oNj7jHXsaxmK5AcMv6TSeG8/fB7vSA07kkEttKXHtiGRE34V5+37lytadwV
+	 wDNSfv3R6RjwA==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Ling Xu <quic_lxu5@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com, stable@kernel.org
+In-Reply-To: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
+References: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
+Subject: Re: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+Message-Id: <179577333662.9695.16850584437035345885.b4-ty@kernel.org>
+Date: Fri, 27 Nov 2026 09:55:36 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,86 +67,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/sched: Hot-fix timestamp misordering
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Chris Wilson <chris@chris-wilson.co.uk>, Luben Tuikov <ltuikov89@gmail.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- "Paul E . McKenney" <paulmck@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- stable@vger.kernel.org
-References: <20261126172046.2473303-2-phasta@kernel.org>
- <20261126172046.2473303-4-phasta@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20261126172046.2473303-4-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
 
-On 26/11/2026 17:20, Philipp Stanner wrote:
-> dma_fence timestamps could so far be written and read without any memory
-> ordering, a bug that presumably got overlooked because x86 is strongly
-> ordered.
-
-Perhaps say that this particular patch fixes the store ordering of the 
-timestamp overwrite. IIUC at least.
-
-> Hot-fix the scheduler's manual timestamp evaluation until we found a
-> more suitable solution for mainline linux.
+On Wed, 05 Aug 2026 14:09:40 +0800, Jianping Li wrote:
+> DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
+> to the same dma_buf fd as an input/output buffer argument. Taking an
+> extra reference for such DMA handle maps leads to duplicate mappings and
+> an unbalanced reference count, since DMA handle maps are released
+> separately when the DSP returns the fd through the fdlist.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: f7fe64ad0f22 ("drm/sched: Split free_job into own work item")
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->   drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
+> Fix this by not taking an extra reference for DMA handle arguments
+> (take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
+> these maps are borrowed references, fastrpc_get_args() re-validates the
+> map via fastrpc_map_lookup() before dereferencing it, so it is not used
+> after being freed. fastrpc_put_args() only releases maps flagged as
+> FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
+> exactly once.
 > 
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index 99252674e266..3d26a48ff1c3 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -928,8 +928,16 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
->   		next = list_first_entry_or_null(&sched->pending_list,
->   						typeof(*next), list);
->   		if (next) {
-> -			/* make the scheduled timestamp more accurate */
-> -			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> +			/* Make the scheduled timestamp more accurate.
-> +			 *
-> +			 * TODO
-> +			 * The test_bit_acquire() is a hotfix against timestamp
-> +			 * misordering. Replace it with something better.
-> +			 *
-> +			 * The counter-part of the barrier is located in
-> +			 * dma_fence_signal_timestamp_locked().
+> [...]
 
-Instead of more or less duplicating the TODO perhaps putting a link to 
-dma_fence_timestamp_locked somehow would be better. Up to you.
+Applied, thanks!
 
-> +			 */
-> +			if (test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT,
->   				     &next->s_fence->scheduled.flags))
->   				next->s_fence->scheduled.timestamp =
->   					dma_fence_timestamp(&job->s_fence->finished);
+[1/1] misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+      commit: d943eec5a618cef0e2ba77b799c6ee27fae873dc
 
-With the improved commit message:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Regards,
-
-Tvrtko
+Best regards,
+-- 
+Srinivas Kandagatla <srini@kernel.org>
 
