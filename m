@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793186;
-	b=I9Iw9TatgBHIzJIs9J9fg43kuTU9JbtrKqS1xE3iDdlmqyn+znHQ3ogzWvvd8vyihDQv
-	 2PNSU6480Ygajs70xYnz0mpyG1VZw7V+wksHaslYKoodmKkknrFadwJhf16qZ4s9Hvttx
-	 rWdr+jYebv64J7OZyIc6Y1NueaNUmh+Zq32M13OcEmjpHZN8+wbbWTWkkFxkmhzT8xO15
-	 tZ+uxhoyg86XTsF2qw9RDnNY8Jecdhq2ArpFo7cx8hObERjYRpmNZ6Qc1nce1ora2TeNT
-	 w8Qh8dTNKhA7xrtFFV2HJP9BJxj9VB5gJq2sRX9L5olrt308VUeBhZsRM+96DoVx22A==
+	t=1795793477;
+	b=eoWXtrlWiz9XXIM9ZOl+kUpSzOqy0bb+J/e3AXquyqb/SXK8sHPTizJ/kAmV92A4nLDq
+	 ae6Y1Zh4WOIiJhp57r+8PDBjDSmX7HT9p3ZEvBS0cGnQidsgGTZc5QYsvCsrWKL472bKU
+	 f2w+kPETWUS2uqNTqwg1lvp/384L5vDZcUaByL7DVB4I2JLt3rsrNIo5ih6ejFXgBsabd
+	 9zd5sPvI+H1vKPgI97eNT72MxAGqaiZH8I2/6c0EMF8u1EDjH7xV3NiSdjuVvTy9l2XmR
+	 8ogcBm4+BXnYNEDCKQLAeGlN1TsU0LOWzQkLrScLsReoQGgcEsB5m8IgyJ415b3CPRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793186;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Cn8J32uTGtMslRtCIcKhh5GRTA7wlzF7vM1J878/mN8=;
-	b=inkPsVJySHLJYnHdcXWs3ZBEMQVcCBgn1S6ox42F/6TG1wIkeMGfM+kkN02SYkVypjaj
-	 Dh4AGIqTcM+hREauOsl2H28ZstrfsqjJ2G3wZEToVR0KdStun2CHHi+aenwmIYsIvvLe0
-	 YLhOV+MRh/c+QAEG7xz3chQun0mA/lYiGq8ATQ0gV/nPvVb3BUe93bSRNxNH2e6HYxo5v
-	 u0IKdamJbVYsRiMkdcTXzt2dBXa4Hs9KGVJ/DwHXRaaOP/O8gTXl+7N2WPCJo0EMODh2/
-	 FirR4a5OZBWgVzlUttZUSB3+1JKeT+A+IY8rvtJvAmKXp3HLmjChuKFK9eEeS4tiagw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793477;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AiKgiR/T4qeQ5YDnuOshjx2CZduMAwFjjmKloTtaWZE=;
+	b=exHRpXDAmDQNtCsMCfRVfyFI/KAN1jQNJkf5iDuzjP0a1SYlxTz/LdwrNwKrCgoS2IiA
+	 iaIXZ6565/CLsgztoXRLrk0GZw8vfMiP3W+3AxuKEumF7KdZdTWlwMAfxRcIx3MH+yBlm
+	 bEIPXklEur2uxWRGUVS2BQuqrt4zLC74ZzT/jPC9mxDRrNdXdqyqIYy86/dIMoI3Gp9Q6
+	 HnXVcpZHm9zOlXOHKQiSeUNgjU7RmgsP63kWqikbSOJg0csWdI7cOrnFhnY8X9m7JRbMG
+	 VYaWcBCbVLIbyKvKyQ9SoOKle/Wu5TmRqqXK2J4f4UN164wSBhZuJ4Wf+YaoNWz+iBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Gky9TahE;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D31F5606A31C;
-	Fri, 27 Nov 2026 15:26:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/bxmaPz";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBDF606A321;
+	Fri, 27 Nov 2026 15:31:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Gky9TahE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=Cn8J32uTGtMslRtCIcKhh
-	5GRTA7wlzF7vM1J878/mN8=; b=Gky9TahEHQYWDavMCXB/d+dDvyku8L7kawAF6
-	m5DcbcfXts3ZJ9R5D77Zrow5QrljUJnZhKkaFxxaUUYds0AjPp/5k/3xPFggd57G
-	bHL3K3D2KbRqdMVokP7JvOkW+YOtdI6NZ2JBNC+Ri55Xy0+nh/uauVFTBb1uzTsH
-	Myy+QI=
-Received: from [127.0.1.1] (unknown [114.214.180.66])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn8kYVoQlrFlYDAQ--.2904S2;
-	Fri, 27 Nov 2026 23:26:13 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Neil Armstrong <neil.armstrong@linaro.org>, linux-media@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>
-Subject: Re: [PATCH 00/11] media: iris: fix the decoder source change, seek
- and START sequences
-Date: Fri, 27 Nov 2026 23:26:12 +0800
-Message-ID: <179579317286.2262269.17942928243908736028@mail.ustc.edu.cn>
-In-Reply-To:
- <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
-References:
- <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/bxmaPz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942CD1F0089F;
+	Fri, 27 Nov 2026 15:31:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795793477;
+	bh=AiKgiR/T4qeQ5YDnuOshjx2CZduMAwFjjmKloTtaWZE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b/bxmaPzPalF4fWgf3uVw3MTeg+rguOh01GZtKw7oI6ojWL6/CEY5l93aX1+7IQjO
+	 iTNClzh1X/9MdlVCEF913BQ9Du/xnbvst6YmGtr+bPEuTuN3z8I37wQ9hfI3Ggd4Ry
+	 khqlNXFbURegBYYm5rPprF5JHGyLffngpRuaeZ7a4g0R+h6khPN6XOlcYG0SiqA5cR
+	 93gIU2oyYk/1XGtybQwV7NTXOavW1gPadA0NVS/2t7Vbz8gEb67l/M1gGM1pKFObOg
+	 TmxxJyf1nbyB3nY3GwZNLb6gXNVxDI9IaH2W+GbQ3cN2I4xu/P1x54iin77ERkctdX
+	 gvBy2GT9vwLRA==
+Date: Fri, 27 Nov 2026 17:31:13 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: iommu@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Honglei Huang <honghuan@amd.com>, prakash.gupta@oss.qualcomm.com,
+	Alex Williamson <alex@shazbot.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 4/4] iommu/dma: restore flush queue use in
+ dma_iova_destroy()
+Message-ID: <20261127153113.GB774860@unreal>
+References: <20261127115849.2780625-1-m.szyprowski@samsung.com>
+ <CGME20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a@eucas1p2.samsung.com>
+ <20261127115849.2780625-5-m.szyprowski@samsung.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -70,80 +71,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgBn8kYVoQlrFlYDAQ--.2904S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGr4ktw15WrWftr17KF1DAwb_yoW5Gryrpa
-	93t3sxtr4kJF10kr1Iqw48Ja4YyrZ5Gr4UXr4UJw10yry5Ar18ZrZ5Ka18uryjqr93uw1U
-	ZryYqwn7JF1DAaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x07bOUDXUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggAysH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261127115849.2780625-5-m.szyprowski@samsung.com>
 
-Hi Neil,
+On Fri, Nov 27, 2026 at 12:58:48PM +0100, Marek Szyprowski wrote:
+> Commit 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop
+> the free_iova helper") turned dma_iova_destroy() into dma_iova_unlink()
+> followed by dma_iova_free(). Before it, the destroy path marked its
+> IOTLB gather as queued for DMA-FQ domains, skipped iommu_iotlb_sync()
+> and handed the IOVA over to the flush queue, exactly like
+> __iommu_dma_unmap(). After it:
+> 
+>   - dma_iova_unlink() never queues its gather and always calls
+>     iommu_iotlb_sync() after iommu_unmap_fast(),
+>   - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
+>     the IOVA goes straight back to the allocator via free_iova_fast().
+> 
+> DMA-FQ domains therefore get strict invalidation on this path. This
+> includes blk_rq_dma_map(), which NVMe uses for all data transfers, so
+> iommu.strict=0 has no effect on NVMe I/O. On a Qualcomm Glymur CRD
+> (SMMUv3 without RANGE_INV, 4K pages, NVMe on PCIe Gen5 x4) sequential
+> fio throughput drops from 10.6/11.9 GiB/s (write/read) to the strict
+> mode level of ~2.7 GiB/s.
+> 
+> Instead of reverting, decide once in dma_iova_try_alloc() whether the
+> IOVA space is going to be released through the flush queue and record
+> it in a new DMA_IOVA_USE_FQ flag in dma_iova_state::__size, next to
+> DMA_IOVA_USE_SWIOTLB, so struct dma_iova_state does not grow.
+> dma_iova_destroy() then unmaps with a gather queued according to that
+> flag, skipping the sync for flush queue domains, and passes the same
+> gather to the IOVA free, so the IOVA space (and any page table pages
+> released by the unmap) goes through queue_iova() again. dma_iova_free()
+> honours the flag as well. The whole reservation is still freed, keeping
+> the size fix of the reverted commit.
+> 
+> A gather must always be retired, either by iommu_iotlb_sync() or by
+> handing it to the flush queue together with the IOVA, and the IOVA must
+> never be returned to the allocator while a queued invalidation for it is
+> still pending. To keep that obvious, the internal unlink helper only
+> unmaps into a gather supplied by its caller, and each caller retires it
+> right away: dma_iova_destroy() syncs or queues it together with the IOVA
+> free, exactly like __iommu_dma_unmap(), while dma_iova_unlink() always
+> uses a never queued gather and syncs it, as the unlinked range remains
+> owned by the caller and may be linked again immediately.
+> 
+> Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
+> Reported-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Closes: https://lore.kernel.org/all/20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com/
+> Suggested-by: Leon Romanovsky <leon@kernel.org>
+> Cc: stable@vger.kernel.org # v7.3+
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>  drivers/iommu/dma-iommu.c   | 103 ++++++++++++++++++++++++++----------
+>  include/linux/dma-mapping.h |   8 ++-
+>  2 files changed, 83 insertions(+), 28 deletions(-)
 
-Tested the series on a Snapdragon 8 Elite (SM8750, Lenovo TB322FC) with the
-vpu35 firmware (vpu35_p4.mbn) on a 7.3-based tree. Before the series every
-decode failed with "capture: driver decode error"; with it the decoder is
-fully working. Details and how I adapted it to my (older) tree below.
+<...>
 
-What I changed to apply it
---------------------------
-My tree is from 2026-10-14 and had none of the base symbols, so a straight
-git apply failed from patch 03 on (context drift, not semantic conflict).
-I applied the 11 patches with `patch -p1 --fuzz=3`. The only real gap: patch
-11 calls iris_vb2_signal_eos(), a helper that comes from a different commit
-and is not in this series nor in my tree, so I added it locally with the same
-semantics as the inline block in iris_vb2_buf_queue():
+>  /*
+>   * All flags stored in the upper bits of dma_iova_state::__size. Sizes passed
+>   * to dma_iova_try_alloc() must not overlap with them.
+>   */
+> -#define DMA_IOVA_FLAGS			DMA_IOVA_USE_SWIOTLB
+> +#define DMA_IOVA_FLAGS			(DMA_IOVA_USE_SWIOTLB | DMA_IOVA_USE_FQ)
 
-	void iris_vb2_signal_eos(struct iris_inst *inst)
-	{
-		const struct v4l2_event eos = { .type = V4L2_EVENT_EOS };
+We need to be careful here. Every bit reduces the IOVA space available to
+everyone. It is only a matter of time before someone complains that __size
+is too small for their use case. This extra bit is probably not an issue,
+but that could change if we keep adding bits to DMA_IOVA_FLAGS.
 
-		if (!v4l2_m2m_has_stopped(inst->m2m_ctx)) {
-			v4l2_event_queue_fh(&inst->fh, &eos);
-			v4l2_m2m_mark_stopped(inst->m2m_ctx);
-		}
-	}
+Thanks
 
-Results (H.264 and HEVC, 640x480@30, 3 s = 90 frames)
-----------------------------------------------------
-- ffmpeg -c:v h264_v4l2m2m -i t.mp4 -f null -   -> frame=90, no decode error
-- ffmpeg -c:v hevc_v4l2m2m -i t.mp4 -f null -   -> frame=90, no decode error
-- framemd5 of the hardware decode matches the software decode for all 90
-  frames (0 mismatches) for both codecs.
-- Moonlight (Sunshine host, HEVC stream) now picks hevc_v4l2m2m on
-  /dev/video17 "Iris Decoder" and decodes in hardware; before the series it
-  fell back to software ("[h264_v4l2m2m] can't configure decoder").
-
-One note that may be useful for the changelog
----------------------------------------------
-The spurious ERROR buffer is not fixed at iris_hfi_gen2_response.c where the
-zero-size PSC_LAST is flagged (that check still tests LAST, not PSC_LAST
-after the series). It is fixed earlier: patches 09/10 make the first,
-unchanged settings change unsignalled (early_capture / drc_unsignalled), so
-the zero-size PSC_LAST is re-queued instead of being reported as an error.
-Might be worth wording the commit message around that path rather than the
-flag check.
-
-For the record, the series also happens to make several v4l2-compliance buffer
-checks pass (REQBUFS/EBUSY), independently of the three format fixes I am
-sending separately.
-
-AI assistance was used to prepare this report; I reviewed it and all the
-measurements above are mine.
-
-Tested-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-
-Thanks,
-Qianhui
-
+>  
+>  static inline size_t dma_iova_size(struct dma_iova_state *state)
+>  {
+> -- 
+> 2.43.0
+> 
