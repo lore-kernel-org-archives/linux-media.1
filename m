@@ -1,50 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779706;
-	b=baljZA4V14ERhXh7cQX83z90VIUcxLD5nvsKYVOtS2WMOs+sYEvOr1920/m7YthhLJMO
-	 tT2eAFbS4pH50+3Tw/cCqEqtr1aR4GkHN1BaxS+GZnI0rBaN3wZRO9Df1eyf64Jfqbids
-	 nFh3ijY8RuNW+zwtm5YU6/YORIC5FneF3n/mxdnuxapLm/37FLkXMuos4vl8LAvpf3E4E
-	 U3eeAWgVgcIsgJUKVUalXBAvvDGarxRS+pXcGvDTPWVULL+sJCWCYdoAPYQQXFofeUl4U
-	 bI9PuWgjC6WBU26/Gi+JaAACqGM2mwnVz+MgrxhootrFDKPwfddfyHfcSzyquXoww/A==
+	t=1795779707;
+	b=1MV5GNg3Y2G13YSr9wpixLhllnbOjKZy1kwSJGX+nIL3LuedODJdH+wwpHaEFCag1yrS
+	 +eFFJRe4e/xKWrf83dMH79ut7c/ScKkvKSLml1GTN03m+G50p4qcyarO6UScjwXJJlo92
+	 RKWcA4djwafDE1zfdcvNhUJFb+nwzFY4+tPdYzdmPijiXFqPxKEx/CoSgFnge11samLrd
+	 1ajxi8H55R4oCn9Tp1e9JX/IqCWJjjMDFZwNVy6NOC2itgU9bOarp7v5EtCq6XxqLk0sH
+	 nLAdQScTBrF7sjOgCrq3a93aPNWwrXRvDmkELMEoAPQVOIPU5h1/9f6drQu9Fyubj1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779707;
 	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
 	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
 	 X-QQ-RECHKSPAM;
-	bh=x7cYJVc8D8uoWQORRbWYC2jDzNAHY2d8XC7XxfJKb8w=;
-	b=WUsmGO6Kh8oOFNFS9JhkucJdpW8qeeUD+rqrEkizvSNmXj/99yMIZG4Y4v0kMArZWHRn
-	 tGujl7RiLkN0pql2YlO9KMhfhxzRrfHukCF4uMNx6lUQtP2cjub2GJAj+FhfiFSh7HkqC
-	 R864kL3AA/q6n2khpjzQUX6MxgimoqJoqXueJKBCmQPh7V5Vi4MddbvNaO/9n+UdZ5nVK
-	 YkS2xj2UzB1xEwepH5WLRVI5x8ncqhyMa7OQ3v8OEZd0v/5NVzCF8fJkyF8Fy7ydeNN2q
-	 vaTv8fpJcb5gTZ7H5ZuOwYvDw6Jsxc/nLDM9GBIdjmaKtWQ4gU1eFEOAUM75/X2SIqA==
+	bh=LNbwnZgnZRBmXitaSP9m8ecdg1y9pIvlUsa0s/9VW+Q=;
+	b=ATjGWs9qphVmM2McmHVlBgS+LHb4vXLSJtPZSgPqhLq5jzbzurSAb4/7xl3fOCC/cPsn
+	 CqJH/3dtC8KKpUkMt8KCUurrl4c3HPnmqfdtj6zjzl14WwsLcRJJD0VK9Joc5js5M9xml
+	 LmhCzsaErUDK9+QHbMwhsQzmpHMkI9QBCiX+uEVKAIbvsh4jFarbPhDo/ogQawRri5Yv4
+	 nrwI1Mmf03RsCosqS+Y81J6Z/mxVPbngol50NwBRKKdUhHLHEuBg+T8yJL1/N8qXTEiO2
+	 5t+jsiRlUOIeDvQzIvKnYyQQCwtED/dxrLbOiKtHgoU9J4YKRPZjek0VZyNSBpByvag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=radxa.com;
 	spf=pass smtp.mailfrom=radxa.com;
-	arc=none smtp.remote-ip=54.207.19.206
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A934606A697;
-	Fri, 27 Nov 2026 11:41:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A934606A697
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83845606A6A0;
+	Fri, 27 Nov 2026 11:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83845606A6A0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1795779677tec956ef0
-X-QQ-Originating-IP: BBCgdYenzmVxDo3eYyDDP/7qOlyPgNc7tXTTfo2QV78=
+X-QQ-mid: zesmtpip3t1795779680t75fa3012
+X-QQ-Originating-IP: ZcPxIE3Wl0Qn6RcePu7TZOYMvdvF01Bi8cIRbUzI6Ss=
 Received: from [192.168.30.32] ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 27 Nov 2026 19:41:15 +0800 (CST)
+	id ; Fri, 27 Nov 2026 19:41:18 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9762895957016935004
+X-BIZMAIL-ID: 16196504210606186933
 EX-QQ-RecipientCnt: 19
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 27 Nov 2026 19:40:56 +0800
-Subject: [PATCH v2 3/5] media: iris: Add deblocking filter controls for HFI
- gen2
+Date: Fri, 27 Nov 2026 19:40:57 +0800
+Subject: [PATCH v2 4/5] media: iris: Preserve timestamps on error buffers
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -56,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-iris-va-fixes-v2-3-385e8636c22d@radxa.com>
+Message-Id: <20261127-iris-va-fixes-v2-4-385e8636c22d@radxa.com>
 References: <20261127-iris-va-fixes-v2-0-385e8636c22d@radxa.com>
 In-Reply-To: <20261127-iris-va-fixes-v2-0-385e8636c22d@radxa.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
@@ -71,346 +70,66 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Loic Minier <loic.minier@oss.qualcomm.com>, 
  Jason Pettit <jason.pettit@oss.qualcomm.com>, Xilin Wu <sophon@radxa.com>, 
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, sakimidare <ssmzhn@163.com>
+ sakimidare <ssmzhn@163.com>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11372; i=sophon@radxa.com;
- h=from:subject:message-id; bh=aPUR30J7J5RuwGt9grdi5iqIh8NtTkGcUIoWdgGua/4=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDNmcOYEf+np1Kni3bo/5Os/Vomrbf4XyuS0xM1yVM1jZU
- 1MXX1nWUcrCIMbFICumyKIQzzCXvTL32lOxUj2YOaxMIEMYuDgFYCJsmxgZNu5d1pX1SPSwTWLN
- 9eK+J918xYasK2U6stNvHrb6KxVtyPDP7uSi189+Xf79u11H+V7GuoiLJrX79SeqZZc7xwvcF2/
- jBAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1295; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=n1ViCHdS71QA0f+YOFo2yT79o1EmcPLDGtJvQTmraqk=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDNmcOYF3Vb+9/6m07OEhtfZbwWzv9Tcyvcrriu6qTPz2e
+ WJIJGtlRykLgxgXg6yYIotCPMNc9srca0/FSvVg5rAygQxh4OIUgInkvWT4X9rNtcbB0Ol0hnKS
+ YRbTKc5r7F0V6z7k/7Bade9wzpMTaxgZ5p3fZ7YnZGV45UyHsPjzv84d0xG7JHFcKTg3qFaFz5e
+ NFwA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MGrSfDJOGEDKabsO/HiKDboWwI3GFAbBBBOZcs5e3PLSZAAAK8Z8Ku+N
-	vRLJQrT/v7PbNUAGL6XQo8QigZZ6exFqSpwd/00kYupZMB8l4+GDbXBa1y0Rgislk0WPmuA
-	wLvbib3kkzYW5EDFKnIF73E5sQTte524B7c9MFcwLB3YgTt9aaZouPBUgKgIvxGDSDw2GOy
-	CTxIX3MF7yoHzwUs8mwR4hV6gmPWX8HqNSVkgxjXhcqgHoX0jtVyl4XgVRR/CccCxggiNOn
-	YYNS1IMQwW1EAXICCGEvCdtgLMHdOYzoKGf9+4ZTShUn8gDBvkVHYCq2X4M2P3cnqY6lG3v
-	dDchPEl4IqQhTPVNDWn8pShZ32vVkTdxKWqsx6PRe6oJpN0W1MwUCeOenBzmFGqhBpXTn10
-	MYRyg6ZTyRQ6qyu6RMx0g+1mE4PiJNMHblDTpmkt1KQgRYnsO68mnrj7ecKQE7JtfaEYZ/x
-	COrjUWVucagUwsZOphK0/hofV+Ujt04AruNHn85OfHi0Fq3e3B+HGpOKeA7j6/aexHvxF2v
-	VwQQs3PNovp4F66lNKEyG6fQmsIbcSdo0U3hF3hqC+5HYQp3PClAfKGq5l+m5IZoU4Z/Pq5
-	j22PHkBPpX5Aj3TGE7DhSpE4BVFZQS+U7cmDpIZIlCOvEBOhe/sySYK7KylORQ6FYrAsn2d
-	EVMdEagB/jNR4+TZ6f9Qw1W03hlbNYzd9Y8Ml4W+3n1vb86sm6yJvO1wsptNjky5wDdazjg
-	DUcLGYrOvxhQw61nAOkIeXnDh+BFKGaF1k1Ej9zLyiAeREkSppmxYBGXBeGY09FtoZBthJk
-	kzt3MhxQvA90uNKHKQvwm8mtPZEk6HzJ9HkCWmtVHYNxQ3gcBPX/gNFqQboKbDWsmZ2py7U
-	LmcQXFsrbz+vwcb6v+PcWCWSfxW8zCOK06rSwRVcKHqhoGPFHBKbmB6YsVJeAaey051p6SY
-	tmwTJTRHh2dqEwPyX2rTW4QrhM4mE9gtpWuiWpnIpbyoc/VFIaFmLevHLvTwAo0KND7Nxm+
-	zTRk0BSN035lU7/LF3OsE4z/18ZdK0Mc1HqaQHaXsYYh+FigA5n3N84ksh9o5aDg6JpPGBT
-	i32P+aLPtKO5qtpH4AzQ3U=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: NFN0Qhrj1+QE+jxzpwMXd7ggPKpBJlUqlSG1zQVQzb8b0b+5pIvLSLfj
+	q1M6sQ4wtMuNow/zsUgIGdtVZi3lZh56yuViAyXix+6/ahFPiv+TuuSnReK3EBHnUYgfDky
+	owLlLiZt0oP/7jQa9UuM71BQ5m7KNX1Z1aHbj+GDrsbcozxa0/AWQTOXpPCohRhBAT6sRL9
+	1yaHbguUqjDQOFR7OCWp93YZfrL31LBxQY2k3G86JrO4uteVbZZu+cCP7LC1JNQiQeo0mqi
+	x0xKa8co3Za2eSWQc44ycnoOFqrsxH5dZO83zrsD26pYaHH5XcOBa2y7cSSjeU7xgIhBDYa
+	yRo+qV/T40/wkw5AV84Ja+d+6xQPua7mJM11poMkF4oDLUJAnUN7cpbEe4c1Rj2Tm4NXh3C
+	AQ15SF5B4qisT+4Onuo3n3dFMoMi9zv7dwP+2MK4wG06Kq622kVNx/JxQXPZl34uaZHc/RQ
+	0aQabuMHw6xdeKPVKSKu2NbwyzQW3T4gdcRiPj9/XPcQcz4xC9ZVK77LkuZtDi8374vAKlt
+	9LyM1TlAFRZA8+kxzQy1CuDir6jGfpP/Zb9J4L3fCUvgCg0clzmgbTjWAI8a8v5mrjGb8XA
+	oh+XT7ihCuB4hjtvqPcupTcNWnsmIGFe7B+noCByfrrMKo2gMsL7bV7lAYFurYlVKaTcSz3
+	MO3cOOkewWIHSNGUyCInEM6HqLbB5MV79nhborHq9jiMQJSXzetL9zE31Wjxmzdvh4mmThx
+	GYuN0LAZaKKwmO3xNr2LQyDoRCdFtiiSTvib1t+oMkOL8UUUH0pKoN+B09GnosukFDWS07w
+	CSTRvV8esDl6YTiRdx+A9k1LecmsC+l1yPfYi+lgb8trcHxpj3E+Dko+68EJt91GibzdfWn
+	MX5YvC1HieOacVFLBBBQlFfFhVRdfVTL3GhGv4gDMU3DJcw8MWrS6J46mt2r7Mq3jtS+auo
+	WLLLav3HTNhasC7Bdy1L1ssrxGtMuwvrIAvaKJVGX8+But/bHdSxNghNBH2xrZvaCz3y+TT
+	qexPdLDO4KWV2XNw+WULnoCA+b4tsin0gHFqhZWOuXy0YTnx4AjuQ406kPYkwGt4N2LU+Qi
+	avDIFHEJIAb/r0L1D3Zx/XIv/9/eey5CetQPaOZQvHkH5LDicGXCQY=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
 X-QQ-RECHKSPAM: 0
 
-HFI gen2 encoders do not expose deblocking filter controls, preventing
-applications from configuring the filter mode and offsets.
+Clearing timestamps on error buffers prevents clients such as libva-v4l2
+from identifying the failed picture and can cause synchronization timeouts.
 
-Add the standard V4L2 H.264 and HEVC loop filter controls.
+Preserve the firmware-provided timestamp when returning an error buffer.
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Fixes: b791dcfcba3a ("media: iris: Add handling for corrupt and drop frames")
 Tested-by: sakimidare <ssmzhn@163.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/media/platform/qcom/iris/iris_ctrls.c      |  85 +++++++++++++++
- drivers/media/platform/qcom/iris/iris_ctrls.h      |   1 +
- drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 116 +++++++++++++++++++++
- .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   8 ++
- .../platform/qcom/iris/iris_platform_common.h      |   6 ++
- 5 files changed, 216 insertions(+)
+ drivers/media/platform/qcom/iris/iris_buffer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-index 0b59fc79971c..aa98499b48c0 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.c
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-@@ -55,6 +55,18 @@ static enum platform_inst_fw_cap_type iris_get_cap_id(u32 id)
- 		return GOP_SIZE;
- 	case V4L2_CID_MPEG_VIDEO_H264_ENTROPY_MODE:
- 		return ENTROPY_MODE;
-+	case V4L2_CID_MPEG_VIDEO_H264_LOOP_FILTER_MODE:
-+		return DEBLOCK_MODE_H264;
-+	case V4L2_CID_MPEG_VIDEO_H264_LOOP_FILTER_ALPHA:
-+		return DEBLOCK_ALPHA_H264;
-+	case V4L2_CID_MPEG_VIDEO_H264_LOOP_FILTER_BETA:
-+		return DEBLOCK_BETA_H264;
-+	case V4L2_CID_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE:
-+		return DEBLOCK_MODE_HEVC;
-+	case V4L2_CID_MPEG_VIDEO_HEVC_LF_TC_OFFSET_DIV2:
-+		return DEBLOCK_TC_HEVC;
-+	case V4L2_CID_MPEG_VIDEO_HEVC_LF_BETA_OFFSET_DIV2:
-+		return DEBLOCK_BETA_HEVC;
- 	case V4L2_CID_MPEG_VIDEO_H264_MIN_QP:
- 		return MIN_FRAME_QP_H264;
- 	case V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP:
-@@ -210,6 +222,18 @@ static u32 iris_get_v4l2_id(enum platform_inst_fw_cap_type cap_id)
- 		return V4L2_CID_MPEG_VIDEO_GOP_SIZE;
- 	case ENTROPY_MODE:
- 		return V4L2_CID_MPEG_VIDEO_H264_ENTROPY_MODE;
-+	case DEBLOCK_MODE_H264:
-+		return V4L2_CID_MPEG_VIDEO_H264_LOOP_FILTER_MODE;
-+	case DEBLOCK_ALPHA_H264:
-+		return V4L2_CID_MPEG_VIDEO_H264_LOOP_FILTER_ALPHA;
-+	case DEBLOCK_BETA_H264:
-+		return V4L2_CID_MPEG_VIDEO_H264_LOOP_FILTER_BETA;
-+	case DEBLOCK_MODE_HEVC:
-+		return V4L2_CID_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE;
-+	case DEBLOCK_TC_HEVC:
-+		return V4L2_CID_MPEG_VIDEO_HEVC_LF_TC_OFFSET_DIV2;
-+	case DEBLOCK_BETA_HEVC:
-+		return V4L2_CID_MPEG_VIDEO_HEVC_LF_BETA_OFFSET_DIV2;
- 	case MIN_FRAME_QP_H264:
- 		return V4L2_CID_MPEG_VIDEO_H264_MIN_QP;
- 	case MIN_FRAME_QP_HEVC:
-@@ -884,6 +908,67 @@ int iris_set_entropy_mode_gen2(struct iris_inst *inst, enum platform_inst_fw_cap
- 				     &entropy_mode, sizeof(u32));
- }
- 
-+int iris_set_deblock_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
-+{
-+	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-+	u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
-+	u32 mode = inst->fw_caps[cap_id].value;
-+	u32 alpha_tc, beta, hfi_value;
-+
-+	if (inst->codec == V4L2_PIX_FMT_H264) {
-+		if (cap_id != DEBLOCK_MODE_H264)
-+			return 0;
-+
-+		switch (mode) {
-+		case V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED:
-+			mode = HFI_DEBLOCK_ALL_BOUNDARY;
-+			break;
-+		case V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED:
-+			mode = HFI_DEBLOCK_DISABLE;
-+			break;
-+		case V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY:
-+			mode = HFI_DEBLOCK_DISABLE_AT_SLICE_BOUNDARY;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		alpha_tc = inst->fw_caps[DEBLOCK_ALPHA_H264].value + 6;
-+		beta = inst->fw_caps[DEBLOCK_BETA_H264].value + 6;
-+	} else if (inst->codec == V4L2_PIX_FMT_HEVC) {
-+		if (cap_id != DEBLOCK_MODE_HEVC)
-+			return 0;
-+
-+		switch (mode) {
-+		case V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_ENABLED:
-+			mode = HFI_DEBLOCK_ALL_BOUNDARY;
-+			break;
-+		case V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED:
-+			mode = HFI_DEBLOCK_DISABLE;
-+			break;
-+		case V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY:
-+			mode = HFI_DEBLOCK_DISABLE_AT_SLICE_BOUNDARY;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		alpha_tc = inst->fw_caps[DEBLOCK_TC_HEVC].value + 6;
-+		beta = inst->fw_caps[DEBLOCK_BETA_HEVC].value + 6;
-+	} else {
-+		return 0;
-+	}
-+
-+	/* Firmware expects offsets biased by 6, with alpha or HEVC tc in bits 23:16. */
-+	hfi_value = alpha_tc << 16 | beta << 8 | mode;
-+
-+	return hfi_ops->session_set_property(inst, hfi_id,
-+					     HFI_HOST_FLAGS_NONE,
-+					     iris_get_port_info(inst, cap_id),
-+					     HFI_PAYLOAD_32_PACKED,
-+					     &hfi_value, sizeof(hfi_value));
-+}
-+
- int iris_set_min_qp(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
- {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.h b/drivers/media/platform/qcom/iris/iris_ctrls.h
-index 08db80744420..82437f4e19c1 100644
---- a/drivers/media/platform/qcom/iris/iris_ctrls.h
-+++ b/drivers/media/platform/qcom/iris/iris_ctrls.h
-@@ -29,6 +29,7 @@ int iris_set_bitrate_mode_gen1(struct iris_inst *inst, enum platform_inst_fw_cap
- int iris_set_bitrate_mode_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_entropy_mode_gen1(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_entropy_mode_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
-+int iris_set_deblock_gen2(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_min_qp(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_max_qp(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
- int iris_set_frame_qp(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id);
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-index 90cba1ae534b..b41d59c645a9 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -367,6 +367,64 @@ static const struct platform_inst_fw_cap inst_fw_cap_milos_enc[] = {
- 		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
- 		.set = iris_set_entropy_mode_gen2,
- 	},
-+	{
-+		.cap_id = DEBLOCK_MODE_H264,
-+		.min = V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED,
-+		.max = V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY,
-+		.step_or_mask =
-+			BIT(V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED) |
-+			BIT(V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED) |
-+			BIT(V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY),
-+		.value = V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED,
-+		.hfi_id = HFI_PROP_DEBLOCKING_MODE,
-+		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+		.set = iris_set_deblock_gen2,
-+	},
-+	{
-+		.cap_id = DEBLOCK_ALPHA_H264,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
-+	{
-+		.cap_id = DEBLOCK_BETA_H264,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
-+	{
-+		.cap_id = DEBLOCK_MODE_HEVC,
-+		.min = V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED,
-+		.max = V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY,
-+		.step_or_mask =
-+			BIT(V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_ENABLED) |
-+			BIT(V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED) |
-+			BIT(V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY),
-+		.value = V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_ENABLED,
-+		.hfi_id = HFI_PROP_DEBLOCKING_MODE,
-+		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+		.set = iris_set_deblock_gen2,
-+	},
-+	{
-+		.cap_id = DEBLOCK_TC_HEVC,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
-+	{
-+		.cap_id = DEBLOCK_BETA_HEVC,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
- 	{
- 		.cap_id = MIN_FRAME_QP_H264,
- 		.min = MIN_QP_8BIT,
-@@ -1329,6 +1387,64 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
- 		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
- 		.set = iris_set_entropy_mode_gen2,
- 	},
-+	{
-+		.cap_id = DEBLOCK_MODE_H264,
-+		.min = V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED,
-+		.max = V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY,
-+		.step_or_mask =
-+			BIT(V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED) |
-+			BIT(V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED) |
-+			BIT(V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY),
-+		.value = V4L2_MPEG_VIDEO_H264_LOOP_FILTER_MODE_ENABLED,
-+		.hfi_id = HFI_PROP_DEBLOCKING_MODE,
-+		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+		.set = iris_set_deblock_gen2,
-+	},
-+	{
-+		.cap_id = DEBLOCK_ALPHA_H264,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
-+	{
-+		.cap_id = DEBLOCK_BETA_H264,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
-+	{
-+		.cap_id = DEBLOCK_MODE_HEVC,
-+		.min = V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED,
-+		.max = V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY,
-+		.step_or_mask =
-+			BIT(V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_ENABLED) |
-+			BIT(V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED) |
-+			BIT(V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_DISABLED_AT_SLICE_BOUNDARY),
-+		.value = V4L2_MPEG_VIDEO_HEVC_LOOP_FILTER_MODE_ENABLED,
-+		.hfi_id = HFI_PROP_DEBLOCKING_MODE,
-+		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+		.set = iris_set_deblock_gen2,
-+	},
-+	{
-+		.cap_id = DEBLOCK_TC_HEVC,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
-+	{
-+		.cap_id = DEBLOCK_BETA_HEVC,
-+		.min = -6,
-+		.max = 6,
-+		.step_or_mask = 1,
-+		.value = 0,
-+		.flags = CAP_FLAG_OUTPUT_PORT,
-+	},
- 	{
- 		.cap_id = MIN_FRAME_QP_H264,
- 		.min = MIN_QP_8BIT,
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-index e89ed4075526..04e5429328eb 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
-@@ -57,6 +57,14 @@
- #define HFI_PROP_BUFFER_FW_MIN_OUTPUT_COUNT	0x03000124
- #define HFI_PROP_PIC_ORDER_CNT_TYPE		0x03000128
- 
-+enum hfi_deblock_mode {
-+	HFI_DEBLOCK_ALL_BOUNDARY			= 0x0,
-+	HFI_DEBLOCK_DISABLE			= 0x1,
-+	HFI_DEBLOCK_DISABLE_AT_SLICE_BOUNDARY	= 0x2,
-+};
-+
-+#define HFI_PROP_DEBLOCKING_MODE			0x03000129
-+
- enum hfi_rate_control {
- 	HFI_RC_VBR_CFR		= 0x00000000,
- 	HFI_RC_CBR_CFR		= 0x00000001,
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index aa8cd2e1b3f1..75e56d10f5d0 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -158,6 +158,12 @@ enum platform_inst_fw_cap_type {
- 	FRAME_RC_ENABLE,
- 	GOP_SIZE,
- 	ENTROPY_MODE,
-+	DEBLOCK_MODE_H264,
-+	DEBLOCK_ALPHA_H264,
-+	DEBLOCK_BETA_H264,
-+	DEBLOCK_MODE_HEVC,
-+	DEBLOCK_TC_HEVC,
-+	DEBLOCK_BETA_HEVC,
- 	MIN_FRAME_QP_H264,
- 	MIN_FRAME_QP_HEVC,
- 	MAX_FRAME_QP_H264,
+diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+index eb8de60c1177..f790483d13d4 100644
+--- a/drivers/media/platform/qcom/iris/iris_buffer.c
++++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+@@ -899,7 +899,8 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
+ 	if (buf->flags & V4L2_BUF_FLAG_ERROR) {
+ 		state = VB2_BUF_STATE_ERROR;
+ 		vb2_set_plane_payload(vb2, 0, 0);
+-		vb2->timestamp = 0;
++		/* Allow userspace to associate the error with the input frame. */
++		vb2->timestamp = buf->timestamp;
+ 		v4l2_m2m_buf_done(vbuf, state);
+ 		return 0;
+ 	}
 
 -- 
 2.56.1
