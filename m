@@ -1,44 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795792840;
-	b=LkXcwMxm7N0ktVm898/G31KTPbNn5ZGbvUJgk4E3tM8/ndaFXUzZ/uqfwL6ZWp9tqPAK
-	 WZwNOzfKpQHK1BNWRHnuewuIITnGFhHB1rfxEUrdOIT8rgkL4exmEefVV4O4ObmXpCUgx
-	 zQ2Ett60JQyPTOZtPnxn6BgiE5SbjrcbzPkf5VISS/hFgJ8P94PRgEZuAllrDqo4RV1W0
-	 IBDtlSjrfmA99vROS9n/eVIGp4RnXtOEfE7Xp8PK9rRGRXuC+FDWiAkOboB2NDLLamSKO
-	 oPCD9PjqtbIHeaL1lqmRXB0zevD2d798A4w14KlNV3mZtjg3caJJW+mZDsmgmhKsgfw==
+	b=QcggH6Vj4IZkZqhAt3YDEDz51I2SB4i/J7/yIhiwjednRGChkyKkxKoUDGMTT1428MA+
+	 qQr4gUdhYCgN73GJey55alv+6RhoejYJPiHj/ui99OHOp2wqD1Ww7gJPUt38oHMRn7iT2
+	 J5ya1QhTQwCcgTWMnDpsEg6W3UQYaV55Nj/Eldx8RzIRG0cqF8W2mkZJVJGsEvuz2U/XF
+	 JZkuAdKOYk8VOGqLbiXGZf4RC1YEntw3ggYLc6h5OawJJBlrzDFPKUgu93z/qqDDh7Pvp
+	 SKNd1tQEINrzsysjaFij8c4JkrtkauUDG8B8kbvxbDUOv0uARUSo7xFV12OjtMMijeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795792840;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Z2HFeDIZKxBehZmXft2LK29Tf53sWMhpAniHKu0N03U=;
-	b=Pc6g/vpQW5dNz32G3PEGuzi4Y3RmaQtUbut79mJsMfiwmetBgsD/DBgfkwYr8nSYfiUm
-	 tMRp8A9KpQ58q2xWFMJ5+3Dux6k1/OoXaUa+7pgeP+TKGTYGShHhQWkNAEUQ16I//mDAt
-	 vy4AfrgxuPjmQ4LYP+DFWTGddgfu+cIn9uHtRoC/h+3rRBeoPdBabEkMj7+/aiN9JK2w5
-	 HOggHQ+or8JvzGx1ZnSJpc7PkAoy/aSZACh5K2XsTENEfSyzAS6yyUl0Bb24LPiK2hj8Z
-	 VjC2Rk/rsFA/FW/2Qvd5sfXydVyYvCQ0jUPirfGCRKq11B3cs82Ihsy45mBBzoQdXNQ==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=6gfcEI0d1iDPQQPAeSbZ7xfrsCIN10+HJASAbCPe2HE=;
+	b=iiHIs1IbAtvSbmK9ZTm/0Bz3EaH6PbLXtB9CPX2UjJ4VRypHHrl4q2JdoGz6eDGvrCLW
+	 PaAMjKWJp8wRkY7xRULXbq3XxHN7fd0NRDuxSIfUw952JWjW0vexIRt0T+yuNbl3UJ17b
+	 da5jkD0n8VAoKv4M5wx7OTp0Rqr0mlxn3KzbwpErizlaQNoORmv2dYNgx2RKaMEHQ5Z96
+	 yJ9IX0Fj96cfK/rw9XgnWWFyU+GDL8QyQXnb2nrL8syLL67gAlfv46hkkt8W9dNgi7bwK
+	 H8FJx2NWMzCzhXYdjxFhMYKHxoLTB4adHd2QTq5Zw3qNq9oNVc5fQyctMv0bp10wFrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=TpaFP6zQ;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=fd4se8+m;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AEC3606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AE99606A321;
 	Fri, 27 Nov 2026 15:20:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AEC3606A323
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE99606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=TpaFP6zQ
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=fd4se8+m
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=Z2HFeDIZKx
-	BehZmXft2LK29Tf53sWMhpAniHKu0N03U=; b=TpaFP6zQvpWqJOh7m3nILdbPtv
-	uDyXpC/JSEIfVL3FKPtbQ7U0jVHfP1Gh9KVYfL1pg6Fbgxmpq3IemcpvsGxm6VZz
-	prfp7db6rkLColTjpt72BxPaROGpSq/yiBjd2obKQjtoI6Ev6+TGHED86Ll65dnS
-	PEOLiggwPcv7wSPic=
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=6gfcEI0d1iDPQQPAeSbZ7xfrsCIN10+HJA
+	SAbCPe2HE=; b=fd4se8+mEOcXB1FpaBVH/vFgYbTopAO3cQlfiCjwEUHlYLkJ2D
+	TADsW2aWqxOej/E6s5fTYNCR8rANpdCUdTOahGCiIWuncnnoAbVPNrt93fClJ/Oe
+	Tkxp0SaEbNFzyaOHGFiYq0Wzw7tHPnMYCm/kwFR11eFz1WdWo6Emb+UOI=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.66])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnMke4nwlrB1EDAQ--.2959S2;
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnMke4nwlrB1EDAQ--.2959S4;
 	Fri, 27 Nov 2026 23:20:25 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: linux-media@vger.kernel.org
@@ -50,10 +51,12 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>,
 	Stefan Schmidt <stefan.schmidt@linaro.org>
-Subject: [PATCH 0/3] media: iris: fix v4l2-compliance format and cap issues
-Date: Fri, 27 Nov 2026 23:20:21 +0800
-Message-ID: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 2/3] media: iris: fill in a default colorspace for decoded formats
+Date: Fri, 27 Nov 2026 23:20:23 +0800
+Message-ID: <20261127152024.2149804-3-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,54 +67,92 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgCnMke4nwlrB1EDAQ--.2959S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw1kCw4UtF47Ar4DurW7Jwb_yoW8Xr1fpa
-	y3ZanxArs7Gryakrn3Zw12qa43t3WfGasFgrnF93srZF15GrWIqrWIka1vgryUGFyIva4a
-	vr12q393uanxAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5QZ2DUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggAssZ
+X-CM-TRANSID:3pYKCgCnMke4nwlrB1EDAQ--.2959S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxCw18Zr1ftr1xGryUWFWDtwb_yoW5Kr4xpF
+	1rCrs8ZF4UXrnxJFsrJ3yFganxXay8XryY9FZxGrW7CFs8C3WfWrWvkF13GayUJrsxA345
+	Cr1UAFZ8Can8Cr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBqb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
+	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
+	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87
+	Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU0BHq5UUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggAusb
 
-This is a small driver-quality series for the Qualcomm iris video codec that
-makes `v4l2-compliance -d /dev/video17` pass the format ioctls, cropping and
-composing tests on a SM8750 (vpu35) decoder. On our board the count goes from
-39/48 to 47/48; the single remaining failure is an unrelated control-event
-question we have not root-caused yet, so it is not addressed here.
+v4l2-compliance fails the format ioctls because the capture and output
+pix_mp colour fields are left at V4L2_COLORSPACE_DEFAULT:
 
-Patch 1 fixes the bus_info prefix. Patch 2 fills a self-consistent default
-colorspace so G/TRY/S_FMT round-trip a valid set (and stays idempotent when a
-client feeds G_FMT output back into S_FMT). Patch 3 seeds the crop rectangle
-when a client formats only the CAPTURE queue.
+  fail: v4l2-test-formats.cpp(414): !colorspace
+  fail: v4l2-test-formats.cpp(537): testColorspace(...)
 
-I could not split these off a real upstream base: my tree is from 2026-10-14
-and had to backport the decoder source-change series on top before these
-changes made sense, so the context may need a trivial rebase. Tested on
-SM8750/TB322FC with the vpu35 firmware, kernel 7.3.1.
+A decoder cannot know the stream's colours before it parses a frame, but
+the format still has to round-trip a valid, self-consistent set. Default
+to BT.709 limited range and keep the value when the client passes
+V4L2_COLORSPACE_DEFAULT back on S_FMT, so G_FMT -> S_FMT stays idempotent.
 
-AI assistance was used to prepare these patches; I reviewed every change and
-the testing/measurements are mine.
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ drivers/media/platform/qcom/iris/iris_vdec.c | 26 +++++++++++++++++---
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
-Qianhui Xu
-
-Qianhui Xu (3):
-  media: iris: report a platform bus_info prefix
-  media: iris: fill in a default colorspace for decoded formats
-  media: iris: seed the crop rectangle when only CAPTURE is formatted
-
- drivers/media/platform/qcom/iris/iris_vdec.c | 50 +++++++++++++++-----
- drivers/media/platform/qcom/iris/iris_vidc.c |  2 +-
- 2 files changed, 40 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+index e702e6b..32d4368 100644
+--- a/drivers/media/platform/qcom/iris/iris_vdec.c
++++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+@@ -36,6 +36,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	f->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
+ 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_INPUT);
+ 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 	inst->buffers[BUF_INPUT].min_count = iris_vpu_buf_count(inst, BUF_INPUT);
+ 	inst->buffers[BUF_INPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
+ 
+@@ -48,10 +52,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	f->fmt.pix_mp.plane_fmt[0].bytesperline = ALIGN(DEFAULT_WIDTH, 128);
+ 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
+ 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
+-	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_DEFAULT;
+-	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_DEFAULT;
+-	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
+-	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_DEFAULT;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 	inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
+ 	inst->buffers[BUF_OUTPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
+ 	inst->frame_rate = MAXIMUM_FPS;
+@@ -325,6 +329,20 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 	default:
+ 		return -EINVAL;
+ 	}
++
++	if (fmt->fmt.pix_mp.colorspace == V4L2_COLORSPACE_DEFAULT) {
++		fmt->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++		fmt->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++		fmt->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++		fmt->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
++	}
++	if (inst->domain == DECODER &&
++	    inst->fmt_dst->fmt.pix_mp.colorspace == V4L2_COLORSPACE_DEFAULT) {
++		inst->fmt_dst->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++		inst->fmt_dst->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++		inst->fmt_dst->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++		inst->fmt_dst->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
++	}
+ 	memcpy(f, fmt, sizeof(*fmt));
+ 
+ 	return 0;
 -- 
 2.53.0
 
