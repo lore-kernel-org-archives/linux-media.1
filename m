@@ -1,57 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795803038;
-	b=Jv67a2BMIITZT0kTyeNHFbh8Jcd8qy52zdOrb8G5s0UY7umfLtvzeZktOAic3dIxIs32
-	 4bcdI9VGOYBDbU246YL1unixsjxtsLfMrePAPp85UgzQo/crmsbe6r3zTP8XZwE98rhDd
-	 d0N3cznt4rYJ5GpqFZ+oiHSDL8DDAPkUItyQrNbJfDQkb38jtKGQnDVN/wGH2pWRguHZc
-	 CCO8biO34LN77BrnjRYO8izDmubaqtdGQlrT3apXxRXSRoMeW1kWMxsxDnAyql9EgaoCZ
-	 OauAcq6VgLXx08u7RE2fnT48FuNMnJ83pGqzmctbLazuLh4pvD2O5/CqKfnkEV9tMZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795803038;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qj6sXs+CgtyUP++7pGL9qFS2nskS1G5FtRqYto9t8HU=;
-	b=1iSiOGl6BmPSdPLx4HACQl26nrGoTO/bLxg1JrGtudJun+6GRdtNVtxJ1m0bwcs9mjsA
-	 q9hx76fvhjZ3jI7GWZrDRMjbvJqAuhctCm4le4kZ5k+nD86rZsnTTmn8t4UzTSiE+jLvL
-	 pZRsHp9KSftX4sAdAoOY6fmBAtJyMDzNMIz0t+/uwfpMxqCUku+Ge+x379/y/WFmMtNQ1
-	 bfgGr5W0PLlTsegc+sDIj/Ib6E6DCJj0jUXZRS9n5itImrhMak5KXtYzvWvmlPHopfB1Z
-	 T67/4ATO+bZTJOEnzow2vCy3ddJ2RBXfpqWqgkjm5nagpXZir83AHv6t7uPrHf4WF0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nRu0Z70F;
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795804297;
+	b=Y2IUkYpf3bYNaN6a+yv8xA61cEXCxSnDBSyZRRYFlN1S4FVGsGIxZFCHCDnaAvu5tOYQ
+	 iW25YnPFu29EoTPQjVrlus5Zrs91qsgIUylS6TRRmoG/U7QR5EFDET3qs1DiSXLiaxbuE
+	 Dd+OxxeL8GjMK3LiMcj86TCpSp2KmwdF7/YVHQXqHtHpGqKjdro+7Dsvqxnc4yNHh/6n3
+	 vmqnl1vaENuH3L0zk9jBJfeXDbw19abfkxjVd3B1OM+v6wu99euUPwWuILBKybbN+ax0q
+	 WvjpnnLdi+VM8AvLr9KjvCU82ryDrkPK2P+/XFZgc3W+q7HbfJmqn6Mf//77z++FHqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804297;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=;
+	b=DmEPlPIw1zm+oGnMIgpeE9YtXPc701dpQ+Xhi1/moVkb1hGyC4TSP9YxRPhZdHTuzhCW
+	 f7KO0QsxijerMugZ1uJg64RkpCp64JoZooifnVWN/VoSb/sBFyguoSvq8uEzwKdFd+E/z
+	 Oh1eew6wlFC0bCaH/63YqWW2ZdtA7kFqjPmDBk6egD+ELJejFTvEZry8l0CAMiKb/grmC
+	 cm+oUChPXJPlIodKXoTRUWC/KEqNY1SqLWibjNMmeRbcCdyWkEgNLhqBSzYPQNou5/I21
+	 roHPG+VXdMwVFeq50XAD0AfND3K8yH6mMchwSYFxuRtMzIodsmZmxMwC8XdatA/lSFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IMeccm7S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49F8606A31C
-	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 18:10:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A49F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B16606A31C;
+	Fri, 27 Nov 2026 18:31:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B16606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nRu0Z70F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1795803035; x=1796062235;
-	bh=qj6sXs+CgtyUP++7pGL9qFS2nskS1G5FtRqYto9t8HU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=nRu0Z70FjvuE9643w2vwHolULu8DjKKrgX8iiERIiDc2pVRN4UBH73JYuUcmdUhHN
-	 r0LW+TlwkO3zG4S2h00YDr32ea2f2ajB6imuWnVo7kbX9IugHsjRd9BKgBiRicjD23
-	 pziMdIdbinnCn0JI1uw2u5+jdGfCSgg2GK0tI0w0jkDrdnkcK0zzQq1IpBNRqaKsYm
-	 i1UQ0J0785ZR8Ttfuofwg2v/5saz2L/wkJenMC6Gu5ns4h6EGyDH9wKgxkVed3/qBb
-	 dS/zGYmO6KluR8cu4S73aLyizbckIMXXYYSJQO97fT3zlRFxPa2Jt02UJtJkDfcyVE
-	 NWS9pj7jhjgDA==
-Date: Fri, 27 Nov 2026 18:10:27 +0000
-To: antoine.pichot@gmail.com
-From: Anthony Garcia <TonysTracer@pm.me>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, mchehab@kernel.org, hansg@kernel.org, andriy.shevchenko@linux.intel.com, dan.scally@ideasonboard.com, djrscally@gmail.com, dmanresa@gmail.com, dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/9] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
-Message-ID: <9M76pTkfqTFYYV0x7QQegwNjy5ZHwG2LsiwewU-KWrCowx5tvfp2L4W6za362xj-ymlfYDci3p_aGCNp9tPMPgy-jzBu-OFHHZJaNw-1o0c=@pm.me>
-Feedback-ID: 110080960:user:proton
-X-Pm-Message-ID: 87d127640e83a2597299a71c3816e4d5d9aa84d7
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IMeccm7S
+ARC-Seal: i=1; a=rsa-sha256; t=1795804251; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=GcMqO73PEdVaLiJBu5duohgpHn3k4/qNb5TYimDlaV7tEq8HCBTBrLkBwDrFjHZVYvw5q1VMjaK0WEu0wbXWZG50wFJRbxGsfwci766tf7Dx7hcBVfOQWlDo9xxUE/3oI8a4TKSXY48VzD+4G/n8s1ybxPk2VRCHJnNS/TS7jv8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795804251; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=; 
+	b=eOC3d2C58YVoUypwyQbfyw0Xogzt/MEb7FB3Cg64fBb0pOgbR0HQXaEznSrDhWCnMk11XRiHrhuhmkhiwMerA/kLAkr7nr4ybSumscDiJc8W2y91FPWCAJAfBcEX4TSCrAYl2LVgk1CMerJeVPkglbk2h3v6XeuBqb0X06URSH0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=IMeccm7SE7CGdiT7iDATyEoRNrVcxDsaK4EX+P0Qn2XLbAN59Ozz1WTZnmFYnP+mxBtNXseY7i8gAw6sRfUu6cSDwH6CPNVa2oP7fNUCtt+Y9iGUVO6eBHZu2D5w5CTjq2zd+KgxJ1KupcHhtQE0PvRqo91/+BsVAGPMtcGA6Io=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795804248352169.23768707491956;
+	Fri, 27 Nov 2026 10:30:48 -0800 (PST)
+From: Daniel Almeida <daniel.almeida@collabora.com>
+Subject: [PATCH 0/2] rust: dma_buf: add dma-fence signalling sections
+Date: Fri, 27 Nov 2026 15:30:36 -0300
+Message-Id: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,58 +60,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NWw6CMBQFt0Lut02gLVDYiuGjj1u8Boq2YEwIe
+ 7eKn5PMmbNDwkiYoC92iPiiREvIUF0KsDcdRmTkMgMveVNVvGVu1sxjsMgSjUFPE4WRWY3Coe+
+ 07lrI00dET+9f9jqcnDZzR7t+W38j4nPLf+upgdEJmV3mmda+0MabRpaGi1Yibxwq71XlpFJWd
+ E7xWjpTC4UwHMcHskWnM8QAAAA=
+X-Change-ID: 20261127-dma-fence-signalling-cae3def9aa97
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-ZohoMailClient: External
 
-Hi Antoine,
+dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
+code that the completion of a dma-fence depends on, so that lockdep can
+check it against the dma-fence rules. However, up until now, it was not
+possible to use the signalling tokens from Rust. Thus, add support for
+it.
 
-Tested on a Surface Pro 7 (Ice Lake). Its OV7251 IR camera sits behind
-an IPU4P, which I run with ruslanbay's IPU4P-on-IPU6 RFC series on
-linux-surface 7.3.0-rc7. I built kernel/backport/ov7251.c from your
-surface-ir-camera repo (commit 83b3ca1, so mainline 7.2 plus the
-linux-surface gain control rename and patches 1-8) as an out-of-tree
-module against that kernel. Patch 9 wasn't tested, I used the installed
-ipu-bridge. Capture was 10 runs of 10 frames each at 640x480 30 fps
-through libcamera's cam, with the frames saved and their mean pixel
-value measured.
+Patch 1 adds SignallingSection, a guard that begins a section when it
+is created and ends it when it is dropped. Patch 2 makes
+DriverFence::signal() take a &SignallingSection, so that its callers
+have to be in one.
 
-As posted it doesn't probe on my kernel:
+Patch 5 of the JobQueue series [1] changes the same signature to
+signal(&self, res). I will rebase on top of it once it lands and add
+the section to its callers then.
 
-  ov7251 i2c-INT347E:00: supply vdda not found, using dummy regulator
-  ov7251 i2c-INT347E:00: ov7251_write_reg: write reg error -121: reg=3D103,=
- val=3D1
-  ov7251 i2c-INT347E:00: error during global init
+A follow-up series adds a workqueue whose work items run in a
+signalling section. Tyr will use both.
 
-That's the INT3472 supply name mismatch D. Manresa fixed in 59cab094b8b5
-("platform/x86: int3472: map the ov7251 power enable GPIO to "vdda""),
-which is in v7.4-rc1 but not in my 7.3 tree (linux-surface/kernel PR 199
-is an open backport of it to 7.3). Same thing Firas hit on the Pro 7+.
-My kernel carries a local workaround instead, an ov7251-side fallback
-that asks for "avdd" when "vdda" doesn't exist, so I added that same
-fallback to your file for the test. It picks up the same INT3472
-regulator that 59cab094b8b5 renames to "vdda", and with it the sensor
-probed and streamed. I didn't test 59cab094b8b5 itself or a 7.4 kernel.
-I don't see anything in your series that needs to change for this, on a
-7.3 base it just needs the INT3472 mapping or an equivalent fallback.
+This is based on drm-rust-next.
 
-With the fallback applied:
+[1] https://lore.kernel.org/r/20261124122951.878199-2-phasta@kernel.org
 
-- Probe passed, so the firmware's link frequency is one the driver's
-  table has. I didn't read back which one was used.
-- 10 of 10 stream runs delivered all 10 frames, no kernel errors.
-- strobe_output_enable works. Lit frames read 29.0 to 29.1 and the
-  frames in between 8.1 to 8.2, alternating exactly, and 8.1 with the
-  control off.
+---
+Daniel Almeida (2):
+      rust: dma_buf: dma_fence: add SignallingSection
+      rust: dma_buf: dma_fence: require a SignallingSection in signal()
 
-Not tested yet: Howdy end to end on these patches.
+ rust/kernel/dma_buf/dma_fence.rs | 77 ++++++++++++++++++++++++++++++++++++++--
+ rust/kernel/dma_buf/mod.rs       |  3 +-
+ 2 files changed, 76 insertions(+), 4 deletions(-)
+---
+base-commit: abfb640b2374e26de8ff81d488c39d8254db538e
+change-id: 20261127-dma-fence-signalling-cae3def9aa97
 
-The tests were scripted and run on my Surface Pro 7 by an AI coding
-assistant (Claude) at my direction, and it drafted this summary.
-
-For patches 1-8 on the Surface Pro 7 (IPU4P), with the local ov7251
-"avdd" fallback described above rather than 59cab094b8b5 itself. What I
-exercised was probe, 30 fps streaming and the strobe control, not the
-pixel rate, 60/90 fps or the rotation controls:
-
-Tested-by: Tony Garcia <tony@loafecho.com>
+Best regards,
+--  
+Daniel Almeida <daniel.almeida@collabora.com>
 
