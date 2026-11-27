@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795787132;
-	b=v6VkGC4uAaLQ3AJetnQFAbFCNzVAe5khGleIwLIMw4R39Nr/rf9X9RZ9SXRGpBVadTcO
-	 pv4kmFqOPOpa0PNO4475OuK6mOSN4saci0fe4gGBvRfUtVJGfqp5iUaAC/qpskt3GMwcs
-	 j1oFc3NViG8WMZmV9rWcmcjW1z5I1ab9NG1/3KFmAvz1cSidTlAI/LonOmDfcdf2L4Ufe
-	 jT4ktJPmqel+2SUW1AbHejlAwAHaXFRt3+AnpgLhQs6zUWTNXyhh6oyQSlPcd9pnhkhO8
-	 q8/6uzGkx45DuaNY7HlzVrDWLpkg5KUgvTZL7areYBuMWj5hIMRxdODMUmVnPe6C5EA==
+	t=1795787141;
+	b=UMXBe5yiEixrW2y8IVcj7YmXXXQKTvuMoNgpy3IlURvLQ46K1uPx/YQfvERYtUxDjgMW
+	 xAiMlfBE2XSSPoPh/vYRS/gdtdkZGsR0Se4O11qecbs5quwOzItQKXFMzHEaWiis66hFd
+	 FWaozniyAekowm3gP3Zf0+bmv7ocMkOKM5RbLqdZ5yUsDwwESmhGhQKa2elWk1KZceepv
+	 Y5BnLEuk0bXqCHZt9sBI4y+h6vGSwALhNfnWWBLPimA57bxmPpD4FVy/baNyssmd6ajM+
+	 sClLE03goDCzdz4uHemQRZqqSLqxFrwA+9Qqs5aH5lhXrRr1nB1zi15VH+DfNFO/ayQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795787132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795787141;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=AxUlajAcSM1mDpKZdVSgSkZ4R4Jb2QJeUzNxitwZ2CA=;
-	b=JJ2NZs/D5cxxyr8I+FDLScKcPRK1KDRNsoWGDTUh30+2hsQIWOPS1QwQy4OX+fpiUlDQ
-	 z7dYVTlIjGpfcszjPCkSWUjQEMOMWg5IlXaqvDjy8XUQ6TbApgQGcbCKqJUNQJrGX+V2Q
-	 LVT0ANNPjHNDkYUJQ5NrKv3uULnG9fHn1nNPUJzYA2JKR6WnUIc+p4BRLVduHM4lnU6VV
-	 sJsJtia660ln49c/in8/+B9V6/nVUX4pJpdj4G+rU5WOhUylGzidzrxf3pO/KsDxFPtdw
-	 Uy6B53l+I0tr18lmWHJRSMqw+EL9z5STK7Kbf2QZkVYPWoCTpSNlAffehKUpynQi/jA==
+	bh=4pF+Ou2aaG2HAoOOE5cGua1SJMvhnFZGEE47jSLez/g=;
+	b=0wBQhYXDSZPNIa7cS2FLX3ZUuTrJOBVRN8eAd4kpTvkxoJxzV0H+Mqh3Sl8JrcMBIRpU
+	 ZU3PKo9P11pOP5sVelI45OJZR1YICP79dRLl1b7uDzRhw23QJdlqUIpffdD2W3Pz/qVK2
+	 A1MBzSJJ7sgJEFZk1Nz7+tj80RT9/pcUjYc+jp6HaEU/ohBOeg/t7jaFLx0WwasVjplJh
+	 Hwuk+ycxaLDyYbjHBF4bEe7RSz6yWwThPZBAkTgBuzV8UV0whQJs38iUDlssujMtKotfO
+	 n2tRebWDLmL3HcWx0+ub64GtIvzVPh8m1WprC3SKVWQ62n7jFAyhGK9+Nqz4hbI0EJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PivZWo8R;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zqWC59HF;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96483606A335
-	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 13:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96483606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5520606A335
+	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 13:45:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5520606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PivZWo8R
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2f03920c477so68113625ad.2
-        for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 05:45:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zqWC59HF
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2f052ae3c86so43963555ad.1
+        for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 05:45:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795787132; x=1796391932; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795787140; x=1796391940; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AxUlajAcSM1mDpKZdVSgSkZ4R4Jb2QJeUzNxitwZ2CA=;
-        b=PivZWo8Rof7K6W9Vheb0qp0zThUzh9oIVDgxc6i3q6xWx/3NrfyXUY9IA3TQRrg1KS
-         87/9gnEPwQJghnt4GOIQu1d/7nHtLh7YyK3tzfpCIGi4kfTjK0xSJhvP3i5MjA9i34K5
-         5+9amcagsLV30MUbkjRVZFuaQaWkFGwV7DXBKQt46IDPdNi1ADSQrkTLEJ8yad+fMHSA
-         SHxNYXroc3W87etzrXbTif1r5krOcCxjXTn0SOc65Z68yE28tlLl615HRgWjQyEJtXzh
-         mfcaRJp5cLzkTZ0Culgxn0PvYL58NGjpyjt/p3lhM3ImtleycWA/Q7jXXRplaRa2jbRj
-         CPmA==
+        bh=4pF+Ou2aaG2HAoOOE5cGua1SJMvhnFZGEE47jSLez/g=;
+        b=zqWC59HFBxeqnkwiJcA/vmF7PXqaSn4cPlghUfmvZNV5G3RaxpsuHbuhncRjcKUvVL
+         RgVWQMgdXN58QHoMug3raBl6dLYdDukfKBAcgyeL28e2BM5cL5Hxg45qmG4jBDawc7S7
+         lAEjzMp0sak/BpEjHW6drFOVkxWkD/DpzpIzeKtu6KfB+8s94kiR9T6TxqTYjNvoZOVW
+         uloDbZg5rFJzZY5VgoLAdc+uiTL38cnKFgWeKaB+TMTTtan+bHjkFDVKszaB2FV/MKDt
+         qUJrHVLE83u4ZrxeAcFD4bNulHhzew7Ez/XbUGlvtHVKZZZmkem3K3rPoh5EatDDP2EL
+         X1tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795787132; x=1796391932;
+        d=1e100.net; s=20260707; t=1795787140; x=1796391940;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AxUlajAcSM1mDpKZdVSgSkZ4R4Jb2QJeUzNxitwZ2CA=;
-        b=kS/qw2NhRpBRGUkLe3nsj9JjdHlZojyMWE3EGCJrY55MqGeZ2QMXKHOCUX2Pl3OWQt
-         UKKXd9K232fvSO6HrMTqs23K5/mzY+De3Cveffq8VBjdloYrCMl6zduGHkJVjSIpQPAL
-         3Gm7O8NHee+zzxQLtBbMTQdEsQcZ5TT5yaMgmcO+i8Os4M2GlKdhg55BYmiw9yXf1riW
-         CC0Oi+5zPWbKUFA7LCQkaL8JKS3nWhNofQh4ouIpdx4UO5uUozBBhzvz0VMcuLZi7Qzv
-         284DptF3edSNRwyqPdi8p3INEdHaTo4dr1d98GkV4FSfX7eCAr1kjNVj/eyXLsRhYSiD
-         p/Rw==
-X-Gm-Message-State: APuU4Z9hLhpsaCA1ZXJSNnnpaUgxsJ9TNb5duTcVsdS40vfHLM8PQBaB
-	/tjNnjJvtMX8IlvlAcnNXpiqcicd4x22FQ+SdqptHOSxNMf5t5y5+xju
-X-Gm-Gg: AZFdTZeIE3FPtyFZmGtrbrZp0oIjH771CXxZzNLPzF1f8/UWnHSH7lxDBAmCIbHDEtb
-	czk/4p5sQMJJHX/zVLKlifaZC+1VLaPyYNbSzpFI9U3XgueXPOO2rWQ4UIscyln+bA9p92TTG7r
-	Dkci8YaMoK5VFh47AGYJTxfo0BgZ1T1A1Uc5t6XAxgZIYxJn23BLqGu4/qeyPuRAeHFTTq4waQn
-	Ji86F6fbLabv6JrgwYv5heTvPVKsJcYD3ovzhskqQuR8KCzUxuW2bQetFtPUA5MdNb6uDPlqpkm
-	gxNeCrc187BBPcONjHzDd+k+JZnI0O9K289BGjJhL/XKD6F7IBNNpMgUe25sOiRWARRbyIlNmfs
-	+CC0hfZ2MaBV9Qk6vvbvYNl6wpAzX+mOK8hb8Pg0B8dwlEV66t0tt7cQl5LIMpeCjWJ41SsxAoj
-	LtPB3cGhHX5dVgxriu9QcievY++NJtcQ/+KD4h8/mixQTD2ytdsvd37r78FmgMsx7P9EAKJyGCK
-	2dScEVLKrYc3kwt1OBnWgjSom+L3A8cgDNQUevnYK48QNadeSXxTqt7SLREJvJZclcuK3eoYwa0
-	xbtMr85+YqfwBn2ivHvt9q2LxVKwsbuQ47QdcLuA0iAjhQ==
-X-Received: by 2002:a17:902:ce0b:b0:2ed:acb:aa96 with SMTP id d9443c01a7336-2f03f11c934mr272576205ad.24.1795787131876;
-        Fri, 27 Nov 2026 05:45:31 -0800 (PST)
+        bh=4pF+Ou2aaG2HAoOOE5cGua1SJMvhnFZGEE47jSLez/g=;
+        b=h6MpMYe3voZPM9DbwHjS5H39QyRV1TwIfcHmJFlZOtvegigpHItq7mmLjFMLq4HM5C
+         SRj/pDDWMXQUZ4V4Gh2XkCV9p3GutRRAm669FqAajvKp+uNw6rAFvzbwMv9AxxUVcikQ
+         KCMeyRWZ2S72HZ3gmBETK/XLKMz8VqMlBIn5skSkBY5cOGGUbrnbuzKpzCC+euCRLGaI
+         HPwn4Typ5kkR5hjdifjhs+rQAyQzRaDNTYbIhchW+muRz9Wkm+nqkGnySeiNYA/pbjvq
+         VZ8+fUWz9exDTe9IHaaMgNdl3OFZ3pR5DRZxf4vh2WnYwuP40IuiNy3QKgF2d7xZGx/j
+         EKGw==
+X-Gm-Message-State: APuU4Z8m2DpG4vuavPE+gu48IbUXTXex9C5rwy7QlXPRhnSFSkPkAnIj
+	XgB5XxuGvO9mXBe40YnwHaJesyL7T0Crowphj84MxcxxcOGKunSbG22F
+X-Gm-Gg: AZFdTZclE9rVp9tCl6p19EuRhH3loRkbLEnMNrqr6AhDor0m5U3ovZwA7+r69zokpX9
+	5SMILsWFxhB8FIAhRhZpNtXLkDD51D2kbBvGnrJrjJlekmuVEfoG+EEV+iRWM5nNfefgcMHIHAk
+	vZXyFtuS4ucWQVjfGqpomDUwHk8KNVMVoqndzO5x9c7aJNG6VfCRA5THRW7fX7owy9V48xeK/fU
+	pniAWpT3Q/GURc5euW7vAk19NYAU+HxFpzlyrnLsZgCSOQUg3HbMUC+PIgOC0M7ixTxQWnqjwNI
+	B0poZ7pk8ztm2USaDSe5g3YyjN52Ut9r0jz3D7VjqcatSLFjHFnreoAXBjvRmmXxgWOW7IXV1QK
+	9I/apgtjZ3HCBsUQgVOrPfd/6HUYl33+RWe8HvVnnGrPndPKMULAfx0NTwzcCJIeaXCzCqk2OWf
+	PfrGDO0R3PMuyXgq2qgWy2nM0JmxGUdM3kaltliF2vueOfEGQdpIrXeH9eOF6un0YzC4IqOel8L
+	bPYIxZINm2ncIx1IlWsrlQvAm5qFhIxaHTZJIanOvsS5uk1vPN3YLmfSoyvtqU7xN8sE0CS89dm
+	JL3VrRJFjrpMnOAFyoC6u6bfEeyomYePvCAbntdfOKFaFQ==
+X-Received: by 2002:a17:902:d2cf:b0:2dd:b6e7:ac1b with SMTP id d9443c01a7336-2f03ef3d3b0mr270576165ad.2.1795787140051;
+        Fri, 27 Nov 2026 05:45:40 -0800 (PST)
 Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c1f2csm121741545ad.22.2026.11.27.05.45.24
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c1f2csm121741545ad.22.2026.11.27.05.45.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 05:45:31 -0800 (PST)
+        Fri, 27 Nov 2026 05:45:39 -0800 (PST)
 From: Hikmah Gumelar <hikmahgumelar@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -94,9 +94,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	Abel Vesa <abelvesa@kernel.org>
-Subject: [PATCH v5 1/7] clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src 100MHz parent
-Date: Fri, 27 Nov 2026 20:45:01 +0700
-Message-ID: <20261127134507.125513-2-hikmahgumelar@gmail.com>
+Subject: [PATCH v5 2/7] media: dt-bindings: media: i2c: add Samsung S5K5E8
+Date: Fri, 27 Nov 2026 20:45:02 +0700
+Message-ID: <20261127134507.125513-3-hikmahgumelar@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261127134507.125513-1-hikmahgumelar@gmail.com>
 References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
@@ -111,33 +111,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The 100 MHz entry in ftbl_csi_phytimer_clk_src selects P_GPLL0_DIV2
+Add Devicetree binding schema for the Samsung S5K5E8 5-megapixel
 
-with a divider of 4, leaving gcc_camss_csi0phytimer_clk stuck off on
+MIPI CSI-2 CMOS image sensor.
 
-MSM8953 platforms such as Xiaomi Mi A1 (tissot).
-
-Switch the 100 MHz parent to P_GPLL0 with a divider of 8.
-
-Fixes: 9bb6cfc3c77e ("clk: qcom: Add Global Clock Controller driver for MSM8953")
 Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
 ---
- drivers/clk/qcom/gcc-msm8953.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/media/i2c/samsung,s5k5e8.yaml    | 103 ++++++++++++++++++
+ 1 file changed, 103 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
 
-diff --git a/drivers/clk/qcom/gcc-msm8953.c b/drivers/clk/qcom/gcc-msm8953.c
-index 8fe1d3e42144..8aec5600e837 100644
---- a/drivers/clk/qcom/gcc-msm8953.c
-+++ b/drivers/clk/qcom/gcc-msm8953.c
-@@ -964,7 +964,7 @@ static struct clk_rcg2 csi2p_clk_src = {
- };
- 
- static const struct freq_tbl ftbl_csi_phytimer_clk_src[] = {
--	F(100000000, P_GPLL0_DIV2, 4, 0, 0),
-+	F(100000000, P_GPLL0, 8, 0, 0),
- 	F(200000000, P_GPLL0, 4, 0, 0),
- 	F(266670000, P_GPLL0, 3, 0, 0),
- 	{ }
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+new file mode 100644
+index 000000000000..7c538e48ca25
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+@@ -0,0 +1,103 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5k5e8.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5K5E8 1/5-inch 5Mp CMOS Image Sensor
++
++maintainers:
++  - Hikmah Gumelar <hikmahgumelar@gmail.com>
++
++description:
++  Samsung S5K5E8 is a 1/5-inch 5-megapixel CMOS active-pixel digital image
++  sensor with a 2-lane MIPI CSI-2 interface and I2C control bus.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5k5e8
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  reset-gpios:
++    description: Active-low reset GPIO.
++    maxItems: 1
++
++  avdd-supply:
++    description: Analog power supply (2.8V).
++
++  dvdd-supply:
++    description: Digital core power supply (1.2V).
++
++  dovdd-supply:
++    description: Digital I/O power supply (1.8V).
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++          link-frequencies: true
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dvdd-supply
++  - dovdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera-sensor@2d {
++            compatible = "samsung,s5k5e8";
++            reg = <0x2d>;
++            clocks = <&camss_mclk1>;
++            reset-gpios = <&tlmm 129 GPIO_ACTIVE_LOW>;
++            avdd-supply = <&pm8953_l22>;
++            dvdd-supply = <&pm8953_l23>;
++            dovdd-supply = <&pm8953_l6>;
++
++            port {
++                endpoint {
++                    data-lanes = <1 2>;
++                    remote-endpoint = <&csiphy2_ep>;
++                    link-frequencies = /bits/ 64 <418000000>;
++                };
++            };
++        };
++    };
++...
 -- 
 2.47.3
 
