@@ -1,65 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795743509;
-	b=aZ5PrOIoqeqc1f0TsUu/O/HbXSh8f/6u93Z0ra9yd2l+X2mbCqr5kx5rc7sCd+erl71U
-	 0895dmEMqrEtIPVxVJhATAEKBZzm18YZVLMKipIDRtM4tflTdmjY9XpsZR9t//XygHOkH
-	 GUVH5WZngThvNe3L7jUgw8986pT1fpgiE6vdSxYgPPnaTJ91hz2LEv8oN5pptsvkYMBun
-	 xEx9h/3dMnPnHDv3txX4BzWBAXs535Aa6Lz6gzdPnHP+itRQukjBXEBMD3/qKazwFI+KJ
-	 6SInzfZOYMvdzJOZy5jt/Z8m1m0CSWiPNWJlXTa79LE/+306Cgkb6dYKyykd/sUCKgQ==
+	t=1795744027;
+	b=PE1yXzP2EYY/4yS4gRDmEb/ItIey+9YE4EHcB2ZsvECsNw+LIpZXNYyJMvBUzZHGtQOV
+	 QDcbeQ+lTGq4EtYIxGh4XS2qZAFro34XnRWkqF3Iwn1sNCvds0mMdSoBbG8GWnvW2YsYn
+	 O76KVrrHjakMYLfxzXEY/gegR68FdkOn0MEq6xgod16bGN22Wj/vuSRofvO6d/KGQbBIm
+	 3wfD4bcrdoNPIUwxIRUv8w/ZbD1wabMeAPb3X4Op7WJIwDPjjKXVYyFVk0gs8ShBCHu0V
+	 ks809vRNN0dvST/jSV7RzeEGrIV7K6Z3xbAb0XChdEDSpsLAzDZLrfF4wYvpdce8liQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795743509;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795744027;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=vPpjfD0g7Dp8q9C9+957w2yoqDmVUixuMVEqJCHIS8s=;
-	b=pEOI/DXyAPSKfmIjjbjnLjoPW1dDlX0R7/qi2EQBoTgtoXCzQ+7RP6y19bZiCBJ1iszk
-	 WmN0kR14rm0YGJ9MkPR8lAlLIDTqk7FnzUx26Jq3Zpicb3YjOKHpbP9op1aamxIiNgL2H
-	 FzonPVxbmn0KHGMBqmV3a6ZigEsDmFSFFaqgS/+LkhaP1yHr/v39nsCh+k9/RuZfhcBE2
-	 PyJhCJSIIiabDhRaZGQawh/ZsPPoH0x3O0TnwW7YMs23kh7TC7c9fOEXk2fkn2feUotym
-	 ysBrqPjg5uDxhWC38DYQdKw8tvx9RMSRUDGStZ0O2jt1Z0WSV2tMoGs7+ZxGBg+aKfA==
+	bh=qwMP9B/3kCrlMLEZN1Lm4kmafzrl8vVQWCe8mDoH+Hs=;
+	b=StiElJ5bVszn2vp+dgMkwWL1Bz9ipVfOF5yeWRggewDrYDNTXYIXIpOD02Iy/71r/mPA
+	 y636YCf2RjSR9TYvagKUEl++ZUhFgRPa0qyNPU4bvo6Z/kYubi+vXuh2XtggocrtKHU28
+	 rmbhkbxKqhPautS1uYjfPrrbjuAdv6nQfOo6LfycR7wtZJq4eEL41/BlmzLIVFeXr74qh
+	 WfTN3dhPbldrGho2KEhdIm27jZmqO+fjVI7yCklsjt9aT1/GCJXmlY+N6mOFcua5F6KKi
+	 oS8j040jdsTGz7Wqb5RSYSIedHmF78jxBav4tcoEUFxAOJDIB3HysUT+JuWfucDuusQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=kXj21Zzg;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dqa1Xc04;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA6E606A31C;
-	Fri, 27 Nov 2026 01:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FA6E606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F711606A31C;
+	Fri, 27 Nov 2026 01:47:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F711606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=kXj21Zzg
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dqa1Xc04
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795743506;
-	bh=BKLSb77hnDZ9zYB/ThkT3KsW2SFPf+voZLV3Q7PM/YM=;
+	s=mail; t=1795744024;
+	bh=U1JA4zNJNtwQOu7BZhY0zwXJqaY5FdyigzB90dhY+uc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=kXj21ZzgmCW297JHzWtalsUEFqwrDDfQ78v+ELCNNWHyyqUbySnpP5x/cmbazvM/2
-	 5DbSkgSkqS2A9sge0PndtovAIK9MIX18lth5oKYPg4DMGKHRid7yV/v9nl6F6g36LL
-	 tGMvNtjo4fOOM53gBFoAuW7mDf1maqo0iHDTfvfo8A5sBTI8HRqr+c3in553ZYFz1f
-	 agFumWdl6cBBUIHm1j7je+FZ6QSY/FW7GT6qkL+nL/Olu0B1y+IAEN58w9bZJZHzg1
-	 0wdi5vIeexIQ6JyP3hmSTSgNTj7eWrG3rEBJOlduXRYkC+kwRDyENirj+OPCB8vd0Y
-	 QVKbUZE6TDmMw==
+	b=dqa1Xc044P/zDkZINqvd9zb9sE4LSgP1bkixAY0uqTURz6y4edAWODt+nUSeHyDb7
+	 8O7qDvAoq83kJR5QnAB2ckbzAv7chyFQVJOFgixsbXZ+4F2k4KG/klAHXz9+mTkKGJ
+	 ottJVzLH2EBW/t1+wNFukluyI+jr1VICrBdiaYfqp8ib+LHNbCMw6+qX36UJxsE1lj
+	 3Z5g3aPHVcJviCwqPiXG4NjTIie6OPxs6/StnK5vxgFYIfGkgyQZSX9e7Uda8X4boq
+	 iztQ26FM0XZ3MlX+AfQiVDVIGXtBEmAsZzVGfPITDXh8Hy4cvFDc3xbyOghZVxPNdF
+	 Zz3SaHa1ipq1g==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange secp256r1)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 380F017E005B;
-	Fri, 27 Nov 2026 02:38:25 +0100 (CET)
-Message-ID: <6c4a2a463271ec46e54034bced7cd02aec393085.camel@collabora.com>
-Subject: Re: [PATCH v2] media: codecs: vp9: Add tile_info control
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B846717E01D1;
+	Fri, 27 Nov 2026 02:47:01 +0100 (CET)
+Message-ID: <adcc275b0637938c24f39578280b09982514e5ef.camel@collabora.com>
+Subject: Re: [PATCH v2 0/6] media: verisilicon: Fix MPEG-2 field pictures,
+ 4K VP8 and the AV1 tile buffers
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, mchehab@kernel.org,
- 	hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel@collabora.com
-Date: Thu, 26 Nov 2026 20:38:22 -0500
-In-Reply-To: <20261112082631.40863-1-benjamin.gaignard@collabora.com>
-References: <20261112082631.40863-1-benjamin.gaignard@collabora.com>
+To: aiyengar1990@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Fricke	
+ <sebastian.fricke@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, Heiko
+ Stuebner <heiko@sntech.de>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Jonas Karlman	 <jonas@kwiboo.se>, Ezequiel
+ Garcia <ezequiel@vanguardiasur.com.ar>, Jeffy Chen	
+ <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 20:47:00 -0500
+In-Reply-To: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -75,7 +83,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-+KXddYZKZwO5hel34jzW"
+	protocol="application/pgp-signature"; boundary="=-uG+GDnvb0XaDbhY/ZuMI"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -87,357 +95,146 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-+KXddYZKZwO5hel34jzW
+--=-uG+GDnvb0XaDbhY/ZuMI
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le jeudi 12 novembre 2026 =C3=A0 09:26 +0100, Benjamin Gaignard a =C3=A9cri=
-t=C2=A0:
-> Some hardware accelerators needs to know tiles location and size
-> in the bitstream.
-> Tiles size are coded inside the bitstream so it is up to the
-> userland to provide theses information by calling
-> V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY control.
+Le jeudi 12 novembre 2026 =C3=A0 08:54 +0000, Arun Iyengar via B4 Relay a =
+=C3=A9crit=C2=A0:
+> Fixes for the Hantro decoders on Rockchip SoCs, found while running
+> conformance streams and v4l2-compliance on the RK3588.
 >=20
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> Patches 1 and 2 make field-coded MPEG-2 decode on the G1 and VPU2: the
+> driver refused V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF for MPEG-2, so the
+> second field of a frame could not land in the same CAPTURE buffer as the
+> first one, and once it can, the second field was identified with
+> top_field_first, which is always 0 in field pictures, so it predicted
+> from the wrong field. None of the field-picture streams of the ISO/IEC
+> 13818-4 main-profile suite decoded before; they decode now.
+>=20
+> Patch 3 stops advertising VP8 above 1080p on the VDPU2 and RK3399
+> tables, whose only CAPTURE format stops at 1920x1088, so that a 4K VP8
+> stream is refused instead of mis-decoded.
+>=20
+> Patch 4 fixes the reuse check of the VPU981 AV1 tile column buffers,
+> which only compared the deblocking data buffer although the five buffers
+> scale differently with the frame height, bit depth and number of tile
+> columns, and clears the sizes when the buffers are freed.
+>=20
+> Patches 5 and 6 reject malformed AV1 frames before the decoder is
+> programmed with them. With no tile columns the tile column buffers are
+> sized to zero and the decoder runs without them (patch 5). A frame that
+> is larger than the CAPTURE format does not fit in the buffer the decoder
+> writes it to, whose size and layout come from the format, and a frame
+> height beyond the limit of the decoder also wraps the 32-bit size
+> computation of the tile column buffers, which leaves them too small for
+> the height programmed into the hardware (patch 6). Both are rejected at
+> prepare time.
+>=20
+> Tested on an Orange Pi 5 (RK3588S). Patches 1 and 2 were verified with
+> the ISO/IEC 13818-4 main-profile conformance streams through GStreamer's
+> v4l2slmpeg2dec on the VPU121, compared with FFmpeg: the field-picture
+> streams (sony-ct1..4, tcela-8/9/10, hhi_burst_short/long) went from
+> rejected to 53-67 dB PSNR, and the 26 frame-picture streams are
+> unchanged. Patch 3: the VPU121 decoder lists VP8F frame sizes from 48x48
+> to 1920x1088, S_FMT of a 3840x2160 VP8 OUTPUT format is clamped to
+> 1920x1088, a 1080p VP8 clip still decodes bit-exact against libvpx, and
+> the 4K clip is now refused instead of decoded into 1920x1088 buffers.
+> Patch 4: one v4l2slav1dec context decoding a 1920x1080 10-bit
+> 4-tile-column stream and then an 8-bit 5-column one (and 2048x128 with 4
+> then 8 columns) is bit-exact against libdav1d, 32/32 frames each, and a
+> kprobe trace of the DMA allocations shows the tile buffers reallocated
+> when the second stream needs larger ones.
+>=20
+> The new rejects of patches 5 and 6 were tested on the board with v2:
+> requests with a no-tile AV1 frame, with a frame height that wraps, and
+> with a frame that is wider, taller or, through superres, upscaled wider
+> than the 1920x1088 CAPTURE format (3840x2160 among them) are each not
+> decoded and both of their buffers come back with V4L2_BUF_FLAG_ERROR,
+> and a frame of the format size and a smaller one after them are still
+> accepted. Four runs of the fluster AV1 conformance suite give 203/242
+> each, failing the same 39 vectors as an earlier run on the same board;
+> the streams that change the frame size and the ones with spatial layers
+> still decode. In a fifth run av1-1-b8-06-mfmv also failed, with one
+> decoder timeout and no reject; it passed in the other four runs. The
+> board kernel is 7.3-based and also carries a fix for the ->run() error
+> paths (the AV1 one finishes a refused job twice), which Sascha Hauer's
+> series "media: verisilicon: Fix error paths in hantro drivers" addresses
+> upstream [1].
+>=20
+> [1] https://lore.kernel.org/all/20260824-rk3588-jpegdec-v1-0-180a30a2852d=
+@pengutronix.de/
+>=20
+> This series was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit messages, and I reviewed and tested
+> every change as described above.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+
+For the series:
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
 > ---
-> The userland implementation in GStreamer for this control could be
-> found here:
-> https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/13038
+> Changes in v2:
+> - New patch 5: reject an AV1 frame with no tile columns, which would
+>   otherwise size the tile column buffers to zero (Sashiko: AV1
+>   tile_cols =3D=3D 0)
+> - New patch 6: reject an AV1 frame larger than the CAPTURE format, which
+>   does not fit in the buffers of the decoder and whose height can
+>   otherwise wrap the 32-bit size computation of the tile column buffers
+>   (Sashiko: u32 overflow from frame_height_minus_1)
+> - Patches 1-4 unchanged
+> - Link to v1: https://patch.msgid.link/20261110-hantro-codec-fixes-v1-0-0=
+fd5372ce831@gmail.com
 >=20
-> This will be use by Verisilicon VC9000D driver which isn't upstream yet
-> because some improvements in Verisilicon core are needed before.
-> At least it needs these series to be merged first:
-> - Create AV1 helper library:=20
->   https://patchwork.linuxtv.org/project/linux-media/list/?series=3D30160
-> - media: verisilicon: remove unused variant and code clean up:
->   https://patchwork.linuxtv.org/project/linux-media/list/?series=3D31435
-> - media: verisilicon: simplify auxiliary buffers allocation:
->   https://patchwork.linuxtv.org/project/linux-media/list/?series=3D30541
-
-Can't merge without an upstream user.
-
+> ---
+> Arun Iyengar (6):
+>       media: verisilicon: Support holding the CAPTURE buffer for MPEG-2
+>       media: verisilicon: Find the second MPEG-2 field without top_field_=
+first
+>       media: verisilicon: Don't offer VP8 above 1080p on the Rockchip VDP=
+U2
+>       media: verisilicon: Check every VPU981 AV1 tile column buffer befor=
+e reusing them
+>       media: verisilicon: Reject AV1 frames without tiles
+>       media: verisilicon: Reject AV1 frames larger than the CAPTURE forma=
+t
+>=20
+>  .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |  8 ++--
+>  drivers/media/platform/verisilicon/hantro_hw.h     |  8 ++++
+>  drivers/media/platform/verisilicon/hantro_mpeg2.c  | 31 +++++++++++++
+>  drivers/media/platform/verisilicon/hantro_v4l2.c   |  2 +-
+>  .../verisilicon/rockchip_vpu2_hw_mpeg2_dec.c       |  8 ++--
+>  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 53 ++++++++++++++++=
++++---
+>  .../media/platform/verisilicon/rockchip_vpu_hw.c   |  8 ++--
+>  7 files changed, 98 insertions(+), 20 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261110-hantro-codec-fixes-59d42b5609c4
+>=20
+> Best regards,
+> -- =20
+> Arun Iyengar <aiyengar1990@gmail.com>
 >=20
 >=20
-> changes in v2:
-> - add __user before p_vp9_tile_info_entry declaration in v4l2_ext_control
->   structure.
-> - fix invalid symbol in documentation.
 >=20
->  .../media/v4l/ext-ctrls-codec-stateless.rst   | 42 +++++++++++++++++++
->  .../media/v4l/videodev2.h.rst.exceptions      |  1 +
->  .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 ++
->  .../media/v4l/vidioc-queryctrl.rst            |  6 +++
->  drivers/media/v4l2-core/v4l2-ctrls-core.c     |  8 ++++
->  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  5 +++
->  include/media/v4l2-ctrls.h                    |  2 +
->  include/uapi/linux/v4l2-controls.h            | 27 ++++++++++++
->  include/uapi/linux/videodev2.h                |  2 +
->  9 files changed, 97 insertions(+)
->=20
-> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-statel=
-ess.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.r=
-st
-> index d7a3b8ef03a7..effd3eb47e29 100644
-> --- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-> @@ -2050,6 +2050,48 @@ This structure contains all loop filter related pa=
-rameters. See sections
->        - When set, the bitstream contains additional syntax elements that
->          specify which mode and reference frame deltas are to be updated.
-> =20
-> +``V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (struct)``
-> +    Specifies VP9 Tile Info entry as describe in section 6.4 "Decode til=
-e syntax"
-> +    of :ref:`vp9`.
-> +    MiRowStart, MiRowEnd, MiColStart and MiColEnd can be retrieved from =
-struct
-> +    v4l2_ctrl_vp9_frame using tile_row and tile_col.
-> +
-> +.. c:type:: v4l2_ctrl_vp9_tile_info_entry
-> +
-> +.. raw:: latex
-> +
-> +    \small
-> +
-> +.. tabularcolumns:: |p{1.2cm}|p{9.2cm}|p{6.9cm}|
-> +
-> +.. cssclass:: longtable
-> +
-> +.. flat-table:: struct v4l2_ctrl_vp9_tile_info_entry
-> +    :header-rows:  0
-> +    :stub-columns: 0
-> +    :widths:       1 1 2
-> +
-> +    * - __u32
-> +      - ``tile_offset``
-> +      - Specifies the offset from the tile data after frame header,
-> +        i.e. where the coded tile data actually starts.
-> +    * - __u32
-> +      - ``tile_size``
-> +      - Specifies the size in bytes of the coded tile.
-> +        Equivalent to "tile_size" in :ref:`vp9`
-> +    * - __u32
-> +      - ``tile_row``
-> +      - Specifies the row of the current tile.
-> +        Equivalent to "tileRow" in :ref:`vp9`
-> +    * - __u32
-> +      - ``tile_col``
-> +      - Specifies the col of the current tile.
-> +        Equivalent to "tileCol" in :ref:`vp9`
-> +
-> +.. raw:: latex
-> +
-> +    \normalsize
-> +
->  .. _v4l2-codec-stateless-hevc:
-> =20
->  ``V4L2_CID_STATELESS_HEVC_SPS (struct)``
-> diff --git a/Documentation/userspace-api/media/v4l/videodev2.h.rst.except=
-ions b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
-> index 6182b4e2d2ee..5e411cdb0469 100644
-> --- a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
-> +++ b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
-> @@ -161,6 +161,7 @@ replace symbol V4L2_CTRL_TYPE_FWHT_PARAMS :c:type:`V4=
-L.v4l2_ctrl_type`
->  replace symbol V4L2_CTRL_TYPE_VP8_FRAME :c:type:`V4L.v4l2_ctrl_type`
->  replace symbol V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR :c:type:`V4L.v4l2_ctrl_=
-type`
->  replace symbol V4L2_CTRL_TYPE_VP9_FRAME :c:type:`V4L.v4l2_ctrl_type`
-> +replace symbol V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY :c:type:`V4L.v4l2_ctrl=
-_type`
->  replace symbol V4L2_CTRL_TYPE_HDR10_CLL_INFO :c:type:`V4L.v4l2_ctrl_type=
-`
->  replace symbol V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY :c:type:`V4L.v4l2_=
-ctrl_type`
->  replace symbol V4L2_CTRL_TYPE_HEVC_SPS :c:type:`V4L.v4l2_ctrl_type`
-> diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst=
- b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> index d78328152b75..836b227c10c9 100644
-> --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> @@ -258,6 +258,10 @@ still cause this situation.
->        - ``p_vp9_frame``
->        - A pointer to a struct :c:type:`v4l2_ctrl_vp9_frame`. Valid if th=
-is
->          control is of type ``V4L2_CTRL_TYPE_VP9_FRAME``.
-> +    * - struct :c:type:`v4l2_ctrl_vp9_tile_info_entry` *
-> +      - ``p_vp9_tile_info_entry``
-> +      - A pointer to a struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`. V=
-alid if this
-> +        control is of type ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``.
->      * - struct :c:type:`v4l2_ctrl_hdr10_cll_info` *
->        - ``p_hdr10_cll``
->        - A pointer to a struct :c:type:`v4l2_ctrl_hdr10_cll_info`. Valid =
-if this control is
-> diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b=
-/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-> index 82c8b52e771c..bfef51f70c42 100644
-> --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-> +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-> @@ -555,6 +555,12 @@ See also the examples in :ref:`control`.
->        - n/a
->        - A struct :c:type:`v4l2_ctrl_vp9_frame`, containing VP9
->  =09frame decode parameters for stateless video decoders.
-> +    * - ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``
-> +      - n/a
-> +      - n/a
-> +      - n/a
-> +      - A struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`, containing VP9
-> +        tile info for stateless video decoders.
->      * - ``V4L2_CTRL_TYPE_AV1_SEQUENCE``
->        - n/a
->        - n/a
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-core.c
-> index 6e751a043a21..a426a716f3d4 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> @@ -425,6 +425,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ct=
-rl)
->  =09case V4L2_CTRL_TYPE_VP9_FRAME:
->  =09=09pr_cont("VP9_FRAME");
->  =09=09break;
-> +=09case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-> +=09=09pr_cont("VP9_TILE_INFO_ENTRY");
-> +=09=09break;
->  =09case V4L2_CTRL_TYPE_HEVC_SPS:
->  =09=09pr_cont("HEVC_SPS");
->  =09=09break;
-> @@ -1415,6 +1418,8 @@ static int std_validate_compound(const struct v4l2_=
-ctrl *ctrl, u32 idx,
-> =20
->  =09case V4L2_CTRL_TYPE_VP9_FRAME:
->  =09=09return validate_vp9_frame(p);
-> +=09case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-> +=09=09break;
->  =09case V4L2_CTRL_TYPE_AV1_FRAME:
->  =09=09return validate_av1_frame(p);
->  =09case V4L2_CTRL_TYPE_AV1_SEQUENCE:
-> @@ -2135,6 +2140,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_=
-ctrl_handler *hdl,
->  =09case V4L2_CTRL_TYPE_VP9_FRAME:
->  =09=09elem_size =3D sizeof(struct v4l2_ctrl_vp9_frame);
->  =09=09break;
-> +=09case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-> +=09=09elem_size =3D sizeof(struct v4l2_ctrl_vp9_tile_info_entry);
-> +=09=09break;
->  =09case V4L2_CTRL_TYPE_AV1_SEQUENCE:
->  =09=09elem_size =3D sizeof(struct v4l2_ctrl_av1_sequence);
->  =09=09break;
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-defs.c
-> index e062f2088490..f7a98925027b 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> @@ -1228,6 +1228,7 @@ const char *v4l2_ctrl_get_name(u32 id)
->  =09case V4L2_CID_STATELESS_MPEG2_QUANTISATION:=09=09return "MPEG-2 Quant=
-isation Matrices";
->  =09case V4L2_CID_STATELESS_VP9_COMPRESSED_HDR:=09return "VP9 Probabiliti=
-es Updates";
->  =09case V4L2_CID_STATELESS_VP9_FRAME:=09=09=09return "VP9 Frame Decode P=
-arameters";
-> +=09case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:=09=09return "VP9 Tile In=
-fo Entry";
->  =09case V4L2_CID_STATELESS_HEVC_SPS:=09=09=09return "HEVC Sequence Param=
-eter Set";
->  =09case V4L2_CID_STATELESS_HEVC_PPS:=09=09=09return "HEVC Picture Parame=
-ter Set";
->  =09case V4L2_CID_STATELESS_HEVC_SLICE_PARAMS:=09=09return "HEVC Slice Pa=
-rameters";
-> @@ -1602,6 +1603,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enu=
-m v4l2_ctrl_type *type,
->  =09case V4L2_CID_STATELESS_AV1_SEQUENCE:
->  =09=09*type =3D V4L2_CTRL_TYPE_AV1_SEQUENCE;
->  =09=09break;
-> +=09case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:
-> +=09=09*type =3D V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY;
-> +=09=09*flags |=3D V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-> +=09=09break;
->  =09case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:
->  =09=09*type =3D V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY;
->  =09=09*flags |=3D V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-> index cec9217d97ac..286e72a00a9d 100644
-> --- a/include/media/v4l2-ctrls.h
-> +++ b/include/media/v4l2-ctrls.h
-> @@ -45,6 +45,7 @@ struct video_device;
->   * @p_h264_pred_weights:=09Pointer to a struct v4l2_ctrl_h264_pred_weigh=
-ts.
->   * @p_vp8_frame:=09=09Pointer to a VP8 frame params structure.
->   * @p_vp9_compressed_hdr_probs:=09Pointer to a VP9 frame compressed head=
-er probs structure.
-> + * @p_vp9_tile_info_entry:=09Pointer to a VP9 tile info structure.
->   * @p_vp9_frame:=09=09Pointer to a VP9 frame params structure.
->   * @p_hevc_sps:=09=09=09Pointer to an HEVC sequence parameter set struct=
-ure.
->   * @p_hevc_pps:=09=09=09Pointer to an HEVC picture parameter set structu=
-re.
-> @@ -83,6 +84,7 @@ union v4l2_ctrl_ptr {
->  =09struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
->  =09struct v4l2_ctrl_vp9_compressed_hdr *p_vp9_compressed_hdr_probs;
->  =09struct v4l2_ctrl_vp9_frame *p_vp9_frame;
-> +=09struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
->  =09struct v4l2_ctrl_hdr10_cll_info *p_hdr10_cll;
->  =09struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
->  =09struct v4l2_area *p_area;
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2=
--controls.h
-> index d17e41d51d2e..8eb8da0073cd 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -2642,6 +2642,8 @@ struct v4l2_ctrl_hevc_ext_sps_lt_rps {
-> =20
->  /* Stateless VP9 controls */
-> =20
-> +#define V4L2_VP9_MAX_TILE_COUNT=09=09=09512
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
 
-We already got that one wrong on AV1, can we get it right here, where is th=
-at
-number from? My quick checks state that the maximum tile colums is 64 and r=
-ows
-is 4, and so this is 256.
-
-> +
->  #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED=090x1
->  #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_UPDATE=090x2
-> =20
-> @@ -2924,6 +2926,31 @@ struct v4l2_ctrl_vp9_compressed_hdr {
->  =09struct v4l2_vp9_mv_probs mv;
->  };
-> =20
-> +#define V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (V4L2_CID_CODEC_STATELESS=
-_BASE + 302)
-> +/**
-> + * struct v4l2_ctrl_vp9_tile_info_entry - VP9 Tile Info entry
-> + *
-> + * Represents a single VP9 tile inside. Note that MiRowStart,
-> + * MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
-> + * v4l2_ctrl_vp9_frame using tile_row and tile_col.
-> + * See section 6.4 "Decode tile syntax" for more details.
-> + *
-> + * @tile_offset: offset from the tile data after frame header,
-> + * i.e. where the coded tile data actually starts.
-> + * @tile_size: specifies the size in bytes of the coded tile. Equivalent=
- to
-> + * "tile_size" in the VP9 Specification.
-> + * @tile_row: specifies the row of the current tile. Equivalent to "tile=
-Row" in
-> + * the VP9 Specification.
-> + * @tile_col: specifies the col of the current tile. Equivalent to "tile=
-Col" in
-> + * the VP9 Specification.
-> + */
-> +struct v4l2_ctrl_vp9_tile_info_entry {
-> +=09__u32 tile_offset;
-> +=09__u32 tile_size;
-> +=09__u32 tile_row;
-> +=09__u32 tile_col;
-
-Do we really need a pair of 32bit here condering the range?
-
-> +};
-> +
->  /* Stateless AV1 controls */
-> =20
->  #define V4L2_AV1_TOTAL_REFS_PER_FRAME=098
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
-2.h
-> index 5373dba640fa..b010be9437a7 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -1903,6 +1903,7 @@ struct v4l2_ext_control {
->  =09=09struct v4l2_ctrl_mpeg2_quantisation __user *p_mpeg2_quantisation;
->  =09=09struct v4l2_ctrl_vp9_compressed_hdr __user *p_vp9_compressed_hdr_p=
-robs;
->  =09=09struct v4l2_ctrl_vp9_frame __user *p_vp9_frame;
-> +=09=09struct v4l2_ctrl_vp9_tile_info_entry __user *p_vp9_tile_info_entry=
-;
->  =09=09struct v4l2_ctrl_hevc_sps __user *p_hevc_sps;
->  =09=09struct v4l2_ctrl_hevc_pps __user *p_hevc_pps;
->  =09=09struct v4l2_ctrl_hevc_slice_params __user *p_hevc_slice_params;
-> @@ -1984,6 +1985,7 @@ enum v4l2_ctrl_type {
-> =20
->  =09V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR=09=3D 0x0260,
->  =09V4L2_CTRL_TYPE_VP9_FRAME=09=09=3D 0x0261,
-> +=09V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY=09=3D 0x0262,
-> =20
->  =09V4L2_CTRL_TYPE_HEVC_SPS=09=09=09=3D 0x0270,
->  =09V4L2_CTRL_TYPE_HEVC_PPS=09=09=09=3D 0x0271,
-
-Nicolas
-
---=-+KXddYZKZwO5hel34jzW
+--=-uG+GDnvb0XaDbhY/ZuMI
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjfDwAKCRDZQZRRKWBy
-9G35AP9yrw/6qonbhJjl57SYAQ6q0dFqexCc/VheMInqIa+58AEAiv/h2rh9Bg/t
-JJORos+rP3f5ElM0Y3vtsCC4OgqAXwc=
-=SUtZ
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjhFAAKCRDZQZRRKWBy
+9EfoAQC5BLzFJOWU0RvUDpGetVfKarxfp4Gi7jKWadpUW8gZlAD/SXNekZd2lcO0
+ggmfyz/UD0BWGvfxSj089RGPCY7r9wo=
+=AAwj
 -----END PGP SIGNATURE-----
 
---=-+KXddYZKZwO5hel34jzW--
+--=-uG+GDnvb0XaDbhY/ZuMI--
