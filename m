@@ -1,115 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795805718;
-	b=Df+HlWYWUI4dm02OAMLcr1hkhjHNflxUiH065KkzXnJYZ3WWuVC8phyjRSCW5uW9rESu
-	 kRsPDW5H+lVqBmA09Qzo3oLgAEKHVk9TDidOuKLlixMqM+bkbE2wOdq2vIj/8BNvLl3EV
-	 jlkyqvvaOZ2haw5+BnPzXddfF1AKMmQmL+wLQNOmjRiRA3l3EnCg/YPfIZPkUWB5HLdym
-	 Nx5+SurUb8jCP6YeKz4DLg9IvqzPQ2kuTZcfuWHpLF4TNAr7xjUqY5zHPRqkL/8pPaxO4
-	 aHg82qjeD78vpvzaztn0gG02D9j4D1ONcSFmcavNeX+EZEWnR4S9FOIsyKJz1lTprRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795805718;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=ZO8Bdr5hDDShdvk0P9d6O7remcbXsTXZeyombAOOMOg=;
-	b=w5Q+hwMNILic3gD4/MLl1O6XaLxw5Ixhb4rMn3e5upf7pjECZiOjk1FOe7grcA8LdfDJ
-	 nYpiVkSlg4r1jpXos5x5T01l9FujRJ6BpK5QFZ7JDTCqaVAVzr+iEYcsnbzYhiTtc/BVT
-	 x1nxBkdDglZ3YG7bUUp9K4rLZbouAme2/hPcWujTE32P5SEN+fmc4yVROOSKNalS2tPH2
-	 bHs2NmuJmLVsQ5fMtUDkOcv5qE9HCoiNmXRd5QG4yBAWcmUz8uoGwZzsvBLiMTz7yaMrS
-	 o0dYbEeYP5cOH7DO6Zi+TuyDlDzAtEIrT4VwgELmADoo2tqpxdjmS/T6eBYHCvynaiQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VwsfS3Ko;
-	arc=none smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795805916;
+	b=K9NOk3+WKkDud7yZGnAX/QTUyJ5tkg6lBj9dvbqz04R091U7gMNrabx9H308cOsrQLzI
+	 2oFcMIYbzu9jT00ZP09jl78xFHPoAfdKcaS5uENSHTBD3I+j6CcUj7o5qsU6u+/Dnm9dn
+	 YMYMSJVhKYAPps1opIbNnX/sCTWU3hgdUdtEnAiGnCiTHA9g89pFHWJel4GYWgyoy70fL
+	 3Y2OxpMk7Yeexgwrzqoy/NDXKdYNHGIOQyXq8zyEaMMRv9FFJrPmTptFiIhgFb41O5T62
+	 nOx0Fo0e6XfKLC5wekQMrgxmRlAqI9UwzJuC6mPJvstX8zN/Gs2FNAX/wgA8gwdLBmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795805916;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=pcIA7yNtdSv4ODO4Q44pRru7yd7KZ91x7RtnWUq1Rhg=;
+	b=n3ccrBEQSZAjLbVQ2rb2wUOIM+yu1x606sfsmpMy4XiBcrOqS5txWLBjh5/vbUSFyIkf
+	 RJ3FYsI8WTMp9K3A3Ati4vs6mhidSi3m+DYOw0L+ipV8EJpZOYnj2JZgDlXJZs322Lij6
+	 /NOA8Zl7C5ebqFRv+QEZEEDnsdIWa7obv9CKEp0YS1SIM0GBFxT3Km1qDjIvxcs25P5D2
+	 SJGOksZRfGLOPnsG+fsu0S5PYG/+QGsWWQT9owY+j02GnEJCTjLr9GTTvAWw4g7Ny1LLt
+	 sD5y7foKWEBbQCjrq06yYNrfnzK6CvB6o1QWEQhVN+Py6hfaL9o7hbgHtXCZeUhjxRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ky4DvDkA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643D9606A31F
-	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 18:55:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 643D9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821EA606A6A9;
+	Fri, 27 Nov 2026 18:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 821EA606A6A9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VwsfS3Ko
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-55c38cdd5b7so73317901cf.2
-        for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 10:55:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795805717; x=1796410517; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZO8Bdr5hDDShdvk0P9d6O7remcbXsTXZeyombAOOMOg=;
-        b=VwsfS3KoecxervWioLPFOHmPE5XoVYfAH5uckM5W9sCyYmXHn2VLoYIB74c0/z6VXW
-         PZau/Jsa3YhQRDE1rzDr6cmsUi1sreVTsa7DtgWIsMfJNQOv0D2eO5AkuX2a9htZzhuA
-         +OrEFaXv4T/zdd8nVVPPrK3mCwyY9Bu2rQfs0raD8PHv5ybEFDV7SI/LLgvPLQeuai8D
-         b7pcY9t4vpHZ5IomMh9ao3r1yWLWKZIu4wxSTDd8iz57SsEqdbFrRdwll7aT1M1Hmzyi
-         PsrPHtBJ0FlRk+em/Iwg/vbhYF405f9f5yWikHtynWLtepPn7SfzBh72APTe/VGEW5sy
-         iX4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795805717; x=1796410517;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZO8Bdr5hDDShdvk0P9d6O7remcbXsTXZeyombAOOMOg=;
-        b=Vhdy4o3EbHdKNvAz8bhoRm1/eoEDxYD8FTE/nEIBEuszAqfTlylHhoUuIhYmR3FY8K
-         ZTieFU75G7+5R+/ai/YX71mVupkT3Fn5xe2vZymz4XaPFnjjzCFGxxXzr1/XYso8+AOK
-         U49cw+T6YKYIsJ0MbQU5jBtFGDRHVtsMuVcu9p0vSoul3raGFmue81O+WjNNSMucfKJS
-         KnFfd+xwetIRpvF8wCgwbyqxOSs8ejDHowxG7hZZoyRWwnP0l/F8cyM27vrsWQWmlBXY
-         kg37SuN1H+PxrCY4AcqEhYHHvBHPfX9AA2jYGm1s6+uCnMtWEiM57ZGyQoxL2wjXulFf
-         mwCA==
-X-Forwarded-Encrypted: i=1; AL+hErF0ig1j+kgEN4FDbu+iRYeO1jVjzyLfCVlZUdl/fdHg5ASJQEiY/MsKz2YBftW5I3s4RwoJ05e/sAodWg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7XMiIMjz1i2+rEijgYNFLiU5jPn3aUy4hPJGl8csnjt1aM8qi
-	gPQtkYgiIhhVByfc/Jmyz8POEUXU1RZhLVHQYaARcGZ/sWte/wXGfgwInwRPh8xHkhE=
-X-Gm-Gg: AZFdTZdavGFbhSwrWMsK8QCIMGsCAPhC3cA/uo12e0Zmfh/TOiOQYRHNmDyZ0oYFcax
-	4MA+d7OyQSOWZEG29G28uXu2NzZss3irZ+jYwwm+DomDmWkf9E9qSJ+Tk081eCyLvDGe17TrwNq
-	vERCX5qgwcF27QZ/2fUm/grN82AFMJLbA1BdaT4WxF7qPmKuAGuytWEiRLIyigEB2X697Nwng3R
-	yHVfG1SQXDGWdedVd5noFLjEqfNEEaIC0j+xAo9Asuliey/5lhzY6kEoQOgxxz3TJtCJM6MFOQm
-	t4pCiwsmBDp7d3xZHGHMzq61EBmkFPmUN8PK0atbtC0OJzxEKZWTtH7CAr0BoUbMa4xTsRV+zE3
-	3vMxrTFG6FZO8J6ZKuqtgI2qRRfT/Cg1w0iaYzAE8jiOFfzo6medz+N3OEOeaymZ2OzjKNBZR8w
-	icF9I/j/TdsJJO4lH6+/O/wfM0WgMk+m4XfPNrNculDsxWZuzSTD4I5QlN3iLsex0mWgXdC95Nv
-	gZ+1Z7/nZ3iUDEmCOdar5jlBrxr48/Bs8Um2/6fKbDMJU0OyXW8tUQVFfOnzetJHJrML6G1aghE
-	1TsYyEOs7Xirl8ReybTauPKyoU3BAldn/VNk1iwVifEKuX0B4yS4gvqP
-X-Received: by 2002:a05:622a:1b9f:b0:55c:8389:57f3 with SMTP id d75a77b69052e-55d76a7f1cbmr503259311cf.49.1795805717246;
-        Fri, 27 Nov 2026 10:55:17 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55dcdd1a2c6sm24950151cf.20.2026.11.27.10.55.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 10:55:16 -0800 (PST)
-Message-ID: <b51b4c1ce171a77eb452455862d706680d211e71.camel@ndufresne.ca>
-Subject: Re: [PATCH v3] media: mediatek: vcodec: Validate source buffer
- vaddr in buf_prepare
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Fei Shao <fshao@chromium.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Hans Verkuil
- <hverkuil@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, Yunfei Dong
-	 <yunfei.dong@mediatek.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Date: Fri, 27 Nov 2026 13:55:14 -0500
-In-Reply-To: <20261127-vcodec-null-va-v3-1-e24521086062@chromium.org>
-References: <20261127-vcodec-null-va-v3-1-e24521086062@chromium.org>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-cH77cGYcAbVXP/0jrHXu"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ky4DvDkA
+ARC-Seal: i=1; a=rsa-sha256; t=1795805873; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ic8O5ek6uhBGxRPS/P7cgl9ddcp+1l3QWrXbZ3PHyb0hWaZY+x+nulGS+pHwRYaBcPBb29vNNAvqi/jj2zLk1lPdjDvPNgUYsR8xc4pjUBUGq0DDIx3X4+jbHSrqjSkRq6yNB5dT7vHVmdqzvSbw53d35CA8iLdkK5LiGZB6cyk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795805873; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=pcIA7yNtdSv4ODO4Q44pRru7yd7KZ91x7RtnWUq1Rhg=; 
+	b=PV96wTjBIp/vQ0JPsgwzbCRCkEwaZzQLo/neVdK3pPRTEQy1bBMxjqCz02dzz5tL+xrGb+pvfSLKrZ3JSvUAeXgsaB+HW9NiRNZnl67Z5TO9qOG/wzyIgYkgNXrA6EHE5sd5NY5eESg7pW59Xujg6V0y6o/2ucrVIpIDuyCnrX0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=ky4DvDkAEc/EZfdEnQqsOMgVKmNHK+wwm/CJMA7TxepLn0JnNdoZp2wgStqviXs1huFB1XWNGtMEsr8a/AqkUcEjyATwgJA5DvFFtkzi7bsVue5NATWDCY/GmGVa8+A97c1niJwqjFH0qAaYJg9pCHUw0N6hTej0LqIQlWcfoYQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=pcIA7yNtdSv4ODO4Q44pRru7yd7KZ91x7RtnWUq1Rhg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795805868900911.1464793688865;
+	Fri, 27 Nov 2026 10:57:48 -0800 (PST)
+From: Daniel Almeida <daniel.almeida@collabora.com>
+Date: Fri, 27 Nov 2026 15:57:38 -0300
+Subject: [PATCH] rust: workqueue: add DmaFenceQueue and DmaFenceWork
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -119,162 +59,315 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-dma-fence-work-v1-1-4a4f55ce51b5@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OyU7DMABEfyXyGaN4iWNHCPEfqAcv42DIQu0kI
+ FX9d9KUAweOI828NxdSkBMK6aoLydhSSfO0B/ZQEf9mpx40hT0TXnPFGG9pGC2NmDzo15w/aHQ
+ CClyoxoDso8+MmL4P4Ovpnsvq3uGXG+W3kXFed9Nyr5ERpdjD1FVPdxEzNK9lORznFSvoJmlN2
+ 7r1Shsjjaxf+nnuBzz6eXwmf+921T9nS+onOwxp6qm3EAHRWGvabmO3rbMFdAeNaekq66JTsnZ
+ ctBJcBegYNQtSay9M0LyRwTVCg5yu1x+yAEfMQAEAAA==
+X-Change-ID: 20261127-dma-fence-work-fb3e6e23659e
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org
+X-Mailer: b4 0.15.2
+X-ZohoMailClient: External
 
---=-cH77cGYcAbVXP/0jrHXu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Work on a dma-fence signalling path must run on a workqueue with
+WQ_MEM_RECLAIM, since memory reclaim can wait for dma-fences. It must
+also run in a signalling section, so that lockdep can check it.
 
-Le vendredi 27 novembre 2026 =C3=A0 13:37 +0800, Fei Shao a =C3=A9crit=C2=
-=A0:
-> If an OUTPUT buffer has no kernel mapping, vb2_plane_vaddr() returns
-> NULL. Both the stateful and stateless decoder workers only peek the
-> source buffer and finish the m2m job without returning it, so the buffer
-> stays at the head of the ready list and the same job is scheduled again.
-> In the stateless decoder, the media request is also never completed; in
-> the stateful decoder, vb2ops_vdec_stateful_buf_queue() also passes the
-> source address to vdec_if_decode() without a NULL check.
->=20
-> Add a vb2_plane_vaddr() NULL check for OUTPUT buffers in the shared
-> vb2ops_vdec_buf_prepare() instead, then remove the late checks from both
-> workers. Unmappable buffers are rejected before entering the queue, and
-> userspace gets immediate feedback.
->=20
-> Fixes: 590577a4e525 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video D=
-ecoder Driver")
-> Fixes: 7b182b8d9c85 ("media: mediatek: vcodec: Refactor get and put captu=
-re buffer flow")
-> Signed-off-by: Fei Shao <fshao@chromium.org>
-> ---
-> Changes in v3:
-> - Consolidate into a single patch.
->   Validate OUTPUT buffer in shared vb2ops_vdec_buf_prepare() and drop
->   the late checks from both workers per suggestion in v2.
-> - Link to v2: https://lore.kernel.org/all/20261023075642.3671805-1-fshao@=
-chromium.org/
->=20
-> Changes in v2:
-> - Call media_request_manual_complete() instead of
->   mtk_vdec_stateless_cap_to_disp() to avoid dequeuing a capture buffer
->   that may be in use by the core workqueue on MediaTek LAT platforms.
-> - Link to v1: https://lore.kernel.org/all/20261019060825.4163770-1-fshao@=
-chromium.org/
-> ---
->  drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c   | 8 ++=
-+++++-
->  .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c    | 6 --=
-----
->  .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c   | 6 --=
-----
->  3 files changed, 7 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c
-> index d76e891f784b..a5c6b56be927 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c
-> @@ -811,8 +811,14 @@ int vb2ops_vdec_buf_prepare(struct vb2_buffer *vb)
->  =09=09=09=09=09  i, vb2_plane_size(vb, i), q_data->sizeimage[i]);
->  =09=09=09return -EINVAL;
->  =09=09}
-> -=09=09if (!V4L2_TYPE_IS_OUTPUT(vb->type))
-> +=09=09if (V4L2_TYPE_IS_OUTPUT(vb->type)) {
-> +=09=09=09if (!vb2_plane_vaddr(vb, i)) {
-> +=09=09=09=09mtk_v4l2_vdec_err(ctx, "failed to get vaddr for plane %d", i=
-);
-> +=09=09=09=09return -EFAULT;
+Add DmaFenceQueue, an OwnedQueue that is always created with
+WQ_MEM_RECLAIM, and DmaFenceWork, a ScopedWork that can only be bound
+to a DmaFenceQueue and whose work function runs in a
+SignallingSection. The work function receives the section, so it can
+signal fences with DriverFence::signal().
 
-The spec only allow two errors, so I think it should be EINVAL, what do you
-think?
+There are no users yet. Tyr will use them.
 
-https://www.kernel.org/doc/html//latest/userspace-api/media/v4l/vidioc-prep=
-are-buf.html#return-value
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+---
+DmaFenceWork is built on ScopedWork, so this depends on the workqueue
+series that adds OwnedQueue and ScopedWork [1]. It also needs
+SignallingSection from [2].
 
+This is based on drm-rust-next.
 
-> +=09=09=09}
-> +=09=09} else {
->  =09=09=09vb2_set_plane_payload(vb, i, q_data->sizeimage[i]);
-> +=09=09}
+[1] https://lore.kernel.org/r/20261119-rust-workqueue-v4-0-707c68994940@google.com
+[2] https://lore.kernel.org/r/20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com
+---
+ rust/kernel/workqueue/dma_fence.rs | 211 +++++++++++++++++++++++++++++++++++++
+ rust/kernel/workqueue/mod.rs       |  10 ++
+ 2 files changed, 221 insertions(+)
 
-I would myself do two if, to keep the two separate.
+diff --git a/rust/kernel/workqueue/dma_fence.rs b/rust/kernel/workqueue/dma_fence.rs
+new file mode 100644
+index 000000000000..066eff3250ce
+--- /dev/null
++++ b/rust/kernel/workqueue/dma_fence.rs
+@@ -0,0 +1,211 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Work items and a workqueue for the dma-fence signalling path.
++
++use crate::{
++    alloc::AllocError,
++    container_of,
++    dma_buf::SignallingSection,
++    prelude::*,
++    sync::LockClassKey, //
++};
++
++use super::{
++    OwnedQueue,
++    Queue,
++    ScopedWork,
++    ScopedWorkItem, //
++};
++
++use core::{
++    ops::Deref,
++    ptr, //
++};
++
++/// A workqueue for work done on a [dma-fence signalling path].
++///
++/// Memory reclaim can wait for a dma-fence, and signalling that fence can depend on work queued
++/// here, so the queue is created with `WQ_MEM_RECLAIM`. That flag reserves one execution context
++/// per queue, so work items that depend on each other need separate queues.
++///
++/// [dma-fence signalling path]: https://docs.kernel.org/driver-api/dma-buf.html#dma-fence-signalling-annotations
++pub struct DmaFenceQueue(OwnedQueue);
++
++impl DmaFenceQueue {
++    /// Allocates a new unbound workqueue.
++    #[inline]
++    pub fn new_unbound(name: &CStr) -> Result<Self, AllocError> {
++        Ok(Self(Queue::new_unbound().mem_reclaim().build(name)?))
++    }
++
++    /// Allocates a new ordered workqueue, which runs one work item at a time, in the order they
++    /// were queued.
++    #[inline]
++    pub fn new_ordered(name: &CStr) -> Result<Self, AllocError> {
++        Ok(Self(Queue::new_ordered().mem_reclaim().build(name)?))
++    }
++}
++
++/// Trait for types that can be used as [`DmaFenceWork`] items.
++///
++/// Like [`ScopedWorkItem`], except that the work function runs in a [`SignallingSection`], which
++/// it receives.
++pub trait DmaFenceWorkItem: Sized + Sync {
++    /// Called when the work item is executed.
++    fn run(work: &DmaFenceWork<'_, Self>, section: &SignallingSection);
++}
++
++/// The data of the [`ScopedWork`] inside a [`DmaFenceWork`].
++///
++/// # Invariants
++///
++/// An `Inner<T>` only ever exists inside the `work` field of a [`DmaFenceWork<'_, T>`].
++#[pin_data]
++struct Inner<T> {
++    #[pin]
++    data: T,
++}
++
++impl<T: DmaFenceWorkItem> ScopedWorkItem for Inner<T> {
++    fn run<'a, 'wq>(work: &'a ScopedWork<'wq, Self>) {
++        let section = SignallingSection::begin();
++
++        // SAFETY: An `Inner<T>` only ever exists inside the `work` field of a
++        // `DmaFenceWork<'wq, T>` (type invariant), so `work` is the `work` field of a live
++        // `DmaFenceWork<'wq, T>`.
++        let work: &'a DmaFenceWork<'wq, T> =
++            unsafe { &*container_of!(ptr::from_ref(work).cast_mut(), DmaFenceWork<'wq, T>, work) };
++
++        T::run(work, &section);
++    }
++}
++
++/// A work item on a [dma-fence signalling path].
++///
++/// Wraps a [`ScopedWork`] that is bound to a [`DmaFenceQueue`] and whose work function runs in a
++/// [`SignallingSection`].
++///
++/// [dma-fence signalling path]: https://docs.kernel.org/driver-api/dma-buf.html#dma-fence-signalling-annotations
++///
++/// # Examples
++///
++/// ```
++/// use kernel::{
++///     dma_buf::SignallingSection,
++///     workqueue::{
++///         new_dma_fence_work,
++///         DmaFenceQueue,
++///         DmaFenceWork,
++///         DmaFenceWorkItem, //
++///     },
++/// };
++///
++/// struct MyWork {
++///     value: u32,
++/// }
++///
++/// impl DmaFenceWorkItem for MyWork {
++///     fn run(work: &DmaFenceWork<'_, Self>, _section: &SignallingSection) {
++///         pr_info!("value = {}\n", work.value);
++///     }
++/// }
++///
++/// #[pin_data]
++/// struct MyData {
++///     #[pin]
++///     work: DmaFenceWork<'wq, MyWork>,
++///     wq: DmaFenceQueue,
++/// }
++///
++/// fn init_data() -> impl PinInit<MyData, Error> {
++///     // Define `my_work` outside the `unsafe` block.
++///     let my_work = MyWork { value: 7 };
++///     try_pin_init!(MyData {
++///         wq: DmaFenceQueue::new_unbound(c"my-wq")?,
++///         // SAFETY: `MyData` is only ever pin-initialized, and `work` is declared before `wq`,
++///         // so `work` is dropped before `wq`.
++///         work <- unsafe { new_dma_fence_work!(wq, "MyWork", my_work) },
++///     })
++/// }
++/// # pin_init::stack_try_pin_init!(let data =? init_data());
++/// # data.work().enqueue();
++/// # Ok::<(), Error>(())
++/// ```
++#[pin_data]
++#[repr(transparent)]
++pub struct DmaFenceWork<'wq, T: DmaFenceWorkItem> {
++    #[pin]
++    work: ScopedWork<'wq, Inner<T>>,
++}
++
++impl<'wq, T: DmaFenceWorkItem> DmaFenceWork<'wq, T> {
++    /// Creates a pin-initializer for a new work item bound to `queue`.
++    ///
++    /// Use [`new_dma_fence_work!`] to automatically provide the lock class key.
++    ///
++    /// # Safety
++    ///
++    /// The caller must ensure that the destructor of the initialized `DmaFenceWork<'wq, T>` runs
++    /// before the memory it lives in is reused and before `'wq` or any lifetime in `T` expires.
++    /// In particular, the value must not be leaked, e.g. via [`core::mem::forget`] or by leaking
++    /// the allocation that contains it.
++    #[inline]
++    pub unsafe fn new<E>(
++        queue: &'wq DmaFenceQueue,
++        name: &'static CStr,
++        key: Pin<&'static LockClassKey>,
++        init: impl PinInit<T, E>,
++    ) -> impl PinInit<Self, E> {
++        let data = try_pin_init!(Inner { data <- init }? E);
++
++        // INVARIANT: The `Inner<T>` is created inside the `work` field of this `DmaFenceWork`.
++        try_pin_init!(Self {
++            // SAFETY: Dropping a `DmaFenceWork` drops its `work` field, and `Inner<T>` has the
++            // lifetimes of `T`, so the caller's guarantee covers the requirements of
++            // `ScopedWork::new`.
++            work <- unsafe { ScopedWork::new(&queue.0, name, key, data) },
++        }? E)
++    }
++
++    /// Enqueues this work item on its bound workqueue.
++    ///
++    /// Returns `false` if the work item is already pending on the workqueue.
++    ///
++    /// The work item will be submitted using `WORK_CPU_UNBOUND`.
++    #[inline]
++    pub fn enqueue(&self) -> bool {
++        self.work.enqueue()
++    }
++}
++
++impl<T: DmaFenceWorkItem> Deref for DmaFenceWork<'_, T> {
++    type Target = T;
++
++    #[inline]
++    fn deref(&self) -> &T {
++        &self.work.data
++    }
++}
++
++/// Creates a [`DmaFenceWork`] pin-initializer with a new lock class.
++///
++/// This macro expands to a call to [`DmaFenceWork::new`], which is `unsafe`, so the invocation
++/// must be wrapped in an `unsafe` block.
++///
++/// # Safety
++///
++/// The caller must uphold the safety requirements of [`DmaFenceWork::new`]: the destructor of the
++/// initialized `DmaFenceWork` must run before the memory it lives in is reused and before the
++/// bound [`DmaFenceQueue`]'s lifetime or any lifetime in the inner type expires.
++#[macro_export]
++macro_rules! new_dma_fence_work {
++    ($queue:expr, $name:literal, $init:expr $(,)?) => {
++        $crate::workqueue::DmaFenceWork::new(
++            $queue,
++            $crate::c_str!($name),
++            $crate::static_lock_class!(),
++            $init,
++        )
++    };
++}
++pub use new_dma_fence_work;
+diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.rs
+index d80fced7f333..328a6fce4d8d 100644
+--- a/rust/kernel/workqueue/mod.rs
++++ b/rust/kernel/workqueue/mod.rs
+@@ -219,6 +219,16 @@
+     ScopedWorkItem, //
+ };
+ 
++#[cfg(CONFIG_DMA_SHARED_BUFFER)]
++mod dma_fence;
++#[cfg(CONFIG_DMA_SHARED_BUFFER)]
++pub use self::dma_fence::{
++    new_dma_fence_work,
++    DmaFenceQueue,
++    DmaFenceWork,
++    DmaFenceWorkItem, //
++};
++
+ /// Creates a [`Work`] initialiser with the given name and a newly-created lock class.
+ #[macro_export]
+ macro_rules! new_work {
 
+---
+base-commit: abfb640b2374e26de8ff81d488c39d8254db538e
+change-id: 20261127-dma-fence-work-fb3e6e23659e
+prerequisite-message-id: <20261119-rust-workqueue-v4-0-707c68994940@google.com>
+prerequisite-patch-id: 2423b22dfde216dce30af3deb7eb7177505f5b96
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a
+prerequisite-patch-id: cba4cd096a4df20f4597e9ea639881213c18a41b
+prerequisite-patch-id: 97b26feddfa5b675204c9e8e75f3ad2958ec268a
+prerequisite-change-id: 20261127-dma-fence-signalling-cae3def9aa97:v1
+prerequisite-patch-id: 0c6f8b7108a5757d863b43508c42b57b132a42c7
+prerequisite-patch-id: 82b6ae2b11186087986a05bd8a98f1c79c46ea2d
 
-=09=09if (V4L2_TYPE_IS_OUTPUT(vb->type) && !vb2_plane_vaddr(vb, i)) {
-=09=09=09mtk_v4l2_vdec_err(ctx, "failed to get vaddr for plane
-%d", i);
-=09=09=09return -EINVAL;
-=09=09}
+Best regards,
+--  
+Daniel Almeida <daniel.almeida@collabora.com>
 
-=09=09if (V4L2_TYPE_IS_CAPTURE (vb->type)
- =09=09=09vb2_set_plane_payload(vb, i, q_data->sizeimage[i]);
-
-Nicolas
-
->  =09}
-> =20
->  =09return 0;
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_stateful.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_stateful.c
-> index aa9bdee7a96c..fbd5791e78c1 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_state=
-ful.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_state=
-ful.c
-> @@ -347,12 +347,6 @@ static void mtk_vdec_worker(struct work_struct *work=
-)
->  =09buf.va =3D vb2_plane_vaddr(&src_buf->vb2_buf, 0);
->  =09buf.dma_addr =3D vb2_dma_contig_plane_dma_addr(&src_buf->vb2_buf, 0);
->  =09buf.size =3D (size_t)src_buf->vb2_buf.planes[0].bytesused;
-> -=09if (!buf.va) {
-> -=09=09v4l2_m2m_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx);
-> -=09=09mtk_v4l2_vdec_err(ctx, "[%d] id=3D%d src_addr is NULL!!", ctx->id,
-> -=09=09=09=09  src_buf->vb2_buf.index);
-> -=09=09return;
-> -=09}
->  =09mtk_v4l2_vdec_dbg(3, ctx, "[%d] Bitstream VA=3D%p DMA=3D%pad Size=3D%=
-zx vb=3D%p",
->  =09=09=09  ctx->id, buf.va, &buf.dma_addr, buf.size, src_buf);
->  =09dst_buf->vb2_buf.timestamp =3D src_buf->vb2_buf.timestamp;
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_d=
-ec_stateless.c
-> index ab1894fba0d9..3d5f9e11a49b 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_state=
-less.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_state=
-less.c
-> @@ -342,12 +342,6 @@ static void mtk_vdec_worker(struct work_struct *work=
-)
->  =09bs_src->va =3D vb2_plane_vaddr(vb2_src, 0);
->  =09bs_src->dma_addr =3D vb2_dma_contig_plane_dma_addr(vb2_src, 0);
->  =09bs_src->size =3D (size_t)vb2_src->planes[0].bytesused;
-> -=09if (!bs_src->va) {
-> -=09=09v4l2_m2m_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx);
-> -=09=09mtk_v4l2_vdec_err(ctx, "[%d] id=3D%d source buffer is NULL", ctx->=
-id,
-> -=09=09=09=09  vb2_src->index);
-> -=09=09return;
-> -=09}
-> =20
->  =09mtk_v4l2_vdec_dbg(3, ctx, "[%d] Bitstream VA=3D%p DMA=3D%pad Size=3D%=
-zx vb=3D%p",
->  =09=09=09  ctx->id, bs_src->va, &bs_src->dma_addr, bs_src->size, vb2_src=
-);
->=20
-> ---
-> base-commit: a9c48428cbd8d96b26f92631d0db6f8519c5fcc5
-> change-id: 20261127-vcodec-null-va-cd0008e9f136
-
---=-cH77cGYcAbVXP/0jrHXu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawnSEgAKCRDZQZRRKWBy
-9GCLAQCDEAyrTgLprsz58hQYBLGjSR9A0s2brlYq+wcnCoXI3gD/TRlIZCzY6Whr
-hCii3ApDRHlWxXNWTh1uomfYIOVXXg8=
-=wqqh
------END PGP SIGNATURE-----
-
---=-cH77cGYcAbVXP/0jrHXu--
