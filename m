@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793080;
-	b=o2RgwBcgCtkNcSqyyMb9uU5jYVVJ+Zn95rZ9gMyvscAfMvOeZhG+stZAD3R8DWkmhLy8
-	 xDbAAT4lPvMf0B8qO27kaGLfAcP9FW1yQ8CKQzKIwbbqbM/1Jw44hejY4sG+FRkjCtYCU
-	 u4g0VVWjl+R34b6R9uYEoXipwDwDxibQOR3dqgVogR9Te/ELeOM1DXUYpiPPBRxjvT8AL
-	 gjM+IpWCbmHD0d2/u2HXdDdGI0E3xVUt3NIq/l1qVMurCsc4A0zFiBfmG5x5yjc41yOwu
-	 ehC74igNeQuuHmNn03WOrVlKQB7eWq6m7bq+7SE7WNNScK9yoPtBl0xifY3l8QQzMuQ==
+	t=1795793186;
+	b=I9Iw9TatgBHIzJIs9J9fg43kuTU9JbtrKqS1xE3iDdlmqyn+znHQ3ogzWvvd8vyihDQv
+	 2PNSU6480Ygajs70xYnz0mpyG1VZw7V+wksHaslYKoodmKkknrFadwJhf16qZ4s9Hvttx
+	 rWdr+jYebv64J7OZyIc6Y1NueaNUmh+Zq32M13OcEmjpHZN8+wbbWTWkkFxkmhzT8xO15
+	 tZ+uxhoyg86XTsF2qw9RDnNY8Jecdhq2ArpFo7cx8hObERjYRpmNZ6Qc1nce1ora2TeNT
+	 w8Qh8dTNKhA7xrtFFV2HJP9BJxj9VB5gJq2sRX9L5olrt308VUeBhZsRM+96DoVx22A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793080;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=w46lPKdDZuz+yasVArT/wiplTje3J5dokSU77xqqMi4=;
-	b=su7BOBExFI0wrpdWNGS0468+dkdm5jEMRff/SjG12duNnmIHC/3fi7bHvFzlqI7J0wEx
-	 FP8KPJ/BnoOoCvRv8Bv60zK+isfETJjS3umC+2T/rq+AGSH1ohLyZEtyKCSwIO2pIM/TR
-	 s0T1HKHRGVMNSjOXJFR47nqeQjp9G0ZZLe5VXYaY0PIIzTVDKAUYl8ImpjvWcTkBqaTGZ
-	 YJYUtiIhK9y8hiuiPA28qFxyn2xPcrunRTIlzW76+Ps9t6nXB3HAEzmm3ZraDyHXQ5mxP
-	 x7TMkiOBRq6P8oOe9abHEqahfxxSFfv3oLg8UFFherpnqCtLa6Gm7aKkfUbbWXxy1nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793186;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=Cn8J32uTGtMslRtCIcKhh5GRTA7wlzF7vM1J878/mN8=;
+	b=inkPsVJySHLJYnHdcXWs3ZBEMQVcCBgn1S6ox42F/6TG1wIkeMGfM+kkN02SYkVypjaj
+	 Dh4AGIqTcM+hREauOsl2H28ZstrfsqjJ2G3wZEToVR0KdStun2CHHi+aenwmIYsIvvLe0
+	 YLhOV+MRh/c+QAEG7xz3chQun0mA/lYiGq8ATQ0gV/nPvVb3BUe93bSRNxNH2e6HYxo5v
+	 u0IKdamJbVYsRiMkdcTXzt2dBXa4Hs9KGVJ/DwHXRaaOP/O8gTXl+7N2WPCJo0EMODh2/
+	 FirR4a5OZBWgVzlUttZUSB3+1JKeT+A+IY8rvtJvAmKXp3HLmjChuKFK9eEeS4tiagw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ce/7JmhM";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F244606A32F;
-	Fri, 27 Nov 2026 15:24:40 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Gky9TahE;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D31F5606A31C;
+	Fri, 27 Nov 2026 15:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31F5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce/7JmhM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AA41F00936;
-	Fri, 27 Nov 2026 15:24:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795793080;
-	bh=w46lPKdDZuz+yasVArT/wiplTje3J5dokSU77xqqMi4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ce/7JmhMaWBK3DgK3DD0Ozh3QLSoA9Xvt+KOdMa6gPyAOjhVBUO/9UDY7FWR2ZlG6
-	 Qn7g8LeKTavr/tjs7mtAxNNmEjFLZgRtcxvQEFdJCBRXLt5a7v9V+kv2H6cT0V316y
-	 +uVrBxhQxfWrJI6qzG6OgT4mqgyFjGQ6WTAur+qJ5fiZUDi+bVwukPoOW0MlfN2JqT
-	 GMMkdV/NWdCetVEERBZkPMLUvrA1SWCS7gCevy9LwDiTDCNg1pn/o+xM0dEVlQBJhG
-	 FBWarQivAZQCbDNA3DIimJhoJrFYDQTrUp8baWgX0Bs2cHBHp7KUchpIWXAMTajdrR
-	 wF0/snaNYH5/Q==
-Date: Fri, 27 Nov 2026 17:24:36 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Honglei Huang <honghuan@amd.com>, prakash.gupta@oss.qualcomm.com,
-	Alex Williamson <alex@shazbot.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] media: venus: use dma_iova_size() to check the
- reserved IOVA size
-Message-ID: <20261127152436.GA774860@unreal>
-References: <20261127115849.2780625-1-m.szyprowski@samsung.com>
- <CGME20261127115859eucas1p1ae20b01eec39080daf19dbd71aba10e9@eucas1p1.samsung.com>
- <20261127115849.2780625-2-m.szyprowski@samsung.com>
- <20261127142912.GK114472@nvidia.com>
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Gky9TahE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=Cn8J32uTGtMslRtCIcKhh
+	5GRTA7wlzF7vM1J878/mN8=; b=Gky9TahEHQYWDavMCXB/d+dDvyku8L7kawAF6
+	m5DcbcfXts3ZJ9R5D77Zrow5QrljUJnZhKkaFxxaUUYds0AjPp/5k/3xPFggd57G
+	bHL3K3D2KbRqdMVokP7JvOkW+YOtdI6NZ2JBNC+Ri55Xy0+nh/uauVFTBb1uzTsH
+	Myy+QI=
+Received: from [127.0.1.1] (unknown [114.214.180.66])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn8kYVoQlrFlYDAQ--.2904S2;
+	Fri, 27 Nov 2026 23:26:13 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Neil Armstrong <neil.armstrong@linaro.org>, linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>
+Subject: Re: [PATCH 00/11] media: iris: fix the decoder source change, seek
+ and START sequences
+Date: Fri, 27 Nov 2026 23:26:12 +0800
+Message-ID: <179579317286.2262269.17942928243908736028@mail.ustc.edu.cn>
+In-Reply-To:
+ <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
+References:
+ <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,39 +70,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127142912.GK114472@nvidia.com>
+X-CM-TRANSID:3pYKCgBn8kYVoQlrFlYDAQ--.2904S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr4ktw15WrWftr17KF1DAwb_yoW5Gryrpa
+	93t3sxtr4kJF10kr1Iqw48Ja4YyrZ5Gr4UXr4UJw10yry5Ar18ZrZ5Ka18uryjqr93uw1U
+	ZryYqwn7JF1DAaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
+	DU0xZFpf9x07bOUDXUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggAysH
 
-On Fri, Nov 27, 2026 at 10:29:12AM -0400, Jason Gunthorpe wrote:
-> On Fri, Nov 27, 2026 at 12:58:45PM +0100, Marek Szyprowski wrote:
-> > The IOVA reservation code compares dma_iova_state::__size directly with
-> > the requested chunk size. __size is internal to the DMA IOVA API and may
-> > carry flags in its upper bits, so use the dma_iova_size() accessor
-> > instead.
-> 
-> WTF is this even doing?
-> 
->     Fix this by reserving the 0-600MB range, below the boundary the
->     non-pixel stream cannot address, using dma_iova_try_alloc() so the
->     IOMMU-DMA core never hands that range out to a real DMA mapping. This
->     reserves only IOVA space, it does not allocate any physical memory.
-> 
-> That isn't what this API is for, and it isn't how it even works! It is
-> pure luck that the first call to it happens to take out the lower
-> address space.
-> 
-> We even had a long discussion about this driver and this need in
-> another thread and this is the hack job you guys merged?
+Hi Neil,
 
-You should also mention that NONE of the DMA/IOMMU developers or the authors
-of that API were CCed when the change was merged.
-https://lore.kernel.org/all/20260818-reserve_iova_in_driver-v2-2-5005a1154408@oss.qualcomm.com/
+Tested the series on a Snapdragon 8 Elite (SM8750, Lenovo TB322FC) with the
+vpu35 firmware (vpu35_p4.mbn) on a 7.3-based tree. Before the series every
+decode failed with "capture: driver decode error"; with it the decoder is
+fully working. Details and how I adapted it to my (older) tree below.
 
-> 
-> And it couldn't even use the right APIs??!
+What I changed to apply it
+--------------------------
+My tree is from 2026-10-14 and had none of the base symbols, so a straight
+git apply failed from patch 03 on (context drift, not semantic conflict).
+I applied the 11 patches with `patch -p1 --fuzz=3`. The only real gap: patch
+11 calls iris_vb2_signal_eos(), a helper that comes from a different commit
+and is not in this series nor in my tree, so I added it locally with the same
+semantics as the inline block in iris_vb2_buf_queue():
 
-And proposed for the stable@ :(
+	void iris_vb2_signal_eos(struct iris_inst *inst)
+	{
+		const struct v4l2_event eos = { .type = V4L2_EVENT_EOS };
 
-> 
-> Jason
+		if (!v4l2_m2m_has_stopped(inst->m2m_ctx)) {
+			v4l2_event_queue_fh(&inst->fh, &eos);
+			v4l2_m2m_mark_stopped(inst->m2m_ctx);
+		}
+	}
+
+Results (H.264 and HEVC, 640x480@30, 3 s = 90 frames)
+----------------------------------------------------
+- ffmpeg -c:v h264_v4l2m2m -i t.mp4 -f null -   -> frame=90, no decode error
+- ffmpeg -c:v hevc_v4l2m2m -i t.mp4 -f null -   -> frame=90, no decode error
+- framemd5 of the hardware decode matches the software decode for all 90
+  frames (0 mismatches) for both codecs.
+- Moonlight (Sunshine host, HEVC stream) now picks hevc_v4l2m2m on
+  /dev/video17 "Iris Decoder" and decodes in hardware; before the series it
+  fell back to software ("[h264_v4l2m2m] can't configure decoder").
+
+One note that may be useful for the changelog
+---------------------------------------------
+The spurious ERROR buffer is not fixed at iris_hfi_gen2_response.c where the
+zero-size PSC_LAST is flagged (that check still tests LAST, not PSC_LAST
+after the series). It is fixed earlier: patches 09/10 make the first,
+unchanged settings change unsignalled (early_capture / drc_unsignalled), so
+the zero-size PSC_LAST is re-queued instead of being reported as an error.
+Might be worth wording the commit message around that path rather than the
+flag check.
+
+For the record, the series also happens to make several v4l2-compliance buffer
+checks pass (REQBUFS/EBUSY), independently of the three format fixes I am
+sending separately.
+
+AI assistance was used to prepare this report; I reviewed it and all the
+measurements above are mine.
+
+Tested-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+
+Thanks,
+Qianhui
+
