@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795790722;
-	b=EtmaYH58rED2TopIUd1t9YT7UQb4WzWs2p0osIBuxcVW4tIEhi6grDyrUzmixNFNLXez
-	 jo4FUiKYPifg1b5laWaljcrAmF7FmTsyH8bFie7f5Sjd8xqeOxMkgk6X2Dp5UMelDwAyk
-	 srcnptyWFipGT8Ecw5pK8Nzg4toMA/gF6Mirdhdj4P/qLpRpR5uG/OiT1OfXFDMGRsC2f
-	 934S9XjzxzjqDBMp82HPkT7HF/ceRHYT0FJ9+oICs8TiZvP7wnih5X3OhnGoGCZpZjIlj
-	 fpzV+hGecQXEsR7XP/d6eKWHQ+STK6ByITrr0EZGLVHlxVfw13gO0G4MZ78Wy2f2pVw==
+	t=1795790885;
+	b=JNaKtl036KbdmbfEZ4d+soyMW25R2vrB4Hi+3FbEZi3HIXfPC7Smxc+lGHLRsw/B7+hE
+	 AxQ2Xk42jQcqP60x5iL40755ZqciaVAzmPRBUcgF3ngjLboLY3LcfB7abZbcxDyYQVWEH
+	 h5YqF15bvCzcBQPfWJn/7l2KcI/lZ8FTt3NrY08EHbAoTaZx7+a53KDrxGhWa6AuuGoC9
+	 ZJTOwqXjWiWyEJ1pLfPIOROQSBb5S7S6zxRKVMGClWf0EzO7BbQc4e6EKxdLMnCOx4G7C
+	 /hTnBmFjBtosOGnezkFKmOcb66IkiSbbGYQNP0lnbTVmIZgHHJAcEOL/m0TTn0Ciu7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795790722;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=LO23VuR8oz1He3kunSDVbm/R/AJdXLqeSuquj/Un54I=;
-	b=GP2fY/l6ABHa2bAG1d9u8E74IJTdsxoMNnTAzd7IeDtuir986o2DTTlyQ6ZcjBFf1z3X
-	 Cl90EkqBdp2hOu8vkPqebt2ntsNCYmaBs6CxKxVo574EToPlyO26XUcUbb8f11rvLMU7f
-	 iqHzylUOB2A4VrmV2VV3CCS2XFQN/Xo30TBZnY1GK4leH1BrbM2zwPIcYjuVcKdsOu8Lp
-	 1Stz9im/musf1CULBeoG9AFoszlUnxac0HfFs4xkhMzjFLr+CdlP3O0qeH2hVsqxJvX2N
-	 +iJu0f+fTe1i4pAhvyktAVDRp2Nj5WTQyfW0uSXs+igdvvx04pOCfBLdoXdqwNdekZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795790885;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=2HEQDA4gVt20dFQGz8DujoonrchvVQJDi8wajEEgsZo=;
+	b=prNaNHGkrj4cdh4/v05wqdpxWpQTmvSarLm3nz9kp3Y6lKBAfi75/Tv6w3M2sA7gIHTW
+	 PvJR+3VeM8BC+LBRuc35tnHtldejw+Pm058KkLL3R4HRPh6czapyQgXebtHlhF1Avqhxr
+	 2e8lTEgaCYkE8jyAbl97iRTq7Fj0uSlOQSgB3MzvVQpBzRP/PkYCrfqfAmcRjbLju0Rxd
+	 BcPj8alLQvND0zsmC4PckcIcT6fVqq84uj9URKGCClpVr5j7/8cDPwG5zzU+2i9E0wiyD
+	 ha7cv+9+sYtO/VjAqTUmiuwvs5/Y+0wnj1RIDhwJfVSykAfJCsVnq8RGKb5S1sxiSfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=tH0WWuAW;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=EnTsigEW;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397E0606A33F
-	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 14:45:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 397E0606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D01606A31E;
+	Fri, 27 Nov 2026 14:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7D01606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=tH0WWuAW
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261127144518euoutp01beabc0a2ebab3d2baaf6ed3dcf696a44~r7iTZp7Vv2074020740euoutp01P
-	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 14:45:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261127144518euoutp01beabc0a2ebab3d2baaf6ed3dcf696a44~r7iTZp7Vv2074020740euoutp01P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795790718;
-	bh=LO23VuR8oz1He3kunSDVbm/R/AJdXLqeSuquj/Un54I=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=tH0WWuAWuzPYHQm+soNKBsCky89aAJhBeNMAl+NLBMauK5hFl+uh1UAcu8tbLdEG8
-	 nfJHn+PQMz0l0380GnH9tpUphr2qR24lltrW+TLLa0SnHNNvRebMYggDeIzGPDKUTM
-	 7619QSF/iwix+iDn0+A0kvV6ZYYjAB+a2KaAoYZs=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261127144518eucas1p22cf8f824453316c6bfb1f0a0066453b3~r7iTA2KY93155031550eucas1p2D;
-	Fri, 27 Nov 2026 14:45:18 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261127144515eusmtip242d75ac11ad94c4e4ca4316ca179bbe6~r7iQ-8K-m1223712237eusmtip2d;
-	Fri, 27 Nov 2026 14:45:15 +0000 (GMT)
-Message-ID: <feec2436-ad15-4aa6-a53f-800869bfac21@samsung.com>
-Date: Fri, 27 Nov 2026 15:45:15 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=EnTsigEW
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 74CC8C51;
+	Fri, 27 Nov 2026 15:45:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795790727;
+	bh=yWOhzqyWbQUYFV44H2oX7BtFxg7r1XPxlIFKOBjLIYI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EnTsigEWY2Z2zGQwEqem1lxzRh8RyfH7Zrawl5oIjoZUqtKWGkxcQ454Y9BnrwUIK
+	 r5DOwvCjBSuKoC31ZLFnwkdU0iYY5Xob56jLieyOYjHLpU4VfNe+xpny3w/sgTw7AV
+	 JZslZXduq2a6diLQ31/axVCGPJQ/WOLdQcOFvvtA=
+Date: Fri, 27 Nov 2026 15:47:59 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: rcar-vin: Return unused buffers correctly
+Message-ID: <awmU8zyMfRN9teIr@zed>
+References: <20261121-vin-fix-vb2-v2-1-602a3d876853@ragnatech.se>
+ <e44f2383-0a7b-411c-ba42-5f19156d2a08@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,139 +64,97 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 4/4] iommu/dma: restore flush queue use in
- dma_iova_destroy()
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: iommu@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, Joerg
-	Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Leon Romanovsky
-	<leon@kernel.org>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Honglei Huang
-	<honghuan@amd.com>, prakash.gupta@oss.qualcomm.com, Alex Williamson
-	<alex@shazbot.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar
-	<abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho
-	Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261127143740.GM114472@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261127144518eucas1p22cf8f824453316c6bfb1f0a0066453b3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a
-X-EPHeader: CA
-X-CMS-RootMailID: 20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a
-References: <20261127115849.2780625-1-m.szyprowski@samsung.com>
-	<CGME20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a@eucas1p2.samsung.com>
-	<20261127115849.2780625-5-m.szyprowski@samsung.com>
-	<20261127143740.GM114472@nvidia.com>
+In-Reply-To: <e44f2383-0a7b-411c-ba42-5f19156d2a08@kernel.org>
 
-On 27.11.2026 15:37, Jason Gunthorpe wrote:
-> On Fri, Nov 27, 2026 at 12:58:48PM +0100, Marek Szyprowski wrote:
->> Commit 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop
->> the free_iova helper") turned dma_iova_destroy() into dma_iova_unlink()
->> followed by dma_iova_free(). Before it, the destroy path marked its
->> IOTLB gather as queued for DMA-FQ domains, skipped iommu_iotlb_sync()
->> and handed the IOVA over to the flush queue, exactly like
->> __iommu_dma_unmap(). After it:
->>
->>   - dma_iova_unlink() never queues its gather and always calls
->>     iommu_iotlb_sync() after iommu_unmap_fast(),
->>   - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
->>     the IOVA goes straight back to the allocator via free_iova_fast().
->>
->> DMA-FQ domains therefore get strict invalidation on this path. This
->> includes blk_rq_dma_map(), which NVMe uses for all data transfers, so
->> iommu.strict=0 has no effect on NVMe I/O. On a Qualcomm Glymur CRD
->> (SMMUv3 without RANGE_INV, 4K pages, NVMe on PCIe Gen5 x4) sequential
->> fio throughput drops from 10.6/11.9 GiB/s (write/read) to the strict
->> mode level of ~2.7 GiB/s.
->>
->> Instead of reverting, decide once in dma_iova_try_alloc() whether the
->> IOVA space is going to be released through the flush queue and record
->> it in a new DMA_IOVA_USE_FQ flag in dma_iova_state::__size, next to
->> DMA_IOVA_USE_SWIOTLB, so struct dma_iova_state does not grow.
->> dma_iova_destroy() then unmaps with a gather queued according to that
->> flag, skipping the sync for flush queue domains, and passes the same
->> gather to the IOVA free, so the IOVA space (and any page table pages
->> released by the unmap) goes through queue_iova() again. dma_iova_free()
->> honours the flag as well. The whole reservation is still freed, keeping
->> the size fix of the reverted commit.
->>
->> A gather must always be retired, either by iommu_iotlb_sync() or by
->> handing it to the flush queue together with the IOVA, and the IOVA must
->> never be returned to the allocator while a queued invalidation for it is
->> still pending. To keep that obvious, the internal unlink helper only
->> unmaps into a gather supplied by its caller, and each caller retires it
->> right away: dma_iova_destroy() syncs or queues it together with the IOVA
->> free, exactly like __iommu_dma_unmap(), while dma_iova_unlink() always
->> uses a never queued gather and syncs it, as the unlinked range remains
->> owned by the caller and may be linked again immediately.
->>
->> Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
->> Reported-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->> Closes: https://lore.kernel.org/all/20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com/
->> Suggested-by: Leon Romanovsky <leon@kernel.org>
->> Cc: stable@vger.kernel.org # v7.3+
->> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
->> ---
->>  drivers/iommu/dma-iommu.c   | 103 ++++++++++++++++++++++++++----------
->>  include/linux/dma-mapping.h |   8 ++-
->>  2 files changed, 83 insertions(+), 28 deletions(-)
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Hi Hans
+   thanks for checking
 
-Thanks!
+On Fri, Nov 27, 2026 at 03:17:44PM +0100, Hans Verkuil wrote:
+> On 21/11/2026 12:54, Niklas Söderlund wrote:
+> > Unused VB2 buffers should be returned with state DONE not ERROR when
+> > stopping.
+>
+> Why? With 'unused' I assume you mean buffers that have no data in them, i.e. they
+> have never been used to capture video.
+>
+> So ERROR is correct for that. The state DONE is reserved for buffers that return
+> a valid payload.
+>
+> It's standard behavior to return any unused queued buffers as ERROR when we stop
+> streaming. That prevents userspace from trying to use their contents.
 
+I probably mis-interpreting the:
 
-What about the issue pointed by sashiko.dev? My LLM said that this will fix it:
+ "I/O returns to the same state as after calling ioctl VIDIOC_REQBUFS
+  and can be restarted accordingly."
 
+part from
+https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vidioc-streamon.html
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 0e329ecd7dfa..106da975bf0f 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1892,11 +1892,12 @@ static void __dma_iova_free(struct device *dev, struct dma_iova_state *state,
-  */
- void dma_iova_free(struct device *dev, struct dma_iova_state *state)
- {
--       struct iommu_iotlb_gather iotlb_gather;
--
--       iommu_iotlb_gather_init(&iotlb_gather);
--       iotlb_gather.queued = state->__size & DMA_IOVA_USE_FQ;
--       __dma_iova_free(dev, state, &iotlb_gather);
-+       /*
-+        * Nothing is linked any more and every dma_iova_unlink() has already
-+        * invalidated the IOTLB synchronously, so there is no deferred
-+        * invalidation to wait for and the IOVA can be reused right away.
-+        */
-+       __dma_iova_free(dev, state, NULL);
- }
- EXPORT_SYMBOL_GPL(dma_iova_free);
+(also because I now understand a buffer with FLAGS_ERROR is safe to
+requeue according to
+https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vidioc-qbuf.html#vidioc-qbuf
 
-@@ -2190,12 +2191,13 @@ void dma_iova_destroy(struct device *dev, struct dma_iova_state *state,
-        struct iommu_iotlb_gather iotlb_gather;
+ "It is recommended that drivers indicate recoverable errors by setting
+ the V4L2_BUF_FLAG_ERROR and returning 0 instead. In that case the
+ application should be able to safely reuse the buffer and continue
+ streaming."
 
-        iommu_iotlb_gather_init(&iotlb_gather);
--       iotlb_gather.queued = state->__size & DMA_IOVA_USE_FQ;
+>
+> Jacopo, I'm dropping this one from your PR.
 
-        /*
-         * We can be here if the first call to dma_iova_link() failed and
--        * there is nothing to unlink, so let's be more clear.
-+        * there is nothing to unlink, so let's be more clear. Only queue the
-+        * gather if there is an unmap whose invalidation can be deferred.
-         */
-+       iotlb_gather.queued = mapped_len && (state->__size & DMA_IOVA_USE_FQ);
-        if (mapped_len)
-                __dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs,
-                                &iotlb_gather);
+Fine, thanks for checking the PR!
 
-
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+>
+> Regards,
+>
+> 	Hans
+>
+> >
+> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > ---
+> > Changes in v2:
+> > - Link to v1: https://patch.msgid.link/20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se
+> > ---
+> > * Changes since v1
+> > - Fix unused buffers returned in rvin_stop_streaming() too.
+> > ---
+> >  drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> > index 5e515d16c164..d3d1af47f8b1 100644
+> > --- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> > +++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> > @@ -1434,7 +1434,7 @@ void rvin_stop_streaming(struct rvin_dev *vin)
+> >  	for (unsigned int i = 0; i < HW_BUFFER_NUM; i++) {
+> >  		if (vin->buf_hw[i].buffer)
+> >  			vb2_buffer_done(&vin->buf_hw[i].buffer->vb2_buf,
+> > -					VB2_BUF_STATE_ERROR);
+> > +					VB2_BUF_STATE_DONE);
+> >  	}
+> >
+> >  }
+> > @@ -1449,7 +1449,7 @@ static void rvin_stop_streaming_vq(struct vb2_queue *vq)
+> >  	dma_free_coherent(vin->dev, vin->format.sizeimage, vin->scratch,
+> >  			  vin->scratch_phys);
+> >
+> > -	return_unused_buffers(vin, VB2_BUF_STATE_ERROR);
+> > +	return_unused_buffers(vin, VB2_BUF_STATE_DONE);
+> >  }
+> >
+> >  static const struct vb2_ops rvin_qops = {
+> >
+> > ---
+> > base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+> > change-id: 20260828-vin-fix-vb2-28e1bb24a618
+> >
+> > Best regards,
+> > --
+> > Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> >
+> >
+>
