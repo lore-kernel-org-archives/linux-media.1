@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774832;
-	b=0Pm1FIFPmWrSDdpgiZum7T+3EYfTki1F4Q8JELxnUrTdJripV041Hqi4FkFCZPFnjb9n
-	 xPRcm9o1WYxA6lpXY5CaBbTh7FrHDCDyJbeNgk3CHWARP8NQUy/vCSNVLrK7b1NMcKtXl
-	 w2EHp4mC6WI1bW4OGcdG6gI9/TgiKbAS/IYR191YNI3TSSu1cfpHCfhdID1Q1+KW6g1SS
-	 E0/xbooKELbe6MPkLR+E6SlXLkLPyNWUJ/iOb0JVvz04jsuTEci2V29AWkL26EP4xGJX3
-	 sMsrxVzKPX9wdTUVpohRWI8CiOK+wBMw3/E8JuzFpRIV08+VR7Q7sACcscpbx9+dyFw==
+	t=1795774839;
+	b=rsd70g4a/W13RSMRcE4fU01FB9Fbrw3rVabQzzQsOvemrhIvGQaJwYEzxEz4GwiT9AQa
+	 Y1O4DtdiRE3VZCbXlY+Tivjrsa0iEPAdCvkwvFE7EacRcTgHUpm38MWLCSw6vhpHy49nE
+	 bmHzg4fiscfi/6inS0m3y6NH6GsExaTjPbveGiDpRVUl5fMm29DaUd670Jkw++9GIamZ2
+	 bPX7hzvhymi4WwNEbfy9dWKClZJfdEsiA2qkU9b+9It+BXxMhl3i9LDcyAZvf0+58j0Yy
+	 nFRNaL7qV5kuBWr7IqLhwsHHfTKwhPqFqjeGz+sFwbXP9e7r1Xf3rEcZ6fmRTHOBJvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774839;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jdnt2/a/ZbMnN00rqXnxGWnUTsU4G3OMV0NCuzfNtiM=;
-	b=HRm8CKHC0lvHKTQ2b2FzKlIEV10twgFSG7mr2jmJszZU+DMDDYqq+AorZLr0NxH7t1Yu
-	 iS+kniex0+luSe+1duPRXbaHZ4rqbBxOzvVXGAetnKWqaNSFlR+5o7ykVTo5ZoM/lBcoo
-	 +MxTa4dqJSZ2JOiQDEeqXUQE9BMdRGRwgJuC0J+VM2KJwbkOBe+FyIC8dAsKLRqwBP6kd
-	 WopJtek07qm7DHmqbJ0uezlk1SoeLaQfnQ0ZSEg9QO71DuU0UCSV01Lqe/Q1h3t1hbGdF
-	 SzafSL1uvWG/7FfMTWIxjbJfs0uGe8Wx5tJqyFKOcmp/7F3Nua8+5330ZVV5l/fuikQ==
+	bh=l1oAF/DiYNS3X/YLQAQd9jHYIgVJICE43BOpftyq7DM=;
+	b=xVkwzd95qeJv4vX/D32e7ynEShdhFYZaySaQHcFTYYmhZBe65qi/+Vx7sRKSGj+TB/8g
+	 c6TFFldnpnqZzoTV9opQCwT4IqMQ5VEA4akUegMxxNhxaamjDrq5+qGYA2nCTAKkEtVCW
+	 zpdlzmL4DfFC+K6GlQVrWoNo8X8On76ZdfCNNaJimfIfOj1R1YuL79+s3zo+8EDsn4QIc
+	 nJy/2iFFNkm6TeC8FNuLlAcm5bWgz1XaWOYt1RmOBP34rOzcvMoBjsXHzjULKWtkurIYU
+	 GqvBGHVW/uzaqoQ/IV9aITWEsdo0QPXfRVruCbSaAuvAmlHIzGUKXmyScLUGLJoR9Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nQFUykQf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qji4ixgx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7294606A331;
-	Fri, 27 Nov 2026 10:20:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B6F606A31E;
+	Fri, 27 Nov 2026 10:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nQFUykQf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648C71F008A0;
-	Fri, 27 Nov 2026 10:20:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qji4ixgx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D50F1F00929;
+	Fri, 27 Nov 2026 10:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774832;
-	bh=jdnt2/a/ZbMnN00rqXnxGWnUTsU4G3OMV0NCuzfNtiM=;
+	s=k20260515; t=1795774838;
+	bh=l1oAF/DiYNS3X/YLQAQd9jHYIgVJICE43BOpftyq7DM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nQFUykQfesqG/I9SJFTuoB2Oq6I92Vw2E0PuaZqxx6mjXpvhxB3BXNBHyuc+IkVy0
-	 ZCPhMkc8JvUtfgvKg+IU3PJNf7Df9mCKgpx+4w5UuaiNLC6VCkkIe86RhlRWy63gC2
-	 Hfq8cZq/ZDYc8/AbTbMd4OTQROVHUwuuZjO8n+oB1X4NzovL7B/TzTNx6gF4m/0zFw
-	 DGYVes8EXPCCRI+oBphIdnpKmGsSS7v7QIrDSg7uzO2oY0ZJbYyttGqt1MWRGiUHU2
-	 yA1ruSDPP059L3Rz3annSE1CjlmnzPCpNh+Z6J3DxEyx4chTIxHW6xpwbIkHqqo6I/
-	 jM1ZPK5Oawtiw==
+	b=Qji4ixgxNe/uPnxNQATM7G79DPAjqHzxro0BE4Uy8CMXl+3avk6TCqY90BEl2Bn/a
+	 nWjAYt40p2SaRX937+fv6Jhp/JKfWJSOAe5IzitvMdKA9RsO43q5xLK7otJO7TkLCV
+	 cx2oLFERKILvx/J2ICzjmVzwtkf9kJ0Iz0KOWtHku3VgQ2H+XXrrN+ovaBrDfIth3O
+	 FKXEkop+4Sq8uFRdsL6e/kHIFf1NNVJSBZWLUbgwsZYvMx9FDtL0u6NsJMjq4098zX
+	 P0+FWHnJ3VMZVjT+N0JL969edrs4uTnl3+HOBJzaMlEUkiQ7fGnw7Vco8yk4cyRhRR
+	 GlfvGrL9hPijQ==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -64,9 +64,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	amd-gfx@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 5/8] drm/amdgpu: Stop using dma_fence internals
-Date: Fri, 27 Nov 2026 11:18:10 +0100
-Message-ID: <20261127101812.2706432-7-phasta@kernel.org>
+Subject: [RFC PATCH 6/8] dma-buf: sync_debug: don't use TIMESTAMP bit
+Date: Fri, 27 Nov 2026 11:18:11 +0100
+Message-ID: <20261127101812.2706432-8-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261127101812.2706432-2-phasta@kernel.org>
 References: <20261127101812.2706432-2-phasta@kernel.org>
@@ -81,54 +81,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-amdgpu_ctx_fence_time() directly accesses a fence's internal timestamp,
-not ensuring memory ordering.
+dma_fence's TIMESTAMP bit doesn't really serve a purpose and should be
+removed. Direct accessors should therefore be ported.
 
-Make the code more robust and readable by using the (now improved)
-dma_fence_timestamp() function.
+Use dma_fence_timestamp() in sync_debug.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
-I think this should, contrary to my previous statements, be fine since
-the lock taken is the s_fence lock, whereas this function's caller holds
-a distinct fctx lock.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/dma-buf/sync_debug.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 2f0349233695..9d6d92cb9734 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -170,6 +170,7 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
- /* Calculate the time spend on the hw */
- static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+diff --git a/drivers/dma-buf/sync_debug.c b/drivers/dma-buf/sync_debug.c
+index 9e5d662cd4e8..58c0d00ba5b3 100644
+--- a/drivers/dma-buf/sync_debug.c
++++ b/drivers/dma-buf/sync_debug.c
+@@ -46,6 +46,8 @@ static void sync_print_fence(struct seq_file *s,
+ 			     struct dma_fence *fence, bool show)
  {
-+	ktime_t scheduled_ts, finished_ts;
- 	struct drm_sched_fence *s_fence;
+ 	struct sync_timeline *parent = dma_fence_parent(fence);
++	struct timespec64 ts64;
++	ktime_t ts;
+ 	int status;
  
- 	if (!fence)
-@@ -177,15 +178,15 @@ static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+ 	status = dma_fence_get_status_locked(fence);
+@@ -55,10 +57,8 @@ static void sync_print_fence(struct seq_file *s,
+ 		   show ? "_" : "",
+ 		   sync_status_str(status));
  
- 	/* When the fence is not even scheduled it can't have spend time */
- 	s_fence = to_drm_sched_fence(fence);
--	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
-+
-+	if (dma_fence_timestamp(&s_fence->scheduled, &scheduled_ts) != 0)
- 		return ns_to_ktime(0);
+-	if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags)) {
+-		struct timespec64 ts64 =
+-			ktime_to_timespec64(fence->timestamp);
+-
++	if (dma_fence_timestamp(fence, &ts) == 0) {
++		ts64 = ktime_to_timespec64(ts);
+ 		seq_printf(s, "@%ptSp", &ts64);
+ 	}
  
- 	/* When it is still running account how much already spend */
--	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
--		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
-+	if (dma_fence_timestamp(&s_fence->finished, &finished_ts) != 0)
-+		return ktime_sub(ktime_get(), scheduled_ts);
- 
--	return ktime_sub(s_fence->finished.timestamp,
--			 s_fence->scheduled.timestamp);
-+	return ktime_sub(finished_ts, scheduled_ts);
- }
- 
- static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
 -- 
 2.56.0
 
