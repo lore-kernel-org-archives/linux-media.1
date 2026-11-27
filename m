@@ -1,85 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795740856;
-	b=4fA1puS/qsym6RmrEPVCRSh3q4dU4GSoxrzTZpT4DMajCokIh9G9e2o6XksYP+YLA9nw
-	 J8mdyksShRs2iRcYgNcqfiIkzmXYmleqhq90pM7INX9T6O8D9CuupvZDYgSs1s3FkW0KE
-	 xakD3BonHuGn7OuLshf103pjdzsLjJOpzZn8M2buOc4w7Fs6qLDaqj9UCABOPlvSGWTVi
-	 Z76uldhrB7v+KzoevGqw6J+iK1xW8xs6Mx7H1K+y5q9cIAeJxkCkcNgdPoT9zowA/vAW4
-	 kLp5GxNgHV01pVj57AJiFWKHO2j2GIy5wTlAqIobVAnBksFhWGOvv+LxGJdXH77E0lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795740856;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=nSGdVhd2ZiTBtmXtGjLSgMbCST5by9CvVRzOAxDbcww=;
-	b=PTWxv6ZuFueD1TSIa7+aujEutRbQf2b2dHjUiDbaaTfqIU2ahacN0ZEO6LydT1gzenNI
-	 AFlSHsMoNFZ0iVlxPWRQmZMqWhGzpF4m2HUhM2ImRRWjrho6SFQGq/X4hfldzZGm4jMVr
-	 PPb60qeLvZY0uEJ2c8dhrPDGdtdINeWuYCJMzCYOX9H4ipw8e8jugmbShqOT1mesAr1FN
-	 RgSAFUwufWV23/CVyYvv5dERWfR4Kt1ikkE6zEkTMtDrfON63tHc/DzVwxlqMYAUnYJMH
-	 2RRm/3F3rWfMYYJE65dfQHQdAY0I6AB0rWYN3jDHRw9s67/AxqzjszFpiUe2wlSJs1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="JRlrS2/3";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795740951;
+	b=vCznzwjCXIqD5hHlt5voCcrWXVcLRLVHcCEM8g56eoAfyPHzfgehlbY8bIsfNidD4OQJ
+	 g0Eju4N89EI9NV5rIXAfq/GPIFVIzXS6lZO3u7eNMT+uzQInpSaYGX4NN4TzMJ4tIVT5E
+	 T9oOjEQ/WCWxjEf44+QxP2Q6sgddWnpO3Qp4wQthdfCUO/PRKA81oSnE74UXIeXR4eT7o
+	 p+Zqs/j4CEhf5+RQB2ZKfXH2kyjNzEo753JF7sYdOEPZHmSnAnVIb14hBof1JBQwmzkiM
+	 c8zrlY57MnHPKwQoSx3No3i3IaUFj5A0Nz7b5Ps2Omhi/darmR0nOta3lfzoZNcJPhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795740951;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=7R3zADHrwtjKcbUIuoEKMwqqxvOdiyKSPd1yGegyVyE=;
+	b=J1RKqIc7OWp4f7nyLC7LAGwxOiLPTyQgOCq8EdyIk9V9i3CYcLpkjhSlXEr5Dr3s56Dw
+	 yXHE6L2s4gxIYi5v+fevXLDcQkjxQlVCas6+y8repLYwKoxb5azQD7qOGoJwoabIPVYxd
+	 HmrL9YZx41e3qisDJ7C8w4EJ2b7bTEV6eJP/Hanwg758cysCXAA3Ot7fNXQmGhpYcFAhx
+	 eX7Aw87lBM7XoGCuI+hq6e33QFQb3R7+6ODfYHHTBPwVma8axpjFUCbIjuR+C8rAOAzq7
+	 8UnjgbCboXuFcbUihUIs6mqaifQwMN8JKf3iUIilxe7nx10s059+eNjyaZQDJPgkgBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpvsQaQG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D9A606A31C;
-	Fri, 27 Nov 2026 00:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D9A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13177606A31C;
+	Fri, 27 Nov 2026 00:55:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JRlrS2/3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795740854;
-	bh=nSGdVhd2ZiTBtmXtGjLSgMbCST5by9CvVRzOAxDbcww=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=JRlrS2/3ChBdrYhROYpQujwD2OGt63Nb+mjYEuPr/SAyKSUeMhVtVs0tL3tM01otY
-	 mOM/5nzxR8zOKR1FLRHNNFlhAbMsxpg+dkvnWy7CF2oMSqWlOe1SUz48WDwHxT4v+0
-	 te5E30givQVI+WE3Kw8KFhMFLXM+jgQkRN62rTlUdly/mvSKP1MJfLsK+HJ8UNkbAp
-	 g993iINvlRq+RXOntKCGcWHwkD/R13lS2K2s//3XgFHBYTpP9XnG2SQlSeEcf4z7JR
-	 z9fcoqnJhrCNuYKoIWwKdd4ZiGqTRNHrnuGSqU+Am/ACw462880HKJTYgGKjCq9J7z
-	 Gw+w/HCMwpA7A==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpvsQaQG
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795740950;
+	b=oBF39AB9imANTF63PP0eNXkZ4Ohgwh/Qa9HDWXOIUnVrBmgI3sLnMNgKcFbdUow0QDcr
+	 UZ0Y7jJhmOGN8bOe8/z34uY0fglUQiQVoLVlLqzU+C6SOvwTNeEEBFhHjSj00DFk8ZBhA
+	 tMG24AEDcgO0gD9rK89y6jFhl07DkXGQrWEmU7remXTIKiV/hVTxp0sIHx0CfrqOaBcKg
+	 F0kB5tyTKxWt7R1IhrIkBn2nZj3roRf64i4+G1vScKxXG/38TKRe/DbwoxCg47nsWkLtu
+	 eNFYLCxPoRG7+Mrm6SMJzxNHu4Zz0fDFgMlkcczqXzp404niHoQZiz1s0c6v3u8KTGQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795740950;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=7R3zADHrwtjKcbUIuoEKMwqqxvOdiyKSPd1yGegyVyE=;
+	b=HVEFh5NSpYNl9qxDfPJqdH4BRRsXOqBht+XTdFoi32seznRUu2Mrnq8xg9x/NpahyEp7
+	 Xz87jUPz/iD+6h07/d1xOkI62PWmRS2Oj5sgjpxTMMD4mic6N3oN8sVfoK+mg8jT9S9Qp
+	 v5vKxb2FCJCAfrLu0DRjhms+qlqTuS5yJL6Tpaqst3w5DeIzh2IEvOkmXo9JE3Y95MXsG
+	 q7ApBwIxIQtKLrXulwIrrXsPRn125V/bnMmrEiMQZP60/5bj4RyaXRdS5Fito2UUgs9Te
+	 CcXvsJSfDC00Mu0IqPoXy/Woh0fw4R01zEhn/c0mK8MsE5pQAp7dd7cSdtqlpyjCKMA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AED6317E05F2;
-	Fri, 27 Nov 2026 01:54:12 +0100 (CET)
-Message-ID: <cdaa64c5c6aab0852670a15513e95baae42174c3.camel@collabora.com>
-Subject: Re: [PATCH v2 4/9] media: chips-media: wave5: ack the interrupt
- after dispatching it
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
-	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
-	nas.chung@chipsnmedia.com, stable@vger.kernel.org
-Date: Thu, 26 Nov 2026 19:54:10 -0500
-In-Reply-To: <20261109052853.110-5-jackson.lee@chipsnmedia.com>
-References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
-	 <20261109052853.110-5-jackson.lee@chipsnmedia.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-4TLiSzZFoUFbhOqy1bE6"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	by smtp.kernel.org (Postfix) with ESMTPS id 010C61F000C1;
+	Fri, 27 Nov 2026 00:55:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795740950;
+	bh=7R3zADHrwtjKcbUIuoEKMwqqxvOdiyKSPd1yGegyVyE=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=lpvsQaQG+Hyr6UFSMu1kAkWu8xPbdVreohAEn19SjSEZzRq76IrWZu+FXrzIkjYmL
+	 8yDepW+B6RrAfgygL2HzVHaJ6Cd579BJl5jvgTOiw+Yjzg6C8hjYWhnaCwT6lIve06
+	 9qDhOqN3QhVZ4hidkkKrgxqkRAmXJcjlZLzGBM02V1SeV6CDBgJOlNUfPrYw5HZJLP
+	 gG2HUp0W47sDl8ofHDJX6/QmvZjZjdWllmX606y91nLhN8low5FrbSwYeKjC0gZ2pL
+	 f7H5CdBkpHDDF1IBMBvqduaWFcHhnieqcQeZaYoAUo+Oyd22swrFHufRcCYyNdTA+0
+	 Wx0RUtpqChqgA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 874694B4B4;
+	Fri, 27 Nov 2026 00:55:48 +0000 (UTC)
+From: Jerome Berclaz via B4 Relay <devnull+jerome.berclaz.proton.me@kernel.org>
+Subject: [PATCH 0/4] media: tegra-vde: less cache maintenance, reject CABAC
+ early
+Date: Thu, 26 Nov 2026 16:55:44 -0800
+Message-Id: <20261126-tegra-vde-fixes-v1-0-fa4a7c1d24cc@proton.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,53 +84,77 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-4TLiSzZFoUFbhOqy1bE6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
-=A0:
-> From: Jackson Lee <jackson.lee@chipsnmedia.com>
->=20
-> W5_RET_QUEUE_CMD_DONE_INST is written by both the driver and the VPU:
-> the VPU sets the bit of every instance whose command completed, and the
-> driver clears the bits it has consumed. The driver does that as a
-> read-modify-write over a snapshot taken at the top of the handler, so
-> any bit the VPU adds in between is erased.
->=20
-> The firmware does not update that register, for any reason, until the
-> host acknowledges the interrupt through W5_VPU_VINT_REASON_CLR and
-> W5_VPU_VINT_CLEAR, so leaving the interrupt unacknowledged for the whole
-> dispatch is what keeps the register still. Acknowledging first opened
-> the race instead: the firmware could rewrite the register, and the
-> write-back then dropped the instance it had just added. That instance is
-> never reported again -- its queue count stays non-zero and no further
-> completion arrives, so it stops decoding for good while the others keep
-> running.
->=20
-> Move both acknowledge writes past the dispatch loop. The re-read of
-> W5_VPU_VINT_REASON that tried to narrow the window is no longer needed.
->=20
-> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-> Cc: stable@vger.kernel.org
-> Tested-by: Brandon Brnich <b-brnich@ti.com>
-> Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
---=-4TLiSzZFoUFbhOqy1bE6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5EQBCE4VeRPm8nZg6CV9k4MKppByvTViTi3
+ Q2OXyp/HWSICqM6OyhiU9PfnOA+GYWxnQew9snkc1845wteMcSWtx4susNYBFWQvCo7KSlVS8Q
+ zpOjbvLZ/NyGs9w2d5wWK5/AOcwAAAA==
+X-Change-ID: 20261126-tegra-vde-fixes-ffe9cf098bf8
+To: Dmitry Osipenko <digetx@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jerome Berclaz <jerome.berclaz@proton.me>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2262;
+ i=jerome.berclaz@proton.me; s=2026-11; h=from:subject:message-id;
+ bh=pSN+aMWG4bSfy4wRZg6S1xm4J1XJvjMCKBOGZErTLfM=;
+ b=owGbwMvMwCVmvC9341tRgSLG02pJDNkcV4XuuO9cuz2+xlJvdjD70VWPKngOH+KYoPlu8/tVe
+ 3c9Y+pd3VHKwiDGxSArpsjC2mCYOv8EW0Ch/rxDMHNYmUCGMHBxCsBEZvgy/M8/8prT8eiT30zx
+ 0y1SSycvm/ZvbvT3wzdiL3+ubo7L5WRg+CtqY3/0ravbUd473gsFzxtEvbwfs8g1ZtkHbYZ1qkd
+ 2/eIGAA==
+X-Developer-Key: i=jerome.berclaz@proton.me; a=openpgp;
+ fpr=058031659FC80650712F9EC233BE6DB1ED151072
+X-Endpoint-Received: by B4 Relay for jerome.berclaz@proton.me/2026-11 with
+ auth_id=1658
+X-Original-From: Jerome Berclaz <jerome.berclaz@proton.me>
+Reply-To: jerome.berclaz@proton.me
 
------BEGIN PGP SIGNATURE-----
+These patches came out of getting hardware H.264 playback working well on a
+Tegra30 device (Microsoft Surface RT) with mpv and FFmpeg's V4L2 request
+hwaccel. The decoder sits behind the SMMU there, so buffers use
+vb2_dma_sg_memops with cached pages, and cache maintenance turned out to be
+the largest kernel cost of playback.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjUsgAKCRDZQZRRKWBy
-9LJeAQDmDznB2A8veFi8n6JaivMsugmoKDDGiulJ2G/S95NN4wD/RiSSPFR7Aj2h
-m0z8jcXJdhO1GoL5+Iy+aogJN58JGAI=
-=5Qw3
------END PGP SIGNATURE-----
+Patches 1 and 3 shrink what gets cleaned for the bitstream (OUTPUT)
+buffers: a smaller default size derived from the frame size, and cleaning
+only the bytes the hardware reads instead of the whole buffer (FFmpeg
+allocates width x height x 3/2, while a coded frame is usually a few KB).
+Patch 2 lets clients that never read decoded frames through the CPU skip
+the capture-side sync with the existing cache hint flags, as the MediaTek
+decoder already allows. Patch 4 rejects CABAC in try_ctrl, so that setting
+the controls fails right away instead of the decode job failing later.
+Userspace that ignores buffer error flags otherwise shows broken frames.
 
---=-4TLiSzZFoUFbhOqy1bE6--
+Tested on the Surface RT with the same patches on a 7.3.1-based kernel
+(720p/1080p H.264, mpv and GStreamer). On 720p playback, the v7/l2c210
+cache maintenance functions had been about 21% of all CPU samples in the
+decoding thread before patch 1. Build-tested on media/next for ARM
+(tegra_defconfig, W=1), each patch individually.
+
+A follow-up RFC will add CABAC, weighted prediction and High profile
+support on Tegra30, by parsing slice headers in software. With it,
+patch 4's check only remains for SoCs without that support.
+
+These patches were developed with the help of an AI assistant;
+I have reviewed them and tested them on the device.
+
+---
+Jerome Berclaz (4):
+      media: tegra-vde: size the bitstream buffer from the frame size
+      media: tegra-vde: allow cache hints on the capture queue
+      media: tegra-vde: clean only the used part of the bitstream buffer
+      media: tegra-vde: reject CABAC in the H.264 PPS control
+
+ drivers/media/platform/nvidia/tegra-vde/v4l2.c | 71 +++++++++++++++++++++++++-
+ 1 file changed, 69 insertions(+), 2 deletions(-)
+---
+base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
+change-id: 20261126-tegra-vde-fixes-ffe9cf098bf8
+
+Best regards,
+--  
+Jerome Berclaz <jerome.berclaz@proton.me>
+
+
