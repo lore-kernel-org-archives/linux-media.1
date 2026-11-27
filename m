@@ -1,68 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795739904;
-	b=m1i0WOkvYToJRFrRGKC1ahLwY3X4eXDUVkMPL+lnl2KmSSK9leo0XaRNwUdKT3WC//kt
-	 vs41CXaroa2fiY43d6u9A/Vcus+cg/iD6kRoy58pbq/GpsH3UG3i3RoB3Mlnl5ijDS3Kh
-	 gKt8BOKX5gs+CoKMSIx3a8HAqwaXspgIz918gTn1/VI7MoSPg0htOBPP55kVixkyX6ouo
-	 3rjH0jVzbC3jp9X/62CQzg2e81/5mXS6EvTCcRXHogxX07/TYXimljTxf7ionPN9vLXlc
-	 RN4j3KSZa/6DTygqUjOC3KR9n1h8+JlozjSZ++BZu7P2w374Ca82u6GSoYopbiIpESQ==
+	t=1795740011;
+	b=Ep0Yx/os+4R9E5nsPEhHW0jtUQtQpelpDq71upFVVmGilxXaR5iFbWaIuJV8xKWeLEyF
+	 dqHdkYBPK36zeZU4TqYmGeVeiJlZ1aYKzkV09Esehqc0PDzoVmJyZZ3g17x5UpIpHaxdW
+	 /qVQQomQXQK5qjkN1i7KpApraqewd8/KVYRFUaZss4pIWArtrxGBfHpTeKJvdZDPXcKFx
+	 fFGuY0GED0zaH7CKYnaaoaHsrBQKKDVpGCF0BzN6MZ170Qeu+gkiLw0NeIj47+UZSJuRK
+	 MDOtPm6vuqd0JH6/robUKPHdyUIT5GXeenx0OvRyL5NZF9j5RGQFyjpctb458sVTchw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795739904;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795740011;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=NSNeTFAHajnH3lsZhDsqezSosTqMwG/XUFvhuxmBbAM=;
-	b=3iTv2a1d9Pd/PONpdmQ7ONxBXDcYiACXb5CPBxTnvgzjJzexNH+sXf8rJMCA7BTz+UFj
-	 tPOzh59eYw+UZlSxlraCueO40dR1Pp/uMhVTUojkr2R5f4EBCpkgA57jeQd4/2BukPUfx
-	 90f88lG165VnrT0g6mWraIL8G9MNIPLdzPDwQlDhWD/Z0ZBt6ZGSUcgHqshiUPcnn9+eW
-	 quwwne8fho0aGxzP1pyCM7azTxy1vBj3fCb+yZl2x7o9uXyf1YMZ8pEwdpRoenYOo46jK
-	 GazU4P1khCJxDxBbA5NASRnk2I5DJEOflA55f0oMCVx5mejWRyMoLyITSCWkF6XmlUA==
+	bh=qDGcsI9cwSe1NCN9JUze8W39NbJXkrxxb93m0arv4GI=;
+	b=5pcugKmTFehykojjTa4TSc1NliSIhBRadv0ajecTjXw6pEoXrRKRUUH7TBM4BaLfk6dq
+	 U2jhM+n4jH3pNVp0PJVAzRuXBFFrW7n0QlP/JaEapsHoo4sMJZU+Plv0AGeka5ATrVLKd
+	 mnfwptup6QchT5hWfZVO8cqe0ALfBQj6FSPDNtYy5XBJFBpxDd4EHdreILf0jBQ7d22EN
+	 3zIqZFqn11NqA2+Vrn3yU27J3rA510Ey77/dEc7+HV35s8QzTWMT2Yd1aXVCSVx6SHV0h
+	 7H7FTVoAKxs2xT2zC1ksSdXyIMIYhNXTrswnJmKDfqVdnP7crjA95jW/U0e90rpewuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VQHsY1TW;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="B/M1wagc";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4770D606A31C;
-	Fri, 27 Nov 2026 00:38:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4770D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08D4606A31C;
+	Fri, 27 Nov 2026 00:40:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B08D4606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VQHsY1TW
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B/M1wagc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795739902;
-	bh=NSNeTFAHajnH3lsZhDsqezSosTqMwG/XUFvhuxmBbAM=;
+	s=mail; t=1795740008;
+	bh=0vibhXEZDr6Mf5zGGXS1k6O9dJ3qxJwNLHZX8asf4/w=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=VQHsY1TWAoWdpnxvBo3YGm409VVTESvzc8ndoiSDyPeDFFisnPM/e++4m9HRPhHX+
-	 NpyN+BXu92+bMd2jZbUD7wSOVXwR+cpZfCqw21CC1tUMJNaTP6ZjZ0rK04/4u9y/5t
-	 UCeR2Z06FJGv6v+HE3t/Y8VV4sj/naex25gH6hh4XXwlATOEDQkBAWMF8yBJEw0M8D
-	 9t6AEDVgI4HPHGv+DuQVYCrYJvSQaI738Dz66tdjoySnENq9ATNovseRpaSFWnAEo7
-	 6zmP0FPX4iPDX4EAhRERbywEmEVMXDLUvMBTYWuc9JbR5/nU9lq3heBNsmZxPV8HVf
-	 CIP1NaqU+GENw==
+	b=B/M1wagcbj/+KSFoYhEu1fSwxK1gpX/ttSgVYOFtDWV7g15O7M/eLjDpYyJxkYzrq
+	 pYZW2Se/+u4pgt5CihCOtBKbGzaEEdmbRnBSqWGHGpwtwIpbGAFme8qwaIdQuHF9a1
+	 uRrBugg+obM5KI+0xmAq5dCt+GZUTCdq3qqV6Y0/8kMGpW8/Nb9+1kPEv9b1blPa24
+	 6pQpABo1lT4Nz6JRf+hC/M54sq2CeydMWpG7wsgQgj26FshIJCcDCCVbWt5Kaze+ta
+	 oMFY4GQSgWLoGm+Zt65BlJRuOsfMSQ3AdaFYIqih+HiZH+G1JjUfNQsLbWQAcxxhG0
+	 835NDddou+Ovw==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DB8CE17E0CF4;
-	Fri, 27 Nov 2026 01:38:20 +0100 (CET)
-Message-ID: <cda5e670c88c79ff47651e182d1743bf5f90cd48.camel@collabora.com>
-Subject: Re: [PATCH v2 2/9] media: chips-media: wave5: drop the
- consumed-byte tally on OUTPUT streamoff
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 526C117E0CF4;
+	Fri, 27 Nov 2026 01:40:07 +0100 (CET)
+Message-ID: <0d3a53b6bb84695df113f6e512c5b77376baaa60.camel@collabora.com>
+Subject: Re: [PATCH v2 3/9] media: chips-media: wave5: wait before retrying
+ a refused flush
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
 	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
 	nas.chung@chipsnmedia.com, stable@vger.kernel.org
-Date: Thu, 26 Nov 2026 19:38:19 -0500
-In-Reply-To: <20261109052853.110-3-jackson.lee@chipsnmedia.com>
+Date: Thu, 26 Nov 2026 19:40:05 -0500
+In-Reply-To: <20261109052853.110-4-jackson.lee@chipsnmedia.com>
 References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
-	 <20261109052853.110-3-jackson.lee@chipsnmedia.com>
+	 <20261109052853.110-4-jackson.lee@chipsnmedia.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -78,7 +78,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-whAig/LySk3K4glCBC74"
+	protocol="application/pgp-signature"; boundary="=-yNbgW4nVzEb8X6C0Ebog"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-whAig/LySk3K4glCBC74
+--=-yNbgW4nVzEb8X6C0Ebog
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -98,14 +98,28 @@ Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
 =A0:
 > From: Jackson Lee <jackson.lee@chipsnmedia.com>
 >=20
-> remaining_consumed_bytes is never cleared. On a seek the OUTPUT buffers
-> it accounts for are returned with VB2_BUF_STATE_ERROR, but the tally
-> survives and is credited to the first buffers queued afterwards, which
-> are then completed before the VPU has read them.
+> wave5_vpu_flush_instance() repeats FLUSH until it is accepted but never
+> waits between attempts, so the whole retry budget is spent in a few hundr=
+ed
+> microseconds - far less than a large frame takes to decode. A flush issue=
+d
+> while a picture is in flight is refused every time and gives up:
 >=20
-> Clear it where last_rd_ptr is already being rebased.
+>   Flush of DECODER instance with id: 0 timed out!
 >=20
-> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+> streamoff_output() then returns -ETIMEDOUT without resetting the ring
+> buffer and the instance never decodes again.
+>=20
+> Sleep 1-2 ms between attempts, and only use dec_info when the call that
+> filled it succeeded: otherwise index_frame_display would set a display fl=
+ag
+> on an arbitrary frame buffer. With a flushing seek every 500 ms the decod=
+er
+> stopped after 519 frames before this change and ran past 2072 with it.
+>=20
+> Fixes: 45d1a2b93277 ("media: chips-media: wave5: Add vpuapi layer")
+> Fixes: a2c75e964e51 ("media: chips-media: wave5: Fix a hang after seeking=
+")
 > Cc: stable@vger.kernel.org
 > Tested-by: Brandon Brnich <b-brnich@ti.com>
 > Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
@@ -113,17 +127,17 @@ Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
---=-whAig/LySk3K4glCBC74
+--=-yNbgW4nVzEb8X6C0Ebog
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjQ+wAKCRDZQZRRKWBy
-9MuPAQDgVdWNmyTh/c52113LTyyokfFYVkCxqYf1WMfKV4FW1gEAtb2jIbVTDEMy
-01bzHuJ4cM2Xjuq2rpJqxd/wTUUHkg0=
-=LRbP
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjRZgAKCRDZQZRRKWBy
+9KloAQC0Mvi30F7+DZEebvtSIRdH1MR5vmhIl235A1oNVat8bQEA+3a92T3xB+pj
+TT7hD1KV0C/rkQ7JSZSTDaJv/2e/PQ4=
+=taLU
 -----END PGP SIGNATURE-----
 
---=-whAig/LySk3K4glCBC74--
+--=-yNbgW4nVzEb8X6C0Ebog--
