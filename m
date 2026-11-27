@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795795453;
-	b=ze2X2WtoYsHom+Obt43ikgsGk7DV2HpSzMT1iCTS0udQqnEH5q01gPUnZI//3AF43Yn0
-	 n7o8Z7w9xlVTfHH2gB7hESIDOiYLyL29N++xTlzyetD50smSzKnG3qq7ABUPAOxehwIYH
-	 ViV2o228MiJpNKAmiFIJT5G/E8HLkp5G1PoQm6MfjHjD4Vbm3PmxIBazjGmgKCY6VnZgw
-	 WpKupk7pvYoC0hWkvuolv8+xDf24zcadHYKEtPmV7bSxweq4fCGQRF1FWZQH+dyIsidXV
-	 fc5HWg3RGiLV2ibGY0fM5WbDPmrR449LA8aVHAoPENNkEvolNvl5Z16dvvPDNXIaxRg==
+	t=1795795904;
+	b=ll5WT+fXw4ed6A6j3ZaJ2QlPNxgzBIfDNLEWVAIpW9IJylbrYXxrjyZ4IR9Z0sOzQRvU
+	 nUTG7nutzaAeIUVcSnj9cWKqsqPGTzlbQtYRW3V0vpl4PKypZ32aT8qyT1/l8bssovMMP
+	 y20Df/EE4u+P1tAZuBYU6WCtgH1KpLmPsw09MagF4TLvHotfUrNOONyuWHzTfsoOCxdyP
+	 R0dyZ8akrfdMIn3yvlPCV8XpBKxngcJpPb/8cdumaj+ty1EhvgHaD2M7UxLkbinP5gDZU
+	 L8dsM6Ls3jGcp4VVPak5cBYd4UHZ/KcX7TFLfwV5Sq1Nk5R3GKaBARhS+Bn+37ym4NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795795453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795795904;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=mEujayduqN4MYR0/dqR75aeakGTCrsG8XuzCbnUp+KY=;
-	b=o9Ix4HiPYgKlHUbkd2w9Ci7fGOCNK9LQvxnT57+4s+NR6l40Q0bDrR8rUt/qzuluo7BX
-	 nEp2tUR5pJq8edUJDtFSh3NCcTbRkmSrSjoced3f/u3MTfHNrQzbg0VVqU/9CMqcm8uI8
-	 UDf39G67sdPX5jqBKdq5L6KhvinNeKyI1GFhmeczHQmmo33YVOaHNKmhR2AlDE/I3cLwv
-	 yxAOWn5emeBMcGh0nZ7yWV/eSSyXNuTeeq4QHs0NymgL6zmOx7QlppFOMiXXj9Dxy9MMC
-	 6BU1/PFIn1kCHeO7T4tehX+tPl8zFSN89nMS62GAvgmMRYCd/aiC+HuCHQ0wqxHpkxQ==
+	bh=/jSStMEANCnMO4ZzPmB5Im+yepvb5/yuDaHPbOparnI=;
+	b=dGpXqA81c9v/C3ycYR5VgI/GRdHo65d3VVvxhfG6QEdrrXVe9gckaDT8STz4MwpBpBxv
+	 w2zpwFN1mI7BfnHN3aZodyb8a2lb4FbZFchGdQAbopxvAEKQtugEgMMIgFSBqAyEFaQ/h
+	 hMiTxdOifNluw1C8Z876HydgPj83uSphLjvVEDUbRmisapcZTPffLclXZyfO2k9sftlYk
+	 n5rRIs0TJkpRzL16rEY1saQqccnehqeVmFvnns3vKgM9MJnYvpZur0rKolCE4ESBUgDXD
+	 VfUVplhGZzVIghFkyLHEGyHcCGb6DRkdPbxlySvciVm1Ezg4uwuNgZ3SJStaY+XUiZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMeJHuu5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYyX3maC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD93606A31E;
-	Fri, 27 Nov 2026 16:04:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB697606A31E;
+	Fri, 27 Nov 2026 16:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMeJHuu5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1CE1F008A0;
-	Fri, 27 Nov 2026 16:04:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYyX3maC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E591F000C1;
+	Fri, 27 Nov 2026 16:11:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795795452;
-	bh=mEujayduqN4MYR0/dqR75aeakGTCrsG8XuzCbnUp+KY=;
+	s=k20260515; t=1795795903;
+	bh=/jSStMEANCnMO4ZzPmB5Im+yepvb5/yuDaHPbOparnI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SMeJHuu5GzlZaoa9bVKdQMrLg0GQ6dvIid5LsqOG+mfDDj3BV+T5RZIrk/+Jxfzzd
-	 0+mNXt0uXpUlAX+aKVOigJBu0cQULIhEu4gMZCAE1BSy0j2tdX2BEoFvUWDDxAEDnS
-	 Ny8f1qQbAZSnrRp1NK/9sNk3jMfv86t9UzYps4IfQGTCf/itrJhe/7MaqfsIWf+k6U
-	 /YtSg5wuB9MLYrb94XYKD2aFzZxLEGqRWoUxgYHaiy1+MNB87PpgVP4nErLWz0t60Z
-	 FuPAnpYq+70WBIf9zWKSY9A2FF+fgmmW/yZU7d/gnlVAoStSjzOEwY20CO+lZnCXVg
-	 nRq95NI6RrDww==
-Message-ID: <6505dda0-f534-4705-bcea-ecf5f6b9ec30@kernel.org>
-Date: Fri, 27 Nov 2026 16:04:09 +0000
+	b=aYyX3maCFB3FY/uEeH7D0KLT8rWWrsjQkll/47CQiowoRih1gVKWLX1i9z8rvyycm
+	 t4lQCkaNrR/rzJFpiUX530ZLhUFYWzRztQWXZvzT9apWyUzCJxmVO1ElU9nAVINgi2
+	 ZYO9bFx1N26PjOEZlJU37gmcjbVzDxPxrz3ZQfa9xeJOK6+g+W1/IbIiz1UL282hU8
+	 VmP+EfSG6QHIj7xEzm7GCwHWYKWQUGHk7MRF9XfwHLkHhaX+aPrsLD2qksKcDcGYm/
+	 U+FkSwKcnvm70t07dUUtl17gNCH8kfKUx2mqlcOfQYCbW+muaZbkY2pJp+NvggOP9f
+	 GDp7iGgSimLWg==
+Message-ID: <a8ee91a3-fc4c-4268-97c1-b4ddeff2558f@kernel.org>
+Date: Fri, 27 Nov 2026 16:11:38 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,18 +52,22 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] media: iris: report a platform bus_info prefix
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, linux-media@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>
-References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
- <VCwITKn_QF2cBBvQKbboItTLjFqOb32D5AndJDWcIuGpfstWVDnrWRB3rKd2YKX4bKoQiniGp1vnuagxBdnvbQ==@protonmail.internalid>
- <20261127152024.2149804-2-xiaqinghuan@mail.ustc.edu.cn>
+Subject: Re: [PATCH v5 1/7] clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src
+ 100MHz parent
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>
+References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
+ <LKFsWplUk1yOr4M1dEHqZ20-Oo7ya-QA5qkF8u2lcfPUsbJYq0AoJhyjIEBwg6PPzlPSMYfqn6CB-sQBOuQDKQ==@protonmail.internalid>
+ <20261127134507.125513-2-hikmahgumelar@gmail.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -109,33 +113,55 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261127152024.2149804-2-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261127134507.125513-2-hikmahgumelar@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 27/11/2026 15:20, Qianhui Xu wrote:
-> Signed-off-by: Qianhui Xu<xiaqinghuan@mail.ustc.edu.cn>
+On 27/11/2026 13:45, Hikmah Gumelar wrote:
+> The 100 MHz entry in ftbl_csi_phytimer_clk_src selects P_GPLL0_DIV2
+> 
+> with a divider of 4, leaving gcc_camss_csi0phytimer_clk stuck off on
+
+"stuck at on" or "stuck at off"
+
+> MSM8953 platforms such as Xiaomi Mi A1 (tissot).
+
+ah I see.
+
+"leaving gcc_camss_csi0phytimer_clk stuck off" you can drop the fragment
+
+"MSM8953 platforms such as Xiaomi Mi A1 (tissot)."
+
+> Switch the 100 MHz parent to P_GPLL0 with a divider of 8.
+
+What is the data-source you used for this change ? You should describe 
+how you know this to be a correct change - the code is simple and 
+describes its own change.
+
+For example citing drivers/clk/qcom/gcc-msm8953.c and 
+drivers/clk/qcom/gcc-msm8939.c since they are very similar controllers 
+and the 8939 does it the way you describe below. Also "it works" is 
+another good reason. Inferred from your patch but not stated.
+
+More accuracy is required here.
+
+> 
+> Fixes: 9bb6cfc3c77e ("clk: qcom: Add Global Clock Controller driver for MSM8953")
+> Signed-off-by: Hikmah Gumelar<hikmahgumelar@gmail.com>
 > ---
->   drivers/media/platform/qcom/iris/iris_vidc.c | 2 +-
+>   drivers/clk/qcom/gcc-msm8953.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-> index 1edd2a4..9634f4b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -466,7 +466,7 @@ static int iris_querycap(struct file *filp, void *fh, struct v4l2_capability *ca
->   		info = "enc";
->   	}
->   	snprintf(cap->bus_info, sizeof(cap->bus_info),
-> -		 "plat:%s:%s", dev_name(core->dev), info);
-> +		 "platform:%s:%s", dev_name(core->dev), info);
+> diff --git a/drivers/clk/qcom/gcc-msm8953.c b/drivers/clk/qcom/gcc-msm8953.c
+> index 8fe1d3e42144..8aec5600e837 100644
+> --- a/drivers/clk/qcom/gcc-msm8953.c
+> +++ b/drivers/clk/qcom/gcc-msm8953.c
+> @@ -964,7 +964,7 @@ static struct clk_rcg2 csi2p_clk_src = {
+>   };
 > 
->   	return 0;
->   }
-> --
-> 2.53.0
+>   static const struct freq_tbl ftbl_csi_phytimer_clk_src[] = {
+> -	F(100000000, P_GPLL0_DIV2, 4, 0, 0),
+> +	F(100000000, P_GPLL0, 8, 0, 0),
+>   	F(200000000, P_GPLL0, 4, 0, 0),
 
-Please add an appropriate Fixes: and Cc: stable@vger.kernel.org
 
----
-bod
