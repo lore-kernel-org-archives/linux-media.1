@@ -1,85 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795739681;
-	b=Wl/uyDwyz0fjDCQxHYYA3aI8oD64QojF6S0FPLzBHWP5u4MLZxZQ26UChEd/C6hP5OPr
-	 qcjjNC1osnEOz3O6iToiyus8XMpibTKu92wpJSKcILTNtpP6hj7baqtGqt5ramv8dxnFH
-	 RX6f/+P7hH4ByUY0QYbupKpfpzFHLaU/jbiiSqJwS1C7em6cs5tt8opnQRsxxKdcWAwkk
-	 QvtnXWNXpAkRv774TtAmIaTMllWoA1YRrG17r9LVo+JzX10/ISFdtGCJKPxKmabnsKQBq
-	 MSpTI1iIxjKDvpaVuG34M8i9S7KG9iyIQZY+hcnNaqN6alH1UPl97XEchGe3nMwz8ig==
+	t=1795739841;
+	b=fC++EHaxckpFRjuJ1EkqI3PpHCU2/LKtrPjkV+yoSgDLwI0JT2bN19cNBQbfEFNN2LYt
+	 0y5LnSzHLxFYSzewvI3hmuJYIMCFl1XDUJlXTdgmHmxVhHNOUT7Wk5s6ahQzwT0H0SnZE
+	 yWEoYqJ84znWfvRd22CWE5raee0MHFX36Hz8ch0/R967z6DtAYNlrDGyzwohEfdDkeAAT
+	 BqmXCLANJggQsb7XVwjKeB0jlnb3DT9ZrTge/T2UzfJrLFkIwXghwoECWBTsImDnEKWkY
+	 +uz4POHJJ032eykityr8H3GKWOwzCkhdThu1zPZhomuJoIhWT5EL1WGY4ifv50YLqZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795739681;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=UxLK7bEGjfkMqxlP1HJ5La/tP438DtL+DH1p4KN3J0s=;
-	b=YHDpbzHlWuEZbF6K+7DEzFhFvsR47inZA8durUqijRAv/LC+7a9Rp/GggUdCrvGetme6
-	 tG4sn0XHiSQ0L3oILb33GJGkXgmlyf7Np6NqF4m9kYdtrGgzWYEhlnMz7X8WOSZLk7jRf
-	 NVpUvUBrtfx8QIKd5X8YwINzvyy+tmzZlQebNQTcfaYOnJASBvwWjoMOtfFITADzom7zI
-	 kU6QC6yh2EwO6GRtgs7phU1myLAg/4FqAMrdmc7m9dCkMvEik4Cle09ewk4bIq4X4xZVw
-	 d3Jj0CD8bh0anCabp3DFGiNYKlr+TAh09HBLVrhqOAC8xNffsFyGHA1nxGPuSwIg23A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795739841;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=BYEpToCdu/Jrl7504w/3VIKWXqy3i8TunCn9olVHqm8=;
+	b=feZ1w7yI5d0yiQZPBEKt6cXJhYdPdYr2bnFznNfPoyPTsqyS+i5QRy4LCC9svptHw01G
+	 kuC4WcMmmg2ZjyPqRHNaggdFzrOrTOlOlQEWjlEGnQKKrUQqI/T4ytyWnqgDtT/uGVX7b
+	 NkjVFHoXXZFwin7Dh5vHqGLfd9rKrHqV6JupCPoDNUzuLFLqcSGvPn8V8FpmmQtcxVMKt
+	 EsBR0wfgwoRB1vnsT9C4jiTcPoXevVmpT3MrmcUrMor4+K7J6Kya1xZFe4pSkh2PAYjwt
+	 bTpxvCXVEREJcH/FZDJqRPv6V82/RCTjGRUEnCupa0bWQ1GdaAUuvxDTttfAJ82CwcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rx7pqdVk;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=RYi3Edqp;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60175606A31E;
-	Fri, 27 Nov 2026 00:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60175606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6693B606A31E
+	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 00:37:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6693B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rx7pqdVk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795739678;
-	bh=UxLK7bEGjfkMqxlP1HJ5La/tP438DtL+DH1p4KN3J0s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Rx7pqdVkj0ocJelprcXaH823psQ1knCRA4MNRSWCEsup440aoNYQlf3OJLzN6oTbt
-	 /kYZepCmQUxh0vNqeqyx6mBHA53XsmoDbB4l//L97o6hRHlzaconxazSY9WiWgLoQl
-	 dSzqkV4kdVjZsnCk91ItkyyX5KdkloRIN21Mp45FYvo+DubVk6YzwWG0o+8XHNt+Ic
-	 hNkd8ZdJoUfpGRwLQTNlyTTUvZloB4p+E69ETrbEaOPG88S662Ydvh1omG7KdHkVdB
-	 iq8I0ISJMOlAqVKxP6nrwPmuBDk/NShCFP6mWnFBp1TOIahmx6LUAzxJexksz03Hrx
-	 VLNEZfOR0YQ5A==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7922017E085F;
-	Fri, 27 Nov 2026 01:34:36 +0100 (CET)
-Message-ID: <d40e63eac201d9517c008d559a32b2cef9cc6137.camel@collabora.com>
-Subject: Re: [PATCH v2 1/9] media: chips-media: wave5: Ensure Atomic Access
- to src_buf list
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
-	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
-	nas.chung@chipsnmedia.com, stable@vger.kernel.org
-Date: Thu, 26 Nov 2026 19:34:33 -0500
-In-Reply-To: <20261109052853.110-2-jackson.lee@chipsnmedia.com>
-References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
-	 <20261109052853.110-2-jackson.lee@chipsnmedia.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-lviUndxDktS7N+jzCjqk"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=RYi3Edqp
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-55d2b4a99d4so69731051cf.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 16:37:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1795739839; x=1796344639; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BYEpToCdu/Jrl7504w/3VIKWXqy3i8TunCn9olVHqm8=;
+        b=RYi3Edqp0iJYoWgnyFakqRlcBMM8VcDiE8d4VlY5bSzWrQs7C3jbXpEvdsf5xbs0HR
+         k8SJFejOERTl3boet9eADaubxky0nrElyxMPXPWpVpP4P4sFBNoLT0vNQZStolAgoetA
+         AVu2Mh8zCbpacWNyUVPHGl3RGM6A9CQHETQIX4aOfJBdNhGQef7KqYfIDR6ufufdP8LP
+         5jHoiOvsTjxDjWW0L90H9rgfkvqlxNkDfm7h3cX67l/8MpA/9M1cz2dLCiNt8o5kr/5Q
+         JdnVCeij4xVh62dHP4PJZYsGnouQAS5wg9J0Y6QCTQui72S1909B3CcTDDr25xXeCo8X
+         2BJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795739839; x=1796344639;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BYEpToCdu/Jrl7504w/3VIKWXqy3i8TunCn9olVHqm8=;
+        b=LSJzZGCuBg312QyjTjyIN5eOswrW/384OamKgPguQzV0dvmwzyx+MHVcwQmhQzhyFS
+         X3j1Mu5j8o5Jqltwr3Hwv28zV9VqqfxYxHDFEUvOEjxprhzRImgrgWpBuBlODZ4687rg
+         5d/hxQvQYj1ci4uNWeiSb8xJxnWDaCvrH/oI0LsXsXh5zXL92eonGXD3clvSyiehvBHA
+         ewYcMMD5CjgFhW3cDs5+3IrYrTqHePI9B/mDhYFHnCtPLRIbRMKwG/LcAl5HBq13cAKa
+         xQxNX2fXDnr4EMaNwkzEtqIQYLRYvVQdnWNJixG2Rva1iOsjmJ9MeDO6tiII/FCnnMuH
+         3qsQ==
+X-Forwarded-Encrypted: i=1; AL+hErGsXmn7xUscsklYQME4YC9Bfh1Q/5MR9VKWrA9lm7zY38pygAp08+vYYDO32meea82DqetuKbGQNIp+lg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z86Wr/9JZ5sOF5ttx7N5vSrHZtVfxGzpPluXTxKZvrTHtl3/vn6
+	JWtt/KukMP+42TTopA9dw8jU9u8YLTjLj2UlQFvQ6p0J2U/bXFy4GZjehb5yfdWHr2U=
+X-Gm-Gg: AZFdTZdFxzy7FBZf26rwLVupsXmH9MZmsiXtZQ7hk450Y4roX2AZkAMBWMMr4bha1eU
+	L8aH9K4GyJo38mcd2Y3oJJyYJkQ8IDg9PblilT3UgcRolZqSveRhuXp6Sd4zMOk8nROdyPbIymr
+	K1Z+ZB3cvPtXQZH8HPGpWPRPheJH54eWwYpFtH8RQhO4W//JxHM+rcpHnBN/lFeeMtutfZmZ0Yo
+	Nt/HhfVCKOO626R95fjl6gZnxqMY/KTnjVYo7HI65xTkP4G5w1a8hMM1s3xJiJfZAGvi4K0fFxT
+	OUvQwPk9/6JcaBHUQPXIl36UfnCzlBf78n6Q2uEq0icGF+ujPvam0FTnNZ9IBjSTYSGZAT2J2ZJ
+	a2yfK67dXyHW3L0pMqHMAqSQ2oVPndCssDQIkPNm+S98zoniQtE3hZ3nvhxFk4mAF6NdpEKoxUd
+	MH9wcT45G2ioXhdYRnFP7swDFYwx+5NnfGw7AaeVRLttyJ7OIEnDgt/HGnSNhUa/aLKuOeiLDIY
+	hYQoZrT4Gcpi7tRQOvCBALAf5FcCMJpnS76DRiCsOL5zCbc1r6KUOXiabwZmYJopdK+kIdDBp9Y
+	VEyKBg==
+X-Received: by 2002:a05:622a:1f13:b0:533:8900:4eae with SMTP id d75a77b69052e-55d76a168d0mr403124891cf.13.1795739839275;
+        Thu, 26 Nov 2026 16:37:19 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d788506b0sm192115611cf.17.2026.11.26.16.37.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 16:37:18 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xWjxm-00000005OdJ-0d4j;
+	Thu, 26 Nov 2026 20:37:18 -0400
+Date: Thu, 26 Nov 2026 20:37:18 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Baolu Lu <baolu.lu@linux.intel.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	linux-nvme@lists.infradead.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+	treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261127003718.GR246011@ziepe.ca>
+References: <20261124142032.GN9566@ziepe.ca>
+ <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
+ <20261124194618.GC114530@ziepe.ca>
+ <awZ_Os1pXelOGaFP@nvdebian.thelocal>
+ <fb9a6b12-c134-4e40-86a5-dbcb59c0b91b@amd.com>
+ <20261125155559.GL246011@ziepe.ca>
+ <5fb8bb60-7d9f-49b1-899c-40a890fdc14b@amd.com>
+ <20261125190705.GN246011@ziepe.ca>
+ <awfMy1d8ICL6mr9i@nvdebian.thelocal>
+ <a8c00bbf-dddb-4207-bcdf-af58d27116c5@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,55 +136,18 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a8c00bbf-dddb-4207-bcdf-af58d27116c5@amd.com>
 
---=-lviUndxDktS7N+jzCjqk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Nov 26, 2026 at 10:58:13AM +0100, Christian König wrote:
+> Would it help if have a call on Teams or similar services to discuss the whole thing?
+> 
+> That might be easier and especially faster than by mail.
 
-Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
-=A0:
-> From: Brandon Brnich <b-brnich@ti.com>
->=20
-> feed_lock was introduced in decoder performance improvements. This was
-> used to ensure atomic access to the driver's avail_src_buf list during
-> fill_ringbuffer, streamoff_output, and buf_queue. While this protected
-> the drivers available src bufs, the v4l2_m2m_src_bufs were not being
-> protected at driver level. Three separate threads have access to remove
-> buffers: start_decode fail path, streamoff_output, and finish_decode.
->=20
-> In streamoff_output(), replace the inst_src_buf_remove() loop with
-> list_for_each_entry_safe(). inst_src_buf_remove() takes feed_lock
-> itself, so calling it while streamoff_output() holds feed_lock would
-> take the same mutex twice and deadlock. Unlink each entry with
-> list_del_init() directly instead.
->=20
-> In wave5_handle_src_buffer(), feed_lock does not serialize against
-> v4l2_m2m_buf_queue(), which buf_queue calls after dropping feed_lock and
-> which adds to the ready queue under rdy_spinlock only. Walking the ready
-> queue with v4l2_m2m_for_each_src_buf_safe() therefore races with
-> VIDIOC_QBUF. The loop only ever looks at the head of the queue, so peek
-> it with v4l2_m2m_next_src_buf(), which takes rdy_spinlock, instead.
->=20
-> Fixes: a176ac5e701f ("media: chips-media: wave5: Improve performance of d=
-ecoder")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
-> Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+I think that is a good idea, I suggest you and Alistair should pick a
+time and see who else can come. From experience eu/au/eastern na
+doesn't jive :)
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
---=-lviUndxDktS7N+jzCjqk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjQGQAKCRDZQZRRKWBy
-9IZ5AP98Z3GvX2FF3bIELxWZnxpqmQtWHS3t3ye/G0lPEqghNAEA5WsLbWgQohCz
-tDSNAwYifK9be/W0sS9UARcbIXX73gw=
-=fkGs
------END PGP SIGNATURE-----
-
---=-lviUndxDktS7N+jzCjqk--
+Jason
