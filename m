@@ -1,98 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795742594;
-	b=vmyVGrJi4mPJtR2x7ckRvYQa9szFWlOuOA1JUR0h8+DMBpPVQIp+WAkSkO49nwYJM0lA
-	 9vRwLuWZxPrJ9cdbs+tkhabq00Qk7pCGAsJNbKKoA1IDadusvpttHB28FvMe8mfZ/HIrp
-	 3t3akg/4YUO9Re5cJEBUtsE3hey/FYrgS2oymQjJoGHIc6U/+z/QnXV4+xk0tApFM9bsx
-	 R5nfi7TsgBl1xEGPN8h/zfTtE7dh9Ku8a9Rt3oNYWxa7jPHgdGHdnZ65NxhHWgul846X7
-	 6gC8LTkEugPGVdNmVV96nVP0bwU16L2w71vOn/QzIHgiSm81Wi9e8+NzsaQCxAtFIZA==
+	t=1795742854;
+	b=euEHoep4JoRQcqobC/F1US32yaq1abzsQifKNahds/jaGYcT0Jc+aA+qAx279TDDNaOT
+	 DLZYCJ0rHQEEBU2bxnEzsqbO40ic5OMU+gpUVsJNSyKyE46ry9wZ88ZnHnKFVhyAVA+/e
+	 i+2CBj3wniNOmwSIJz3zdJMifEskAErJbX2TDbtDI2siDZflDR+pu/SZWUxA4hH1d9f0U
+	 LQVBiWxHUJo67ZeBn9IvBlTlHKaXqvUYL8ywcOYFkZIquno7ExynyH6TnVlo3mgljGdyy
+	 jOhNMx8dTaeYnMX666TkmXRrXPVXyvr9O7jwGkBhgACvXDAzCtdH4s7XPiwweuvHLcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795742594;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IONrhUu0mCdKD6A1w26OhoHIerda2lYy4CpvhM/qUMY=;
-	b=qNMPtM7MPiG8VK2Vsdme3gYSKRUmxDygXylEUFvD/R+Imih8Lwb3Q2HHwSgpXOz0W58F
-	 LdKGL2OD07R3Uj1oHrogTGhWi+ajlSa6T7ajY+Uu3XA+AqTJK0nXQ2ISALdrw4tCUt8NO
-	 U5wXlEDpOfuGWTNq/8vr1sFt6VJRskR2MjW21smKqfxEeSg8TMTxb5sfGRf3qVjHQhzpA
-	 Eihm5yx0YSsp5o2OaWSgeAEuDnVzJdAKEP0/ilhXlKAd1quJsErDC81X2WsHcU1MZQ9kz
-	 JEFWIYLY2LZ8F71zXk3hDgiaqChrC9V+jMFOcO0XZ1/+VdRZaBBo1Hcaz7aRWIGQf+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795742854;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=hdgX1iMSKVKnh/Mxu48+QFDNokLMugndHgnih4Ql3oU=;
+	b=ISdZDpR4schpcc+M3f9uR6CTFY4mz0AxHOvWm9MrkUJi6gTEoxeIRjj0Vm62dZD+kexX
+	 fX6pQfiTzOM7ciaU8VkD2/R9bvD38QSRA8cZefl6Q08gMIetG2apRxPymIHRW7jl7necM
+	 XxmMzJa/Y7NZpGgBT0zh6N85vT6S/9hoJ0WX79hhWcfodnIj0z3ke4v02j8BXTTUfbNq8
+	 GpaWEoq/LprPNWJezWHULPGYelOcxy3W6v1gSlgqDOlUSia+5kmoD0POCF9cf7YIsWjZM
+	 xyQZz7ui8sEobcpk+Ys07pBWPd01/M+tgmrveb24zSejWq5MZZPud/7s+D51NcXiGJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AkI6VSP8;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ksw5E0df;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AC8606A31C
-	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 01:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67AC8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B02606A31C;
+	Fri, 27 Nov 2026 01:27:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B02606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AkI6VSP8
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2f046b0adc0so43216615ad.1
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 17:23:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795742594; x=1796347394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IONrhUu0mCdKD6A1w26OhoHIerda2lYy4CpvhM/qUMY=;
-        b=AkI6VSP8pJKt6qNLty8FIVIgENcCekEOL+G5BBn9KLhNlPqDlv/AZybFE6mFsJLv0C
-         Eqt5Oogyrye+y7lWy6eezZwACITarWhvj53V1B1NEpsuamuep4VxUXXcLX9l02JH/FrP
-         /Diov+B6Wmo2qHlpOGW9wLOnNrSr41McejHUjGtubZKPZBFC3GDazkkPQoCfJ06pKexc
-         /ZF2BcOhgigZpY51dJBRY1QkU9vDtkPf1HZnebEdCvoK4pwIXZyy4VPMsfYM0povx5dT
-         hPuR7cET+mzzNjcsEgy35xSRLC0TZoIbTPrCON+wyy1a6c86byOWCAivmEyNm8e71L13
-         lAcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795742594; x=1796347394;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IONrhUu0mCdKD6A1w26OhoHIerda2lYy4CpvhM/qUMY=;
-        b=mOe5IUC0W4qEaFn5/gTAtFxRqVDpVgJZBvOip39l1/58y3DWoK6q+oRibA5qxSdBy3
-         Q5FNiKvbdAxy/aN9SquSJfQdnUA08FaZ7SEIwYQpazFSgMtCwUQkOpAUeFC2Q+PC+OHF
-         Uz8qHZXPyFUq3R52L0Mdp5DFZwexd7k9ob/fh4nj9rEAjs/R9KLzyXZOXDc2GrT5FyMy
-         dWR4yBt5HjSGOIGhbb/Ng85wye9gHyALMJ9JScZpe4bgHNV4/ng2Ons2GO/0M6ZXpTzo
-         dH+TnIyS3YlHopCQ4Z2D+iP1ZdfTWgkCeYMYr7jdyZ5fLejiVI9PtjiaSDJ0QdC69QSY
-         OA8A==
-X-Forwarded-Encrypted: i=1; AL+hErFKYOviDkEIU9P5PadjBZh3EwfthbDnZXKV4D2I+VQTe2205HlsyaJm3Ntx7emmkyOCFAdVlZhywYQmkA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HorzDB/48/SfnZT1r5+3uVQv70VQX8EMkcR0dhqvaDn56/RH9
-	OwcFIYSzS9labfRzBg2Rb0zSGGjQdViuom7t5RMJYCLb9WwntT8Ma2R5
-X-Gm-Gg: AZFdTZcsN0op2OX3TFYwhfsF0yj8TC/iB3gpZONsgoLNf98f79qi8NEwEqfmYuoF3Gu
-	Y9WGmwV2KRh17RuBM55T9cX+ObIDf5lWBkzvhqeiFwALiQLyX7ytVVhXdn51KzP7WanWcsbhl3X
-	pY47Du4W/GijO8Y+NFVJBvRlAvZPYVtlNKucQBZrSALYZdjx79oFsCL+FqCw7VT9TX6R7HyTOwr
-	KaYj1EFQB+mJqCb0yOaUXBDowwpkxhHlc9T6oRV2cKXlRanK2kRk3xru3EyD17+2CFkriKVEFiZ
-	wPp6sByRIR26v2FoWJuR+NIOpHV1zGRToGRzkr4ZSEvCbDrkkS66m25UInvAEUZa1Q0RDfy+Ob0
-	UauXdDgQQ123Hz3Gyuc8rb6+oXLKgahcBTEtBNdPJ25ek85jbuMSluD3HsqQc+5dhC+I6rvyNq/
-	0P3kY2z6CRdwyWp8Tk2tXUSX3VGQbhHK/pM1dv+KJr8uZplv5QjmU7mPPDyA0uNSq7GQfJjz4mq
-	1Hw2VT96NYooz8GNHL+60bobiiCVpq4FYXj8WINMr/Dg6kffoD75SkL7kClcNbNrbftVLLCImel
-	EGhr8a/HlcxcvfAJSfwuoU9LHj73iXmnqgHZ3v3Egq16M9ZTZGnK7nOVB0edCtFun0A927vxGCr
-	2yZsz3ME=
-X-Received: by 2002:a17:902:ec8b:b0:2e9:7ff5:5462 with SMTP id d9443c01a7336-2f03f1187f6mr190865485ad.22.1795742593661;
-        Thu, 26 Nov 2026 17:23:13 -0800 (PST)
-Received: from DESKTOP-TPPBPA1 (36-229-10-180.dynamic-ip.hinet.net. [36.229.10.180])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f0fe9e36f9sm10866465ad.55.2026.11.26.17.23.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 17:23:13 -0800 (PST)
-From: Roy <rongh7426@gmail.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-media@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Roy <rongh7426@gmail.com>
-Subject: [PATCH] media: pisp_be: Set the field of OUTPUT buffers
-Date: Fri, 27 Nov 2026 09:23:08 +0800
-Message-ID: <20261127012308.682831-1-rongh7426@gmail.com>
-X-Mailer: git-send-email 2.51.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ksw5E0df
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795742851;
+	bh=XZqSUTuW2bTPxCNamalpT3kg2C1Eyn0CxPPVJQRoNzE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=ksw5E0dfRFH9qantqIKVK6v9mdQ3hy+F9XB2PQ0JLl709W8sLZbVZZ4jCDBBokMqH
+	 oy6go8m6e892txhE8OEzpBnBevuCUYtWr6fDv9GIM9ekREJkKYRDmuSwbSmZ+XPB7l
+	 vTEV/P5EbQlN6mj2qXp0PkUTGC8R1h10fZPEccBZblVVHXy3972ksnsNrwqFwP1vxW
+	 5eQqFUQmMDKgeIqwa/7SXl3cZ6kvXzm/P1QbLtKqx/hEvUASCOvX/cXSpEcWcbfqBm
+	 IdVZm1wy5R7pxjxISBlZl/NRl2+cD7s7y8vcbhSQU8ldG/hirrvJUI5p64YmM2ILkJ
+	 9/S3/ZjXdS1/g==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 47C3217E07B5;
+	Fri, 27 Nov 2026 02:27:30 +0100 (CET)
+Message-ID: <af92d9c302242d8470ee86ed5ede787b8a45f092.camel@collabora.com>
+Subject: Re: [PATCH v2 8/9] media: chips-media: wave5: restore the display
+ flags after a flush
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
+	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
+	nas.chung@chipsnmedia.com, stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 20:27:28 -0500
+In-Reply-To: <20261109052853.110-9-jackson.lee@chipsnmedia.com>
+References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
+	 <20261109052853.110-9-jackson.lee@chipsnmedia.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Ml90ovTqf9+evYPR6K14"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,70 +89,227 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The driver has no buf_out_validate() callback, so an OUTPUT buffer
-queued with field V4L2_FIELD_ANY keeps that value, while the V4L2 spec
-requires the driver to set a valid field on queued OUTPUT buffers.
-v4l2-compliance -s fails on all three image input nodes:
+--=-Ml90ovTqf9+evYPR6K14
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  fail: v4l2-test-buffers.cpp(240): g_field() == V4L2_FIELD_ANY
-  fail: v4l2-test-buffers.cpp(1608): buf.qbuf(node)
-  test MMAP (no poll, REQBUFS): FAIL
+Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
+=A0:
+> From: Jackson Lee <jackson.lee@chipsnmedia.com>
+>=20
+> Flushing an instance clears the display flags, so every frame buffer look=
+s
+> free again -- including the ones userspace is still holding.
+> streamoff_output() marks only the buffers that happen to be queued when i=
+t
+> runs, and userspace clears those as it re-queues them, so the buffers it
+> kept end up unmarked.
+>=20
+> The next pictures are then decoded straight into buffers the application
+> owns. finish_decode() cannot find them in the queue and warns:
+>=20
+>   wave5_vpu_dec_finish_decode: invalid display frame index N
+>=20
+> A trace of the flags across a seek shows it plainly: at streamoff the fla=
+gs
+> are 0x73, only the two queued buffers are marked again, userspace re-queu=
+es
+> five of seven buffers and the flags reach 0 -- and the two it kept are
+> decoded into 8 and 12 ms later.
+>=20
+> Re-establish the flags once the flush is done, from the buffers' own
+> states: mark everything the driver does not own, hand back only what it
+> does.
+>=20
+> Derive that from the vb2 buffers rather than from the m2m ready queue. Th=
+e
+> earlier per-buffer loops walked that list with v4l2_m2m_for_each_dst_buf(=
+),
+> which takes no lock, while the interrupt thread unlinks entries from it i=
+n
+> v4l2_m2m_dst_buf_remove_by_idx(); walking it here oopsed on a poisoned li=
+st
+> pointer:
+>=20
+>   Unable to handle kernel paging request at virtual address
+>   deacfffffffffcd8
+>   pc : streamoff_output+0xe4/0x294 [wave5]
+>   Call trace:
+>    streamoff_output+0xe4/0x294 [wave5]
+>    wave5_vpu_dec_stop_streaming+0x244/0x2b4 [wave5]
+>    __vb2_queue_cancel+0x30/0x278 [videobuf2_common]
+>=20
+> Indexing the vb2 queue directly avoids the list entirely.
+>=20
+> With a flushing seek every 2 s for 180 s through glimagesink, three runs
+> each: 4, 4, 4 of those warnings before and 0, 0, 0 after, with no oops.
+>=20
+> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+> Cc: stable@vger.kernel.org
+> Tested-by: Brandon Brnich <b-brnich@ti.com>
+> Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+> ---
+>  .../chips-media/wave5/wave5-vpu-dec.c         | 77 +++++++++++++++----
+>  1 file changed, 60 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/d=
+rivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+> index e351a86528bd..102c07979d08 100644
+> --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+> @@ -1087,6 +1087,45 @@ static int wave5_vpu_dec_queue_setup(struct vb2_qu=
+eue *q, unsigned int *num_buff
+>  =09return 0;
+>  }
+> =20
+> +/*
+> + * Re-establish the display flags from the buffers' own states: the VPU =
+may only
+> + * write into a frame buffer the driver owns. Everything else -- above a=
+ll the
+> + * buffers userspace is holding -- has to stay marked.
+> + *
+> + * Walk the vb2 buffers rather than the m2m ready queue. That list is mo=
+dified
+> + * from the interrupt thread (v4l2_m2m_dst_buf_remove_by_idx() in
+> + * finish_decode()) and v4l2_m2m_for_each_dst_buf() takes no lock, so it=
+erating
+> + * it here can land on an entry that was just unlinked.
+> + */
+> +static void wave5_dec_sync_disp_flags(struct vpu_instance *inst, bool ma=
+rk_all)
+> +{
+> +=09struct v4l2_m2m_ctx *m2m_ctx =3D inst->v4l2_fh.m2m_ctx;
+> +=09struct vb2_queue *dst_vq =3D v4l2_m2m_get_dst_vq(m2m_ctx);
+> +=09unsigned int i;
+> +
+> +=09for (i =3D 0; i < vb2_get_num_buffers(dst_vq); i++) {
+> +=09=09struct vb2_buffer *vb =3D vb2_get_buffer(dst_vq, i);
+> +=09=09bool driver_owns;
+> +=09=09int ret;
+> +
+> +=09=09if (!vb)
+> +=09=09=09continue;
+> +
+> +=09=09driver_owns =3D !mark_all &&
+> +=09=09=09      (vb->state =3D=3D VB2_BUF_STATE_QUEUED ||
+> +=09=09=09       vb->state =3D=3D VB2_BUF_STATE_ACTIVE);
 
-The Back End only processes progressive frames, and its formats already
-report V4L2_FIELD_NONE. Add a buf_out_validate() callback that sets the
-field to V4L2_FIELD_NONE, as cedrus and hantro do.
+Its unclear, inside the framework the driver only owns the ACTIVE buffer, a=
+re
+you sure you wanted to call this owned?
 
-Tested on a Raspberry Pi 5 (Raspberry Pi OS kernel 6.18.39, with this
-change applied to its pisp_be module):
-- after queueing an OUTPUT buffer with V4L2_FIELD_ANY, QBUF and QUERYBUF
-  return V4L2_FIELD_ANY before and V4L2_FIELD_NONE after on video20,
-  video21 and video22
-- v4l2-compliance -m (without -s) passes 400/400 before and after
-- with -s, the MMAP tests no longer fail at QBUF. They then wait for a
-  frame that never comes, because the Back End only runs a job when the
-  config and output nodes stream too, so the full -s run can't be used
-  as a pass/fail result on this device
+> +
+> +=09=09if (driver_owns)
+> +=09=09=09ret =3D wave5_vpu_dec_clr_disp_flag(inst, vb->index);
+> +=09=09else
+> +=09=09=09ret =3D wave5_vpu_dec_set_disp_flag(inst, vb->index);
+> +=09=09if (ret)
+> +=09=09=09dev_dbg(inst->dev->dev,
+> +=09=09=09=09"%s: %s display flag of buf index: %u, fail: %d\n",
+> +=09=09=09=09__func__, driver_owns ? "Clearing" : "Setting", i, ret);
+> +=09}
+> +}
+> +
+>  static int wave5_prepare_fb(struct vpu_instance *inst)
+>  {
+>  =09int linear_num;
+> @@ -1541,7 +1580,6 @@ static int streamoff_output(struct vb2_queue *q)
+>  =09int ret;
+>  =09dma_addr_t new_rd_ptr;
+>  =09struct dec_output_info dec_info;
+> -=09unsigned int i;
+>  =09struct vpu_src_buffer *vpu_buf, *tmp;
+> =20
+>  =09inst->retry =3D false;
+> @@ -1550,14 +1588,6 @@ static int streamoff_output(struct vb2_queue *q)
+>  =09list_for_each_entry_safe(vpu_buf, tmp, &inst->avail_src_bufs, list)
+>  =09=09list_del_init(&vpu_buf->list);
+> =20
+> -=09for (i =3D 0; i < v4l2_m2m_num_dst_bufs_ready(m2m_ctx); i++) {
+> -=09=09ret =3D wave5_vpu_dec_set_disp_flag(inst, i);
+> -=09=09if (ret)
+> -=09=09=09dev_dbg(inst->dev->dev,
+> -=09=09=09=09"%s: Setting display flag of buf index: %u, fail: %d\n",
+> -=09=09=09=09__func__, i, ret);
+> -=09}
+> -
+>  =09while ((buf =3D v4l2_m2m_src_buf_remove(m2m_ctx))) {
+>  =09=09dev_dbg(inst->dev->dev, "%s: (Multiplanar) buf type %4u | index %4=
+u\n",
+>  =09=09=09__func__, buf->vb2_buf.type, buf->vb2_buf.index);
+> @@ -1574,6 +1604,20 @@ static int streamoff_output(struct vb2_queue *q)
+>  =09if (ret)
+>  =09=09return ret;
+> =20
+> +=09/*
+> +=09 * The flush clears the display flags, so every frame buffer now look=
+s
+> +=09 * free -- including the ones userspace is still holding. Only the
+> +=09 * buffers that happened to be queued when the flush ran were marked
+> +=09 * again, and userspace clears those as it re-queues them, which leav=
+es
+> +=09 * the ones it kept unmarked: the next pictures are decoded straight
+> +=09 * into buffers the application owns and finish_decode() cannot find
+> +=09 * them in the queue any more.
+> +=09 *
+> +=09 * Mark everything, then hand back just what is queued, the same way
+> +=09 * wave5_prepare_fb() establishes the flags in the first place.
+> +=09 */
 
-This change and its description were written with the help of an AI
-coding assistant (Claude); the testing above was done on real hardware.
+This is very long and unsual, can you find a way to simply say what you wan=
+t to
+achieve? Someone will rafactor the code someday (hopefully) and this will
+eventually be outdated.
 
-Fixes: 12187bd5d4f8 ("media: raspberrypi: Add support for PiSP BE")
-Signed-off-by: Roy <rongh7426@gmail.com>
----
- drivers/media/platform/raspberrypi/pisp_be/pisp_be.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+> +=09wave5_dec_sync_disp_flags(inst, false);
+> +
+>  =09/* Reset the ring buffer information */
+>  =09new_rd_ptr =3D wave5_vpu_dec_get_rd_ptr(inst);
+>  =09inst->last_rd_ptr =3D new_rd_ptr;
+> @@ -1614,16 +1658,15 @@ static int streamoff_capture(struct vb2_queue *q)
+>  =09struct vpu_instance *inst =3D vb2_get_drv_priv(q);
+>  =09struct v4l2_m2m_ctx *m2m_ctx =3D inst->v4l2_fh.m2m_ctx;
+>  =09struct vb2_v4l2_buffer *buf;
+> -=09unsigned int i;
+>  =09int ret =3D 0;
+> =20
+> -=09for (i =3D 0; i < v4l2_m2m_num_dst_bufs_ready(m2m_ctx); i++) {
+> -=09=09ret =3D wave5_vpu_dec_set_disp_flag(inst, i);
+> -=09=09if (ret)
+> -=09=09=09dev_dbg(inst->dev->dev,
+> -=09=09=09=09"%s: Setting display flag of buf index: %u, fail: %d\n",
+> -=09=09=09=09__func__, i, ret);
+> -=09}
+> +=09/*
+> +=09 * Every CAPTURE buffer is about to go back to userspace, so none of =
+them
+> +=09 * may be decoded into until it is queued again. wave5_prepare_fb() o=
+nly
+> +=09 * re-establishes the flags on the INIT_SEQ -> PIC_RUN transition, wh=
+ich a
+> +=09 * plain streamoff/streamon of this queue does not go through.
+> +=09 */
+> +=09wave5_dec_sync_disp_flags(inst, true);
+> =20
+>  =09while ((buf =3D v4l2_m2m_dst_buf_remove(m2m_ctx))) {
+>  =09=09u32 plane;
 
-diff --git a/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c b/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
-index 8fb7230..95c4f7d 100644
---- a/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
-+++ b/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
-@@ -847,6 +847,16 @@ static int pispbe_node_buffer_prepare(struct vb2_buffer *vb)
- 	return 0;
- }
- 
-+static int pispbe_node_buf_out_validate(struct vb2_buffer *vb)
-+{
-+	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-+
-+	/* The hardware only processes progressive frames. */
-+	vbuf->field = V4L2_FIELD_NONE;
-+
-+	return 0;
-+}
-+
- static void pispbe_node_buffer_queue(struct vb2_buffer *buf)
- {
- 	struct vb2_v4l2_buffer *vbuf =
-@@ -958,6 +968,7 @@ static void pispbe_node_stop_streaming(struct vb2_queue *q)
- 
- static const struct vb2_ops pispbe_node_queue_ops = {
- 	.queue_setup = pispbe_node_queue_setup,
-+	.buf_out_validate = pispbe_node_buf_out_validate,
- 	.buf_prepare = pispbe_node_buffer_prepare,
- 	.buf_queue = pispbe_node_buffer_queue,
- 	.start_streaming = pispbe_node_start_streaming,
--- 
-2.51.1.windows.1
+Nicolas
 
+--=-Ml90ovTqf9+evYPR6K14
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjcgAAKCRDZQZRRKWBy
+9IePAQD7AMY0KmN9vwzelJFIhBYgxn3SQKf7T8oibDH9uDlEdgD/RrvAANhCcC3E
+3uZuKc4tf25NVebhqvpuKkz+ua8SjA8=
+=KsyU
+-----END PGP SIGNATURE-----
+
+--=-Ml90ovTqf9+evYPR6K14--
