@@ -1,55 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795804319;
-	b=xI12BgM674Y5gt9noiYaFUUdk3ybUfFwOohtZfuzXM/KSGSBbG0rIDxYEgw6VyYi9BPT
-	 /VWWRurpgtsFgjIpcJf89xtE8JOv2wWRsrAZthPCTkSovSaJv0KNdzs0iVwO2fWrrOycj
-	 bDZNkCAHb2KIhuCgAeSjGVAGYgdiyd7k4y0KVCMY0vMEWjTEzZJpVXNUmaO5A4VW2ZvYO
-	 sB3pNFx/tDBNVkxdlZC/YcZ9zRnUCzxZmYcsIcDrKBssftv9uQe9rqUNitDFn7BZ0ume/
-	 cRFSoyivyatnE1lh/enIhvrV79+n85Vnnb5NF0BzbcWN45Owv66wRvYSycRJ220pIMQ==
+	t=1795805000;
+	b=t+6F+ode+pwxrRK5LLPpEhDc9b7mto/QQpq8XrCrKHz+R5X1I20cG4+Q0X+WGZjGugMK
+	 oAIfZ8dssaR14XN97OlPOyMhoRAYSK79bFbLyuXUvbuXm5VzZqwtYLzn+C7urZfCJnvsG
+	 pGvhOBB/MIiV1LrowC8JMvYvGaWyseCEmzdhwZsPh14FRcRbF9NMgwHxZrUa8B+bhm9y4
+	 OD5SiRjpnzWO4+2TmrEY8qrNLJcYJouRH+5tgKexVaEPVkEL+bBnXzFh6k/TeQH/c6QZN
+	 YyxEN2DvM/OwQLOiScW6kWEJBkWdyAdGjnaBJ3FzS2Ec2oykBjFkku6TI5Lf08URckg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804319;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=3z99BsU30U4rERu+ZiV0NBny6Si8flrmsiUiHE4Lweg=;
-	b=XKqkkohgJrFpc4g2dAH9VcJXcaea+69xfan/XTTSPeEHKtEEeFwJtd36KF2qj0ZPdvNk
-	 ir1SaiIEUBa5HyLGjbtzcCsU5QF4ZDTd6Jvzl22sZTZg9pR0hEps5DmH18IArv0dl9HeI
-	 ZI0PprbV9aCpEltxEDyYbwxDpSVwkwRmQOI8xTdoNX0hSzDprcRwMCDp2s+y/++3dF4gs
-	 B31HoXjPounVCbrpObLjbCB3ghuweyFFPimu/tGEePs1KAqRdIf/LLFlitfLZaPGpXFJX
-	 euJAecF299RJ3eWao7yJaqt+NswWIjEvSDcA5eQScy55eGi1oVN+bttAIwW4r6OFArQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795805000;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ZohoMailClient;
+	bh=RZV2Bz1rnR1nwBwCIHteBeBwrgGrqm/NvJnIi7wGD7A=;
+	b=ow4GKHWGiPz/uvEJHX+gBaCffoykr5nahkSKdkCW/SIDIJEztWBQwipP0vx7LoWfYlLV
+	 q7Cjp6olFj3vRC5RvDiZZhI88wpjZBBsysIhD6NIsUVI5Ppa2SQNb/r0Ubd4ZvHSaUCU4
+	 KAiXvEFnWgHhm/7HcvXXHczVnQJVoCyDWxxbaJbMhkBxu8+0oaXCxONXp+ak6mtNRyggR
+	 hFe3A74UNmFVpWHUjFjThXu5/NnigNj00w2X5pT6auccgU2LLsCep1DEBhO0i7DfpjN5t
+	 Pxn89bXI6m35wwQ0tE3gqK8NCFnqbEVnQPGZUHLwV/MZBVHU+wTtgE3/75zG/D2nBmA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UQIShDyz;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AlhFf8zC;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8932B606A324;
-	Fri, 27 Nov 2026 18:31:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8932B606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A39606A321;
+	Fri, 27 Nov 2026 18:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A39606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UQIShDyz
-ARC-Seal: i=1; a=rsa-sha256; t=1795804255; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AlhFf8zC
+ARC-Seal: i=1; a=rsa-sha256; t=1795804954; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=c7M/SE/n2BIQsM7JPTHveyBNcDqOwmKbEUHW61pGKA/fuFS3tt37P1JICwvuX0xl+897Lk1ubzsVimvCcMUO4MINDjvA/2GtNuVoplxiCyk9lBZLBK4g3NucjyOZYvcI+jHe2RDgveagnEhOMC6UL6RUpJaXYCSHyvurfXoMEBk=
+	b=WcZtN3tD/zjvkk8uI44gdbTyPfvaOlx2Uyw+n6EalGUJfhu2vyRP3ATf6Fs40uUjjalYJ977Uv0z2PRkZEQd4IE76JryonkGpgoiw1qvX9Tjg50seYZmaLv9K8mvWj/gPVkYdhK0u8bXblt9FClGbhL12aU4fpfWVvHFl6VtlEk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795804255; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3z99BsU30U4rERu+ZiV0NBny6Si8flrmsiUiHE4Lweg=; 
-	b=M7nU9Tn5KC0qkSGLIRHvmcg08f+RwwV9hb/wLhoA89Nr8TxcuB2n0/lQqTM8jLiHqG2/wdzJNIkUPoAmb3mp+MwjT3eAAiD5JZ+sJ/8KGApqDWiy0xGVRubiKNysPgag6sn06C1pmizggeBx4WMAP0jC5Hm2tiVerqIH7gjKB3E=
+	t=1795804954; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RZV2Bz1rnR1nwBwCIHteBeBwrgGrqm/NvJnIi7wGD7A=; 
+	b=msZ1BEW68rpZfIn05UPZaNVYPC8P2EHyim38o+oe5zt9X9dp44yOvAx9CnvPK5qD/D1GBqYnuT/2sBQJt4EHNFrJqJF3szqKvjcqHtF+1tXkCDkPW/S46i+J8E8M7FLiXTWXTUVGU/U0NSV+81pRf4Z5ehYkZFrVipV5e7U4UzA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=UQIShDyzw7L92zIhABO0WxYb2m0Y0sKeHfFOO1XGZ4NiPjCHiQum57w3F5NJXZQQvvbVNzK+FbnwiWmWiwRaVK8/nSI8jOeWWoxVKRHYn2/R8pVwZADZSa3uHbribJiDV9JUsirzzZd/4B3ygKi6mBPagy6f1gsGyu1usELGhqE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=3z99BsU30U4rERu+ZiV0NBny6Si8flrmsiUiHE4Lweg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795804253474968.8695268999385;
-	Fri, 27 Nov 2026 10:30:53 -0800 (PST)
-From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Fri, 27 Nov 2026 15:30:37 -0300
-Subject: [PATCH 1/2] rust: dma_buf: dma_fence: add SignallingSection
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=AlhFf8zCtIALPrXe8zga3TTnuSQt0lRzQGYtAzDrHn++w3fCVG+LhzmCx3usebRtnZHI1BJiwQhUVIvcEw6uiMt6Y9Crx6rnJoiYG0SEBR0fRflpO+xdg7OInUwN4YW4I9QP9CdbTZaNb+O6aUic1mFDxOzvtuMlUIk52JxFIY4=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=RZV2Bz1rnR1nwBwCIHteBeBwrgGrqm/NvJnIi7wGD7A=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795804951277426.7074106650923;
+	Fri, 27 Nov 2026 10:42:31 -0800 (PST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Heiko Stuebner <heiko@sntech.de>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Sven =?UTF-8?B?UMO8c2NoZWw=?= <s.pueschel@pengutronix.de>,
+ kernel@collabora.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/5] media: rkvdec: Remove unused need_reset
+Date: Fri, 27 Nov 2026 13:42:29 -0500
+Message-ID: <sHCcy4ZARIqHsoGbYpMAqg@collabora.com>
+In-Reply-To: <c0da8a7d22c6b837c2c8d62e6d267b54d6ed28f4.camel@collabora.com>
+References:
+ <20260810-rkvdec-multicore-v2-0-986f89d22cdc@collabora.com>
+ <20260810-rkvdec-multicore-v2-2-986f89d22cdc@collabora.com>
+ <c0da8a7d22c6b837c2c8d62e6d267b54d6ed28f4.camel@collabora.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,165 +74,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-dma-fence-signalling-v1-1-c44e8f4910ca@collabora.com>
-References: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
-In-Reply-To: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
 X-ZohoMailClient: External
 
-dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
-code that the completion of a dma-fence depends on, so that lockdep can
-check it against the dma-fence rules. However, up until now, it was not
-possible to use the signalling tokens from Rust.
+Hi !
 
-Thus, add SignallingSection, a guard that begins a section when it is
-created and ends it when it is dropped. Code on the signalling path can
-take a &SignallingSection to require that its caller opened one.
+On Thursday, 19 November 2026 12:35:43 EST Nicolas Dufresne wrote:
+> Le lundi 10 ao=C3=BBt 2026 =C3=A0 11:22 -0400, Detlev Casanova a =C3=A9cr=
+it :
+> > A left-over from the iommu restore mecanism was forgotten.
+> > As need_reset is never set to true, the if has no use.
+> >=20
+> > The actual restore function is called above it vase the IRQ isn't in a
+>=20
+> Tell me what you wanted to say instead if "it vase the IRQ", or define the
+> verb "to vase"?
 
-Use it in the DriverFence example, which has a TODO for it.
+It's not a verb, it is very ancient belgian English meaning "in case".
 
-A later patch in this series makes DriverFence::signal() require one.
+> > success status.
+> >=20
+> > Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+>=20
+> Reviewed-by: Nicolas Duresne <nicolas.dufresne@collabora.com>
 
-Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
----
- rust/kernel/dma_buf/dma_fence.rs | 70 +++++++++++++++++++++++++++++++++++++++-
- rust/kernel/dma_buf/mod.rs       |  3 +-
- 2 files changed, 71 insertions(+), 2 deletions(-)
+Detlev.
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index a1d851656562..7ee87935d3be 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -17,6 +17,7 @@
-     error::to_result,
-     prelude::*,
-     types::ForeignOwnable,
-+    types::NotThreadSafe,
-     types::Opaque, //
- };
- 
-@@ -589,6 +590,71 @@ unsafe fn dec_ref(ptr: NonNull<Self>) {
-     }
- }
- 
-+/// A dma-fence signalling critical section on the current task.
-+///
-+/// All code needed to signal a [`DriverFence`] must run in such a section,
-+/// from the point where its [`Fence`] becomes visible to other threads up to
-+/// the point where it is signalled. With `CONFIG_PROVE_LOCKING`, the section
-+/// is a [DMA Fence Signalling Annotation], which validates that code against
-+/// the [DMA Fence Cross-Driver Contract]. Without `CONFIG_LOCKDEP`, the
-+/// section has no effect.
-+///
-+/// A function that is part of the signalling path can take a
-+/// `&SignallingSection` to require that its caller opened one. Sections nest,
-+/// and only the outermost one is annotated.
-+///
-+/// [DMA Fence Signalling Annotation]: https://docs.kernel.org/driver-api/dma-buf.html#dma-fence-signalling-annotations
-+/// [DMA Fence Cross-Driver Contract]: https://docs.kernel.org/driver-api/dma-buf.html#dma-fence-cross-driver-contract
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::dma_buf::SignallingSection;
-+///
-+/// // Code on the signalling path takes a section to require that its caller
-+/// // opened one.
-+/// fn on_signalling_path(_section: &SignallingSection) {}
-+///
-+/// let section = SignallingSection::begin();
-+/// on_signalling_path(&section);
-+/// ```
-+///
-+/// # Invariants
-+///
-+/// `cookie` was returned by `dma_fence_begin_signalling()` on the current task
-+/// and has not been passed to `dma_fence_end_signalling()` yet.
-+#[must_use = "the signalling section ends immediately when the value is unused"]
-+pub struct SignallingSection {
-+    cookie: bool,
-+    _not_send: NotThreadSafe,
-+}
-+
-+impl SignallingSection {
-+    /// Begins a signalling section on the current task.
-+    #[inline]
-+    pub fn begin() -> Self {
-+        // SAFETY: `dma_fence_begin_signalling()` has no preconditions.
-+        let cookie = unsafe { bindings::dma_fence_begin_signalling() };
-+
-+        // INVARIANT: `cookie` was just returned by `dma_fence_begin_signalling()`
-+        // on the current task.
-+        Self {
-+            cookie,
-+            _not_send: NotThreadSafe,
-+        }
-+    }
-+}
-+
-+impl Drop for SignallingSection {
-+    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: By the type invariants, `cookie` comes from
-+        // `dma_fence_begin_signalling()` on the current task and has not been
-+        // passed to `dma_fence_end_signalling()` yet.
-+        unsafe { bindings::dma_fence_end_signalling(self.cookie) };
-+    }
-+}
-+
- // Necessary to guarantee that `inner` always comes first and can be freed by C.
- // Also useful for using casts instead of container_of().
- #[repr(C)]
-@@ -654,6 +720,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- ///         FenceContextOps,
- ///         FenceCallback,
- ///         FenceCallbackRegistration,
-+///         SignallingSection,
- ///     },
- ///     str::CString,
- ///     sync::aref::ARef, //
-@@ -704,9 +771,10 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- /// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
- /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
- ///
--/// // TODO signalling guards
-+/// let section = SignallingSection::begin();
- /// assert_eq!(waiting_fence.is_signaled(), false);
- /// fence.signal(Ok(()));
-+/// drop(section);
- /// assert_eq!(waiting_fence.is_signaled(), true);
- ///
- /// Ok::<(), Error>(())
-diff --git a/rust/kernel/dma_buf/mod.rs b/rust/kernel/dma_buf/mod.rs
-index 4764a828642e..8dda6d91b650 100644
---- a/rust/kernel/dma_buf/mod.rs
-+++ b/rust/kernel/dma_buf/mod.rs
-@@ -10,5 +10,6 @@
-     FenceCallback,
-     FenceCallbackRegistration,
-     FenceContext,
--    FenceContextOps, //
-+    FenceContextOps,
-+    SignallingSection, //
- };
-
--- 
-2.56.0
 
