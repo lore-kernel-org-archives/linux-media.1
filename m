@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795735717;
-	b=YzLE4MI3afTut41+sY/8cqbhFLCeDELSyjtSvQqLzpcvC5GUGRKVxzepom7yMiRZX1GA
-	 bZbwbYQVMTEbvq/1X6LVtHV3RphAU+pTeR16s6mLDueu/ncxZLV3GyTYjXC5XIZl4Y2Wx
-	 ANj6AS4ZW48JGsi7Sfg9EWrbBFXAtcxYTPHGbeodbfs1hbih8mrqW2ytMFaZsmPthZKBT
-	 cY7sHM9BPF6Y+0FhZUdJileQG7w1CroTgYIod2iT5nYmBpvxNd3NRhA8ZDY8sBNJUD/Bc
-	 PdoJRC/yBP3S27GL0DUGf33/qzCYOB3R+8nfyO76MtDH2bm5jr2lI98Hyn3wZELIAWA==
+	t=1795739681;
+	b=Wl/uyDwyz0fjDCQxHYYA3aI8oD64QojF6S0FPLzBHWP5u4MLZxZQ26UChEd/C6hP5OPr
+	 qcjjNC1osnEOz3O6iToiyus8XMpibTKu92wpJSKcILTNtpP6hj7baqtGqt5ramv8dxnFH
+	 RX6f/+P7hH4ByUY0QYbupKpfpzFHLaU/jbiiSqJwS1C7em6cs5tt8opnQRsxxKdcWAwkk
+	 QvtnXWNXpAkRv774TtAmIaTMllWoA1YRrG17r9LVo+JzX10/ISFdtGCJKPxKmabnsKQBq
+	 MSpTI1iIxjKDvpaVuG34M8i9S7KG9iyIQZY+hcnNaqN6alH1UPl97XEchGe3nMwz8ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795735717;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=twJo0s/v3DoMCfRKsRe0tacmP7SwLMnarbIHRsOnhSk=;
-	b=NRYueYPWc3wtaGVe9/p7do/rDZqt6QsSm4877RRe/uRfGUFn0xJvizCtqU6rHzmiZseE
-	 krb9xRuf6jOLm/fpMsgCarCZMHbG8Riq7DWYfI5m73yJsyio4FYxXASr3rKPYAStYNtqx
-	 GPGrdP8u1aeor/H7ZLI8j+eS4A+AxtYQoGxGrY+itMWmRW3MNth/No2t81ayyidUrxERi
-	 sjXaa7z7TrOhB265mrA19FopO/vwIYMKjJKpsqhpAktN2xeH486/9k7RHPooJ8PrQXOU8
-	 E9QEbeyqkhsBMTQ6Kh3980kfz+epsvKuBxkQTKoWMpOnIsJ21vjiBEPk3STe3cSfo3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795739681;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=UxLK7bEGjfkMqxlP1HJ5La/tP438DtL+DH1p4KN3J0s=;
+	b=YHDpbzHlWuEZbF6K+7DEzFhFvsR47inZA8durUqijRAv/LC+7a9Rp/GggUdCrvGetme6
+	 tG4sn0XHiSQ0L3oILb33GJGkXgmlyf7Np6NqF4m9kYdtrGgzWYEhlnMz7X8WOSZLk7jRf
+	 NVpUvUBrtfx8QIKd5X8YwINzvyy+tmzZlQebNQTcfaYOnJASBvwWjoMOtfFITADzom7zI
+	 kU6QC6yh2EwO6GRtgs7phU1myLAg/4FqAMrdmc7m9dCkMvEik4Cle09ewk4bIq4X4xZVw
+	 d3Jj0CD8bh0anCabp3DFGiNYKlr+TAh09HBLVrhqOAC8xNffsFyGHA1nxGPuSwIg23A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7ZbglIA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rx7pqdVk;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F386606A31C;
-	Thu, 26 Nov 2026 23:28:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60175606A31E;
+	Fri, 27 Nov 2026 00:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60175606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7ZbglIA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42ADD1F00896;
-	Thu, 26 Nov 2026 23:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795735716;
-	bh=twJo0s/v3DoMCfRKsRe0tacmP7SwLMnarbIHRsOnhSk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U7ZbglIAgnBUb1FyCSiXFC/ZLo+9zT0z6Rt0oYfS0FYCrrx0KP156t2tkIKtHpWEK
-	 NIjkkPBlILs1Nl9hWUJhwXS9XzOswgun92FX6zjFxTqRFWBjTz1wBwkpuj+9Yd4/NL
-	 FEwBDtI/ozU6QXG/vlVTgWe5QS4KqFtNjat6LydP7Ju+Zby4sNb4c1uSTBR4yw7mFn
-	 +43A3SIRkTFFygfMy9H3nxOJaQ+Myf1ny6Ghm8lwp6tH66KnTXvBRwnLDLKp/s0Hxw
-	 OGCTZY3mbEpcjqoBer0xN88h7eBbyJ0Kt9StiYi/3OnCNnd697vLhQKdy3DhnWduPs
-	 yKWvN4Qt1gihg==
-Message-ID: <cf06a649-a5ef-45d3-a103-a71ba5e1d3d3@kernel.org>
-Date: Thu, 26 Nov 2026 23:28:33 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Rx7pqdVk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795739678;
+	bh=UxLK7bEGjfkMqxlP1HJ5La/tP438DtL+DH1p4KN3J0s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=Rx7pqdVkj0ocJelprcXaH823psQ1knCRA4MNRSWCEsup440aoNYQlf3OJLzN6oTbt
+	 /kYZepCmQUxh0vNqeqyx6mBHA53XsmoDbB4l//L97o6hRHlzaconxazSY9WiWgLoQl
+	 dSzqkV4kdVjZsnCk91ItkyyX5KdkloRIN21Mp45FYvo+DubVk6YzwWG0o+8XHNt+Ic
+	 hNkd8ZdJoUfpGRwLQTNlyTTUvZloB4p+E69ETrbEaOPG88S662Ydvh1omG7KdHkVdB
+	 iq8I0ISJMOlAqVKxP6nrwPmuBDk/NShCFP6mWnFBp1TOIahmx6LUAzxJexksz03Hrx
+	 VLNEZfOR0YQ5A==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7922017E085F;
+	Fri, 27 Nov 2026 01:34:36 +0100 (CET)
+Message-ID: <d40e63eac201d9517c008d559a32b2cef9cc6137.camel@collabora.com>
+Subject: Re: [PATCH v2 1/9] media: chips-media: wave5: Ensure Atomic Access
+ to src_buf list
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
+	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
+	nas.chung@chipsnmedia.com, stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 19:34:33 -0500
+In-Reply-To: <20261109052853.110-2-jackson.lee@chipsnmedia.com>
+References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
+	 <20261109052853.110-2-jackson.lee@chipsnmedia.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-lviUndxDktS7N+jzCjqk"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,86 +89,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] media: qcom: camss: icp: Add HFI/ICP v4l m2m driver
- for x1e80100 BPS/IPE
-To: =?UTF-8?Q?Ram=C3=B3n_Jes=C3=BAs_Miranda_Hern=C3=A1ndez?=
- <ramonjesusmiranda@gmail.com>
-Cc: vladimir.zapolskiy@linaro.org, rfoss@kernel.org, todor.too@gmail.com,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <3_3nc2zwTAg_ilwaJQ7XHrQP0IbIlCBzBpK9k8iKBgiG8UyinhJKSas3kGkpfyPoaD7YrdqwgL1w06xY1yoa5g==@protonmail.internalid>
- <CAP08=V0F+A9AP7ShGDXqgWgpX3EMi5sFeqPBEWK0WM1PQ4GN5w@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CAP08=V0F+A9AP7ShGDXqgWgpX3EMi5sFeqPBEWK0WM1PQ4GN5w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 26/11/2026 22:58, Ramón Jesús Miranda Hernández wrote:
-> Not working yet: frames wider than one stripe (1920 gives a bus
-> write violation) and enabling demosaic (luma stalls).
-> 
-> Not related to camera, but found on the way: qcom_scm_assign_mem()
-> accumulates the destination VMIDs in an int with BIT(), so *srcvm comes
-> back as 0 for any VMID >= 32.
-> 
-> I am happy to share the code or test patches on this machine if that
-> helps.
-> 
-> For transparency: the reverse engineering and the test code were done
-> with the help of an AI coding assistant (Claude). Everything above was
-> checked on the hardware.
-> 
-> Thanks for the RFC,
-> Ramón Jesús Miranda
+--=-lviUndxDktS7N+jzCjqk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Great thanks for trying.
+Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
+=A0:
+> From: Brandon Brnich <b-brnich@ti.com>
+>=20
+> feed_lock was introduced in decoder performance improvements. This was
+> used to ensure atomic access to the driver's avail_src_buf list during
+> fill_ringbuffer, streamoff_output, and buf_queue. While this protected
+> the drivers available src bufs, the v4l2_m2m_src_bufs were not being
+> protected at driver level. Three separate threads have access to remove
+> buffers: start_decode fail path, streamoff_output, and finish_decode.
+>=20
+> In streamoff_output(), replace the inst_src_buf_remove() loop with
+> list_for_each_entry_safe(). inst_src_buf_remove() takes feed_lock
+> itself, so calling it while streamoff_output() holds feed_lock would
+> take the same mutex twice and deadlock. Unlink each entry with
+> list_del_init() directly instead.
+>=20
+> In wave5_handle_src_buffer(), feed_lock does not serialize against
+> v4l2_m2m_buf_queue(), which buf_queue calls after dropping feed_lock and
+> which adds to the ready queue under rdy_spinlock only. Walking the ready
+> queue with v4l2_m2m_for_each_src_buf_safe() therefore races with
+> VIDIOC_QBUF. The loop only ever looks at the head of the queue, so peek
+> it with v4l2_m2m_next_src_buf(), which takes rdy_spinlock, instead.
+>=20
+> Fixes: a176ac5e701f ("media: chips-media: wave5: Improve performance of d=
+ecoder")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+> Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
 
-We have an update pretty much ready to roll in the next few weeks please 
-hold tight.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
----
-bod
+--=-lviUndxDktS7N+jzCjqk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjQGQAKCRDZQZRRKWBy
+9IZ5AP98Z3GvX2FF3bIELxWZnxpqmQtWHS3t3ye/G0lPEqghNAEA5WsLbWgQohCz
+tDSNAwYifK9be/W0sS9UARcbIXX73gw=
+=fkGs
+-----END PGP SIGNATURE-----
+
+--=-lviUndxDktS7N+jzCjqk--
