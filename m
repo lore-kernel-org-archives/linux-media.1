@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793961;
-	b=tDLC6vtipQBkmtNOsINMecBACxI3fYzJojCR1jtjmL0Woh+C68NwYM48bCCgg6ml9HBF
-	 b8zs8IV+AjsmzYbrg27utHGuKuqirDlEj3t5RJMWE/PfRvYuV76FF96EMS4hccc4CjcDt
-	 gTpy2SoYFZteH5eUTbqg3+t6TULSFJnENN8PcetymzBYXQVeSWTeZPyHZsUjHAoEj/r7V
-	 9bw4djU/mIfEvujQYzvso+vmKdvVtq2jnkrZMGjyNR12rwYtWJKwQRXQpHMOmnqsTc41k
-	 c5hq0q44kkTqBorbachoO6AORnq00RhrdBmaqj6oTBOupPnjwvNyoxPiVjO0lbyIbHA==
+	t=1795795453;
+	b=ze2X2WtoYsHom+Obt43ikgsGk7DV2HpSzMT1iCTS0udQqnEH5q01gPUnZI//3AF43Yn0
+	 n7o8Z7w9xlVTfHH2gB7hESIDOiYLyL29N++xTlzyetD50smSzKnG3qq7ABUPAOxehwIYH
+	 ViV2o228MiJpNKAmiFIJT5G/E8HLkp5G1PoQm6MfjHjD4Vbm3PmxIBazjGmgKCY6VnZgw
+	 WpKupk7pvYoC0hWkvuolv8+xDf24zcadHYKEtPmV7bSxweq4fCGQRF1FWZQH+dyIsidXV
+	 fc5HWg3RGiLV2ibGY0fM5WbDPmrR449LA8aVHAoPENNkEvolNvl5Z16dvvPDNXIaxRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795795453;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=yqB5DRZzw4GAT7M3ixHliER6cQD69webi93fwhdLPow=;
-	b=Vjkk7YgaKKJwklF7jleoZuOPCMYbcTKVOrVpjS4abJYYCSzeTC/qRAJl/arKf70nhuB8
-	 VYtDUXFyIaBAM85tYmySGidCBIcMt5yvH8sFqloehJCd/HS153YfqO02v0HUR4fsvq4z3
-	 7AGX9am4AuEPtbpyKSzdXuArwdbhnLK+fexhOYKfGQGRQOmFDy0BxXlzd3xqXAykoXvKq
-	 9Lp2Rmr2puoR48hkpambYxPJd+hi33HNcKkhQ4b8WSxi2YRM/b5CSdeJjFhwinD9AOI58
-	 cBKinHFA6yFvOoPzIjMj4cWzv8801P1H6VhRrC9P8zHlFEOUUba3POugY9alcGp7PLw==
+	bh=mEujayduqN4MYR0/dqR75aeakGTCrsG8XuzCbnUp+KY=;
+	b=o9Ix4HiPYgKlHUbkd2w9Ci7fGOCNK9LQvxnT57+4s+NR6l40Q0bDrR8rUt/qzuluo7BX
+	 nEp2tUR5pJq8edUJDtFSh3NCcTbRkmSrSjoced3f/u3MTfHNrQzbg0VVqU/9CMqcm8uI8
+	 UDf39G67sdPX5jqBKdq5L6KhvinNeKyI1GFhmeczHQmmo33YVOaHNKmhR2AlDE/I3cLwv
+	 yxAOWn5emeBMcGh0nZ7yWV/eSSyXNuTeeq4QHs0NymgL6zmOx7QlppFOMiXXj9Dxy9MMC
+	 6BU1/PFIn1kCHeO7T4tehX+tPl8zFSN89nMS62GAvgmMRYCd/aiC+HuCHQ0wqxHpkxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNX2kE+w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMeJHuu5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BAD606A31C;
-	Fri, 27 Nov 2026 15:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD93606A31E;
+	Fri, 27 Nov 2026 16:04:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNX2kE+w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577B01F00899;
-	Fri, 27 Nov 2026 15:39:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMeJHuu5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1CE1F008A0;
+	Fri, 27 Nov 2026 16:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795793960;
-	bh=yqB5DRZzw4GAT7M3ixHliER6cQD69webi93fwhdLPow=;
+	s=k20260515; t=1795795452;
+	bh=mEujayduqN4MYR0/dqR75aeakGTCrsG8XuzCbnUp+KY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JNX2kE+wC7eE5lXs2H1z5zsGdwx5jTNckuTKnqCvrgiBzUWhuJrbndqeW/9xW8BSE
-	 M28xCFJGQsc6Pb2Ko4RgLQvWY0pNReCTFCG4s5kydua0Dja1piOAStDAGCtOb2hS0b
-	 jVFVtUH+69h7F2RN0mbtp53Q1sEkf68xZgvsSdQX1HRMOWYOpi7r3K+T2VbjrGOlqw
-	 Stl4EW7IAI/Hnt1TLREpwCsGZ+gpr1rWuhfRPXZ9w5cOBVbb0vQjKYnYi52+EKY21q
-	 1e0YkJlk2SSif2UNUjKuqrHd8LF0MJXptiZF8+rIpYBOHZxgqDcVbqm4dOUFeVjF2C
-	 vyUO2bySK75GQ==
-Message-ID: <d0e76f09-a360-4c1d-bfab-c5658f2a69e0@kernel.org>
-Date: Fri, 27 Nov 2026 15:39:12 +0000
+	b=SMeJHuu5GzlZaoa9bVKdQMrLg0GQ6dvIid5LsqOG+mfDDj3BV+T5RZIrk/+Jxfzzd
+	 0+mNXt0uXpUlAX+aKVOigJBu0cQULIhEu4gMZCAE1BSy0j2tdX2BEoFvUWDDxAEDnS
+	 Ny8f1qQbAZSnrRp1NK/9sNk3jMfv86t9UzYps4IfQGTCf/itrJhe/7MaqfsIWf+k6U
+	 /YtSg5wuB9MLYrb94XYKD2aFzZxLEGqRWoUxgYHaiy1+MNB87PpgVP4nErLWz0t60Z
+	 FuPAnpYq+70WBIf9zWKSY9A2FF+fgmmW/yZU7d/gnlVAoStSjzOEwY20CO+lZnCXVg
+	 nRq95NI6RrDww==
+Message-ID: <6505dda0-f534-4705-bcea-ecf5f6b9ec30@kernel.org>
+Date: Fri, 27 Nov 2026 16:04:09 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,28 +52,18 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/4] of_iommu: add support for "iommu-ranges"
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
- Eric Auger <eric.auger@redhat.com>, Joerg Roedel <jroedel@suse.de>,
- Srinath Mannam <srinath.mannam@broadcom.com>,
- Oza Pawandeep <quic_poza@quicinc.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, devicetree@vger.kernel.org,
- kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
- stable@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261120-add_iommu_ranges-v8-0-d90486973b73@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] media: iris: report a platform bus_info prefix
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>
+References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+ <VCwITKn_QF2cBBvQKbboItTLjFqOb32D5AndJDWcIuGpfstWVDnrWRB3rKd2YKX4bKoQiniGp1vnuagxBdnvbQ==@protonmail.internalid>
+ <20261127152024.2149804-2-xiaqinghuan@mail.ustc.edu.cn>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -119,60 +109,33 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261120-add_iommu_ranges-v8-0-d90486973b73@oss.qualcomm.com>
+In-Reply-To: <20261127152024.2149804-2-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 20/11/2026 10:35, Vikash Garodia wrote:
-> The series adds support for recently introduced property
-> "iommu-ranges". It adds the required checks to error out for cases
-> which are not following the schema definition.
+On 27/11/2026 15:20, Qianhui Xu wrote:
+> Signed-off-by: Qianhui Xu<xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>   drivers/media/platform/qcom/iris/iris_vidc.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Iommu-ranges was defined in schema with this PR
-> https://github.com/devicetree-org/dt-schema/pull/207
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+> index 1edd2a4..9634f4b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -466,7 +466,7 @@ static int iris_querycap(struct file *filp, void *fh, struct v4l2_capability *ca
+>   		info = "enc";
+>   	}
+>   	snprintf(cap->bus_info, sizeof(cap->bus_info),
+> -		 "plat:%s:%s", dev_name(core->dev), info);
+> +		 "platform:%s:%s", dev_name(core->dev), info);
 > 
-> These changes are required for following clients
-> DCP display controller
-> https://lore.kernel.org/all/20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com
-> 
-> fastrpc
-> https://lore.kernel.org/all/20261007-extended-mapping-v2-0-5dca3aa2c2d3@oss.qualcomm.com
-> 
-> Iris video
-> https://lore.kernel.org/all/20261103-vpu_iommu_iova_handling-v6-0-e4b6ad864f8f@oss.qualcomm.com
-> 
-> This patch series is being posted as revision v6 onwards, since the
-> patches were initially part of the media series [1]. The patches were
-> moved out to get review comments from iommu reviewers, which was
-> otherwise looking as a media series. Happy to move this back to media
-> series if anyone have any concerns.
-> [1]
-> https://lore.kernel.org/linux-media/20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com
-Hey.
+>   	return 0;
+>   }
+> --
+> 2.53.0
 
-What's up this series. A number of other series are predicated on it and 
-therefore are stuck.
-
-Link: 
-https://lore.kernel.org/linux-media/20260529-enable_iris_on_purwa-v8-1-b1b9670459ab@oss.qualcomm.com/
-
-Link: 
-https://lore.kernel.org/linux-media/20261117-add_iris_for_eliza-v3-1-02a55a9272ef@oss.qualcomm.com/
-
-Link: 
-https://patchwork.linuxtv.org/project/linux-media/patch/20260914-add_iris_for_maili-v1-2-09df2b54c317@oss.qualcomm.com/
-
-Link: 
-https://patchwork.linuxtv.org/project/linux-media/patch/20260918-add_iris_for_hawi-v1-2-ac60fd15c98b@oss.qualcomm.com/
-
-Link: 
-https://patchwork.linuxtv.org/project/linux-media/patch/20261123-mahua_iris_enable-v2-2-b1a16b16afca@oss.qualcomm.com/
-
-Link: 
-https://patchwork.linuxtv.org/project/linux-media/patch/20261001-kaanapali-iris-v4-2-642f9ac5e699@oss.qualcomm.com/
-
-If the approach is wrong then the above submitters need to align on 
-whatever is right...
+Please add an appropriate Fixes: and Cc: stable@vger.kernel.org
 
 ---
 bod
