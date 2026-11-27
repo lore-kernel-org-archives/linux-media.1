@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795811417;
-	b=uhl/IxSpK8bvKOmvg3jmyA19Gg71V8DSoLUyOjNgtS3QsP3457P+LDK4K+EEZg1zREp5
-	 vyefAAaIGx/itYY2Tsr5yl1We1CxJ5aF6Cra1MXgDXuEhKmgxzJKVy24T1Xw3LC8amlS2
-	 ldFNe/ycnsdgkO8JcZCU9UdLd93k5swUf4XlPn07kBDFCNM2oFepmNU2no2erV86Ekqrm
-	 oqLE3GR3qUXq8/snGitWZ6bz/XWSiCUPuqb/zkI/KSzhlOBUg+NKtuym9IOYMJtV5Fi6x
-	 P+Ptp6x4W8QbA4ADFFzgwUdVWvH778L2+EovRj5YJ59tIWshOBcnRRdxI+xFrIdZaNg==
+	t=1795811422;
+	b=ekThhn40ktLU381Yt6EXmkSB0zdCpadpGw/1s/drRoRFTwEfehAigOUC3h80Q6wu436p
+	 xmT7iB7HiqfHhyz2M8qY0IWp5RkxV6vRoer+in/66J6kL5iUKqYzNHroFm0WnXKxp4EsV
+	 nULE0yupnZSThRrfpI0KQQmZsSSOhD8JFrkrzcFvR/TJH7zn8NrjxZjHnrtX+0fnSolbh
+	 Bin8p078UFezq5Bn7rhOf/5u0RqixEOgF1UFOEDNbHqBUAhwUvggEewNY7llt8vsuqosq
+	 E3cngKTw3bHAhT38lcytL5YWguBKKZNdODy42GI/cYAUh70NPK5oPZzivFQuyUO7mTQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795811417;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795811422;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sxHo/yeH59aOAbR5R8qCQWfdz0YGLqcxxJv3PtOxwRY=;
-	b=HNv1IyODu+5ji6ohmWYILU06GjUNuzqqwnukcVZfcFCE1oJttpXL5YMwvJYNprfEcdMH
-	 o4oglFM8JYgH1gPHuhR+pICDKS49bMSaKwpmCpIFv8SOBApdSrMS8Yn6gLF6nCFe6vaGD
-	 BsskoeBmvzhrQ1pm5y+j9DWrpYa8S8HGtPFjd4gm5G9V55RQ5aOfk/qOzMooTEorA16TL
-	 eqFyPuMnCL/yJ/W6l7P3w2e8Q30bgsh2g9q/uSXsCwHljMTcPDZs1bkVgwSjZpXTxvtQ/
-	 2mRw1hgDzP01WWc9JihKyX43J0mZMLBdlGfVhTyAIedoc4MEqbIt/WvaABbvnzWvfNQ==
+	bh=ypDv40wXCsTJZob1bP8jVIS1UkZGEDD4rGOmiZVwA/A=;
+	b=ySrI6KX7q8ufPkt42oFHHEAId8t2B/qLEtyMyapLGYmjzR6CdgD5plf00hbRpsqEIOS0
+	 9/MAzxGzkT6uFhmvUlHjHszWYV2+Pldbl1VdN7fhGBpCdKQtcSWstgGyEpNjheQPoT9jK
+	 2kNB0icgSAbww/QkDq/tHScYlFOxtQhMDLUNCrhS7GrN7vrtGsXDj+fseXAMNWErVx1Jl
+	 2EbsEp1ZQkVUpddThGif3BVCNubtD0mriX4y9xwT6QU0JwosgsWdHP8DPf9IIUxeDVAld
+	 +LKrmZeVTrnhvbc7/H4NafnSeAM/tWszf82ccCqz/6qpqLaPAO4Kn5bqqrE8hWkOjcg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2kwwQMD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5yeSpYj;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1273A606A321;
-	Fri, 27 Nov 2026 20:30:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692DF606A32F;
+	Fri, 27 Nov 2026 20:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2kwwQMD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5yeSpYj
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795811416;
-	b=O56AygUQrSrnFM9pRUEtA6LKlXQwIkEnfVGv+lSeQGaiWTq6UAu/xt2LqyIF4uqMGIgB
-	 mS98uFp3bwKgOiVVT9OLRf0y6dgksJnj++Kh6Q8Bk1Lqkqh87vR71IgMc3zI+/44Z1Lu5
-	 4zDCyaX+8hx+NjJ7JKZN2qRDCyqFmg4UPxMB+BMm1vzA+DGZD7XAqgfhe/utFKUvMd0RN
-	 qu8RrkP+TFc46mzKcz9xQnh7BCLgneky6bLrGTziIAqkAc6UStKFNamsB/VR/UbaXY/YZ
-	 5w5k96rHG3EwiT9VJINOXIHZerriHE2Ekn2PfHqAgixrB1bVyRiRq7Qd3PTl5ZSY/aA==
+	t=1795811421;
+	b=Mc3ZYMszoaaXZ4rGh95cDSnH3dWuXHk2GrRp4fE8ttnE9vfp/ALBzHeTT3kWbiLzbOWR
+	 ixic96f/nSEPTjrguKT/Y2NkUajyClGyNQXle/I/Ze4QUOMyBQ3iK5MV1eGLg6G+L8zed
+	 MXfBoWILjpswHGscgHtr1W1c+ltqbts0NPArks/6zx8qNVEWe09yxuGwDXk95hMTBW2pY
+	 s0Smt+wRmMQ4T6kT7Dc/q4madKdD0W/fll8Cpa7YpF0OuuP8JfjGABPPmT/VfT77mEy8d
+	 z5A5xHCvV3zyDx0a7hGXNzMguHAshpKe5a9TWiYTRyb/HOUXtEEO2xXRqmFdimbGqiA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795811416;
+	c=relaxed/relaxed; t=1795811421;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sxHo/yeH59aOAbR5R8qCQWfdz0YGLqcxxJv3PtOxwRY=;
-	b=vmRT5nW1+jG/vdyVfarnfkso/NZsQCnnRnlDDQufZwvd8pcdodA4rlAi44ceEWJFRKKw
-	 RIRDUdy+YjC/HZHvwlMkJr1ORptRbm6wc/9d1cfjPT+jnlguSWjgK9jj3c91JOyS+yZhp
-	 htVood0Lq0SRDKNlbFfX9HlIGiaNCaJiwbtYMMpeM1wZWA60uW3BTBX1m/lF9rwRW2KBZ
-	 qjbFTgt09TZzoZAnjm04za7pZ/9p6WjHbRFlHHA1xyi6u/v5EUv5ncFv2Nzfe+CX5gdxJ
-	 yYozhJZsT3MTzqU38az8IRmE8rCSSmDpZahEiQazmeWgX1R+84SW/JaTZ8t/EhmWDgA==
+	bh=ypDv40wXCsTJZob1bP8jVIS1UkZGEDD4rGOmiZVwA/A=;
+	b=HevNqVO7viekmSIs9VvPc+EyvpuxUrD1ZJI3HcmPAsofvI4gGJn+CCw6+sUEPY4OLnBj
+	 KQrHINaRyul3Cas2u7HlyhLfQ6OgDt5Hf5YbIdI0wUGaATaf59Xiw9sk/1sNF6z/jdd4j
+	 U8LVui2239hgtLciCf1RCz31to1u3nlBxQyQZTzDA2YZeST9+8Qrgp0e2apGB8mC91WEi
+	 NU1SdATKmOOdOnBHOdO8t2yHUT77jPV/3QXS/N1LobSWC2aM3dfFxlun2wXqjFyULK7KE
+	 jXHpl7UQE5nITAQqTB1YZyRIbYiBLT3obj9XKLbJ7sgIVZX4qh6LpuESBFTRJS8lbYA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0626D1F0089A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 256291F0089B;
 	Fri, 27 Nov 2026 20:30:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795811416;
-	bh=sxHo/yeH59aOAbR5R8qCQWfdz0YGLqcxxJv3PtOxwRY=;
+	s=k20260515; t=1795811421;
+	bh=ypDv40wXCsTJZob1bP8jVIS1UkZGEDD4rGOmiZVwA/A=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=C2kwwQMDk2KRJgj0uQ/uKmNvmDnnDUT3ywMGlsKOXWBqGmQTFFieH10wKSgdqbHWf
-	 bKjLzh1+6AXhdILBfK47xXBGsYZ0YmEWBwP553U3dk7aV7AN+lV2vs1sli8sLLdu0L
-	 hH6BOpWs9EC+dBtTC3udUNHCcy4EsgwVbb7vf+6vWWVJGMqNDB9Qni4aqKgWuTAliw
-	 eVtoYotjbfa8K1qIO6S456l91Y76Z67DtJfOmH+UvoBS1p3Ad+dkmI93I0gUh8FifP
-	 XrM8K1JaTL3BjigT84liZlwH5zrlXXdrFRnJDbDkNbqFWVP+0dp0x1zC7bC/hnhzb+
-	 RjLPmZoeScI6g==
+	b=m5yeSpYjvX5RcVueRid0k3ahtuH7NDC2O6lwTRn1f0sBShYJHSxjjbAlHhifNLRXu
+	 bVF3xuMEqNo3eor+JzIzCoLhMd9WZe7V9dVw7yigoChVyvp4Iy0d2FLGkgI6bhG5W3
+	 9Hc+t/c9i9LoU09RB1fyQpNe/3dZ8NJmyJEfzv85JiPaK4SWu2TT4WszPWkc6hZ6X8
+	 G39P+nzldYH6K4/grmYO4YsH1zncizYCfIE7u0JrYIcJINWkSULFbK1SR8aqB+NaWO
+	 yb3hPQHiTE2IPjdI4gjKK2DMbVm+8jOokPIon2cnqoSVNBPk7X9L63fpH+78ERvzpo
+	 Pokr2ibWhmv0g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 84EB04DDC3;
+	by lkml.kernel.org (Postfix) with ESMTP id A41A84DDC7;
 	Fri, 27 Nov 2026 20:30:13 +0000 (UTC)
 From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 21:30:15 +0100
-Subject: [PATCH 3/4] media: i2c: ov7251: support non-continuous MIPI clock
- mode
+Date: Fri, 27 Nov 2026 21:30:16 +0100
+Subject: [PATCH 4/4] media: i2c: ov7251: add V4L2_CID_FLASH_STROBE_OE
+ control
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-ov7251-strobe-ncont-v1-3-cefa8c6c020b@gmail.com>
+Message-Id: <20261127-ov7251-strobe-ncont-v1-4-cefa8c6c020b@gmail.com>
 References: <20261127-ov7251-strobe-ncont-v1-0-cefa8c6c020b@gmail.com>
 In-Reply-To: <20261127-ov7251-strobe-ncont-v1-0-cefa8c6c020b@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -94,11 +94,11 @@ Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Robert Ijtsma <robertijtsma@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795811412; l=2072;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795811412; l=3757;
  i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
- bh=/eNpqimi84SQ1mCr/1eGNfNixnHzZSLMq/OYFI2mSeo=;
- b=mAtXQ1inRaKpW4tcvKE4rFpASX3cjipF+Ada8ChKBu+XDhkW0TFhuWHApCuZ3BR9ZmdQ6YkT8
- quD/BqE5rjVDVrXDLhFaltWtyGN/26zqXrXodiBE/8e5nQHSzsAmYUT
+ bh=yvTV+s3D7NAOh5BV09o0U6C+V+jBgQvfOZD1tUWs0hM=;
+ b=P6FZyAR+Ml3t5H3BowgEG7cVPUV/eVKhy0qBjPnxV/PVXTvynBHS9e0PB6FDbkeeQ0CmMU29F
+ PH8WvxBV8vUClaaW2gsj2T8tc9uP48GlVjlXVS7L7E1PP3/WkeZgxXG
 X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
  pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
 X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
@@ -109,68 +109,113 @@ Content-Transfer-Encoding: 7bit
 
 From: Robert Ijtsma <robertijtsma@gmail.com>
 
-Check V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK from the parsed CSI-2 endpoint
-in ov7251_check_hwcfg() and set BIT(5) (CLOCK_LANE_GATE) in
-OV7251_MIPI_CTRL00 (0x4800) when starting streaming in non-continuous
-clock mode, allowing the sensor to gate the MIPI clock lane in LP-11
-idle periods.
+Devices such as the Microsoft Surface Pro X wire the OV7251 sensor's
+hardware STROBE output pin to an 850 nm IR illuminator for synchronized
+frame-exposure illumination.
+
+Expose V4L2_CID_FLASH_STROBE_OE (default disabled) to drive the sensor's
+STROBE pin (0x3005, 0x3027, 0x3b81, 0x3b8e..0x3b8f) while streaming, and
+disable the strobe output when stopping the stream.
 
 Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
- drivers/media/i2c/ov7251.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/media/i2c/ov7251.c | 47 +++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 46 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index 5a50a5100c1e995714201fb509fb207fa03c5f39..13fcc4cdb31a5e7350bcc0b15d186f4912b074be 100644
+index 13fcc4cdb31a5e7350bcc0b15d186f4912b074be..e6007708139964c423c68dae86e7c07c26349fea 100644
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
-@@ -64,6 +64,8 @@
- #define OV7251_TIMING_VTS_REG		0x380e
- #define OV7251_TIMING_MIN_VTS		1
- #define OV7251_TIMING_MAX_VTS		0xffff
-+#define OV7251_MIPI_CTRL00		0x4800
-+#define OV7251_MIPI_CTRL00_CLOCK_LANE_GATE	BIT(5)
- #define OV7251_INTEGRATION_MARGIN	20
+@@ -30,7 +30,15 @@
+ #define OV7251_CHIP_ID_HIGH_BYTE	0x77
+ #define OV7251_CHIP_ID_LOW		0x300b
+ #define OV7251_CHIP_ID_LOW_BYTE		0x50
++#define OV7251_SC_IO_CTRL1		0x3005
++#define OV7251_IO_CTRL1_STROBE_EN	BIT(3)
++#define OV7251_SC_GP_IO_SEL1		0x3027
+ #define OV7251_SC_GP_IO_IN1		0x3029
++#define OV7251_STROBE_PATTERN		0x3b81
++#define OV7251_STROBE_PATTERN_ALL	0xff
++#define OV7251_STROBE_SPAN_H		0x3b8e
++#define OV7251_STROBE_SPAN_L		0x3b8f
++#define OV7251_STROBE_SPAN_DEFAULT	0x0200
+ #define OV7251_AEC_EXPO_0		0x3500
+ #define OV7251_AEC_EXPO_1		0x3501
+ #define OV7251_AEC_EXPO_2		0x3502
+@@ -979,6 +987,37 @@ static int ov7251_set_hflip(struct ov7251 *ov7251, s32 value)
+ 	return ret;
+ }
  
- struct reg_value {
-@@ -156,6 +158,7 @@ struct ov7251 {
- 
- 	struct mutex lock; /* lock to protect power state, ctrls and mode */
- 	bool power_on;
-+	bool clock_ncont;
- 
- 	struct gpio_desc *enable_gpio;
- };
-@@ -1372,6 +1375,20 @@ static int ov7251_s_stream(struct v4l2_subdev *subdev, int enable)
- 			dev_err(ov7251->dev, "could not sync v4l2 controls\n");
- 			goto err_power_down;
- 		}
++static int ov7251_set_strobe(struct ov7251 *ov7251, bool enable)
++{
++	int ret;
 +
-+		if (ov7251->clock_ncont) {
-+			u8 val;
++	if (enable) {
++		ret = ov7251_write_reg(ov7251, OV7251_STROBE_PATTERN,
++				       OV7251_STROBE_PATTERN_ALL);
++		if (ret)
++			return ret;
 +
-+			ret = ov7251_read_reg(ov7251, OV7251_MIPI_CTRL00, &val);
-+			if (ret)
-+				goto err_power_down;
++		ret = ov7251_write_reg(ov7251, OV7251_STROBE_SPAN_H,
++				       OV7251_STROBE_SPAN_DEFAULT >> 8);
++		if (ret)
++			return ret;
 +
-+			ret = ov7251_write_reg(ov7251, OV7251_MIPI_CTRL00,
-+					       val | OV7251_MIPI_CTRL00_CLOCK_LANE_GATE);
-+			if (ret)
-+				goto err_power_down;
-+		}
++		ret = ov7251_write_reg(ov7251, OV7251_STROBE_SPAN_L,
++				       OV7251_STROBE_SPAN_DEFAULT & 0xff);
++		if (ret)
++			return ret;
 +
- 		ret = ov7251_write_reg(ov7251, OV7251_SC_MODE_SELECT,
- 				       OV7251_SC_MODE_SELECT_STREAMING);
++		ret = ov7251_write_reg(ov7251, OV7251_SC_GP_IO_SEL1, 0x00);
++		if (ret)
++			return ret;
++
++		return ov7251_write_reg(ov7251, OV7251_SC_IO_CTRL1,
++					OV7251_IO_CTRL1_STROBE_EN);
++	}
++
++	return ov7251_write_reg(ov7251, OV7251_SC_IO_CTRL1, 0x00);
++}
++
+ static int ov7251_set_vflip(struct ov7251 *ov7251, s32 value)
+ {
+ 	u8 val = ov7251->timing_format1;
+@@ -1072,6 +1111,9 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	case V4L2_CID_VBLANK:
+ 		ret = ov7251_vts_configure(ov7251, ctrl->val);
+ 		break;
++	case V4L2_CID_FLASH_STROBE_OE:
++		ret = ov7251_set_strobe(ov7251, ctrl->val);
++		break;
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
+@@ -1394,6 +1436,7 @@ static int ov7251_s_stream(struct v4l2_subdev *subdev, int enable)
  		if (ret)
-@@ -1529,6 +1546,8 @@ static int ov7251_check_hwcfg(struct ov7251 *ov7251)
- 	}
+ 			goto err_power_down;
+ 	} else {
++		ov7251_set_strobe(ov7251, false);
+ 		ret = ov7251_write_reg(ov7251, OV7251_SC_MODE_SELECT,
+ 				       OV7251_SC_MODE_SELECT_SW_STANDBY);
+ 		pm_runtime_mark_last_busy(ov7251->dev);
+@@ -1594,7 +1637,7 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+ 	s64 pixel_rate;
+ 	int hblank;
  
- 	ov7251->link_freq_idx = i;
-+	ov7251->clock_ncont = bus_cfg.bus.mipi_csi2.flags &
-+			      V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+-	v4l2_ctrl_handler_init(&ov7251->ctrls, 7);
++	v4l2_ctrl_handler_init(&ov7251->ctrls, 8);
+ 	ov7251->ctrls.lock = &ov7251->lock;
  
- out_free_bus_cfg:
- 	v4l2_fwnode_endpoint_free(&bus_cfg);
+ 	v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
+@@ -1609,6 +1652,8 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+ 				     V4L2_CID_TEST_PATTERN,
+ 				     ARRAY_SIZE(ov7251_test_pattern_menu) - 1,
+ 				     0, 0, ov7251_test_pattern_menu);
++	v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
++			  V4L2_CID_FLASH_STROBE_OE, 0, 1, 1, 0);
+ 
+ 	pixel_rate = pixel_rates[ov7251->link_freq_idx];
+ 	ov7251->pixel_clock = v4l2_ctrl_new_std(&ov7251->ctrls,
 
 -- 
 2.47.3
