@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795789675;
-	b=5tq4TqmDdAKEXq2DncBJEKJl35thD1VYD0G2AhGhRxXYkYNQgCAXvOmHRzvIw6NY/je1
-	 p6gyb+jOuxOGz37OSXSadSaYLuPYY1RBnt5sRF8rBGyVcmizszktQU2/Zh5k96p31mUl6
-	 anwkkrYF7GyJkuZj9yAYUe5+kYpNvdFjUvGx4gXNGgv0z+04h9KWW3pLVhiXULqOK4gdX
-	 bTUlE7xEXCzE5fdqfacXqZUmuHNXGeErPI7Hvfu5OiCp29LBS13To9xvqhYQxUIJooJVo
-	 VwETI6SY9jjIXIJBycMrGRWUrmV9NriJAllgXv4Jrys9vtgxtiSHf+SYQLPGNNIPhMg==
+	t=1795789671;
+	b=448d7PkMR9q0hSXWjsbqu0j+mVitaSdXKC9n/eIR0m6pQ9+e8m6mvhmw7BBE/UUTMkyp
+	 eP3Xm0ysX7YBHWSgli4RnVaVVrmX2b0OtvKSnmvyTKEOt6iO8ARVcpPM+T9VXhUYV+w6f
+	 kvFmLNXZTbPcr3cEL4EQKrMf0l9Q/o0ZhQHSEM2058cVi955ALcHmjN8hFl1C5FdbPv9p
+	 3acVe22mxu4RaTvmJ4WG/jJxpwC7w4BgJ/73Dx8Suyx2BDW0QNfm7O1AL7pPywALjEniA
+	 qjzvAjtbdV0lBk9hIcWt9RphPMwgzUf9NexQ0sKZidpdIx6y/lY2YjMMUgSDSQIRIPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795789675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795789671;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0Ba9wbO5bzHDC5jnX0a8EWZ9R7NOk0MXIaEnoD33SII=;
-	b=N+YFCdzwroT6UNdWUP73pe+JBDCKYDeAH/QAp0xbpq8kh79OOZlJ1aGzCLLZ16F2d79E
-	 Dwurq/ScSctDntTYvEHac0nesqFT0wck0csbLbbojZzDK2EvvOJhOBaMHbxztm2UgpUke
-	 YFKwlyLONGG5iBY5p+raIbFd0fmRal7QLMrw26GWyasAsRXlDi3lvvfp+rxiYdP2tzweJ
-	 FoPr1bdtIMbdyXjygPKKTkusVSenyVY1uayALi4vou5lz9+RNCJjypgdr4PM0JbhJR2hE
-	 xaXC6s/zqL7HuiZFzRfmzCQDZNrjgVyyhfR0s0UPENO9IzPrhawYCbio8ObF6eqRahg==
+	bh=MfCoLiXadgJqPzNFXHlwqjB24hzETelL3UnVk6vwlOg=;
+	b=Xy+ADIBRIPNsjD49ONbPTztTtgT66cIPr3Gx5DphxFfFOOj9jo2jWtyNQ/yIxuMR2EqH
+	 OR3zXSCsbyNvGQzWVAg8mujaKeJJXS8mskcgngx5p2CKgLhvXEDtvrus9pM08eRicKR7P
+	 i/edWxNjSBxbmjkgoaalvxz2HL0V+l8Ci9jXbEubnvnlITJFc6GvK+QYKAuotlGCOq7AU
+	 14e1IbhX0PfixilW/Ag0s6bXD6eIetFkxWFZ/QrwUgKzEV1d25cM0cy6jVrB8k5KuxqqQ
+	 4xwCoWZNdVG3qgDnsjwYsZPkuWV7e2s6D66gmZAn0NywPls6ym1+eEzz5cQbqLqb4hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LP6xSRX8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hk1rjp5x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77881606E112;
-	Fri, 27 Nov 2026 14:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF08D606A722;
+	Fri, 27 Nov 2026 14:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LP6xSRX8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437981F00923;
-	Fri, 27 Nov 2026 14:27:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hk1rjp5x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6963D1F00A18;
+	Fri, 27 Nov 2026 14:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795789675;
-	bh=0Ba9wbO5bzHDC5jnX0a8EWZ9R7NOk0MXIaEnoD33SII=;
+	s=k20260515; t=1795789671;
+	bh=MfCoLiXadgJqPzNFXHlwqjB24hzETelL3UnVk6vwlOg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LP6xSRX8eLDpNtcPUSazodGpYkTk4S+mO6UC9mdJ4GqngUdOrpbr3WYEoFNnIb9RZ
-	 TeShllfmlBorJ2Q4KU+71pkU/1azzakUZAAXh2zQvoVkL5VIBvgbbEZgU+YXaHjJIM
-	 /ICkhDq3givn9tABAtDR8Cg51AyPKHQ6Z8AHwRGwy3GVadonVOFKRhNGtY42bsQnMb
-	 XiCwJRvhOKGXVAZe5D7qSMEzOLF1guipoO2l0aplbofowbCA0vz9+VjRtvNlJGmU7V
-	 rOJoYPq5HsI8FOpuCsBZgBKAJz9LuIsIF8eKMXSuvNqYBbUL8fQlwlskBdXY1dQpBR
-	 l62zc/vJFZtYQ==
+	b=hk1rjp5xJLOuKDeX739jqMwhyQweuW5vf5KAvHucHMdjIPHUt/d2kIusLPVQG/5IP
+	 23CjudQQfEhFX029xLDWvx8y1OuQtEl7iORq37/7JWQsqzZe9kkZogl8k1cvbJdIsg
+	 jCoUDGGfifFkcsNCr5DidkTmN3tEw3ji829J4z3HrepQHvsjnVuMDkivLS5Rsm64rO
+	 iq72XX8vs7qCJ52mLVJkQX512r+CKkxqyxGbUu7Xbpqcij1G5uliHuG4Pgh/sjBVHP
+	 qoLqnXf9rWGwCnOKHlOfsu6fspnEKb+7ld7kzJoPeQAPtir+MYwMfVfHFO3U+0DaFA
+	 Q0FfeOY403SNg==
 From: bod@kernel.org
-Date: Fri, 27 Nov 2026 15:27:24 +0100
-Subject: [PATCH v8 05/10] arm64: dts: qcom: x1e80100-t14s: Add pm8010
- camera PMIC with voltage levels for IR and RGB camera
+Date: Fri, 27 Nov 2026 15:27:23 +0100
+Subject: [PATCH v8 04/10] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
+ sensor on CSIPHY4
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-x1e-camss-csi2-phy-dtsi-v8-5-2793b8e5138c@kernel.org>
+Message-Id: <20261127-x1e-camss-csi2-phy-dtsi-v8-4-2793b8e5138c@kernel.org>
 References: <20261127-x1e-camss-csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org>
 In-Reply-To: <20261127-x1e-camss-csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -67,122 +67,142 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Abel Vesa <abelvesa@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org, Daniel J Blueman <daniel@quora.org>, 
- Christopher Obbard <chris.obbard@oss.qualcomm.com>
+ linux-media@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3012; i=bod@kernel.org;
- h=from:subject:message-id; bh=RpEwThJV4oka1u9oEpDuLyQaEpAuV8FB1QdyVd02E4E=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBrCZNRTBlVRIidvHM5eJ15b+RlypdIKVRLDagbX
- ++j5+7fW3WJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCawmTUQAKCRAicTuzoY3I
- Ooa0EACbPVvchLtsAbBOWSqp22t62zdJ+RuyWBiua4YMCnhr8ZJ3ugHR/bPN7Qz/dpkVixokuN8
- p7qh77nw6WKi7oHZOWPWuOU9twh9jUqOOHBv6LQ8weFdkgGHBHxzDlurVgtWybaANmx6Gn1r4ZP
- BZ+UOOm1Mq0ZhSr1keC05QftWfqmuGF5eXFeX62PK5UgHH37ooy0jFOrKDaaKQxfYOpBcYd+OyR
- 2dgfYW9IeieOTgS3Tl2tOmm1m+Z0Ve0bFu6XzzFprg4XSGDSRsS20Iyuy/4eWn95fI6jsqql1Gl
- y2b96YsQ56HTKx11hfoDZCeIkNkz4e+pgVtyewPjVte1VEynvWP2gU15lTEN6B8Hqyi85/+OChW
- ozNKo+pmt3p7TraUfMKgGrANC3FaUss6IouQwE2WZBnelpUlR74l2oQi08/mFy03NBSyAYmDLrk
- xLMM5b9bd0IEUFu4DltOYJGgrqw5nv3USpELrbM27igwaSTL599BOOu+l8xNYeCV0i1kNEG4nCx
- O6QKnpQU5TAmsG91GZMaMVSg5M6WMdfwTImuut1GQAFq90J+gqTF4yW6wDpGTQtQIo7jYz9kxL0
- JiemKP282QPHlnhrX0/PlVl//OKGnPbsuWtQWKPvm96Vb1ukx9ditstosE6MXkenOgI0VrefbdE
- TwFF8ZRD4k/MCRg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2749; i=bod@kernel.org;
+ h=from:subject:message-id; bh=FmeXE5AVOP6/r38dOcWxTggRJfSwR/+biWJcD2TUTmM=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBrCZNRKJI1s0BAUM+B/IbLj97Ujq9YK248zwefU
+ eFu7GJbc3CJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCawmTUQAKCRAicTuzoY3I
+ OggfEACSxKG2uwBsNlYYy3+sDiv8kdaKjX1y1kc/oVwm6dvErbsO0Ge2/DnfleO0hqQr2ynIMyw
+ W8+8KA3axWwANbGs611aZnFAM6VQuyWq0fKOMMag/6m62muYFHnxC+ONADz5kY1SQmCIuG/2Sjb
+ xW1Xk00fOx+laqk0a8s5TKGhTF2wH7SGMyJliLTWpT4CTIxrMJhDiqt3dBYG7UE2p6kKB1u+1f5
+ mkEBA5CuXzIckZOHmzA6/5T7RECm2jxlgtWloaIdnxdVsLQeTeBjA6ZeuITr8C+f8Fc59qI+1Ue
+ LQzusVAXd3quX4SGiPZQz39t02QA+x3oYYOMCdycvV1m0svaZ3JkdGeFNHhH7H06+zvRKT41Z8K
+ IYo1+hIFmdwPtv8OC4sCCre2LS1UmvyDWrhcE9Pf9lfJKcEjOBas9BZNz7YodLXCQ2rkq6+KrAz
+ oNGOj4YpaC95XeJAauz+ZLJsQ82X2ux1i8ZiC8Pi+YQrTv00NbLO32G5olGNEJAO0B0q6BAGQP5
+ y19LdB9XkmPsjzwioxZz+7qzdw9V742T+PXY79wKxkEdArEGDxSE/pwDMA4kDCSZhV0GVzuXYcr
+ TCIxxwvExoqrKDpPMPRWZ8rVJQvudUdR+Whg80TEo7TTMS+BTkeDZSlbMijxuxrX12LJqf2oqJC
+ AxdwdpmmUtubvtA==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Add the PM8010 PMIC providing the following voltage rails:
+Define ov08x40 on cci1_i2c1. The RGB sensor appears on the AON CCI pins
+connected to CSIPHY4 in four lane mode.
 
-vreg_l1m_r @ 1v2 IR sensor
-vreg_l2m_r @ 1v2 RGB sensor
-vreg_l3m_r @ 1v8 IR sensor
-vreg_l4m_r @ 1v8 RGB sensor
-vreg_l5m_r @ 2v8 IR sensor
-vreg_l7m_r @ 2v8 RGB sensor
-
-Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
-Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
-Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi    | 59 ++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ arch/arm64/boot/dts/qcom/x1-crd.dtsi | 82 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-index 1536ad8d47933..e239ce1e3fdc3 100644
---- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-@@ -644,6 +644,13 @@ vreg_l6b_1p8: ldo6 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
+diff --git a/arch/arm64/boot/dts/qcom/x1-crd.dtsi b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
+index 71c819aa2d43c..5f66e23e694db 100644
+--- a/arch/arm64/boot/dts/qcom/x1-crd.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
+@@ -6,6 +6,8 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
  
-+		vreg_l7b_2p8: ldo7 {
-+			regulator-name = "vreg_l7b_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+@@ -933,6 +935,70 @@ &gpu {
+ 	status = "okay";
+ };
+ 
++&camss {
++	status = "okay";
++};
++
++&camss_csiphy4_in_port {
++	camss_csiphy4_inep: endpoint {
++		data-lanes = <1 2 3 4>;
++		remote-endpoint = <&csiphy4_out_ep>;
++	};
++};
++
++&cci1 {
++	status = "okay";
++};
++
++&cci1_i2c1 {
++	camera@36 {
++		compatible = "ovti,ov08x40";
++		reg = <0x36>;
++
++		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
++		pinctrl-0 = <&cam_rgb_default>;
++		pinctrl-names = "default";
++
++		clocks = <&camcc CAM_CC_MCLK4_CLK>;
++		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
++		assigned-clock-rates = <19200000>;
++
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++
++		avdd-supply = <&vreg_l7b_2p8>;
++		dovdd-supply = <&vreg_l3m_1p8>;
++
++		port {
++			ov08x40_out_ep: endpoint {
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <400000000>;
++				remote-endpoint = <&csiphy4_in_ep>;
++			};
++		};
++	};
++};
++
++&csiphy4 {
++	vdda-0p9-supply = <&vreg_l2c_0p8>;
++	vdda-1p2-supply = <&vreg_l1c_1p2>;
++
++	status = "okay";
++};
++
++&csiphy4_in_port {
++	csiphy4_in_ep: endpoint {
++		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++		data-lanes = <1 2 3 4>;
++		remote-endpoint = <&ov08x40_out_ep>;
++	};
++};
++
++&csiphy4_out_port {
++	csiphy4_out_ep: endpoint {
++		remote-endpoint = <&camss_csiphy4_inep>;
++	};
++};
++
+ &i2c0 {
+ 	clock-frequency = <400000>;
+ 
+@@ -1585,6 +1651,22 @@ &tlmm {
+ 			       <65 1>, /* EC reset */
+ 			       <238 1>; /* UFS Reset */
+ 
++	cam_rgb_default: cam-rgb-default-state {
++		mclk-pins {
++			pins = "gpio100";
++			function = "cam_aon";
++			drive-strength = <16>;
++			bias-disable;
 +		};
 +
- 		vreg_l8b_3p0: ldo8 {
- 			regulator-name = "vreg_l8b_3p0";
- 			regulator-min-microvolt = <3072000>;
-@@ -887,6 +894,58 @@ vreg_l3j_0p8: ldo3 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 	};
-+
-+	regulators-8 {
-+		compatible = "qcom,pm8010-rpmh-regulators";
-+		qcom,pmic-id = "m";
-+
-+		vdd-l1-l2-supply = <&vreg_s5j_1p2>;
-+		vdd-l3-l4-supply = <&vreg_s4c_1p8>;
-+		vdd-l7-supply = <&vreg_bob1>;
-+
-+		vreg_l1m_1p2: ldo1 {
-+			regulator-name = "vreg_l1m_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1260000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2m_1p2: ldo2 {
-+			regulator-name = "vreg_l2m_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1260000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3m_1p8: ldo3 {
-+			regulator-name = "vreg_l3m_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1900000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4m_1p8: ldo4 {
-+			regulator-name = "vreg_l4m_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1900000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5m_2p8: ldo5 {
-+			regulator-name = "vreg_l5m_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7m_2p8: ldo7 {
-+			regulator-name = "vreg_l7m_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		reset-n-pins {
++			pins = "gpio237";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
 +		};
 +	};
 +
- };
- 
- &gpu {
+ 	ec_int_n_default: ec-int-n-state {
+ 		pins = "gpio66";
+ 		function = "gpio";
 
 -- 
 2.55.0
