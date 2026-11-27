@@ -1,45 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795813615;
-	b=2J9n2rEKAjkfug7ikp7rclz0I/3KNI/+7NEwZ0nSMsUPmZxefwvu8DIKwslgBZ7NFEGj
-	 aw+syGZGFgSqGBkH9VwqUDee/1lI9u6KNj87CZ0GKHpcrQQeB/LGLO5aXsDK3Y373cuxI
-	 3hA8q31A+Z7SpZ6gpHPrstPfXwacq3kteAMqs2/wA2lOrJULftFwZEux+GDYb8qQ/lfOB
-	 t0/71FNBBa+PghQMqKRPGCe/niPkEdrMMaZ/Cv6pg0pkWgJE42jxJeZTSZiyWZLtnmPTF
-	 WQneqER7c+z9YGTFEvncK0+sqCiwtSH/Ti0Jb9BdA6aXFCHCbnIg5VH0qFv8S2EX2Mg==
+	t=1795814218;
+	b=gf6+KXxStfBQOuxROrQP4JlnhGH5dSsPJbM9prrO1SIZmqbaiVkuIWyjl0hlGTn2xmc1
+	 6+LkQDrJXytnZRq7hWBlcT7wvyMfTtZvzGFJL0Hz/8nT4AbjxiWKqLHr7dHPT64XNK47a
+	 iU9nbb7bmog9CEvJE9GOskdP6wQjFW6wGctB+59LfCjP+A4Sfzes8ncsSZwE974B7tl4z
+	 vLID8MGTwR+pYUDUbUkSd2TdxkdDOilWbfKKI1R/6IIQ2G80H6CLIY8tMQOB8VfR+YLrn
+	 DnMgHAZj+ZpWOKDb7nm6LKAJqID7VfgRANwxo0Hav2U5uCsk/4uXXnw0Em3ixbWZ/7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795813615;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
-	 In-Reply-To;
-	bh=x2vbCxhKlDEYGyJLF8a1r9DvhsL84+yAuxXVlq9Dapc=;
-	b=IyFCL1piDPBLPN0kUYL5LoMODW+D/PWg0Vjho+AKiH5mhum2FzVK/+4bSucx3WHgTjoe
-	 XIESFvco7UL1AS7rGaBWoMZG1nGx5btA5L6HiTlbR8DgmO1W20SDT/1dNWsNBT2dZY31J
-	 91xLwj8iuqTnl0PI3piTPaIdHXab/Jf8KOalgPzdt3LmrdTHivyKVtUWHmmygCOwlwvub
-	 cXjTDcwumIBOO4fRYAUPSujhNGwkxOf+mbZRidM2otdXLYedk0btt1X/hxox5KfA/Lv5N
-	 KrdIOIo22OZ3H7G7m1Rpp3VVUxtUmkzffCFjLzz99Bs8T1OL3158c1eHnMxjTbf7fBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795814218;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CRH4oHfnMzxi8/K2BwsJajSyfFDJmrtR0lIrzcFdbWM=;
+	b=BdXr5n2YfJ7cT9+HS4VLjNrd0y80Ysf89s5kwxdQ3lTdE+I7yTfcUiDCimO7OvNwKiNR
+	 iC8/P9FuhRqt1iiEG8ZiUBfzZtZGMo1TsxR2J8Dw0rCqeuv619TloDnTD5aCOtf5ZMskT
+	 gbVAPVTlQKgut4/ai/QeFEvMgfSI466dNe+a6iHCzCVGwMfATAdftCJ/55YXFHOCW1aJO
+	 oPgy2G+z6+4T+kRJe9MZ51FVLP2DY7adbYTl38F4pLHdENTY7hwMFp0NqQheEz8K/e4rm
+	 LbS5+8lgGmSsVbvDU7DqZKrLoS0TxRovIdJ1qE2erLRouiUm/h5vud3hQHjPINEOEoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrdmPbgt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IpVysC+p;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B2D606A31C;
-	Fri, 27 Nov 2026 21:06:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0635A606A31C
+	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 21:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0635A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrdmPbgt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679081F00893;
-	Fri, 27 Nov 2026 21:06:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795813614;
-	bh=x2vbCxhKlDEYGyJLF8a1r9DvhsL84+yAuxXVlq9Dapc=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=VrdmPbgtrUh9fv6xn4MIpy2/VbzIxqsxaUK+so8t3HGTNxx5Fdf22S/BihAuOFu89
-	 FM/jVk1tzAxNs3OCGXQTOIrXrXSFKZFYG6S5TJVOyS78eVoIxN7cSdKLD3dQV4HHId
-	 uHCuSCFDn5Xg22M4GEw8Db3dMCxRboJHBFUZN/TMswBCbOy5KTzfrg2enlM/0E6qQY
-	 4+N5Z3x/YrPTHclUQHwUCOOwuxik+/BiZvRyBRH7yHfApp6Aqhc8n3FcAEYHfH5ckb
-	 eWPtnke6gZs0Fl5qyCplhwWYgZ9Lh/FInGRPLwVC1kXhR6BzyvD+aGSFMyPiomkIJA
-	 7RnkuRW/oU9ew==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IpVysC+p
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-38622e0dae0so949623eec.3
+        for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 13:16:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795814217; x=1796419017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CRH4oHfnMzxi8/K2BwsJajSyfFDJmrtR0lIrzcFdbWM=;
+        b=IpVysC+pjgTWme6Bxd97PUnsroRns0XK7+pwKX+CjAp31y9kouicV0WP6GpbAixeEy
+         Dz8VNmDL752Tc23gDLat7jb7iroXeP++uRNI0ThDqgUj4bBE0yQdwWmGIXyBuihHPnl5
+         HC8hoJKcWquD0ootL9JJPVd2wAmGi6QcBJ/mk9J1kIASBZzYvNevxMb8lieL+tAV5koq
+         ryQ9mC15eylNE72/WF9BEdaQiuT8XKBPY+Vh6ujkaL+kgVM/ZRpQw8MqSDiGHo7U0jRK
+         Qt7mfWQvAE8v5cxCY/26zwxpVsGueMH9C1NIkW7fuVQxQXMo2dxGAYAm4LUywVkvKO5k
+         0jpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795814217; x=1796419017;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CRH4oHfnMzxi8/K2BwsJajSyfFDJmrtR0lIrzcFdbWM=;
+        b=Kf7vpjBkZedUvn9XgjSg0a+aFvp5TSlpkfv6ETUSiTlqMl+BXUdwHA1pU/oSlPVXov
+         xnE5vH/5xvhpv3kfm7Ms+XHORXBdXB5AbecD/kvq0Y2Fv2Rlqq9XxVxr4WA3lpKbQvtz
+         oEQhaLHnPk79ITiFO6wLJpWv+CsG7s4sx2WMhOWTZHrLw4rYby8/Ai0UymE0Kdo+Zi+F
+         imQNTikvbigUr+OlkKixjaEfU+6JiUkIFoMpCgn4SrClfarPJnRbd3GH1UA/7mHxkeb7
+         tOYSUXKJF9CgKRa6dRcBGRvGxfJ2ooE5lgBAL1BI9Yu4k5BEky1xlX6xPw+9qMPZPN0e
+         KZRQ==
+X-Forwarded-Encrypted: i=1; AL+hErGAgXJL3rumsSJQEsLchGVtn7/b14sZyMY1DKF3lpgkdH6zS/CyKPk565Tjd4ITjLRc5/hsAykLghuqiQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D03avk8SD/FNM2Nof+bxEfVB3Yd9JR/7TyXlqtHGMQLAUCugf
+	ft8jpMiVXzjOi9bCsfsaYbebOB5GqudQeBTidGTYXtNDLomfL7gjoHrV
+X-Gm-Gg: AZFdTZfJUm1As3cc7810JurEMpQr5RtVjMg49Ru/md99HLdg06gZGjqpGH5cZ4l10Rh
+	qKibpj2U47UjHoMnl9UeNJvuyhlZ/YdeQFsVDLOyrkJtQwgjr2220VK87srLrzTiQpXP177OST/
+	k/Qxojv6shEPZaw8S1QOgv943qf2tk9hlj6pZI3TfMXse1UoRVB27/itjQa2PssikBa782W2QPj
+	XP1GgfxlV3yywGWyZbPwpl1XBEjCkydVk5jXtL1u/7JndoCZ2JIJB2D0To/IgH/q91Dq3AEqStf
+	80uThEqdOMhK1FQpFfN+dNqPd60qoXCes1NCbKpYR5ZqGrH8tnmGpQCtPSb+bYAf6e3pwUnsqOO
+	Xkq76+I4FrMkuAy70uhHi9uq1ert9u8H2iZlB3Uc31o7LfWe3BxU80rg7h4xv9G01g1l9v62X1s
+	eKdXM3Hix4X2Tf72PFFOgG/bpTfHJSd2/a37SsCC2aRkRBQLe0PhE4AHdL4v8P1EpgixzLkyu9X
+	NbwBdv+5rAwixD+AUGuz2orn5azMnVZHRHd/dxDVaccGnOE+V8O+lNqaaC+4F8Hk/UAy6LxH9+i
+	2cGAuCHBGgKAr6pXmUA1t1W4rIoUghAwQ29ufuA0lpVyGExGVlQ3jkNUptP+5sDTl2pzZxMLMVp
+	gK+MTGKhVSr1gEVwk8wurU+LUcUt/zdFm2qTB5j6sCYV4gY6v5iMlZXd3JoLdFqpTKKMSJlUyle
+	bEY16ZovihvmE=
+X-Received: by 2002:a05:7300:16a3:b0:36d:5fbc:8c8d with SMTP id 5a478bee46e88-3856ef457b6mr36627178eec.2.1795814216956;
+        Fri, 27 Nov 2026 13:16:56 -0800 (PST)
+Received: from esteban.lan ([2001:f71:5160:2b00:ae2a:b9d5:71b7:3bb9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386aa203267sm44068331eec.0.2026.11.27.13.16.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 13:16:56 -0800 (PST)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: Robert Ijtsma <robertijtsma@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] media: i2c: ov7251: runtime PM, non-continuous MIPI clock, and strobe OE
+Date: Sat, 28 Nov 2026 06:16:53 +0900
+Message-ID: <20261127211653.1675314-1-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261127-ov7251-strobe-ncont-v1-0-cefa8c6c020b@gmail.com>
+References: <20261127-ov7251-strobe-ncont-v1-0-cefa8c6c020b@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -48,140 +103,38 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 22:06:50 +0100
-Message-Id: <DN6ASNF6NW8Q.13GAZAC9LHRN3@kernel.org>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 1/2] rust: dma_buf: dma_fence: add SignallingSection
-Cc: "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Philipp
- Stanner" <phasta@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-References: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
- <20261127-dma-fence-signalling-v1-1-c44e8f4910ca@collabora.com>
-In-Reply-To: <20261127-dma-fence-signalling-v1-1-c44e8f4910ca@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Nov 27, 2026 at 7:30 PM CET, Daniel Almeida wrote:
-> dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
-> code that the completion of a dma-fence depends on, so that lockdep can
-> check it against the dma-fence rules. However, up until now, it was not
-> possible to use the signalling tokens from Rust.
->
-> Thus, add SignallingSection, a guard that begins a section when it is
-> created and ends it when it is dropped. Code on the signalling path can
-> take a &SignallingSection to require that its caller opened one.
->
-> Use it in the DriverFence example, which has a TODO for it.
->
-> A later patch in this series makes DriverFence::signal() require one.
->
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> ---
->  rust/kernel/dma_buf/dma_fence.rs | 70 ++++++++++++++++++++++++++++++++++=
-+++++-
->  rust/kernel/dma_buf/mod.rs       |  3 +-
->  2 files changed, 71 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> index a1d851656562..7ee87935d3be 100644
-> --- a/rust/kernel/dma_buf/dma_fence.rs
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
-> @@ -17,6 +17,7 @@
->      error::to_result,
->      prelude::*,
->      types::ForeignOwnable,
-> +    types::NotThreadSafe,
->      types::Opaque, //
->  };
-> =20
-> @@ -589,6 +590,71 @@ unsafe fn dec_ref(ptr: NonNull<Self>) {
->      }
->  }
-> =20
-> +/// A dma-fence signalling critical section on the current task.
-> +///
-> +/// All code needed to signal a [`DriverFence`] must run in such a secti=
-on,
+Hi Robert,
 
-Hm...this makes an annotation policy sound like an unconditional prerequisi=
-te
-for signalling any DriverFence.
+Your patch 4 adds the same control as patch 8 of my ov7251 series, whose
+v3 went to this list on 13 Nov:
+https://lore.kernel.org/linux-media/20261113024059.1087031-1-antoine.pichot@gmail.com/
 
-It is clarified below with "Without `CONFIG_LOCKDEP`, the section has no
-effect.", but I'd probably first explain the annotation mechanism and then
-explain what drivers are expected to do.
+Mine drives the same STROBE pin, for the infrared emitter of the
+Surface Book 2 and Surface Pro 7 and 7+, and its
+V4L2_CID_FLASH_STROBE_OE is off by default too. The main differences:
 
-> +/// from the point where its [`Fence`] becomes visible to other threads =
-up to
-> +/// the point where it is signalled. With `CONFIG_PROVE_LOCKING`, the se=
-ction
+- The pulse follows the exposure, from 52 to 776 lines as the Windows
+  driver clamps it, and never more than 45% of the frame. A fixed
+  512-line pulse lights about 60% of each frame at 60 fps and 90% at
+  90 fps.
+- It lights alternate frames (pattern 0xaa), as Windows Hello does, so
+  the dark frames give the ambient light reference.
 
-I'd add a bit more detail on what cases we need to protect once the fence
-becomes visible to other threads or is published.
+Could you please try my series on the Surface Pro X? It has only been
+tested on Intel camera interfaces (IPU3, IPU4 and IPU6), so a Tested-by
+from your Qualcomm SC8180X would show that it does not depend on the
+platform. If the Pro X needs every frame lit, I can add a control for
+it. Patch 8 depends on patches 5 to 7.
 
-Especially the more subtle parts, such as indirect dependencies on memory
-reclaim.
+Your patches 2 to 4 conflict with mine, mostly because my patch 5
+converts ov7251_s_stream() and the driver's lock to the sub-device
+active state, so one of the two series will need a rebase. Your patch
+1 applies on top of mine, but my patch 7 moves the common registers
+into the global init table, right after the software reset, so your
+wait would then come after those writes instead of before them.
 
-> +/// is a [DMA Fence Signalling Annotation], which validates that code ag=
-ainst
-> +/// the [DMA Fence Cross-Driver Contract]. Without `CONFIG_LOCKDEP`, the
-> +/// section has no effect.
-> +///
-> +/// A function that is part of the signalling path can take a
-> +/// `&SignallingSection` to require that its caller opened one. Sections=
- nest,
-> +/// and only the outermost one is annotated.
-> +///
-> +/// [DMA Fence Signalling Annotation]: https://docs.kernel.org/driver-ap=
-i/dma-buf.html#dma-fence-signalling-annotations
-> +/// [DMA Fence Cross-Driver Contract]: https://docs.kernel.org/driver-ap=
-i/dma-buf.html#dma-fence-cross-driver-contract
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// use kernel::dma_buf::SignallingSection;
-> +///
-> +/// // Code on the signalling path takes a section to require that its c=
-aller
-> +/// // opened one.
-> +/// fn on_signalling_path(_section: &SignallingSection) {}
-> +///
-> +/// let section =3D SignallingSection::begin();
-> +/// on_signalling_path(&section);
-> +/// ```
-
-Hm...I'm not sure the example is overly useful. What about an example that =
-shows
-how it catches a violation? I'm usually not a fan of this, but in this case=
- it
-kinda makes sense.
-
-> @@ -704,9 +771,10 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCon=
-textOps> {
->  /// let cb_reg =3D unsafe { FenceCallbackRegistration::new(&waiting_fenc=
-e, cb_data) };
->  /// let cb_reg =3D KBox::pin_init(cb_reg, GFP_KERNEL)?;
->  ///
-> -/// // TODO signalling guards
-> +/// let section =3D SignallingSection::begin();
->  /// assert_eq!(waiting_fence.is_signaled(), false);
->  /// fence.signal(Ok(()));
-> +/// drop(section);
->  /// assert_eq!(waiting_fence.is_signaled(), true);
-
-I think that's a separate patch, or actually the subsequent patch is a natu=
-ral
-fit.
+Kind regards,
+Antoine
