@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795789068;
-	b=wccwmgeP7OOyKOsoxB+eRUdsju+whDb0viaeqy46A7O2yYoA6qcGVLmZGwT0nJff6f8O
-	 Get05pwUq2ETD7By7NnUNyKz15bmfe5G3uawW4QXv+SmwuGfhZymWfogiX0UNlAiFdlAl
-	 xpygKufoDmC9kCVgqONzoBpUXg8q4/wMwUdmdLbiBkxgLHKNrWHACZzsPsWCoPQFTepqO
-	 kr2khOglV1ZKF3ZKvwN2dM9712d7CZLU01zHj3+RMA8WZUAQpF6hVlDgFHe+MycAdFL+w
-	 MaxJa7WXPe+tpSQAIgTan/pDnBhgPP1MFwo/sjA5GfuQqqb3TDl1uTkFMa2JvVEdgyQ==
+	t=1795789236;
+	b=zcH74xXsivpKKIu1re0cdjqFrLV7nrJBy6QaEKedeFTZJf4ebtSNxVJzw/euhSvePtbi
+	 nz2KDEgcR4nZpN9uGBCOoDk1v5Wwx1PpuImzUBKpvLZaQILFup5GUMxVwwJL8Mcbg467v
+	 UZ+8yqTIM2pN0H8ZKDoM6z5E0XdI6g/SLamN4p3GNUrXUMD4vA9LDg6J+CugQtiKctN1w
+	 JtvBaPqGD7SDQuTHkJ/bo6CO35rf7fUQ0t6Q7+eubq1ftA2L77tByt7q94YSGgm+RO5Mo
+	 3V4TMdkkGrHAfw5R9UXNbmKcshQOocH4xgR0aDmjnDuinWZPADTO5qeRpxUOCEvbVcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795789068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795789236;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4Y7+W8d6madIKm3ol3xJ147NDbfYsWd56B38XvHhaAU=;
-	b=3+ffwAQhZ45O+prAcYxbhBvuxNg19BDMuiqfNZyMU/mqy1fpCrxJZSCohKTP/6r5ncSn
-	 hPq/8KUnlofCbwNfxU1s8P7HuN7OpBQDw6C9JS09EAtmzunZtkwaFsVqlDELckwxHL324
-	 cvqxgLq0/p1XlPtkr8cvN2L5fHxwB8j/UcSfHju7pnnjQHTxUT0f6GJSoxqRJOOJ0uLcn
-	 UQv8cFbjczDCzMVtulEWZ2LnFRM0DM/D+IFFo34a/RWvj2yDEtHAqnLwTXCc9ZOm7HK/Z
-	 Yd9fArlqRx8fskocfRm40hmnMvdbCJKrUoHsX42rvZ+oM1J7VqS4SWLqe3JQr6WMUnQ==
+	bh=hwd+jLmNGBC0PgMporOrMHpOuSMJzVN/xIRsOy3Yfgo=;
+	b=UzcmffJjTDXX5iBzsebsvz5H/eiuMb4mAqjSX7izZMG/p7iYUSsmeBN8NWADXg0bOwiq
+	 jV8iNoY946bXR8GyF9b33gKXqzIRvC0+tgBK13JcAeJuGu6/NCSwLtbnKEpYz778hhHFZ
+	 2svHNnMHjmsuQn7INuv/xSBckiQEGAjqLo934ns2IJaIpahIJxruDZp4pj76ce1BwH10c
+	 x2Eufwh/E9W3DSoFFMWIi0q5hXoamhQLOdxcDpbjxCBYINKt0WYX+pNVgCT9d7xxJs5Wl
+	 Hp7yb/ou6FGGyjdJTOSAYxL23um1RP/f5e1maD+N2WNM7w3KjhIrzltF/BAlS8oWJjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPIq3vNS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oemwTWOZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBA6606A31C;
-	Fri, 27 Nov 2026 14:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D3606A31F
+	for <linux-media@vger.kernel.org>; Fri, 27 Nov 2026 14:20:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPIq3vNS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A7B1F00897;
-	Fri, 27 Nov 2026 14:17:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oemwTWOZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BCB1F00893;
+	Fri, 27 Nov 2026 14:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795789068;
-	bh=4Y7+W8d6madIKm3ol3xJ147NDbfYsWd56B38XvHhaAU=;
+	s=k20260515; t=1795789236;
+	bh=hwd+jLmNGBC0PgMporOrMHpOuSMJzVN/xIRsOy3Yfgo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nPIq3vNS1vz2eM1T1n/GSS0MXfB6DG8xMtnKKAp5YyAVI83e7W7VElw9K/69i+nOB
-	 uRiAH9stQFhLJN+WXteK8dLd3/G+8AiCyl1T/sAQKMCpYtjWXQyBF+rHWpNTcQ3dPZ
-	 MjN8eTkqJgynynnr/EvimIuvd6EHpUXkP4Ngm+HCwJOqO1SJnEbZ+41nWmD3Q3qMBu
-	 QQBtGmKN6jOUoIzQljNsqKUN8i4CaQo6JJfOScvutUTMK2hUgPsPLdG66rLQ9UP5vI
-	 y0QK1DdvibypbMFhYyRM9G+sMxSW9HvePYObigjdnJW8GcdX+bovjrGqqhDRzCSWrw
-	 MRRWI+k+I8zsw==
-Message-ID: <e44f2383-0a7b-411c-ba42-5f19156d2a08@kernel.org>
-Date: Fri, 27 Nov 2026 15:17:44 +0100
+	b=oemwTWOZPoRrfr9LWyHdshVIAkWGYPzUqzjtiVvHEwAWDhke3CzRfQFDA1EM/xTLY
+	 1sdOzllimwPQFh6xuW8eryYb55AnR/Ho4lIUY1a6DnyMJuuRqqu3ih0Z6PVzMH4BFu
+	 LNlr+iiHU3c8WV4C85QNSfukvp0WdQOv9/FPf/snbb5ZC0e6XF/FvqdISd6Fso5pHX
+	 /aBlTsgtW4kJ6Ppc9NgsTv1YrXWo10bZTk+yJ0fFT9mpoYYTksxpVD/XT9Y948ESeP
+	 Njq1YaTPPuSOZY85AF5pYpbjQLluncFpjUKTX1sXM7jkLHVDCKd237uoBWYS7sTGIM
+	 c34+r8gUWMcAw==
+Message-ID: <f5dc7705-bef4-48ed-9d21-09cbef2a125d@kernel.org>
+Date: Fri, 27 Nov 2026 15:20:33 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,84 +52,79 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: rcar-vin: Return unused buffers correctly
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261121-vin-fix-vb2-v2-1-602a3d876853@ragnatech.se>
+Subject: Re: [GIT PULL FOR 7.5] RPP-X1 and R-Car ISP updates
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ linux-media@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
+References: <awlZPM4gs5Odo-Ca@zed>
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 Content-Language: en-US, nl
-In-Reply-To: <20261121-vin-fix-vb2-v2-1-602a3d876853@ragnatech.se>
+In-Reply-To: <awlZPM4gs5Odo-Ca@zed>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/11/2026 12:54, Niklas Söderlund wrote:
-> Unused VB2 buffers should be returned with state DONE not ERROR when
-> stopping.
+On 27/11/2026 11:24, Jacopo Mondi wrote:
+> Hi Hans, Mauro
+>   please pull
+> 
+> The following changes since commit b4e3c4b6a36fd76f57bf3e48638f68ddecc54ba4:
+> 
+>   media: v4l2-ctrls: set handler error if array allocation fails (2026-11-25 11:31:43 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/linux-media/users/jmondi.git tags/pr-rpp-x1-for-7.5
+> 
+> for you to fetch changes up to b04e4008c452c5a5e5aa7e9a25cd176417de3ea8:
+> 
+>   media: uapi: Add 28-bit bayer media bus formats (2026-11-27 10:43:23 +0100)
+> 
+> ----------------------------------------------------------------
+> Updates for the RPP-X1 and R-Car ISP for Linux v7.5.
+> 
+> Add on top the introduction of 24 and 28 bits MBUS codes which will
+> be used by the next generation of R-Car ISP.
+> 
+> CI pipeline:
+> https://gitlab.freedesktop.org/linux-media/users/jmondi/-/pipelines/1805304
+> ----------------------------------------------------------------
+> Barnabás Pőcze (5):
+>       media: rppx1: lsc: Fix and use LSC_SIZE_VALUE()
+>       media: rppx1: wbmeas: Fix uapi documentation
+>       media: rppx1: hist: Adjust configured LAST_MEAS_LINE
+>       media: rppx1: Move register definitions to header
+>       media: rppx1: Update shadowed registers
+> 
+> Niklas Söderlund (4):
+>       media: rcar-vin: Return unused buffers correctly
 
-Why? With 'unused' I assume you mean buffers that have no data in them, i.e. they
-have never been used to capture video.
+Dropping this one as per my review.
 
-So ERROR is correct for that. The state DONE is reserved for buffers that return
-a valid payload.
+>       media: uapi: Extend bayer media bus formats table to 28 bits
+>       media: uapi: Add 24-bit bayer media bus formats
+>       media: uapi: Add 28-bit bayer media bus formats
 
-It's standard behavior to return any unused queued buffers as ERROR when we stop
-streaming. That prevents userspace from trying to use their contents.
+It's fine to add this, but only if there is also a driver that uses them. It happened too
+often in the past that uAPI elements were added, but the driver that uses it never materialized.
 
-Jacopo, I'm dropping this one from your PR.
+So I'm dropping these three as well from the PR.
 
 Regards,
 
 	Hans
 
 > 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> ---
-> Changes in v2:
-> - Link to v1: https://patch.msgid.link/20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se
-> ---
-> * Changes since v1
-> - Fix unused buffers returned in rvin_stop_streaming() too.
-> ---
->  drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> index 5e515d16c164..d3d1af47f8b1 100644
-> --- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> @@ -1434,7 +1434,7 @@ void rvin_stop_streaming(struct rvin_dev *vin)
->  	for (unsigned int i = 0; i < HW_BUFFER_NUM; i++) {
->  		if (vin->buf_hw[i].buffer)
->  			vb2_buffer_done(&vin->buf_hw[i].buffer->vb2_buf,
-> -					VB2_BUF_STATE_ERROR);
-> +					VB2_BUF_STATE_DONE);
->  	}
->  
->  }
-> @@ -1449,7 +1449,7 @@ static void rvin_stop_streaming_vq(struct vb2_queue *vq)
->  	dma_free_coherent(vin->dev, vin->format.sizeimage, vin->scratch,
->  			  vin->scratch_phys);
->  
-> -	return_unused_buffers(vin, VB2_BUF_STATE_ERROR);
-> +	return_unused_buffers(vin, VB2_BUF_STATE_DONE);
->  }
->  
->  static const struct vb2_ops rvin_qops = {
-> 
-> ---
-> base-commit: aa0f4c41d4870a18e65772a1817af16427200371
-> change-id: 20260828-vin-fix-vb2-28e1bb24a618
-> 
-> Best regards,
-> --  
-> Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> 
+>  .../userspace-api/media/v4l/subdev-formats.rst     | 596 ++++++++++++++++++++-
+>  .../media/platform/dreamchip/rppx1/rpp_params.c    |   3 +
+>  drivers/media/platform/dreamchip/rppx1/rppx1.c     |  95 ----
+>  drivers/media/platform/dreamchip/rppx1/rppx1.h     |  92 ++++
+>  .../media/platform/dreamchip/rppx1/rppx1_hist.c    |   2 +-
+>  drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c |  34 +-
+>  drivers/media/platform/renesas/rcar-vin/rcar-dma.c |   4 +-
+>  include/uapi/linux/media-bus-format.h              |  10 +-
+>  include/uapi/linux/media/dreamchip/rppx1-config.h  |   2 +-
+>  9 files changed, 719 insertions(+), 119 deletions(-)
 > 
 
