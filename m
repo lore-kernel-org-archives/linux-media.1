@@ -1,94 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795852115;
-	b=v2pZloIrUkglnasMV912+wrxno/zVH+PsZ1T+rPy1SJCKjlF/KM0FU5fqV/M/08WyPp9
-	 Y1h+5nwLijRFil9KapkrYErgWT5CfN60IXjKJS76fZw0EWi/v1FBh0ptwyhVeFzKfkGq8
-	 dfUdMHf+/Ez+kSR3GbRxMUloQrOWtyd4kzt7JDLkMvIrNSmcRp8Lbh9gX4wJFy6Hd8BLv
-	 JJ2kTaSGOm1PNvS+0TvPvwO/QATptn6muBFZKQyr7aR1mZhJqXpFkf16eOpVSjww460wk
-	 LULMhvqZJDkJT43wZQK/YD4KLNQtwSgpTHx87cj54+cXueug3DuW+g6FrkMN0JWOyhQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795852115;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=wbu+1bG6tc3oBlzak7kGfXrkuq9F/hwN3hZF9pckIMw=;
-	b=PyVWxwXm4rSFfCGW9o9cHIjNADMjUxYSXlfZX6lQzlRZ2ILwS0YLlVAmacM8BvvbGtMD
-	 DNMwRyC50TMe8S0Df7qjkhrFoAeUBoF0ZpajOJTvlF5L2NU34r352XTDd0XdHVigTR/mE
-	 vT9twAcNBpzWZoQNg0TlB/wJixfQg71llfjtDh7bZrOgW+7ww191wrwUXfkQ7tAER4PoM
-	 ajcUMY+6+6WOinux9SaFW/MjJJnPbvHqPApLuWuQ08dxP+X6fGjZpSHjQ1xpliFRcQZ8y
-	 5mW/DvWYG7iqq28vMcfk8h0B15tfLeztaLr1ucivvwY0ClObHslgyIuNaxqxb1FV9EA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Xuo9CuTa;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795854614;
+	b=JuQW1cImznQGhP1Bg/QoSr1d7o1G055POWpJK1sBFtJb/NppSy23r/aX/qe/4DIfH9Ip
+	 BGpsajXVbGxFLS89l/9h9BUDtg+7Z/yUmElK3wblv4sOxgbGVIcATUujv0EIBAiqTRtIO
+	 jOUsGCbIob8h1F0h0Z8CGqNHNsWMOfaY2wMg/Jv9+twTDgmaM3UPh3z19gaZwZbD2Sbam
+	 IxNVNIo+gYtabEyZlPvHEl3d8VPE6IAkfB3Bera1nvRnp5yabX1LSlBW2gNvL6XclRxii
+	 fajDMzdNC2sKFTyKUvVbycPLVFarQKj/TaQDBtBpJ15RI81NsqZ8MW3OskG1HHM7lMg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795854614;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=73w2j9RJXwR9kXhBP0i3TUU2mktgXrCF6+L1iCYVU1A=;
+	b=oMOReTJrTl+aMPPakC6zaawIPRTsPW4g/CPie0gUbUOhIXEPFoJI5N2fclX/+5rKCve9
+	 C5PEA9GF4DGZ/69EZwTtKsoiEBqTE6OCpXqJMqIHfB6NB3GGi3hdA1xW6TGcvegmxVvH8
+	 h5p1qMkgyGPVAImvXfx5+ypU5BhI0Y2whKVmGUEwbAH8meF/11eufPNdcr822uqzRZ5JM
+	 SpGOu9HjVwBILDuf8PlkC3sG7F4TOYhZX3jOz8qjt++zYFAoVNtAMqp8I8kfUVURM4Swl
+	 7lFr3xdL6aXTSMUBeHq+UGP8wIvI9sG90PKhUe32DIk1ZQN6bR36j9Yz7bdjF0pMZGA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMAc6ipv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF88B606A332;
+	Sat, 28 Nov 2026 08:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMAc6ipv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795854614;
+	b=R3vz9TOH64xSqwp5siyDYgbm7IZcKA3WjhaZa9QG1ZAGs03TKSai8zPHREbKyN84s716
+	 2WAUZ3hO/w1kuIa3fzUpgoF0NLRdEHlnlLrWSfJWG2RyEGYPi1j1UQahYJuVf8xNHcBej
+	 xz1vAAaXtUspuCEhrpXl8QQXRQMaqmDYMOrAaQUKsM45m2C+lKkgMT7choQYvayPJR3x4
+	 BMThyDzVoAAa6ZE4Ol26LahSDODPPQQ77WYTXVapJUmPJeEbImkNZZGKT3X23SLSq90+X
+	 wj1FlDRk58hYwMuP9eqJj85i5yXThtoJATE7XmeGFpwJvQ8F3Yy9HTB+M224uQrlAaQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795854614;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=73w2j9RJXwR9kXhBP0i3TUU2mktgXrCF6+L1iCYVU1A=;
+	b=u7/zruTSaoNbhGL6lDssTqu/BktUYn3E9tK0Lrlu1rNPfiB2vKmV+4F2vUNP2WabNorv
+	 5B4cd2X3kSRXbt9Ai+EdPuwi1BjaKpF4pbUa7Wz6e/sHf6twi5/rvsNlvhXXzeBIYhxBX
+	 kP9FSSIDvhHM+bDfT8N1yIhOUzs2QwoXv706NTVF54EZbTz7nz9k7qdwKKfRvuOVZRs8x
+	 lG8iF9uW4TGq//MIzw46EJ79le0i1vqgGh99OzXu/C+gApxZJ3VS6FvwvWesN0HYiWWTm
+	 hgKp014yz/fXkaWODdIOuRReZuaH/qFZnTHOi+O0jRaSaeENAFSkiB5RPKjY/tNHKPQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6EC606A33B;
-	Sat, 28 Nov 2026 07:48:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA6EC606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Xuo9CuTa
-X-UUID: 19208d6eeb0011f1a7aecdb2598be72c-20261128
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=wbu+1bG6tc3oBlzak7kGfXrkuq9F/hwN3hZF9pckIMw=;
-	b=Xuo9CuTabr+xPYUAuwbCGhtQ8xo/9d6GVaCBXtdjv+QjE8MAVMXcExXBl9dzEKf0D6jNyBkcZSmMfOvwZ4hXABbUqhI8wddWOWBqok8+DWNbslICreik1UR0lfZT/AtVNN9YK5qzJMC7hqoFjZN4na293VhW75I6ACDRBTYuPmk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:91e57e49-2fe9-4861-9671-aace8d45ad0d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:7952e666-4b51-4c95-bb1b-80ac6aad9c96,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 19208d6eeb0011f1a7aecdb2598be72c-20261128
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1284477633; Sat, 28 Nov 2026 15:48:27 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sat, 28 Nov 2026 15:48:26 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 15:48:25 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Ricardo Ribalda
-	<ribalda@chromium.org>, Kees Cook <kees@kernel.org>, Hans Verkuil
-	<hverkuil+cisco@kernel.org>, Fei Shao <fshao@chromium.org>, Haoxiang Li
-	<haoxiang_li2024@163.com>, Chen-Yu Tsai <wenst@chromium.org>, Laurent
- Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Tomasz Figa
-	<tfiga@chromium.org>, Philipp Zabel <p.zabel@pengutronix.de>, Benjamin
- Gaignard <benjamin.gaignard@collabora.com>, Qianfeng Rong
-	<rongqianfeng@vivo.com>, Irui Wang <irui.wang@mediatek.com>, Jacopo Mondi
-	<jacopo.mondi@ideasonboard.com>, Fan Wu <fanwu01@zju.edu.cn>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v10 14/14] media: mediatek: decoder: support av1 extend vsi
-Date: Sat, 28 Nov 2026 15:48:00 +0800
-Message-ID: <20261128074800.3108429-15-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
-References: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id A5F961F00897;
+	Sat, 28 Nov 2026 08:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795854614;
+	bh=73w2j9RJXwR9kXhBP0i3TUU2mktgXrCF6+L1iCYVU1A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=nMAc6ipvIwGCWunUhuheSd7nvlo0VBzl6wWTbG4aEQZeyDuSvJXmL3zL+saTFsMqe
+	 cTxeriR0InQzEn62QUzmUHMAx5fhrZWQ5UFqvUq3BHPn+hUDDUfJWi0AGN/P9JJpJk
+	 DxHAY1PO5Dj3TY1Y0qa/dKuD8qrLPBlQpvaoGZuWS5plmUjywtzIqkQ9Z1Cr/2wtWm
+	 HqPpbEltnVUFOaQypsJPc5+1mdRLivYnc8hk2n8ywxdoqubGjcA+SQOIlt5sP2c84P
+	 jmomUBYK2SauyX5aaF9Be+behjHdft/UkLFT+sltzXI1xXCLnkHune8qzqY0JA0A7z
+	 yqOfo1fdlWrRA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2CA894E036;
+	Sat, 28 Nov 2026 08:30:08 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sat, 28 Nov 2026 08:30:07 +0000
+Subject: [PATCH v6 1/4] media: dt-bindings: Add Rockchip IEP2 deinterlacer
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,215 +82,173 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261128-iep2-v6-1-5f4f10a0dbeb@gmail.com>
+References: <20261128-iep2-v6-0-5f4f10a0dbeb@gmail.com>
+In-Reply-To: <20261128-iep2-v6-0-5f4f10a0dbeb@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Alex Bee <knaerzche@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795854607; l=3925;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=Qe6wQ4E2xaAvete4oI5amRHE0suyCMaOjV61Q0hB68c=;
+ b=R8Jlkn+pG6lnsUuFgrxt72FQ8NNeHUoGdnvC7byeX6Zpl2SHd7gpbvgjWypyQuJ+Oq4y376sG
+ Ga1vybXpWVMBt8WdCz31mXiHhq07/0IDUCbiw+pJapQ2gBFjHojBYk6
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The driver can't access tile buffer address for extend architecture,
-set tile group information in vcp and share it with kernel.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Add a binding for the IEP2 deinterlacer of the RK3568 and RK3588 SoCs.
+It is a different block from the IEP of RK3228/RK3288/RK3328/RK3399,
+hence "iep2". The RK3588 block falls back to the RK3568 compatible.
+
+Clock and reset names follow the RGA binding. The resets are optional:
+the block has its own soft reset.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../vcodec/decoder/vdec/vdec_av1_req_lat_if.c | 71 ++++++++++++++++---
- 1 file changed, 60 insertions(+), 11 deletions(-)
+ .../bindings/media/rockchip,rk3568-iep2.yaml       | 95 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 101 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-index de3dc002c..b4d231f63 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-@@ -25,6 +25,9 @@
- 
- #define AV1_INVALID_IDX			-1
- 
-+#define AV1_NON_EXT_VSI_SIZE		0xD50
-+#define AV1_TILE_SIZE			64
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+new file mode 100644
+index 000000000000..834282ef99a0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/rockchip,rk3568-iep2.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- #define AV1_DIV_ROUND_UP_POW2(value, n)			\
- ({							\
- 	typeof(n) _n  = n;				\
-@@ -641,6 +644,8 @@ struct vdec_av1_slice_fb {
-  * @frame:		current frame info
-  * @state:		status after decode done
-  * @cur_lst_tile_id:	tile id for large scale
-+ * @tile_group:	tile group info
-+ * @reserved:		reserved
-  */
- struct vdec_av1_slice_vsi {
- 	/* lat */
-@@ -665,6 +670,8 @@ struct vdec_av1_slice_vsi {
- 	struct vdec_av1_slice_frame frame;
- 	struct vdec_av1_slice_state state;
- 	u32 cur_lst_tile_id;
-+	struct vdec_av1_slice_tile_group tile_group;
-+	unsigned int reserved[4];
- };
- 
- /**
-@@ -702,6 +709,7 @@ struct vdec_av1_slice_pfc {
-  * @init_vsi:           vsi used for initialized AV1 instance
-  * @vsi:                vsi used for decoding/flush ...
-  * @core_vsi:           vsi used for Core stage
-+ * @vsi_size:           validated remote vsi size
-  * @seq:                global picture sequence
-  */
- struct vdec_av1_slice_instance {
-@@ -734,6 +742,7 @@ struct vdec_av1_slice_instance {
- 		struct vdec_av1_slice_vsi *vsi;
- 	};
- 	struct vdec_av1_slice_vsi *core_vsi;
-+	u32 vsi_size;
- 	int seq;
- };
- 
-@@ -1073,9 +1082,10 @@ static inline void vdec_av1_slice_vsi_from_remote(struct vdec_av1_slice_vsi *vsi
- }
- 
- static inline void vdec_av1_slice_vsi_to_remote(struct vdec_av1_slice_vsi *vsi,
--						struct vdec_av1_slice_vsi *remote_vsi)
-+						struct vdec_av1_slice_vsi *remote_vsi,
-+						u32 vsi_size)
- {
--	memcpy(remote_vsi, vsi, sizeof(*vsi));
-+	memcpy(remote_vsi, vsi, vsi_size);
- }
- 
- static int vdec_av1_slice_setup_lat_from_src_buf(struct vdec_av1_slice_instance *instance,
-@@ -1403,17 +1413,29 @@ static void vdec_av1_slice_setup_uh(struct vdec_av1_slice_instance *instance,
- 	vdec_av1_slice_setup_tile(frame, &ctrl_fh->tile_info);
- }
- 
-+static
-+struct vdec_av1_slice_tile_group *vdec_av1_get_tile_group(struct vdec_av1_slice_instance *instance,
-+							  struct vdec_av1_slice_vsi *vsi)
-+{
-+	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-+		return &vsi->tile_group;
-+	else
-+		return &instance->tile_group;
-+}
++title: Rockchip IEP2 image enhancement processor
 +
- static int vdec_av1_slice_setup_tile_group(struct vdec_av1_slice_instance *instance,
- 					   struct vdec_av1_slice_vsi *vsi)
- {
- 	struct v4l2_ctrl_av1_tile_group_entry *ctrl_tge;
--	struct vdec_av1_slice_tile_group *tile_group = &instance->tile_group;
-+	struct vdec_av1_slice_tile_group *tile_group;
- 	struct vdec_av1_slice_uncompressed_header *uh = &vsi->frame.uh;
- 	struct vdec_av1_slice_tile *tile = &uh->tile;
- 	struct v4l2_ctrl *ctrl;
- 	u32 tge_size;
- 	int i;
- 
-+	tile_group = vdec_av1_get_tile_group(instance, vsi);
++maintainers:
++  - Arun Iyengar <aiyengar1990@gmail.com>
 +
- 	ctrl = v4l2_ctrl_find(&instance->ctx->ctrl_hdl, V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY);
- 	if (!ctrl)
- 		return -EINVAL;
-@@ -1608,6 +1630,15 @@ static int vdec_av1_slice_setup_pfc(struct vdec_av1_slice_instance *instance,
- 	return ret;
- }
- 
-+static u32 vdec_av1_get_tiles_num(struct vdec_av1_slice_instance *instance,
-+				  struct vdec_av1_slice_vsi *vsi)
-+{
-+	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-+		return vsi->tile_group.num_tiles;
-+	else
-+		return instance->tile_group.num_tiles;
-+}
++description:
++  Memory to memory video deinterlacer of the Rockchip RK3568 and RK3588
++  SoCs. It has its own IOMMU, with which it shares its interrupt line.
 +
- static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instance *instance,
- 					    struct vdec_av1_slice_vsi *vsi,
- 					    struct mtk_vcodec_mem *bs,
-@@ -1648,12 +1679,18 @@ static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instance *inst
- 
- 	vsi->tile.buf = instance->tile.dma_addr;
- 	vsi->tile.size = instance->tile.size;
--	memcpy(lat_buf->tile_addr.va, instance->tile.va, 64 * instance->tile_group.num_tiles);
- 
- 	vsi->cdf_table.buf = instance->cdf_table.dma_addr;
- 	vsi->cdf_table.size = instance->cdf_table.size;
- 	vsi->iq_table.buf = instance->iq_table.dma_addr;
- 	vsi->iq_table.size = instance->iq_table.size;
++properties:
++  compatible:
++    oneOf:
++      - const: rockchip,rk3568-iep2
++      - items:
++          - const: rockchip,rk3588-iep2
++          - const: rockchip,rk3568-iep2
 +
-+	/* lat_buf is used to share hardware decoder syntax between lat and core,
-+	 * there isn't only one. But there is only one tile.va for each instance.
-+	 * Need to copy tile information to lat_buf every time.
-+	 */
-+	memcpy(lat_buf->tile_addr.va, instance->tile.va,
-+	       AV1_TILE_SIZE * vdec_av1_get_tiles_num(instance, vsi));
- }
- 
- static void vdec_av1_slice_setup_seg_buffer(struct vdec_av1_slice_instance *instance,
-@@ -1676,7 +1713,7 @@ static void vdec_av1_slice_setup_tile_buffer(struct vdec_av1_slice_instance *ins
- 					     struct vdec_av1_slice_vsi *vsi,
- 					     struct mtk_vcodec_mem *bs)
- {
--	struct vdec_av1_slice_tile_group *tile_group = &instance->tile_group;
-+	struct vdec_av1_slice_tile_group *tile_group;
- 	struct vdec_av1_slice_uncompressed_header *uh = &vsi->frame.uh;
- 	struct vdec_av1_slice_tile *tile = &uh->tile;
- 	u32 tile_num, tile_row, tile_col;
-@@ -1687,6 +1724,8 @@ static void vdec_av1_slice_setup_tile_buffer(struct vdec_av1_slice_instance *ins
- 	u32 *tile_info_buf = instance->tile.va;
- 	u64 pa = (u64)bs->dma_addr;
- 
-+	tile_group = vdec_av1_get_tile_group(instance, vsi);
++  reg:
++    maxItems: 1
 +
- 	if (uh->disable_cdf_update == 0)
- 		allow_update_cdf = 1;
- 
-@@ -1909,7 +1948,7 @@ static int vdec_av1_slice_init(struct mtk_vcodec_dec_ctx *ctx)
- 	struct vdec_av1_slice_instance *instance;
- 	struct vdec_av1_slice_init_vsi *vsi;
- 	enum mtk_vcodec_fw_type fw_type = mtk_vcodec_fw_get_type(ctx->dev->fw_handler);
--	int ret;
-+	int ret, vsi_size = AV1_NON_EXT_VSI_SIZE;
- 
- 	instance = kzalloc_obj(*instance);
- 	if (!instance)
-@@ -1943,10 +1982,20 @@ static int vdec_av1_slice_init(struct mtk_vcodec_dec_ctx *ctx)
- 		goto error_vsi;
- 	}
- 
--	if (vsi->vsi_size != sizeof(struct vdec_av1_slice_vsi))
--		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%zx\n",
--			     vsi->vsi_size, sizeof(struct vdec_av1_slice_vsi));
-+	if (IS_VDEC_SUPPORT_EXT(ctx->dev->dec_capability)) {
-+		vsi_size = sizeof(struct vdec_av1_slice_vsi);
-+		vsi->iq_table_size = AV1_IQ_TABLE_SIZE;
-+		vsi->cdf_table_size = AV1_CDF_SIZE;
-+	}
++  clocks:
++    items:
++      - description: AXI bus clock
++      - description: AHB bus clock
++      - description: Core clock
 +
-+	if (vsi->vsi_size != vsi_size) {
-+		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%x\n",
-+			     vsi->vsi_size, vsi_size);
-+		ret = -EINVAL;
-+		goto error_vsi;
-+	}
++  clock-names:
++    items:
++      - const: aclk
++      - const: hclk
++      - const: sclk
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    items:
++      - description: AXI reset
++      - description: AHB reset
++      - description: Core reset
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++      - const: core
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - power-domains
++  - iommus
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/rk3588-power.h>
++    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
++
++    bus {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      deinterlace@fdbb0000 {
++        compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
++        reg = <0x0 0xfdbb0000 0x0 0x500>;
++        clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>,
++                 <&cru CLK_IEP2P0_CORE>;
++        clock-names = "aclk", "hclk", "sclk";
++        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
++        resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>,
++                 <&cru SRST_IEP2P0_CORE>;
++        reset-names = "axi", "ahb", "core";
++        power-domains = <&power RK3588_PD_VDPU>;
++        iommus = <&iep_mmu>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f72ce07a4e38..90ec701edce6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24285,6 +24285,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+ F:	sound/soc/rockchip/rockchip_i2s_tdm.*
  
-+	instance->vsi_size = vsi_size;
- 	instance->irq_enabled = 1;
- 	instance->inneracing_mode = IS_VDEC_INNER_RACING(instance->ctx->dev->dec_capability);
- 
-@@ -2105,7 +2154,7 @@ static int vdec_av1_slice_lat_decode(void *h_vdec, struct mtk_vcodec_mem *bs,
- 		goto err_free_fb_out;
- 	}
- 
--	vdec_av1_slice_vsi_to_remote(vsi, instance->vsi);
-+	vdec_av1_slice_vsi_to_remote(vsi, instance->vsi, instance->vsi_size);
- 	ret = vpu_dec_start(&instance->vpu, NULL, 0);
- 	if (ret) {
- 		mtk_vdec_err(ctx, "failed to dec AV1 ret %d\n", ret);
-@@ -2196,7 +2245,7 @@ static int vdec_av1_slice_core_decode(struct vdec_lat_buf *lat_buf)
- 		mtk_vdec_err(ctx, "vdec_av1_slice_setup_core\n");
- 		goto err;
- 	}
--	vdec_av1_slice_vsi_to_remote(&pfc->vsi, instance->core_vsi);
-+	vdec_av1_slice_vsi_to_remote(&pfc->vsi, instance->core_vsi, instance->vsi_size);
- 	ret = vpu_dec_core(&instance->vpu);
- 	if (ret) {
- 		mtk_vdec_err(ctx, "vpu_dec_core\n");
++ROCKCHIP IEP2 DEINTERLACER DRIVER
++M:	Arun Iyengar <aiyengar1990@gmail.com>
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
++
+ ROCKCHIP ISP V1 DRIVER
+ M:	Dafna Hirschfeld <dafna@fastmail.com>
+ M:	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
 -- 
-2.51.0.windows.2
+2.55.0
+
 
