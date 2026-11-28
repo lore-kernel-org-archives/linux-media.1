@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795873014;
-	b=A1Yty4G9g/yiMgvzOrENI3qaKsBsImrI4UxEyNZRSNjc0EoUrFcBn656PHtwJbR1DgEf
-	 pOA7o+iSWxsyZ3EGynig9uDK6cn/xr1n5Iweqffei7pCYXCSf4iihT6fOZZJrAug4qhTB
-	 QkUeQ1IjUxb6N2gQamZcJ2d0v9SBrL1smMAy5mKt99yjoqvr3VhYel/V5PiaPoe09b9lk
-	 9Rc4bOK25ZnC4vbl2Pbwqi32tUSquMPclJhGimQXJ0p2AVHq6ZXqbUKdiiLqkIRT1wmJb
-	 FNhQE7AvBfoMhnCZD8T9lqVmi3f33HTAPwNYN2voytgOgAGVm7SZytlhfGNW/mtlPRg==
+	t=1795873023;
+	b=1fnz79kQ/uR2lVhM6sO1SEgZlKWO2rL05tDAfHX+ZqxkRXe+hySsXiqUppGZLHhEaqQI
+	 j/rORzL70BpLTo60OJjgW/AoSXz1ovEp0uY4eGlA82bGYUoXzmwQwVqy0QMUjMMZ+pYsk
+	 0vSRyaJVX56QZ60kl4nJVN7820bdzbYldS8By7nznaXJy8XaSEHStoumo34ecffxE9oqu
+	 GNHn5dCGfmH/j1lhFvfrqUvScYt2DOnVNtj8SQQlkOO4Yckds/FtWoa/8e4ac4RKhkeFg
+	 T/1v9gX7nbzXSfY9OUP/SvwAlwT+4hpMa0xOn2iCQIHGheV+HCGUU7CaERdYaZyUFzQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795873014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795873023;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
@@ -27,79 +27,79 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8WnGjwJ/2T71p5H4fFtWy+N1wap41gK+UvObz4LpTwg=;
-	b=dpwmMe5XsXkuQ+YZw+ghfLsgasykS/jpIndnIN3oe3HttKrQfyEt4ehHj9v60+1+0JZ1
-	 RRGt/eBUDGEJO68066Zwejvez1X6T8L57rLHVA7qvz2reENaqZoO1iMztkVB0tkAmQ12h
-	 gcwgkPNWX+hsb6TYbm1gpcr+EqdTgtX/FlIWmlun9HGVHOQB3F3vhfU1cvxHsYS7ayTHp
-	 Qpx8CdeAbVuqyhPqHK/Ef/ajWFQEqE+3xcxW08mlw1cPO0qQTqoTk/hNnVyUjPFsYbURi
-	 s6AVbeLd3vuhdaoErK4t0h6h9lv65ZSl6951P8Ox+eXCTLu7jlay4kHY9Tv6UiPVLUA==
+	bh=gWlorwbRQs6u279nCmvABwpB5YBlyrOBpo1LfvhJLBA=;
+	b=w4mxWQX9MnqcGlWzIPYdgbHq2rUAbcVWe5DVAVgY9WwM7S7QS8Ax6FATPL7H1GFHWkfU
+	 FO7CIgbDt0QQ355iCVEmGpFsi7ehXEeqd1UuCQMH3R/YY05MA9bFYqZLaz/IyzzPbYCjt
+	 CG02MGPJj4gD9x02l8yEzk4moR+5bAeRjkqEreOh1XHqOxmEPBw/o5glT+4VV46osd0/e
+	 pk9mNinlrAv7D4qjiS/hG8E5VQbkMXjMeC1P9V65uHHKgOjY2K98EIdTPguHd2ZkUslip
+	 OgqelnfmgOxY9MxgJ1dpZXgClTExnp8aR38NBan7quv8+zUSXLwMFibvrNWusEHAWNw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uyh9MpUu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011003.outbound.protection.outlook.com [40.93.194.3])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="K/G0xdfZ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.44
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F54606A31F;
-	Sat, 28 Nov 2026 13:36:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76F54606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A35E606A31C;
+	Sat, 28 Nov 2026 13:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A35E606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uyh9MpUu
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K/G0xdfZ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cGt4gHIDQBL/rJQl3PoKwk8CA4Q7J4HBwrkTTSXo8LWwrIYTCc5BnPWzSnl/ikfedtEJ6S/65qw/M9jIn3TiRp8o81IcvY6md3i6a7hOy7bh4XeSybceh2w7sDHl/b+Mi8nX979TweLMlAj8tIKiKBmwXJuXAwYhmmSs3hzRKumVe06kPHyyJgdm+Hb4NWldR79svuCf3sQNbV6m9vPibsrnidqERDT7p3Gtz3kKhtFoUNdBC1aadxzepeCFDLUurl4lf5ivBw+CIcXlfovGFUAFBIKFMpGM6SKs6zC6GX2o4+LnJRmpjsyJ+YM9Kq9k14B5obUScZv2+QCQOImeZg==
+ b=vc1/d1+j0zEdCyvTtDwHjZv2TFha6qe0jXuC5gdttTwCfArXoldnxNzVsZvn+SMPj5BgdCoKiNAx4kyeN3jJMFnBRuXaJv/wFaCD0umeIKpGpIz1TOvpGCw3EjJR8aJBaEiLarFY2h1vEhJL9nD3A4PsWy85sLhAGlwpD1culingp0Jgya9Pu/2V71P5bD2ugRGDgUEk0VR1RUDwpKNea5uQspMLevvU+fLyx8gq/mWJMYVOwxsg9kK/mgun7WGvLruEzOv+SXu8gykCZgElZZEAqBb4bfeCQ7lUsktfxiUC6dOS02cb240HHIwBy6pKWhspkSRCkmxENrxDkYIuEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8WnGjwJ/2T71p5H4fFtWy+N1wap41gK+UvObz4LpTwg=;
- b=KhEMS8I4uQsHPAKX6aMlyyP6/1peYEuiCY4+Kd1Ythl9uhDKkFNrQagw4ps70/eG/Qce0fIgfcCRXLTOnUemLFeTN5Fv0QcvR3wn7wnOIR94lOm5bsCd5z81WsU2YYZbBvfUqqxU5fbu8sfPY7B8gJX7VbiusL8wihMCjwk9RA0+L5/EwUmFv+3yT0i8/4NNGoI+FaG9J4bD354EiwEm5M2OP9ke8OjjXlp2wrKuSuiv9tj2rc+npr/EzakYwt5JuXW+QURYfzKlyBPN89En0iYTBd0rn3LOz07bke2gwZ3LFszh4usDT5kz2OXX8VsyiyzhE+MVTbfN6guZU7dBKw==
+ bh=gWlorwbRQs6u279nCmvABwpB5YBlyrOBpo1LfvhJLBA=;
+ b=oeEn5W7sSMJMdARiAOgpcZKfCsW3fYpTwHedyp2VBWbWMxJSI4JyD/catJty95Idqu7ilCj/vRVwXkqKmKKfwSL9DEI9uwgANPhfIQLOc2MNlH6wr8rubuhw3Vbjd1TiBx9+sPppMDo5ArHGzZy1+PU1jWrZmipFtUzVRwZJT9HVxJdfRk1Wc69IVD2Mh4yTxVHBzb9Vllza4cQwj1sEL5Wib5due+Y6biNx88zWEJ3GdfM3GK7pbbZtX+SR2ug0orpE4FCeWigIkL/J5j/sZXKdhH/FgIxJrylv4+6LCSp6iNEIYKPdox+dSde7uKh3qPSuhfpEr7E77bBiS4Gmyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8WnGjwJ/2T71p5H4fFtWy+N1wap41gK+UvObz4LpTwg=;
- b=Uyh9MpUuRJIjKI4TgirXrwKzu1S+4MtGpfq5YrHvfsp7wMuT51u17JhnmXY45neXxFuU1qpIE0R6OQnw4cAjDjqZ0F3fHPcsS+D9GXY0vBAoJluTGySffHxYRnO9/otFuGKdZISiuD+dws0LntGADpyoKwi1FsQVFoF+Gr/1KQr0Yri6aG+YCsNJazQww80gERttHiExkx+tINN4DvTBCaiZc2GobQOxB1ecFm087iXpYWCxgoa0YFXrlnKiedd7SnZdt0nlbJ2sBmyC0BXd7/y9moDWn8YMqKPjhXlpBGj7f/uTxx/RGD0ePSqCnSQ14QeA7s151isJ5/yEIu6HjQ==
-Received: from CH2PR03CA0022.namprd03.prod.outlook.com (2603:10b6:610:59::32)
- by SN7PR12MB6984.namprd12.prod.outlook.com (2603:10b6:806:260::9) with
+ bh=gWlorwbRQs6u279nCmvABwpB5YBlyrOBpo1LfvhJLBA=;
+ b=K/G0xdfZngGHUVZSqtmy+zsIK+wV5dSluSBmrr4ROrP6dc6JXcxU88z80CRdM+QOWYDS2P10eps6Y4KoITBQlPlqPnDtMmsLkfoRGQQUrUsXWOdlrn8rMgd989OQCrd/ZIV29lPk2JnPPEisiL9dhkltgVYgz5yRsCjQ0iOe6K/9Rr4GaHKeapIRXQ/QzymqaSrXi18RgFVWpcziUOUjAaGPu/0/qYq9RRl5dyuGZcAcK7+m04pb7Hza6MgzHnnZwt74KEJ46RM0FnR8OapwsflZ9gpSCT/mHzQEWdJlJTpXLRBHXox9WDajotJyo1dVaYxy4iQgOqlf+84JcuVB9g==
+Received: from CH0PR03CA0190.namprd03.prod.outlook.com (2603:10b6:610:e4::15)
+ by SJ0PR12MB7005.namprd12.prod.outlook.com (2603:10b6:a03:486::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.11; Sat, 28 Nov
- 2026 13:36:47 +0000
-Received: from LV8PEPF0000005E.namprd02.prod.outlook.com
- (2603:10b6:610:59:cafe::45) by CH2PR03CA0022.outlook.office365.com
- (2603:10b6:610:59::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Sat, 28 Nov
+ 2026 13:36:54 +0000
+Received: from DS4PEPF000001C4.namprd21.prod.outlook.com
+ (2603:10b6:610:e4:cafe::62) by CH0PR03CA0190.outlook.office365.com
+ (2603:10b6:610:e4::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.11 via Frontend Transport; Sat,
- 28 Nov 2026 13:36:47 +0000
+ 28 Nov 2026 13:36:54 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- LV8PEPF0000005E.mail.protection.outlook.com (10.167.245.138) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DS4PEPF000001C4.mail.protection.outlook.com (10.167.23.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.5 via Frontend Transport; Sat, 28 Nov 2026 13:36:47 +0000
+ 15.21.662.0 via Frontend Transport; Sat, 28 Nov 2026 13:36:53 +0000
 Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Sat, 28 Nov
- 2026 05:36:36 -0800
+ 2026 05:36:44 -0800
 Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
  (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Sat, 28 Nov
- 2026 05:36:35 -0800
+ 2026 05:36:43 -0800
 Received: from [192.168.122.1] (10.127.8.10) by mail.nvidia.com (10.129.68.9)
  with Microsoft SMTP Server id 15.2.2562.57 via Frontend Transport; Sat, 28
- Nov 2026 05:36:32 -0800
+ Nov 2026 05:36:40 -0800
 From: Edward Srouji <edwards@nvidia.com>
-Date: Sat, 28 Nov 2026 15:36:25 +0200
-Subject: [PATCH rdma-next 1/3] RDMA/uverbs: Permit dma-buf export to work
- with pinned importers
+Date: Sat, 28 Nov 2026 15:36:27 +0200
+Subject: [PATCH rdma-next 3/3] RDMA/mlx5: Try pinned revocable dmabuf
+ import by default
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -111,7 +111,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261128-mlx5-pinned-revocable-dmabuf-v1-1-a4cde143a58e@nvidia.com>
+Message-ID: <20261128-mlx5-pinned-revocable-dmabuf-v1-3-a4cde143a58e@nvidia.com>
 References: <20261128-mlx5-pinned-revocable-dmabuf-v1-0-a4cde143a58e@nvidia.com>
 In-Reply-To: <20261128-mlx5-pinned-revocable-dmabuf-v1-0-a4cde143a58e@nvidia.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, "Sumit
@@ -119,107 +119,332 @@ To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, "Sumit
 	<christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>
 CC: <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linaro-mm-sig@lists.linaro.org>, Edward Srouji <edwards@nvidia.com>, "Chiara
- Meiohas" <cmeiohas@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+	<linaro-mm-sig@lists.linaro.org>, Edward Srouji <edwards@nvidia.com>, "Yishai
+ Hadas" <yishaih@nvidia.com>, Chiara Meiohas <cmeiohas@nvidia.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795872988; l=2285;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795872988; l=10407;
  i=edwards@nvidia.com; s=20251029; h=from:subject:message-id;
- bh=/3oGGvz1DG3IInjf/JmW06oy2zIdND2YGgaQOcvEjjs=;
- b=F4S+LOwUwc7rhXxdP4Is28aAy0rcdtWYDZx+Xkr2ZkK/snOlGZHvsX0GSNZCC3l5YQNVyTMLg
- 4AFOkXj33oIChXxxQJr4pGc8Li7nhBmZeSdeneRN4Gzf8hvNkAOaCPI
+ bh=MMrYtnaYBmoi5+3i2hdHpK4e7Mmk3pIAsyRgsi6mdHM=;
+ b=X518DKYi9GT/km5161gdGmxArjuNwy+pFwCeGS7PzGYc38psK2BNkSX+K4yuup13EeHnDUOD/
+ EY7wAgrl8QDBN2N4hrC/9uTR6jpH+AhdNT4Gv2KyUPUkkDJn0BYAwRC
 X-Developer-Key: i=edwards@nvidia.com; a=ed25519;
  pk=VME+d2WbMZT5AY+AolKh2XIdrnXWUwwzz/XLQ3jXgDM=
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005E:EE_|SN7PR12MB6984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c16cc89-eff3-4c90-ba88-08df4d54a640
+X-MS-TrafficTypeDiagnostic: DS4PEPF000001C4:EE_|SJ0PR12MB7005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48d59501-ec7a-4a6b-0671-08df4d54aa4f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|7416014|10067099003|56012099006|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|261102123227099003|261102130727099003|261009221227099003|261009223327099003|261009223027099003|261009221727099003|261009220027099003|18002099003|22082099003|11063799006;
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|23010399003|82310400026|10067099003|261102123227099003|56012099006|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261028144727099003|261021123027099003|261102130727099003|5023799004|261009221727099003|261009223027099003|261009220027099003|261009221227099003|261009223327099003|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	Lbdm/Qf3za1xzxAC+TEdfDEe/Rn/UhUjQ4R3F8sOzKrrILZEsYT13cgU9WpjLdHnDgG3veF2HuTUPACCY44Sv3dOKsh25ubUjYNKxp974yhz76S1OXi6DjtwPBUkZ6Ss4v6Yjm6y5J+p+BS0ZR4G5HUqez2Tam3t57xYGWGjmencLAduxm5uBdlGRpqhfH4fpJdmI+iTKeOHjUiEu7y9/n8KhUSRksCMVbetO6JijUcmk0xFjITz6VZ0ipC+yWxNwaI/FB8R3r9C2dYf2mw+xYc2elLQFJmUiczNreobcQfenKw87jIAYExeQd9Vil8Vc42fFbE9obhH17p5DwuAe+jKT1+WsSSY4h0B1TxQfn5m22XnReFnR2iXww8t4G/Qsx5PUyC00RZMLryDbruzowqagAZW0Csy+bOwj4ACONOgOFjmjVyEePUbH9rW2eM0vEqKspwtdYvxRA4V2rXRylLitAfemLGe5GeYZuC+AQKwZmGs5gg/7SvUON1O+p0s1B6ijClWJzmajckgj+q4h/AiRJ3HDkfNXx5QKJR0mYG3g285sYnYFhAaFtXiRW/1KlWz17Pn+NqfSJdvDp24cMnD8hANuvVOF7Rcl0v97rWIJwft4c26eC1ktr3/xZd2PJVRppvL3MS3mMDbLrYfh7BdBbwJlITEDRsiLoZSS7khUvdQXuNPHt8hQa1ygD+m
+	WQTOyQaxEUY0R4QZDHC1eGnkLRvtEfL77L5Hvkr2rHIE01HUoFHqhiCLgmDos1s96cBU/VbVUx3crSL7CH9fY3VAJvXo+LqwFQQmlt3JcA/fEbuw2gsO5flbKMXEN73fmEO39Wc+Ag98Uz3zYlSqkSe8IjqLMsS/iKyx6gsziDvmMOdkYJ4PlA6nHtDFtgWWrXD1Q60I2uDOLDiStKpgoX/d14xx4bytEDbpyoDeDSCZ27Z+IJe1YkLsddpsW6ZlOliHA3gK3ppYwaZ2vBnK8EXPAJDYFoBU6JiCTIlZOx8czIrzXaZeFLlK2Pqbol/RltlGOtjk7mSIVubcbep7mBH5AyXdA7+C2dQE50gHMc5XF05tUejEvrmBDQ29s6UAvzci1kHLFc6cSPKmXzrAVt/bppRuWrIAKdpG+M0OZaVjN/zNsDKUP2+KdB8M0Jnz6n77WLwlgCQ6Xj2ycHaYNTwVxKOo6QTpHBgd0hSiD8FZZTY0Ctpq+h7oDiLQyUteefCgKD0NZCEcE5eepCU8R3GRXzH9aP4I7GYYBlXDQ9I7oJ089zR1NZBudfl0ttPCjRQT9wLoqSiBkALNJvCf+9NIspEXPjAic6ZK0g2NjCy2AMXsCgqoVLE+qYQ5wE6U/L4UUyhCzwz0cs9FwdY670S/R2o8dmf00ZLFsNm0jWePDcorE90vPTmIe7YdSAIcsuDoPYanoVKCFCj+hITIww==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(7416014)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261102130727099003)(261009221227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009220027099003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(23010399003)(82310400026)(10067099003)(261102123227099003)(56012099006)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261028144727099003)(261021123027099003)(261102130727099003)(5023799004)(261009221727099003)(261009223027099003)(261009220027099003)(261009221227099003)(261009223327099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	fhAvyvVF6rWDACCAaFf0KtKca05cN4BStwvVkjt5oSpahaqhs+aObqVNwktRQpOnsPxu7mpoexkEZl0kxqPHhHg8011BWCfiduZxyZ4tqalJPH4AcLWlMIBRfhZFWN4ZaGdr0kcBAnXFifanvSscOEktJYk3Z2ovoKBsf2QeF6W+ljxaFSoAn6a149/CYNxztetAZjEUAVUIeNdP1k59Fvq6Z3N0qO24XHW4atDTq5C62/j7aEooucJjaU5cG8ddsEkQpSrNdw8cdUDPRBIyU1YLtIz+RJ3RX7nUQohx6xN3DJUI7J0kmZqpAgMqThnGmL/4/WvAJf1MFfZDmza0hIaRDXC0tgOCbcsdMGPXfv+Cm3k9ojN72y+31P2zEGjZHf/iW8c2vn7p7ePCQWMMPlHund4zBgxIoqP2H4swlXCKCXj1UsjZAK+ChFnZqguy
+	JH2D6gI34frXPUwmeFX2BOev9mxJrXAYlaBbx810AKcQdIl9Ak2+CdI3jH3vUt9c/EUZW1dQX1nZFK3yuiSsxeAklWs4N8f/2xpCWVPFgUBionkJdREtVzi6HRJWQltCq6gZ2ddiD0A/5zHAUtjOo6o8dwlzGyL5tcRXhD253ZAKurKo253ks4ifUXVgWqYNp8iLk3p2GGr9HDM/bnYAqNhUlUuljtUYiUcU5HWfIw+QfABU4D5sr8CERxYT6ERqg+tp15B3gmnLvh8WHi5McGH8NDRFK8FG8wDATL0aRX6ItuzMklkkvk5B+FRipP4yaaPI/f5U1xMad6DVR+egM9eYTaysTMBGTnN2ltnYq3TVzo7OClXGiayAbYOredyonlBSBJqzA714jbq3kN9fF8fVX3EQCJ0H1KuiDxNtM74+2cqo7nfVz0YhsLpZiUM+
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2026 13:36:47.0093
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2026 13:36:53.8541
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c16cc89-eff3-4c90-ba88-08df4d54a640
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48d59501-ec7a-4a6b-0671-08df4d54aa4f
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005E.namprd02.prod.outlook.com
+	DS4PEPF000001C4.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6984
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7005
 
-From: Chiara Meiohas <cmeiohas@nvidia.com>
+From: Yishai Hadas <yishaih@nvidia.com>
 
-Till now the uverbs dma-buf export path (used to export PCI based
-memory regions, e.g. device memory) has rejected pinned importers,
-unconditionally failing .pin since it had no way to distinguish
-importers that can handle a revoke from those that can't.
+mlx5 imported dma-bufs assuming they needed to support being moved.
+To support this, mkeys were sized for the worst case: dma-buf size /
+PAGE_SIZE. Many exporters do not require movable support, making this
+overkill, such as when applications register GPU memory as a dma-buf
+for peer-to-peer DMA.
 
-Using dma_buf_attach_revocable() it can tell the difference between
-pinned importers that support the flow described in
-dma_buf_invalidate_mappings() and those that don't.
+Try a pinned, revocable attach first instead. When the exporter
+grants it, the buffer is guaranteed not to move, so the mkey can be
+sized exactly. Otherwise, fall back to today's existing behavior,
+unchanged. Only that fallback requires CONFIG_INFINIBAND_ON_DEMAND_PAGING.
 
-Thus permit compatible pinned importers: drop the hardcoded-failing
-.pin/.unpin and gate admission in .attach on revocability instead.
+A pinned revocable import is revoked permanently when the exporter
+invalidates the buffer, e.g. VFIO on a memory-disable or a reset. Unlike
+a movable import, the MR is not restored when the exporter restores
+access, and userspace has to register it again.
 
-This follows the same approach taken in commit 6ffe939bf94fb ("vfio:
-Permit VFIO to work with pinned importers").
+On a revoke the mkey is disabled with a UMR, so the device stops
+accessing the buffer. A revoke cannot run while the MR is being
+registered, as the reservation lock is held until the mkey is enabled.
 
+This follows the same approach irdma already uses for pinned
+revocable dmabuf import, commit 4707bf5f6c86 ("RDMA/irdma: Add
+support for revocable pinned dmabuf import")
+
+Co-developed-by: Chiara Meiohas <cmeiohas@nvidia.com>
 Signed-off-by: Chiara Meiohas <cmeiohas@nvidia.com>
 Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
 Signed-off-by: Edward Srouji <edwards@nvidia.com>
 ---
- drivers/infiniband/core/uverbs_std_types_dmabuf.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+ drivers/infiniband/hw/mlx5/mr.c | 143 +++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 126 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index 8d8c997a48834cfd6a8c4c6ba867cc996a2406eb..4de527af01d265effdc042e186693b52b0c1ccec 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -18,6 +18,9 @@ static int uverbs_dmabuf_attach(struct dma_buf *dmabuf,
- 	if (!attachment->peer2peer)
- 		return -EOPNOTSUPP;
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index 4bd911e0596c676a8caa4165fca139db6852cbab..55e6d8656692e4d8a05f43bf2c5f5effa9d53c5f 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -430,7 +430,7 @@ static struct mlx5_ib_mr *alloc_cacheable_mr(struct ib_pd *pd,
+ 	struct mlx5_ib_mr *mr;
+ 	unsigned long page_size;
  
-+	if (!dma_buf_attach_revocable(attachment))
-+		return -EOPNOTSUPP;
+-	if (umem->is_dmabuf)
++	if (umem->is_dmabuf && !to_ib_umem_dmabuf(umem)->pinned)
+ 		page_size = mlx5_umem_dmabuf_default_pgsz(umem, iova);
+ 	else
+ 		page_size = mlx5_umem_mkc_find_best_pgsz(dev, umem, iova,
+@@ -894,7 +894,8 @@ static const struct dma_buf_attach_ops mlx5_ib_dmabuf_attach_ops = {
+ 	.invalidate_mappings = mlx5_ib_dmabuf_invalidate_cb,
+ };
+ 
+-int mlx5_ib_dmabuf_mr_update_pas(struct mlx5_ib_mr *mr, u32 pdn, u32 flags)
++static int mlx5_ib_dmabuf_mr_update_pas_locked(struct mlx5_ib_mr *mr, u32 pdn,
++					       u32 flags)
+ {
+ 	struct ib_umem_dmabuf *umem_dmabuf = to_ib_umem_dmabuf(mr->umem);
+ 	int access_mode = mr->data_direct ? MLX5_MKC_ACCESS_MODE_KSM :
+@@ -904,12 +905,11 @@ int mlx5_ib_dmabuf_mr_update_pas(struct mlx5_ib_mr *mr, u32 pdn, u32 flags)
+ 	unsigned long page_size;
+ 	int err;
+ 
+-	dma_resv_lock(umem_dmabuf->attach->dmabuf->resv, NULL);
++	dma_resv_assert_held(umem_dmabuf->attach->dmabuf->resv);
 +
+ 	err = ib_umem_dmabuf_map_pages(umem_dmabuf);
+-	if (err) {
+-		dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
++	if (err)
+ 		return err;
+-	}
+ 
+ 	page_size = mlx5_umem_dmabuf_find_best_pgsz(umem_dmabuf, access_mode);
+ 	if (!page_size) {
+@@ -930,7 +930,6 @@ int mlx5_ib_dmabuf_mr_update_pas(struct mlx5_ib_mr *mr, u32 pdn, u32 flags)
+ 							      pdn);
+ 		}
+ 	}
+-	dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
+ 
+ 	if (err) {
+ 		mr->page_shift = old_page_shift;
+@@ -941,7 +940,19 @@ int mlx5_ib_dmabuf_mr_update_pas(struct mlx5_ib_mr *mr, u32 pdn, u32 flags)
  	return 0;
  }
  
-@@ -54,15 +57,6 @@ static void uverbs_dmabuf_unmap(struct dma_buf_attachment *attachment,
- 	kref_put(&priv->kref, ib_uverbs_dmabuf_done);
+-static int mlx5_ib_init_dmabuf_mr(struct mlx5_ib_mr *mr, struct ib_pd *pd)
++int mlx5_ib_dmabuf_mr_update_pas(struct mlx5_ib_mr *mr, u32 pdn, u32 flags)
++{
++	struct dma_resv *resv = to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv;
++	int err;
++
++	dma_resv_lock(resv, NULL);
++	err = mlx5_ib_dmabuf_mr_update_pas_locked(mr, pdn, flags);
++	dma_resv_unlock(resv);
++	return err;
++}
++
++static int mlx5_ib_init_dmabuf_mr_locked(struct mlx5_ib_mr *mr,
++					 struct ib_pd *pd)
+ {
+ 	struct mlx5_ib_dev *dev = mr_to_mdev(mr);
+ 	u32 pdn;
+@@ -951,7 +962,48 @@ static int mlx5_ib_init_dmabuf_mr(struct mlx5_ib_mr *mr, struct ib_pd *pd)
+ 	else
+ 		pdn = to_mpd(pd)->pdn;
+ 
+-	return mlx5_ib_dmabuf_mr_update_pas(mr, pdn, MLX5_IB_UPD_XLT_ENABLE);
++	return mlx5_ib_dmabuf_mr_update_pas_locked(mr, pdn,
++						   MLX5_IB_UPD_XLT_ENABLE);
++}
++
++static int mlx5_ib_init_dmabuf_mr(struct mlx5_ib_mr *mr, struct ib_pd *pd)
++{
++	struct dma_resv *resv = to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv;
++	int err;
++
++	dma_resv_lock(resv, NULL);
++	err = mlx5_ib_init_dmabuf_mr_locked(mr, pd);
++	dma_resv_unlock(resv);
++	return err;
++}
++
++/*
++ * Revoke callback of a pinned revocable dmabuf MR. It runs under the dmabuf
++ * reservation lock, either on an exporter invalidation or from
++ * ib_umem_release() at deregistration. It returns void, and the caller
++ * unconditionally unmaps and unpins the buffer once it returns, so it
++ * disables the mkey with a UMR to stop the device from accessing it.
++ */
++static void mlx5_ib_dmabuf_pinned_revoke(void *priv)
++{
++	struct mlx5_ib_mr *mr = priv;
++	struct mlx5_ib_dev *dev = mr_to_mdev(mr);
++	int err;
++
++	dma_resv_assert_held(to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv);
++
++	err = mlx5r_umr_revoke_mr(mr);
++	if (err) {
++		mlx5_ib_warn(dev, "dmabuf mr revoke failed to disable mkey 0x%x, err %d\n",
++			     mr->mmkey.key, err);
++		return;
++	}
++
++	/*
++	 * Mark the key as disabled. If the UMR failed, deregistration destroys
++	 * the key instead of returning it to the pool.
++	 */
++	mr->revoked = true;
  }
  
--static int uverbs_dmabuf_pin(struct dma_buf_attachment *attach)
--{
--	return -EOPNOTSUPP;
--}
--
--static void uverbs_dmabuf_unpin(struct dma_buf_attachment *attach)
--{
--}
--
- static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- {
- 	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
-@@ -99,8 +93,6 @@ static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.attach = uverbs_dmabuf_attach,
- 	.map_dma_buf = uverbs_dmabuf_map,
- 	.unmap_dma_buf = uverbs_dmabuf_unmap,
--	.pin = uverbs_dmabuf_pin,
--	.unpin = uverbs_dmabuf_unpin,
- 	.release = uverbs_dmabuf_release,
- };
+ static struct ib_mr *
+@@ -964,6 +1016,7 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 	struct mlx5_ib_dev *dev = to_mdev(pd->device);
+ 	struct mlx5_ib_mr *mr = NULL;
+ 	struct ib_umem_dmabuf *umem_dmabuf;
++	bool revocable_and_pinned = false;
+ 	u16 st_index = MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX;
+ 	u8 ph = MLX5_IB_NO_PH;
+ 	int err;
+@@ -972,12 +1025,23 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 	if (err)
+ 		return ERR_PTR(err);
  
+-	if (!pinned_mode)
+-		umem_dmabuf = ib_umem_dmabuf_get(&dev->ib_dev,
+-						 offset, length, fd,
+-						 access_flags,
+-						 &mlx5_ib_dmabuf_attach_ops);
+-	else if (dma_device)
++	if (!pinned_mode) {
++		umem_dmabuf = ib_umem_dmabuf_get_pinned_revocable_and_lock(
++				&dev->ib_dev, offset, length, fd, access_flags);
++		if (!IS_ERR(umem_dmabuf)) {
++			revocable_and_pinned = true;
++		} else {
++			if (!IS_ENABLED(CONFIG_INFINIBAND_ON_DEMAND_PAGING)) {
++				mlx5_ib_dbg(dev,
++					   "dmabuf pin failed (%pe) and ODP is not supported\n",
++					   umem_dmabuf);
++				return ERR_CAST(umem_dmabuf);
++			}
++			umem_dmabuf = ib_umem_dmabuf_get(
++				&dev->ib_dev, offset, length, fd,
++				access_flags, &mlx5_ib_dmabuf_attach_ops);
++		}
++	} else if (dma_device)
+ 		umem_dmabuf = ib_umem_dmabuf_get_pinned_with_dma_device(&dev->ib_dev,
+ 				dma_device, offset, length,
+ 				fd, access_flags);
+@@ -1002,6 +1066,8 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 				access_flags, access_mode,
+ 				st_index, ph);
+ 	if (IS_ERR(mr)) {
++		if (revocable_and_pinned)
++			ib_umem_dmabuf_revoke_unlock(umem_dmabuf);
+ 		ib_umem_release(&umem_dmabuf->umem);
+ 		return ERR_CAST(mr);
+ 	}
+@@ -1010,6 +1076,23 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 
+ 	atomic_add(ib_umem_num_pages(mr->umem), &dev->mdev->priv.reg_pages);
+ 	umem_dmabuf->private = mr;
++	if (revocable_and_pinned) {
++		/*
++		 * Keep the reservation lock until the key is enabled, so an
++		 * exporter revoke cannot run on a half registered MR. A revoke
++		 * that is pending runs once we unlock, on a complete MR.
++		 */
++		err = mlx5_ib_init_dmabuf_mr_locked(mr, pd);
++		if (!err)
++			ib_umem_dmabuf_set_revoke_locked(umem_dmabuf,
++							 mlx5_ib_dmabuf_pinned_revoke,
++							 mr);
++		ib_umem_dmabuf_revoke_unlock(umem_dmabuf);
++		if (err)
++			goto err_dereg_mr;
++		return &mr->ibmr;
++	}
++
+ 	if (!pinned_mode) {
+ 		err = mlx5r_odp_create_eq(dev, &dev->odp_pf_eq);
+ 		if (err)
+@@ -1096,8 +1179,7 @@ struct ib_mr *mlx5_ib_reg_user_mr_dmabuf(struct ib_pd *pd, u64 offset,
+ 	int mlx5_access_flags = 0;
+ 	int err;
+ 
+-	if (!IS_ENABLED(CONFIG_INFINIBAND_USER_MEM) ||
+-	    !IS_ENABLED(CONFIG_INFINIBAND_ON_DEMAND_PAGING))
++	if (!IS_ENABLED(CONFIG_INFINIBAND_USER_MEM))
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 
+ 	if (uverbs_attr_is_valid(attrs, MLX5_IB_ATTR_REG_DMABUF_MR_ACCESS_FLAGS)) {
+@@ -1453,6 +1535,12 @@ static int mlx5_umr_revoke_mr_with_lock(struct mlx5_ib_mr *mr)
+ 	return ret;
+ }
+ 
++static bool is_pinned_revoke_dmabuf_mr(struct mlx5_ib_mr *mr)
++{
++	return mr->umem && mr->umem->is_dmabuf &&
++	       to_ib_umem_dmabuf(mr->umem)->pinned_revoke;
++}
++
+ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib_mr *mr)
+ {
+ 	bool is_odp_dma_buf = is_dmabuf_mr(mr) &&
+@@ -1461,6 +1549,23 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib_mr *mr)
+ 	bool is_odp = is_odp_mr(mr);
+ 	int ret;
+ 
++	if (is_pinned_revoke_dmabuf_mr(mr)) {
++		/*
++		 * Run the revoke callback if the exporter did not. A key revoked
++		 * by a UMR returns to the pool once the umem is released,
++		 * otherwise destroy it here. ib_umem_dmabuf_revoke() is
++		 * idempotent, so the release later does nothing more.
++		 */
++		ib_umem_dmabuf_revoke(to_ib_umem_dmabuf(mr->umem));
++		if (mr->revoked && mr->ibmr.frmr.pool)
++			return 0;
++
++		ret = destroy_mkey(dev, mr);
++		if (!ret && mr->ibmr.frmr.pool)
++			ib_frmr_pool_drop(&mr->ibmr);
++		return ret;
++	}
++
+ 	if (mr->ibmr.frmr.pool) {
+ 		if (!mlx5_umr_revoke_mr_with_lock(mr)) {
+ 			ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr);
+@@ -1545,6 +1650,7 @@ static int __mlx5_ib_dereg_mr(struct ib_mr *ibmr)
+ 
+ 	if (mr->umem) {
+ 		bool is_odp = is_odp_mr(mr);
++		bool is_pinned_revoke = is_pinned_revoke_dmabuf_mr(mr);
+ 
+ 		if (!is_odp)
+ 			atomic_sub(ib_umem_num_pages(mr->umem),
+@@ -1552,6 +1658,9 @@ static int __mlx5_ib_dereg_mr(struct ib_mr *ibmr)
+ 		ib_umem_release(mr->umem);
+ 		if (is_odp)
+ 			mlx5_ib_free_odp_mr(mr);
++		/* Push after the release, mr->umem is not touched again */
++		if (is_pinned_revoke && mr->revoked && mr->ibmr.frmr.pool)
++			ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr);
+ 	}
+ 
+ 	if (!mr->ibmr.frmr.pool)
 
 -- 
 2.49.0
