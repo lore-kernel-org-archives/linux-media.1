@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795887363;
-	b=ylEdESfKmi3jw+DpLkBMYIccuxoBjxCop6abWPsnV8toVoEk3KfP4BZ/UCYb6HusNIdi
-	 Igo0MvDCLXL91DcnsPblsUlD8WCSYJIXsHCfZWkr7HxdCIgWR3uWQHQF6dNtKZPiWDONj
-	 usb2zlq3ZeZBpV4eypotC9166dKQRrnyUjhqYWmS1LL7bKf4MMjb6hvR0uDmHv+OiJ+c5
-	 URpKfXRBTtl7aAD9g/rHgu7u8eh2kuTb/EspjPL9W0WLeMCrrwRFI1H6L9xGcy9ofE8mF
-	 Q1smRq9HookDX81euU8V6FM/AvlFeYGThx4t1lEWeKzheFH8fQSDqLVzH00xFO0Jo5A==
+	b=CrAfN+3nft4lECChumsO0vdSOeJtoVSWfxNs+VnCnr2FilrFDPtPjmVpHRGn+qn9hGES
+	 fZRvKzn1foiq3rCiXGIBWo64PrPtaPj5etUNpFja2v8focuWwXSUvuVD1YOKF395SUJeK
+	 qvXLS2UG+TLJjHaOSk/H+hyzY2RBeR91v81IAaGIo2YdgJ94TQZ0n+x2OOoxblwt2AInk
+	 +ttkF35eVw7oJnRjeT2aRUWe+/rCI7nU7Ezsm/ZauyiJslak9It7uV6tj8BL531+/zKEy
+	 d1vQ5oxub4q0czRpqQsSsHdi9JI9t3ZZLEyk9LpJ4Y2DmxXsuy1B0m1tcZolG+GDH5g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795887363;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=qO9HsP4Omb9n01bpVc8c+WT40hoj6Ove/jdtFoAjw/w=;
-	b=gHJHPJdzO0O1iIOk1qUa9W6jvLdToTWtaSyP7cHcyMV7H85U0grlxuAV4gofocIAd/ZK
-	 BW7/D9TaVg0rBygJWH+4sIcuQjt1GF1vK3Bui7S1op+2BcN+0UrW6olaXLX2+9GVitRIf
-	 H/LGnC9SwMJLoXvI3eY/Q5J9BuHDDc4TJHVe7zTW69H+5x0jX57KSr8RoEBuHbhoX+R4r
-	 mL1TeSj6ZR4NoDJaTRmlucE9rsDPGeYkT+S2TnYdF2pN1LR/6HyE9gEsR45U/vu8gyGIK
-	 s2XfGt27lERJq3ZWsBq7yakOU7OSABCROdw5HmbsvjfukZ+40Qniwz/k+GZ5eRaeFQA==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=d8XxXH3FhCbbzy8plj8wG/xWGfVNQxE3P+idx9y1B/I=;
+	b=jMxofnbEdWy7pOsChnJEnQEwrEfT5knvhAjSWj/uqyTewuVmTpST87yb8GIAze7CJSlT
+	 7WjyEBA96tf5ZIOtX5uequ5GlOqFjJ1Azr+gQjcI5O6PBxR50otko1rVcvzgmk71yXxO5
+	 0sXK+3jN4+aW6PL5JV1mIb3nFGddsSk6BfERABVF0KC0YhLI9wQwwGfBCd39hHPr/GvKv
+	 jFKnnVIKbIj9XHtTC9YeEHjLwu9khg2VeSJCRDsAboxyiFFOV/At8gfNQ10m8VI6ulejk
+	 /Ye3B96ELlmaYY4cmDHOf3s22OpSmMAprJXLbukkdeoEt9vG26rRKN2k3o3agUPvkTg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PFolrwnq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EgFDPkLN;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4FF606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AA0606A321;
 	Sat, 28 Nov 2026 17:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PFolrwnq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EgFDPkLN
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795887363;
-	b=hbbf7HlMrtCOM3crGE+cmCP6WDs60/RnOFKmt/wMKPGy4lcGfmC7MmPWoMUQ6AgXCtj6
-	 3ES6iJF1Pu73ZKJTaMCd226rrOJ33PF4FbY1whCof6XX2XxmzgzUOP1sP8Zwb1sObKuGo
-	 UgBxFGANlunvbpnmd1RaBdLo083S5sJJn+ZG9ZwO3yrTUrFKq3kQDFEpXMSavRQX9mQ4I
-	 exOhYB9raMN3xXWj9cC0lCQ4211BUpOn+pD9Jh11xcDSENGLNHTP0kmW04/wPb+DJeg9e
-	 mOh8hPZ5V2UP/QpwZcsEu5tB2+dXXUL2JpWrecnBPI2wv6n6se9C2T2HokZaqCwAOJQ==
+	b=U4ZtNH2jCYmKyFM4h2DeAVykIYYKv1gupR7yr4TKZ8vrMatSA+PiZGQKB20wL3+K6MYx
+	 CE+GKBN6pufF/f5HxbNrRN7umn9a06Tx9wyC3rlvLcaBqCm1q1P3FLfXOAF18Rb4qpS3p
+	 nsgaUb1OdHThxzhWGnpsb7Yei4LMZLwI++1UvnsziMJYQgCCBtIqn4Dsw9taMJxtLspgB
+	 ryOLZrDOHPsvjPfV9h5E12s+ZhwJaFc5r6vsmTEkajrYPz5Afo3VZPhDaCrcCk27AZZnn
+	 nWOmue3Q6Y33Z0aUQii9+g9LE+9ifhrBQvmFK8gcgnxh6Q8flaN5XrrN0OT4+eLKArg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795887363;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=qO9HsP4Omb9n01bpVc8c+WT40hoj6Ove/jdtFoAjw/w=;
-	b=shH/132yBlMlsTy9NTzFQ69DlGiPL6TNc5C8MlMNMo6o2RHCxOx8Q7AH771RIlGzvVAT
-	 +NvJjreC0BRNkch1i3tEqeowIn5meL18za/D6KT2Rx0DPNT4IeEs0sKpgv4NDAhSBEsUG
-	 kxObpbPYLaYl9059Drtu+R2O2U1OXWudYlaIwrokb5KR9L7MMtpvBgBDXF51d0smleR2g
-	 EiCynA5Bx8qciRilKJlUt7WuGXQG9aw4oNrkQJErJX4srnI75wjRBqJWms8DPWdGrtjtz
-	 UIRVJLMGtWNC7EA8yWhnJXRxElr758R0Hcrpv+9IIe0Sb3pcu2wZjfM3XSsZkUuU7sQ==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=d8XxXH3FhCbbzy8plj8wG/xWGfVNQxE3P+idx9y1B/I=;
+	b=g74FMz0UgLB1ATVd8EkTWAPIrefOalkXjM/+5xsPwWiOtBP9IYwWkZTJjnPAlN5VecFW
+	 KS2i+HZKwHFDuVRT3FeaBE836GxG3DzcaMQjyIUPGmcnJYKM9NVJPJtD/hE4lvkBmccDn
+	 F1z5fAzSIQnsYQ+aiakz1sjP+HMP4G18cXhDmxj2yapFyayDONvjLJA0ES8J1crVBgm0X
+	 wfsRRqvGrahIoQ/JKVwCzQKjnXL6yHGstEb0gmtaV7DCfITKbX/6H2FHqBpkUPu0VUyOg
+	 qNJhLpynvG3unHl29IyQCBJwx6ZJIfYvSWTgDBrwbYpXLmIzYDy+S4aPLqOj8XUw3pQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0AE361F00924;
+	by smtp.kernel.org (Postfix) with ESMTPS id 221781F00925;
 	Sat, 28 Nov 2026 17:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795887363;
-	bh=qO9HsP4Omb9n01bpVc8c+WT40hoj6Ove/jdtFoAjw/w=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=PFolrwnqcJC1fr6bvQ1zqdClXqqwZIMtHI3SDllmTAYlVaCbLKai1HdM0qYv4ZaYy
-	 Rl3GqIs/xIa4yWhRHAJZBrchcvA3+qqqyIOzSa59fByR/6wRRaO1mNSfPc9Y0WX/8n
-	 pzbvLLj09gNqOBJKJBS7P7YCdIQd7COWKIQC3XrD1S8JBxgl2WQfaeWnRhi2+Of+ya
-	 jyZ0+GAmhQxowLG/XlIBjxvfB1SchPY+PZm5IVk+cDK9zp1W+65tyBtF31JtDKZEHj
-	 vQyi9tOgu4o3Rce6a6UDb7gZZY825eW0yTMX+wmab/tvETRK95FQyevwcmuD/2vXEy
-	 CyGiKr9Cf6qzA==
+	bh=d8XxXH3FhCbbzy8plj8wG/xWGfVNQxE3P+idx9y1B/I=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EgFDPkLNkdIvOEyhlbOvobkAaY7R//heYBAukt5geRWBaerxWo64n7zCqM7SrjWei
+	 Q7t2GwikBGoz1/a8aVxiK000qzTf5GMO4IiJKfAJYPsLazdpfz+Wb95XuiDM7l/w3N
+	 jTG0zX8mbREd67M2bvonJcVMO3ZCk2y1lukY1ua9+5BC9Bv1yMQMTFnQXucyTf0PO4
+	 5o4Ygs9/iIi70ZViKJWXlR32OzBjivs25ee0cD0AOyMfVA56Ft2KESeCfxRprdHxrS
+	 GYWq4tY/VwzMIoTaaWbNgeLQmizBZG8XScOcLGsMlRKP5KPO0euwOmR1+xPQqsRq/8
+	 VEpypPBdTb2AQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 63FB94E173;
+	by lkml.kernel.org (Postfix) with ESMTP id A89934E183;
 	Sat, 28 Nov 2026 17:35:52 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] media: cedrus: allocation failure and capture
- payload fixes
-Date: Sat, 28 Nov 2026 17:35:51 +0000
-Message-Id: <20261128-b4-cedrus-generic-fixes-v2-0-af8472be660b@gmail.com>
+Date: Sat, 28 Nov 2026 17:35:53 +0000
+Subject: [PATCH v2 2/2] media: cedrus: report only the picture as capture
+ payload
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,12 +84,9 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7RjagIIr72FYwHQKY4SaFoiGc
- HcLxqXLl/lv3gKBvXCAS7KA51mCuCGCPiRAXT20jGIig071SSmVYZMhsfFTwJaH6BJaeXHAgvi
- sSJvamhyi/fS8H6J8q74cpubONG7vtkUnYXT+vadnte1+lfJvZVaYoi1tnhZKU5E317av5XEk1
- 0O1rusHDlibTtAAAAA=
-X-Change-ID: 20261114-b4-cedrus-generic-fixes-8ce71c2dafd5
+Message-Id: <20261128-b4-cedrus-generic-fixes-v2-2-af8472be660b@gmail.com>
+References: <20261128-b4-cedrus-generic-fixes-v2-0-af8472be660b@gmail.com>
+In-Reply-To: <20261128-b4-cedrus-generic-fixes-v2-0-af8472be660b@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>, 
  Paul Kocialkowski <paulk@sys-base.io>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -101,50 +97,59 @@ Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
  linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795887352; l=1257;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795887352; l=1509;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=dJGnmVJGpSJaB86690jlc2NnembJd/VR2+GSpaAGP1c=;
- b=F6GLmg1EGyXRb9oUOc0xusNvvZCBujsLbLSA5KQe/uDZGRfNSoVrU5kZIhF25a4Xfag2E3IBk
- Kw5yGqSEUQRDtGMbDWNykmFcCaUccclorEgBgMwj3YpAQonIJTqD0tt
+ bh=FP6Lm3fHTfm6zAAHrW3o7Y6Gw9UVBp+bRwgni+SH+6A=;
+ b=hopLpEAIwrBwxe2SeBvid6cQFivWi2rGxLd/TsBXBzdyUctPiAdC7cDaAL//p7juLiEsakXNM
+ I0PsnauJlxbAzEpsZebUZlOdwA+Y0+T8BZILxmwqodxstcD1dPLusgd
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Two cedrus fixes, found on an Orange Pi Zero2 (H616) and reproduced on
-media-committers next. Patch 2 concerns the private plane of Jernej
-Skrabec's 10-bit HEVC support.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Tested on H616 only: 17 x 64 MiB REQBUFS gives 12 buffers and no OOM
-kill (next: five processes killed); 10-bit H.265 bytesused 12441600
-(next: 15552000); v4l2-compliance 49/49; MPEG-2, H.264 and H.265
-bit-exact.
+For 10-bit H.265 the driver appends the low 2 bits of every sample to
+the capture buffer and counts them in sizeimage (extra_cap_size).
+buf_prepare reports the whole sizeimage as bytesused, so userspace that
+copies the payload gets the private plane as part of the picture.
 
-Developed with Claude (Anthropic) as a coding assistant, which wrote
-the code and the commit messages. I reviewed and tested them.
+Report only the picture; sizeimage stays the allocation size.
 
+Fixes: 65429ba82572 ("media: cedrus: h265: Support decoding 10-bit frames")
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v2:
-- 1/2: commit message: only the IOMMU path is affected (Jernej).
-- 2/2: add Jernej's Reviewed-by.
-- Rebase on media-committers next.
-- Link to v1: https://patch.msgid.link/20261119-b4-cedrus-generic-fixes-v1-0-f9f50812c85b@gmail.com
+ drivers/staging/media/sunxi/cedrus/cedrus_video.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
----
-Arun Iyengar (2):
-      media: cedrus: fail buffer allocations that do not fit with -ENOMEM
-      media: cedrus: report only the picture as capture payload
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.c b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+index 9b2d24e77fdb..b7e0cbe548e6 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_video.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+@@ -511,8 +511,15 @@ static int cedrus_buf_prepare(struct vb2_buffer *vb)
+ 	 * (for OUTPUT buffers, if userspace passes 0 bytesused, v4l2-core sets
+ 	 * it to buffer length).
+ 	 */
+-	if (V4L2_TYPE_IS_CAPTURE(vq->type))
+-		vb2_set_plane_payload(vb, 0, pix_fmt->sizeimage);
++	if (V4L2_TYPE_IS_CAPTURE(vq->type)) {
++		unsigned int payload = pix_fmt->sizeimage;
++
++		if (ctx->current_codec->extra_cap_size)
++			payload -= ctx->current_codec->extra_cap_size(ctx,
++								     pix_fmt);
++
++		vb2_set_plane_payload(vb, 0, payload);
++	}
+ 
+ 	return 0;
+ }
 
- drivers/staging/media/sunxi/cedrus/cedrus_video.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
----
-base-commit: fb8b2c10a588f1384b98280b1c32307da9db4747
-change-id: 20261114-b4-cedrus-generic-fixes-8ce71c2dafd5
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
