@@ -1,67 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795852098;
-	b=JDQ54MUKgOr6dum7+l/744Uo+XAAqFfn4to2aOnewqnPpcwFr697x8gWDoBEx371Qqei
-	 8uLXRNo0h/PZpsEg/Q2lnC/4phog7MEAwyYd32hAX5K7XboS42qpHRVIGQ5rdzvMf/vv7
-	 4xmT6AfEwfx3b74mG2UZv5q9LQQzEnDSn7h2mUtODPWeSK060s2jprlnF7XkU1J8ocEzC
-	 efSCKIXeWnJDaNY+b2zUv7SgMVyzIbPQHVII/3bLxy+lPLSJYp3vnYLU95IJA/AAbiP2W
-	 cyczHLrZpOXAd7wVxczhFu/xwDKpuCrAM3ZkHRdsj6PgXG1NRzTnCJs0EyKSexffkWw==
+	t=1795852101;
+	b=JAYarzEc0ak7CJ3fkKw7NsASdPi9zxsQWLBLikY4/99Kb54Ra2Jxtth93X8VzwW3Updd
+	 z1g3bzqR4q66XBg484cf1+DocLv3/aT0l2KRX+TuSG9eIJyNxh+2xTaPsnXSDndOYTVix
+	 IcToPcYt/czjaaq+VKEJDmQVOZN9n0uutA/4gn/2KdQDGb44O/GjJl3we0cd6MzohmNBd
+	 gqhub2N1ljVpYCbNCWpzIeCW18/ZYEPX+d8vt1rwiwPiinhJ01CUQVJx0Z9uVd8Dukarf
+	 4fk5hjLKVVxnn83gocryB6yTE8wyQSBZBQNcOmhTncc94rmoEzZD6ZSD/noxaLCPSmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795852098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795852101;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-MTK;
-	bh=GMQ68qrcxGljpEzTXEPXAyeeJ34+o65HoWR++UxXTBo=;
-	b=J1ba1Lfbz4p4xbjF7DNTVLadhsiQ3m6om3BfKmApDYQ61R4V4xuHAcGixZXognWQGegO
-	 7xMwy0ESRaffn+dbHYBVZR2YJ3RJC5GzDVsDGxZWpiFdp1rqz4AZBcC4/Flml6QzRq8SY
-	 9zy+EJ7+3dPfvBueXnlzlKuJgN5wSuGqqBrWeF8W8+gzZzIklO3wReBVGvtFGTdQTMoZi
-	 4lc5BnIVMqAo5tD3tQ6evZMEI5jZ2OKByrSXv31dqz2cSDV8K6e6BWI3Sqcq8OkiaLBfA
-	 qKp5I9Wsu1vnu0oq4HngbtbRjAOPFT7e6Aa+TnK3zBd2IT8xsP1pGiUr744M2vlC+Ag==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-MTK;
+	bh=y4VBjgyBbjFGLCdvl0IlbxVfATwmKKqoLTk9lvncuyw=;
+	b=KHhBPdSvK8XNuLV1BXrvKhEbqWNUDbvAjSGnXRNoQiBIHNqH7OaH9yG9UTGE6x8zYBE5
+	 MBdo6tprmGiJxdDGAlb2DcqdfMdX0poAHt3DU3Ysu3wI288WMogqFQpEXZJzGtv1Q+Hu0
+	 yJ7RBhAheoGpYoz2DZW3+QVlwF2VI3m86Fvw06CC9XtOSSloVANvCGTUPZSGFM/VZ1NRc
+	 27pAoxSPtRn+H/YgCWU7eKEkPoRjdyfkBceypFJwr5wjBSZvApY5IjZxRsHfQ7iFMZrtV
+	 4emqzbZywQ8ntdWUITurHqEf+Ue0enz/gG6udLik8/FETrbJFhd1k/l6LC2uhihGoSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mediatek.com;
 	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=oGIagmZp;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=h3AcHbHn;
 	arc=none smtp.remote-ip=210.61.82.184
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61864606A33D;
-	Sat, 28 Nov 2026 07:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61864606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EC8606A6B1;
+	Sat, 28 Nov 2026 07:48:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69EC8606A6B1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=oGIagmZp
-X-UUID: 0b58affeeb0011f1a7aecdb2598be72c-20261128
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=h3AcHbHn
+X-UUID: 0d5a538eeb0011f1a7aecdb2598be72c-20261128
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=GMQ68qrcxGljpEzTXEPXAyeeJ34+o65HoWR++UxXTBo=;
-	b=oGIagmZp6iw0fHVgyqJ883J3S7wNyGvBmWPw7icXg4n1pLZJQTIyruk3q3bXEpY4Wd82nDIDeO6To4S1ocmOiDY7K9cziPzpewD3/1CfWfObEJlWnJXpJ3Gr435MRgdzh4hZEbOXEtH4PzywMsiv0FPk9IQ+71uN8O9ovT9/9cQ=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=y4VBjgyBbjFGLCdvl0IlbxVfATwmKKqoLTk9lvncuyw=;
+	b=h3AcHbHnMG5hT6HT7QMYmtVlAs2bixD2L3/PNa+tNOdWCOIOXU+1V7YVSIEB0BkrpV07eTqvEEY9Nn0znLCX6dGxB4I5kgxKdJdnZfR+JKpeDtHFXUa+Rf7NddzvkftBzPbnZoe8unr5i1S25LdhZFO7pL+PrECDBZuqoIJF/ng=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:62d3795a-db06-4106-9d0b-b650d4a3d116,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:05cd2c1a-ae4c-4a2b-b1c4-72e411efd0c9,B
-	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
-	99,EDM:-3|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.21,REQID:8c7edb62-6509-44d7-b60e-d20c97072d80,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:b0318ac,CLOUDID:17cd2c1a-ae4c-4a2b-b1c4-72e411efd0c9,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
+	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
+	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0b58affeeb0011f1a7aecdb2598be72c-20261128
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw02.mediatek.com
+X-UUID: 0d5a538eeb0011f1a7aecdb2598be72c-20261128
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1646038111; Sat, 28 Nov 2026 15:48:04 +0800
+	with ESMTP id 1755572200; Sat, 28 Nov 2026 15:48:08 +0800
 Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sat, 28 Nov 2026 15:48:03 +0800
+ 15.2.2562.56; Sat, 28 Nov 2026 15:48:06 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 15:48:02 +0800
+ 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 15:48:05 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -82,10 +83,12 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-mediatek@lists.infradead.org>
 CC: Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v10 00/14] media: mediatek: vcodec: support video decoder in mt8196
-Date: Sat, 28 Nov 2026 15:47:46 +0800
-Message-ID: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
+Subject: [PATCH v10 02/14] media: mediatek: vcodec: add driver to support vcp
+Date: Sat, 28 Nov 2026 15:47:48 +0800
+Message-ID: <20261128074800.3108429-3-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
+References: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,176 +98,1037 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-MTK: N
 
-From: Kyrie Wu <kyrie.wu@mediatek.com>
+The processor is changed from scp to vcp in mt8196 platform.
+Adding new firmware interface to communicate kernel with vcp
+for the communication method is changed.
 
-This patch set adds support for the video decoder on the MediaTek MT8196
-platform, leveraging the VCP microprocessor for enhanced performance. It
-introduces new firmware interfaces for kernel-side communication with VCP,
-adds MT8196 compatible, codec levels/profiles, and private data. Rewrites
-the AV1 driver to support extended VSI structures, then change irq table
-and cdf table size.
-
-This patch set depends on the seven patches in "Add MediaTek VCP remoteproc
-driver support" [1], followed by Rob Herring's child-node binding correction
-[2]. Rob's patch is a separate prerequisite, not part of the 14 MTK patches.
-Patch 8 is rebuilt on top of that corrected binding. Its existing
-Acked-by from Nicolas Dufresne is retained.
-
-[1] https://patchwork.kernel.org/project/linux-mediatek/cover/20260427111446.22955-1-xiangzhi.tang@mediatek.com/
-[2] https://lore.kernel.org/20261019212431.4109371-1-robh@kernel.org/
-
-Historical testing reported in a previous submission (not rerun for v10):
-
-Compliance Test Result:
-- v4l2-compliance: 48/49 tests passed, 1 failed (known issue)
-- fail: v4l2-test-controls.cpp(981): ret (got 13)
--        test VIDIOC_G/S/TRY_EXT_CTRLS: FAIL
-
-Fluster Test Result:
-- H264:
-- Ran 95/135 tests successfully   in 73.540 secs
-- H265:
-- Ran 142/147 tests successfully  in 100.168 secs
-- VP9:
-- Ran 276/305 tests successfully  in 106.804 secs
-- AV1:
-- Ran 240/242 tests successfully  in 23.991 secs
-
-Changes in v10:
-- Rebased on mainline 4dce97c6c265544342e716e62fd24bbb232590c5 with
-  the seven-patch VCP dependency [1] and the separate Rob prerequisite [2].
-- Patch 2: allow the VCP firmware provider in the Kconfig dependencies and
-  enforce compatible built-in/module states with MTK_VCP_RPROC.
-- Patch 4: use the existing mtk_vcodec_fw_get_type() accessor rather than
-  dereferencing the private firmware structure in the decoder backends.
-- Patch 8: rebuild the MT8196 binding on Rob's child-schema correction,
-  keeping the MT8196 child compatible and four-clock requirements in
-  their proper scope. Retain MT8196's VCP requirement and reject SCP;
-  reject VCP only for the existing SCP-based MT8192/MT8186/MT8188/MT8195
-  compatibles. Add MT8196's LAT + Core architecture to the description.
-- Keep all 14 MTK patch boundaries, original authors and existing review
-  tags, including Nicolas Dufresne's Acked-by on patch 8.
-
-Changed in v9:
-- Rebased on mainline 23c62304dde29abe92013d85910d03a77dada35d with the
-  seven-patch VCP dependency [1] applied first.
-- Patch 2: release the VCP reference even if feature deregistration fails,
-  print the shared DMA address with %pad, and remove unused probe locals.
-- Patch 7: preserve the 16-byte legacy VPU/SCP INIT message while sending
-  the extended 24-byte INIT message, including shared_iova, to VCP.
-- Patch 8: constrain MT8196 decoder children to exactly four clocks and
-  update the binding subject and VCP/SCP description per review.
-- Patch 14: save the validated remote AV1 VSI length and use it for both
-  LAT and CORE outgoing copies.
-
-Changed in v8:
-- Rebased on Linux master at 3857c2f.
-- Update patch 8/14's subject and describe VCP as the coprocessor running
-  the video decoder firmware, per Rob Herring's review.
-
-Changed in v7:
-- Rebased on top of the latest media tree
-- Update the MT8196 decoder binding to require VCP, reject SCP, and validate
-  the four fixed hardware clock names on each decoder child node.
-
-Changed in v6:
-- Rebase to latest codebase
-- Change patch authors and Signed-off-by trailers to Kyrie Wu
-- Use safer firmware selection flow for decoder and encoder initialization
-- Add VCP IPI id validation and keep invalid messages from stopping the
-  message processing thread
-- Fix VCP ACK state handling, stale ACK handling, and interruptible ACK wait
-  retry handling
-- Stop the VCP message thread, unregister callbacks, and release the VCP
-  remoteproc reference during cleanup
-- Replace VCP readiness busy-wait polling with sleepable polling
-- Add VCP encoder capability callback
-- Fix MT2110R debug output string
-- Update the MT8196 decoder binding commit message according to review
-- Keep MT8196 compatible definition before patches that use it
-- Fill AV1 reference C plane buffer size
-
-Changed in v5:
-- Rebase to latest codebase
-- Move vcp init method to driver pdata structures
-- change decoder dt-bindings patch's commit message
-- MT8189 base on MT8196 patch set
-
-Changed in v4:
-- Rebase to latest codebase
-- Move dt-bindings and compatible to the after of vcp driver ready
-- MT8189 base on MT8196 patch set
-
-Changed in v3:
-- Depends on change no update
-- Add Compliance and Fluster test result
-- Re-write the commit message for patch 12
-- Change the patches according to review suggestion for patch: 3/4/5/6/14
-
-Changed in v2:
-- re-write the commit message for patch 1
-
-Kyrie Wu (14):
-  media: mediatek: vcodec: support vcp architecture
-  media: mediatek: vcodec: add driver to support vcp
-  media: mediatek: vcodec: add driver to support vcp encoder
-  media: mediatek: vcodec: get different firmware ipi id
-  media: mediatek: vcodec: get share memory address
-  media: mediatek: vcodec: add debug information
-  media: mediatek: vcodec: send share memory address to vcp
-  media: dt-bindings: mediatek,vcodec-subdev-decoder: Add MT8196
-  media: mediatek: vcodec: add decoder compatible to support mt8196
-  media: mediatek: vcodec: define MT8196 vcodec levels.
-  media: mediatek: vcodec: support 36bit iova address
-  media: mediatek: vcodec: clean xpc status
-  media: mediatek: decoder: fill av1 buffer size with picinfo
-  media: mediatek: decoder: support av1 extend vsi
-
- .../media/mediatek,vcodec-subdev-decoder.yaml |  57 +-
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+---
  .../media/platform/mediatek/vcodec/Kconfig    |   9 +-
  .../platform/mediatek/vcodec/common/Makefile  |   4 +
- .../mediatek/vcodec/common/mtk_vcodec_dbgfs.c |  21 +-
- .../mediatek/vcodec/common/mtk_vcodec_fw.c    |  33 +-
- .../mediatek/vcodec/common/mtk_vcodec_fw.h    |   8 +-
+ .../mediatek/vcodec/common/mtk_vcodec_fw.c    |  23 +-
+ .../mediatek/vcodec/common/mtk_vcodec_fw.h    |   6 +-
  .../vcodec/common/mtk_vcodec_fw_priv.h        |  12 +
  .../vcodec/common/mtk_vcodec_fw_scp.c         |   1 +
- .../vcodec/common/mtk_vcodec_fw_vcp.c         | 631 ++++++++++++++++++
- .../vcodec/common/mtk_vcodec_fw_vcp.h         | 166 +++++
+ .../vcodec/common/mtk_vcodec_fw_vcp.c         | 571 ++++++++++++++++++
+ .../vcodec/common/mtk_vcodec_fw_vcp.h         | 152 +++++
  .../vcodec/common/mtk_vcodec_fw_vpu.c         |   1 +
- .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  23 +-
- .../vcodec/decoder/mtk_vcodec_dec_drv.h       |   3 +
- .../vcodec/decoder/mtk_vcodec_dec_hw.c        |  31 +
- .../vcodec/decoder/mtk_vcodec_dec_hw.h        |  13 +-
- .../vcodec/decoder/mtk_vcodec_dec_stateless.c |   6 +
- .../vcodec/decoder/vdec/vdec_av1_req_lat_if.c | 126 +++-
- .../decoder/vdec/vdec_h264_req_multi_if.c     |  11 +-
- .../decoder/vdec/vdec_hevc_req_multi_if.c     |  12 +-
- .../vcodec/decoder/vdec/vdec_vp8_req_if.c     |   5 +-
- .../vcodec/decoder/vdec/vdec_vp9_req_lat_if.c |  27 +-
- .../mediatek/vcodec/decoder/vdec_ipi_msg.h    |   2 +
- .../mediatek/vcodec/decoder/vdec_vpu_if.c     |  19 +-
- .../mediatek/vcodec/encoder/mtk_vcodec_enc.c  |   1 -
- .../mediatek/vcodec/encoder/mtk_vcodec_enc.h  |   2 +
+ .../vcodec/decoder/mtk_vcodec_dec_drv.c       |   9 +-
+ .../vcodec/decoder/mtk_vcodec_dec_drv.h       |   2 +
  .../vcodec/encoder/mtk_vcodec_enc_drv.c       |   7 +-
  .../vcodec/encoder/mtk_vcodec_enc_drv.h       |   2 +
- 27 files changed, 1164 insertions(+), 69 deletions(-)
+ 13 files changed, 771 insertions(+), 28 deletions(-)
  create mode 100644 drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
  create mode 100644 drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h
 
-
-base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
-prerequisite-patch-id: 9f5a680ff9c58918d53c09c15d48e6ac33c643fc
-prerequisite-patch-id: af540a1d2093ff0b635f96f3257fbf768302925e
-prerequisite-patch-id: dee8633604fd7528e9ebcb9de25a3e42231f1f80
-prerequisite-patch-id: f464ff9a2860b4fc07c051961e26c10047a1731d
-prerequisite-patch-id: 1b9295ecd3895c60f6d5ab690f9c05987e1a551f
-prerequisite-patch-id: a4abfe16fb9cfd55e44707491259f72f50783a33
-prerequisite-patch-id: 472784c2603c63038b064dd36d867b9105a23eda
-prerequisite-patch-id: b9bb46522b73329d7f2d92a42fc028bc520c50f3
+diff --git a/drivers/media/platform/mediatek/vcodec/Kconfig b/drivers/media/platform/mediatek/vcodec/Kconfig
+index bc8292232..de9b83def 100644
+--- a/drivers/media/platform/mediatek/vcodec/Kconfig
++++ b/drivers/media/platform/mediatek/vcodec/Kconfig
+@@ -1,4 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
++config VIDEO_MEDIATEK_VCODEC_VCP
++	bool
++
+ config VIDEO_MEDIATEK_VCODEC_SCP
+ 	bool
+ 
+@@ -11,16 +14,18 @@ config VIDEO_MEDIATEK_VCODEC
+ 	depends on MTK_IOMMU || COMPILE_TEST
+ 	depends on VIDEO_DEV
+ 	depends on ARCH_MEDIATEK || COMPILE_TEST
+-	depends on VIDEO_MEDIATEK_VPU || MTK_SCP
+-	# The two following lines ensure we have the same state ("m" or "y") as
++	depends on VIDEO_MEDIATEK_VPU || MTK_SCP || MTK_VCP_RPROC
++	# The three following lines ensure we have the same state ("m" or "y") as
+ 	# our dependencies, to avoid missing symbols during link.
+ 	depends on VIDEO_MEDIATEK_VPU || !VIDEO_MEDIATEK_VPU
+ 	depends on MTK_SCP || !MTK_SCP
++	depends on MTK_VCP_RPROC || !MTK_VCP_RPROC
+ 	depends on MTK_SMI || (COMPILE_TEST && MTK_SMI=n)
+ 	select VIDEOBUF2_DMA_CONTIG
+ 	select V4L2_MEM2MEM_DEV
+ 	select VIDEO_MEDIATEK_VCODEC_VPU if VIDEO_MEDIATEK_VPU
+ 	select VIDEO_MEDIATEK_VCODEC_SCP if MTK_SCP
++	select VIDEO_MEDIATEK_VCODEC_VCP if MTK_VCP_RPROC
+ 	select V4L2_H264
+ 	select V4L2_VP9
+ 	select MEDIA_CONTROLLER
+diff --git a/drivers/media/platform/mediatek/vcodec/common/Makefile b/drivers/media/platform/mediatek/vcodec/common/Makefile
+index d0479914d..2f68692e8 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/Makefile
++++ b/drivers/media/platform/mediatek/vcodec/common/Makefile
+@@ -14,6 +14,10 @@ ifneq ($(CONFIG_VIDEO_MEDIATEK_VCODEC_SCP),)
+ mtk-vcodec-common-y += mtk_vcodec_fw_scp.o
+ endif
+ 
++ifneq ($(CONFIG_VIDEO_MEDIATEK_VCODEC_VCP),)
++mtk-vcodec-common-y += mtk_vcodec_fw_vcp.o
++endif
++
+ ifneq ($(CONFIG_DEBUG_FS),)
+ obj-$(CONFIG_VIDEO_MEDIATEK_VCODEC) += mtk-vcodec-dbgfs.o
+ 
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
+index 08949b08f..552d0d8a8 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
+@@ -4,25 +4,18 @@
+ #include "../encoder/mtk_vcodec_enc_drv.h"
+ #include "mtk_vcodec_fw_priv.h"
+ 
+-struct mtk_vcodec_fw *mtk_vcodec_fw_select(void *priv, enum mtk_vcodec_fw_type type,
+-					   enum mtk_vcodec_fw_use fw_use)
++struct mtk_vcodec_fw *mtk_vcodec_fw_select(void *priv, enum mtk_vcodec_fw_use fw_use,
++					   mtk_vcodec_fw_init_func fw_init)
+ {
+-	struct platform_device *plat_dev;
+-
+-	if (fw_use == ENCODER)
+-		plat_dev = ((struct mtk_vcodec_enc_dev *)priv)->plat_dev;
+-	else
+-		plat_dev = ((struct mtk_vcodec_dec_dev *)priv)->plat_dev;
++	if (!fw_init)
++		return ERR_PTR(-EINVAL);
+ 
+-	switch (type) {
+-	case VPU:
+-		return mtk_vcodec_fw_vpu_init(priv, fw_use);
+-	case SCP:
+-		return mtk_vcodec_fw_scp_init(priv, fw_use);
+-	default:
+-		dev_err(&plat_dev->dev, "Invalid vcodec fw type");
++	if (fw_use != ENCODER && fw_use != DECODER) {
++		pr_err("Invalid firmware use %d\n", fw_use);
+ 		return ERR_PTR(-EINVAL);
+ 	}
++
++	return fw_init(priv, fw_use);
+ }
+ EXPORT_SYMBOL_GPL(mtk_vcodec_fw_select);
+ 
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
+index c1642fb09..50d93d47b 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
+@@ -24,11 +24,13 @@ enum mtk_vcodec_fw_use {
+ 
+ struct mtk_vcodec_fw;
+ 
++typedef struct mtk_vcodec_fw *(*mtk_vcodec_fw_init_func)(void *priv,
++							 enum mtk_vcodec_fw_use fw_use);
+ typedef void (*mtk_vcodec_ipi_handler) (void *data,
+ 	unsigned int len, void *priv);
+ 
+-struct mtk_vcodec_fw *mtk_vcodec_fw_select(void *priv, enum mtk_vcodec_fw_type type,
+-					   enum mtk_vcodec_fw_use fw_use);
++struct mtk_vcodec_fw *mtk_vcodec_fw_select(void *priv, enum mtk_vcodec_fw_use fw_use,
++					   mtk_vcodec_fw_init_func fw_init);
+ void mtk_vcodec_fw_release(struct mtk_vcodec_fw *fw);
+ 
+ int mtk_vcodec_fw_load_firmware(struct mtk_vcodec_fw *fw);
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h
+index 99603accd..0a2a9b010 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h
+@@ -4,6 +4,7 @@
+ #define _MTK_VCODEC_FW_PRIV_H_
+ 
+ #include "mtk_vcodec_fw.h"
++#include "mtk_vcodec_fw_vcp.h"
+ 
+ struct mtk_vcodec_dec_dev;
+ struct mtk_vcodec_enc_dev;
+@@ -13,6 +14,7 @@ struct mtk_vcodec_fw {
+ 	const struct mtk_vcodec_fw_ops *ops;
+ 	struct platform_device *pdev;
+ 	struct mtk_scp *scp;
++	struct mtk_vcp *vcp;
+ 	enum mtk_vcodec_fw_use fw_use;
+ };
+ 
+@@ -49,4 +51,14 @@ mtk_vcodec_fw_scp_init(void *priv, enum mtk_vcodec_fw_use fw_use)
+ }
+ #endif /* CONFIG_VIDEO_MEDIATEK_VCODEC_SCP */
+ 
++#if IS_ENABLED(CONFIG_VIDEO_MEDIATEK_VCODEC_VCP)
++struct mtk_vcodec_fw *mtk_vcodec_fw_vcp_init(void *priv, enum mtk_vcodec_fw_use fw_use);
++#else
++static inline struct mtk_vcodec_fw *
++mtk_vcodec_fw_vcp_init(void *priv, enum mtk_vcodec_fw_use fw_use)
++{
++	return ERR_PTR(-ENODEV);
++}
++#endif /* CONFIG_VIDEO_MEDIATEK_VCODEC_VCP */
++
+ #endif /* _MTK_VCODEC_FW_PRIV_H_ */
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c
+index 0e7d832d4..73039adda 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c
+@@ -90,3 +90,4 @@ struct mtk_vcodec_fw *mtk_vcodec_fw_scp_init(void *priv, enum mtk_vcodec_fw_use
+ 
+ 	return fw;
+ }
++EXPORT_SYMBOL_GPL(mtk_vcodec_fw_scp_init);
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+new file mode 100644
+index 000000000..3b85ae0e6
+--- /dev/null
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+@@ -0,0 +1,571 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2025 MediaTek Inc.
++ * Author: Kyrie Wu <kyrie.wu@mediatek.com>
++ */
++
++#include <linux/delay.h>
++#include <linux/dma-direction.h>
++#include <linux/dma-mapping.h>
++#include <linux/iommu.h>
++#include <linux/remoteproc/mtk_vcp_public.h>
++#include <linux/firmware/mediatek/mtk-vcp-ipc.h>
++
++#include "../decoder/mtk_vcodec_dec_drv.h"
++#include "../decoder/vdec_ipi_msg.h"
++#include "mtk_vcodec_fw_priv.h"
++
++#define IPI_SEND_TIMEOUT_MS  100U
++#define IPI_TIMEOUT_MS       100U
++
++#define VCP_IPI_HEADER_SIZE (sizeof(u32) * 2)
++#define VCP_IPI_ALIGN (4)
++
++static bool mtk_vcodec_vcp_ipi_id_valid(unsigned int ipi_id)
++{
++	return ipi_id < VCP_IPI_MAX;
++}
++
++static void mtk_vcodec_vcp_ipi_lock(struct mtk_vcp *vcp, u32 ipi_id)
++{
++	mutex_lock(&vcp->ipi_desc[ipi_id].lock);
++}
++
++static void mtk_vcodec_vcp_ipi_unlock(struct mtk_vcp *vcp, u32 ipi_id)
++{
++	lockdep_assert_held(&vcp->ipi_desc[ipi_id].lock);
++	mutex_unlock(&vcp->ipi_desc[ipi_id].lock);
++}
++
++static void mtk_vcodec_vcp_msq_queue_lock(struct mtk_vcodec_fw *fw, unsigned long *flags)
++{
++	spin_lock_irqsave(&fw->vcp->msg_queue.lock, *flags);
++}
++
++static void mtk_vcodec_vcp_msq_queue_unlock(struct mtk_vcodec_fw *fw, unsigned long *flags)
++{
++	spin_unlock_irqrestore(&fw->vcp->msg_queue.lock, *flags);
++}
++
++static int mtk_vcodec_vcp_notifier(struct notifier_block *nb, unsigned long event, void *ptr)
++{
++	struct mtk_vcp *vcp = container_of(nb, struct mtk_vcp, vcp_notify);
++
++	switch (event) {
++	case VCP_EVENT_SUSPEND:
++	case VCP_EVENT_STOP:
++		dev_dbg(&vcp->pdev->dev, "vcp notifier suspend");
++		break;
++	case VCP_EVENT_READY:
++	case VCP_EVENT_RESUME:
++		dev_dbg(&vcp->pdev->dev, "vcp notifier ready");
++		break;
++	}
++
++	return NOTIFY_DONE;
++}
++
++static void mtk_vcodec_vcp_free_msg_node(struct mtk_vcodec_fw *fw,
++					 struct mtk_vcp_msg_node *msg_node)
++{
++	unsigned long flags;
++
++	mtk_vcodec_vcp_msq_queue_lock(fw, &flags);
++	list_add(&msg_node->list, &fw->vcp->msg_queue.node_list);
++	mtk_vcodec_vcp_msq_queue_unlock(fw, &flags);
++}
++
++static int mtk_vcodec_vcp_ipi_register(struct mtk_vcp *vcp, u32 ipi_id, vcp_ipi_handler_t handler,
++				       void *priv)
++{
++	if (!vcp)
++		return -EPROBE_DEFER;
++
++	if (WARN_ON(!mtk_vcodec_vcp_ipi_id_valid(ipi_id)) || WARN_ON(!handler))
++		return -EINVAL;
++
++	mtk_vcodec_vcp_ipi_lock(vcp, ipi_id);
++	vcp->ipi_desc[ipi_id].handler = handler;
++	vcp->ipi_desc[ipi_id].priv = priv;
++	mtk_vcodec_vcp_ipi_unlock(vcp, ipi_id);
++
++	return 0;
++}
++
++static int mtk_vcodec_vcp_msg_process_thread(void *arg)
++{
++	struct mtk_vcodec_fw *fw = arg;
++	struct vdec_vpu_ipi_ack *msg = NULL;
++	struct mtk_vcp_share_obj *obj;
++	struct mtk_vcp_msg_node *msg_node;
++	vcp_ipi_handler_t handler;
++	unsigned long flags;
++	int ret = 0;
++
++	do {
++		ret = wait_event_interruptible(fw->vcp->msg_queue.wq,
++					       atomic_read(&fw->vcp->msg_queue.cnt) > 0 ||
++					       kthread_should_stop());
++		if (ret < 0) {
++			dev_err(&fw->pdev->dev, "wait msg queue ack timeout %d %d\n",
++				ret, atomic_read(&fw->vcp->msg_queue.cnt));
++			continue;
++		}
++		if (kthread_should_stop())
++			break;
++
++		mtk_vcodec_vcp_msq_queue_lock(fw, &flags);
++		msg_node = list_entry(fw->vcp->msg_queue.msg_list.next,
++				      struct mtk_vcp_msg_node, list);
++		list_del(&msg_node->list);
++		atomic_dec(&fw->vcp->msg_queue.cnt);
++		mtk_vcodec_vcp_msq_queue_unlock(fw, &flags);
++
++		obj = &msg_node->ipi_data;
++		msg = (struct vdec_vpu_ipi_ack *)obj->share_buf;
++
++		if (!msg->ap_inst_addr) {
++			dev_err(&fw->pdev->dev, "invalid message address\n");
++			mtk_vcodec_vcp_free_msg_node(fw, msg_node);
++			continue;
++		}
++
++		dev_dbg(&fw->pdev->dev, "msg ack id %d len %d msg_id 0x%x\n", obj->id, obj->len,
++			msg->msg_id);
++
++		if (!mtk_vcodec_vcp_ipi_id_valid(obj->id)) {
++			dev_err(&fw->pdev->dev, "invalid ack ipi id %u\n", obj->id);
++			mtk_vcodec_vcp_free_msg_node(fw, msg_node);
++			continue;
++		}
++
++		mtk_vcodec_vcp_ipi_lock(fw->vcp, obj->id);
++		handler = fw->vcp->ipi_desc[obj->id].handler;
++		if (!handler) {
++			dev_err(&fw->pdev->dev, "invalid ack ipi handler id = %d\n", obj->id);
++			mtk_vcodec_vcp_ipi_unlock(fw->vcp, obj->id);
++			mtk_vcodec_vcp_free_msg_node(fw, msg_node);
++			continue;
++		}
++
++		handler(msg, obj->len, fw->vcp->ipi_desc[obj->id].priv);
++		mtk_vcodec_vcp_ipi_unlock(fw->vcp, obj->id);
++
++		fw->vcp->msg_signaled[obj->id] = true;
++		wake_up(&fw->vcp->msg_wq[obj->id]);
++
++		mtk_vcodec_vcp_free_msg_node(fw, msg_node);
++	} while (!kthread_should_stop());
++
++	return ret;
++}
++
++static int mtk_vcodec_vcp_msg_ack_isr(unsigned int id, void *prdata, void *data, unsigned int len)
++{
++	struct mtk_vcodec_fw *fw = prdata;
++	struct mtk_vcp_msg_queue *msg_queue = &fw->vcp->msg_queue;
++	struct mtk_vcp_msg_node *msg_node;
++	struct vdec_vpu_ipi_ack *msg = NULL;
++	struct mtk_vcp_share_obj *obj = data;
++	unsigned long flags;
++
++	msg = (struct vdec_vpu_ipi_ack *)obj->share_buf;
++
++	if (!mtk_vcodec_vcp_ipi_id_valid(obj->id)) {
++		dev_err(&fw->pdev->dev, "invalid ack ipi id %u\n", obj->id);
++		return -EINVAL;
++	}
++
++	mtk_vcodec_vcp_msq_queue_lock(fw, &flags);
++	if (!list_empty(&msg_queue->node_list)) {
++		msg_node = list_entry(msg_queue->node_list.next, struct mtk_vcp_msg_node, list);
++
++		memcpy(&msg_node->ipi_data, obj, sizeof(*obj));
++		list_move_tail(&msg_node->list, &msg_queue->msg_list);
++		atomic_inc(&msg_queue->cnt);
++		mtk_vcodec_vcp_msq_queue_unlock(fw, &flags);
++
++		dev_dbg(&fw->pdev->dev, "push ipi_id %x msg_id %x, msg cnt %d\n",
++			obj->id, msg->msg_id, atomic_read(&msg_queue->cnt));
++
++		wake_up(&msg_queue->wq);
++	} else {
++		mtk_vcodec_vcp_msq_queue_unlock(fw, &flags);
++		dev_err(&fw->pdev->dev, "no free nodes in msg queue\n");
++	}
++
++	return 0;
++}
++
++static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vcodec_fw *fw, int id, void *buf,
++				       unsigned int len, unsigned int wait)
++{
++	struct mtk_vcp *vcp = fw->vcp;
++	struct mtk_vcp_device *vcp_device = vcp->vcp_device;
++	bool *msg_signaled;
++	wait_queue_head_t *msg_wq;
++	int ret, ipi_size, feature_id, mailbox_id, retry_cnt = 0;
++	unsigned long timeout_jiffies = 0;
++	struct mtk_vcp_share_obj obj = {0};
++	unsigned int *data;
++
++	if (id < 0 || !mtk_vcodec_vcp_ipi_id_valid(id)) {
++		dev_err(&fw->pdev->dev, "invalid ipi id %d\n", id);
++		return -EINVAL;
++	}
++
++	msg_signaled = &vcp->msg_signaled[id];
++	msg_wq = &vcp->msg_wq[id];
++
++	if (!vcp_device) {
++		dev_dbg(&fw->pdev->dev, "vcp device is null\n");
++		return -EINVAL;
++	}
++
++	mutex_lock(&vcp->ipi_mutex);
++	feature_id = VDEC_FEATURE_ID;
++	mailbox_id = IPI_OUT_VDEC_1;
++
++	timeout_jiffies = jiffies + msecs_to_jiffies(VCP_SYNC_TIMEOUT_MS);
++	while (!vcp_device->ops->vcp_is_ready(vcp_device, feature_id)) {
++		if (time_after(jiffies, timeout_jiffies)) {
++			vcp->ipi_id_ack[id] = -EINVAL;
++			ret = -EINVAL;
++			goto error;
++		}
++		usleep_range(1000, 2000);
++	}
++
++	if (len > VCP_SHARE_BUF_SIZE) {
++		vcp->ipi_id_ack[id] = -EINVAL;
++		ret = -EINVAL;
++		goto error;
++	}
++
++	obj.id = id;
++	obj.len = len;
++	memcpy(obj.share_buf, buf, len);
++
++	ipi_size = round_up(VCP_IPI_HEADER_SIZE + len, VCP_IPI_ALIGN);
++	data = (unsigned int *)obj.share_buf;
++	dev_dbg(&fw->pdev->dev, "vcp send message: id %d len %d data 0x%x\n",
++		obj.id, obj.len, data[0]);
++
++	*msg_signaled = false;
++	vcp->ipi_id_ack[id] = VCODEC_IPI_MSG_STATUS_OK;
++
++	ret = mtk_vcp_ipc_send(vcp_get_ipidev(vcp_device), mailbox_id, &obj, ipi_size);
++	if (ret != IPI_ACTION_DONE) {
++		vcp->ipi_id_ack[id] = -EIO;
++		ret = -EIO;
++		goto error;
++	}
++
++wait_ack:
++	/* wait for VCP's ACK */
++	ret = wait_event_interruptible_timeout(*msg_wq, *msg_signaled,
++					       msecs_to_jiffies(IPI_TIMEOUT_MS));
++	if (!ret) {
++		vcp->ipi_id_ack[id] = VCODEC_IPI_MSG_STATUS_FAIL;
++		dev_err(&fw->pdev->dev, "wait ipi ack timeout! %d %d\n", ret, vcp->ipi_id_ack[id]);
++	} else if (ret == -ERESTARTSYS) {
++		if (retry_cnt++ < 5)
++			goto wait_ack;
++
++		dev_err(&fw->pdev->dev, "wait ipi ack err (%d)\n", vcp->ipi_id_ack[id]);
++		vcp->ipi_id_ack[id] = VCODEC_IPI_MSG_STATUS_FAIL;
++	} else if (ret < 0) {
++		dev_err(&fw->pdev->dev, "wait ipi ack fail ret %d %d\n", ret, vcp->ipi_id_ack[id]);
++		vcp->ipi_id_ack[id] = VCODEC_IPI_MSG_STATUS_FAIL;
++	}
++
++	dev_dbg(&fw->pdev->dev, "receive message: id %d len %d data 0x%x\n",
++		obj.id, obj.len, data[0]);
++
++	mutex_unlock(&vcp->ipi_mutex);
++
++	return vcp->ipi_id_ack[id];
++
++error:
++	mutex_unlock(&vcp->ipi_mutex);
++	dev_err(&fw->pdev->dev, "send msg error type:%d msg:%d > %d ret:%d\n", fw->type, len,
++		VCP_SHARE_BUF_SIZE, ret);
++
++	return ret;
++}
++
++static bool mtk_vcodec_vcp_driver_loaded(struct mtk_vcodec_fw *fw)
++{
++	struct device *dev = &fw->pdev->dev;
++	struct device_driver *drv;
++
++	drv = driver_find("mtk-vcp", &platform_bus_type);
++	if (!drv) {
++		dev_dbg(dev, "find mtk-vcp driver failed, need to reload.");
++		return false;
++	}
++
++	return true;
++}
++
++static int mtk_vcodec_vcp_get_vcp_device(struct mtk_vcodec_fw *fw)
++{
++	struct device *dev = &fw->pdev->dev;
++	int retry = 0, retry_cnt = 10000;
++	phandle vcp_phandle;
++
++	while (!try_then_request_module(mtk_vcodec_vcp_driver_loaded(fw), "mtk-vcp")) {
++		if (++retry > retry_cnt) {
++			dev_err(dev, "failed to load mtk-vcp module");
++			return -EPROBE_DEFER;
++		}
++		usleep_range(1000, 2000);
++	}
++
++	if (of_property_read_u32(dev->of_node, "mediatek,vcp", &vcp_phandle)) {
++		dev_err(dev, "can't get vcp handle.\n");
++		return -ENODEV;
++	}
++
++	fw->vcp->vcp_device = mtk_vcp_get_by_phandle(vcp_phandle);
++	if (!fw->vcp->vcp_device) {
++		dev_err(dev, "get vcp device failed\n");
++		return -ENODEV;
++	}
++
++	return 0;
++}
++
++static void mtk_vcodec_vcp_put_device(struct mtk_vcodec_fw *fw)
++{
++	if (!fw->vcp->vcp_device)
++		return;
++
++	rproc_put(fw->vcp->vcp_device->rproc);
++	fw->vcp->vcp_device = NULL;
++}
++
++static int mtk_vcodec_vcp_load_firmware(struct mtk_vcodec_fw *fw)
++{
++	struct mtk_vcp_device *vcp_device;
++	int ret, feature_id, mem_id, mailbox_id, ipi_id;
++	int i;
++
++	if (fw->vcp->is_init_done) {
++		dev_dbg(&fw->pdev->dev, "vcp has already been initialized done.\n");
++		return 0;
++	}
++
++	if (mtk_vcodec_vcp_get_vcp_device(fw) < 0) {
++		dev_err(&fw->pdev->dev, "vcp device is null.\n");
++		return -EINVAL;
++	}
++
++	vcp_device = fw->vcp->vcp_device;
++
++	feature_id = VDEC_FEATURE_ID;
++	mem_id = VDEC_MEM_ID;
++	mailbox_id = IPI_IN_VDEC_1;
++	ipi_id = VCP_IPI_LAT_DECODER;
++
++	ret = mtk_vcp_mbox_ipc_register(vcp_get_ipidev(vcp_device), mailbox_id,
++					mtk_vcodec_vcp_msg_ack_isr, fw, &fw->vcp->share_data);
++	if (ret) {
++		dev_dbg(&fw->pdev->dev, "ipi register fail %d %d %d %d\n", ret, feature_id,
++			mem_id, mailbox_id);
++		ret = -EINVAL;
++		goto err_put_device;
++	}
++	fw->vcp->feature_id = feature_id;
++	fw->vcp->mailbox_id = mailbox_id;
++	fw->vcp->is_ipi_registered = true;
++
++	fw->vcp->vcp_notify.notifier_call = mtk_vcodec_vcp_notifier;
++	fw->vcp->vcp_notify.priority = 1;
++	vcp_device->ops->register_notify(vcp_device, feature_id, &fw->vcp->vcp_notify);
++	fw->vcp->is_notify_registered = true;
++
++	if (!fw->vcp->is_register_done) {
++		ret = vcp_device->ops->register_feature(vcp_device, feature_id);
++		if (ret < 0) {
++			dev_err(&fw->pdev->dev, "%d register to vcp fail(%d)\n", feature_id, ret);
++			ret = -EINVAL;
++			goto err_unregister_notify;
++		}
++
++		fw->vcp->is_register_done = true;
++	}
++
++	fw->vcp->is_init_done = true;
++
++	for (i = 0; i < VCP_IPI_MAX; i++)
++		mutex_init(&fw->vcp->ipi_desc[i].lock);
++	mutex_init(&fw->vcp->ipi_mutex);
++
++	init_waitqueue_head(&fw->vcp->msg_wq[VCP_IPI_LAT_DECODER]);
++	init_waitqueue_head(&fw->vcp->msg_wq[VCP_IPI_CORE_DECODER]);
++	fw->vcp->msg_thread =
++		kthread_run(mtk_vcodec_vcp_msg_process_thread, fw, "vcp_vdec_msq_thread");
++	if (IS_ERR(fw->vcp->msg_thread)) {
++		ret = PTR_ERR(fw->vcp->msg_thread);
++		fw->vcp->msg_thread = NULL;
++		goto err_deregister_feature;
++	}
++
++	fw->vcp->vsi_addr = vcp_device->ops->get_mem_virt(vcp_device, mem_id);
++	fw->vcp->vsi_core_addr = fw->vcp->vsi_addr + VCODEC_VSI_LEN;
++	fw->vcp->vsi_size = vcp_device->ops->get_mem_size(vcp_device, mem_id);
++	fw->vcp->iova_addr = vcp_device->ops->get_mem_iova(vcp_device, mem_id);
++
++	dev_dbg(&fw->pdev->dev, "vdec vcp init done => va: %p size:0x%x iova:%pad.\n",
++		fw->vcp->vsi_addr, fw->vcp->vsi_size, &fw->vcp->iova_addr);
++
++	return 0;
++
++err_deregister_feature:
++	if (fw->vcp->is_register_done) {
++		vcp_device->ops->deregister_feature(vcp_device, feature_id);
++		fw->vcp->is_register_done = false;
++	}
++err_unregister_notify:
++	if (fw->vcp->is_notify_registered) {
++		vcp_device->ops->unregister_notify(vcp_device, feature_id,
++						       &fw->vcp->vcp_notify);
++		fw->vcp->is_notify_registered = false;
++	}
++	if (fw->vcp->is_ipi_registered) {
++		mtk_vcp_mbox_ipc_unregister(vcp_get_ipidev(vcp_device), mailbox_id);
++		fw->vcp->is_ipi_registered = false;
++	}
++	fw->vcp->is_init_done = false;
++
++err_put_device:
++	mtk_vcodec_vcp_put_device(fw);
++	return ret;
++}
++
++static unsigned int mtk_vcodec_vcp_get_vdec_capa(struct mtk_vcodec_fw *fw)
++{
++	return MTK_VDEC_FORMAT_MM21 | MTK_VDEC_FORMAT_H264_SLICE | MTK_VDEC_FORMAT_VP9_FRAME |
++	       MTK_VDEC_FORMAT_AV1_FRAME | MTK_VDEC_FORMAT_HEVC_FRAME |
++	       MTK_VDEC_IS_SUPPORT_10BIT | MTK_VDEC_IS_SUPPORT_EXT;
++}
++
++static void *mtk_vcodec_vcp_dm_addr(struct mtk_vcodec_fw *fw, u32 dtcm_dmem_addr)
++{
++	return NULL;
++}
++
++static int mtk_vcodec_vcp_set_ipi_register(struct mtk_vcodec_fw *fw, int id,
++					   mtk_vcodec_ipi_handler handler,
++					   const char *name, void *priv)
++{
++	return mtk_vcodec_vcp_ipi_register(fw->vcp, id, handler, priv);
++}
++
++static int mtk_vcodec_vcp_ipi_send(struct mtk_vcodec_fw *fw, int id, void *buf,
++				   unsigned int len, unsigned int wait)
++{
++	return mtk_vcodec_vcp_msg_ipi_send(fw, id, buf, len, wait);
++}
++
++static void mtk_vcodec_vcp_release(struct mtk_vcodec_fw *fw)
++{
++	struct mtk_vcp_device *vcp_device = fw->vcp->vcp_device;
++	struct device *dev = &fw->pdev->dev;
++	int ret;
++
++	if (!fw->vcp->vcp_device) {
++		dev_err(dev, "vcp device is null\n");
++		return;
++	}
++
++	if (fw->vcp->is_ipi_registered) {
++		mtk_vcp_mbox_ipc_unregister(vcp_get_ipidev(vcp_device), fw->vcp->mailbox_id);
++		fw->vcp->is_ipi_registered = false;
++	}
++
++	if (fw->vcp->msg_thread) {
++		kthread_stop(fw->vcp->msg_thread);
++		fw->vcp->msg_thread = NULL;
++	}
++
++	if (fw->vcp->is_notify_registered) {
++		vcp_device->ops->unregister_notify(vcp_device, fw->vcp->feature_id,
++						       &fw->vcp->vcp_notify);
++		fw->vcp->is_notify_registered = false;
++	}
++
++	if (!fw->vcp->is_register_done) {
++		fw->vcp->is_init_done = false;
++		goto put_device;
++	}
++
++	ret = vcp_device->ops->deregister_feature(vcp_device, fw->vcp->feature_id);
++	if (ret < 0) {
++		dev_err(dev, "deregister feature_id(%d) fail(%d)\n", fw->vcp->feature_id, ret);
++	} else {
++		fw->vcp->is_register_done = false;
++	}
++
++	fw->vcp->is_init_done = false;
++
++put_device:
++	mtk_vcodec_vcp_put_device(fw);
++}
++
++static const struct mtk_vcodec_fw_ops mtk_vcodec_vcp_msg = {
++	.load_firmware = mtk_vcodec_vcp_load_firmware,
++	.get_vdec_capa = mtk_vcodec_vcp_get_vdec_capa,
++	.map_dm_addr = mtk_vcodec_vcp_dm_addr,
++	.ipi_register = mtk_vcodec_vcp_set_ipi_register,
++	.ipi_send = mtk_vcodec_vcp_ipi_send,
++	.release = mtk_vcodec_vcp_release,
++};
++
++struct mtk_vcodec_fw *mtk_vcodec_fw_vcp_init(void *priv, enum mtk_vcodec_fw_use fw_use)
++{
++	struct mtk_vcp_msg_node *msg_node;
++	struct platform_device *plat_dev;
++	struct mtk_vcodec_fw *fw;
++	int i;
++
++	if (fw_use == DECODER) {
++		struct mtk_vcodec_dec_dev *dec_dev = priv;
++
++		plat_dev = dec_dev->plat_dev;
++	} else {
++		pr_err("Invalid fw_use %d (use a reasonable fw id here)\n", fw_use);
++		return ERR_PTR(-EINVAL);
++	}
++
++	fw = devm_kzalloc(&plat_dev->dev, sizeof(*fw), GFP_KERNEL);
++	if (!fw)
++		return ERR_PTR(-ENOMEM);
++
++	fw->type = VCP;
++	fw->pdev = plat_dev;
++	fw->fw_use = fw_use;
++	fw->ops = &mtk_vcodec_vcp_msg;
++	fw->vcp = devm_kzalloc(&plat_dev->dev, sizeof(*fw->vcp), GFP_KERNEL);
++	if (!fw->vcp)
++		return ERR_PTR(-ENOMEM);
++
++	INIT_LIST_HEAD(&fw->vcp->msg_queue.msg_list);
++	INIT_LIST_HEAD(&fw->vcp->msg_queue.node_list);
++	spin_lock_init(&fw->vcp->msg_queue.lock);
++	init_waitqueue_head(&fw->vcp->msg_queue.wq);
++	atomic_set(&fw->vcp->msg_queue.cnt, 0);
++	fw->vcp->pdev = plat_dev;
++
++	for (i = 0; i < VCP_MAX_MQ_NODE_CNT; i++) {
++		msg_node = devm_kzalloc(&plat_dev->dev, sizeof(*msg_node), GFP_KERNEL);
++		if (!msg_node)
++			return ERR_PTR(-ENOMEM);
++
++		list_add(&msg_node->list, &fw->vcp->msg_queue.node_list);
++	}
++
++	return fw;
++}
++EXPORT_SYMBOL_GPL(mtk_vcodec_fw_vcp_init);
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h
+new file mode 100644
+index 000000000..83742096e
+--- /dev/null
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h
+@@ -0,0 +1,152 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2025 MediaTek Inc.
++ * Author: Kyrie Wu <kyrie.wu@mediatek.com>
++ */
++
++#ifndef _MTK_VCODEC_FW_VCP_H_
++#define _MTK_VCODEC_FW_VCP_H_
++
++typedef void (*vcp_ipi_handler_t) (void *data, unsigned int len, void *priv);
++
++#define VCP_MAX_MQ_NODE_CNT  6
++#define VCP_SHARE_BUF_SIZE 64
++
++#define VCODEC_VSI_LEN (0x2000)
++
++/* enum mtk_vcp_ipi_index - index used to separate different hardware */
++enum mtk_vcp_ipi_index {
++	VCP_IPI_LAT_DECODER,
++	VCP_IPI_CORE_DECODER,
++	VCP_IPI_MAX,
++};
++
++/**
++ * struct mtk_vcp_msg_queue - process the vcp message between kernel with vcp
++ *
++ * @msg_list:  store share buffer list which from vcp to kernel
++ * @wq:        waitqueue that can be used to wait for vcp message
++ * @lock:      protect msg list
++ * @cnt:       the count of share obj in msg list
++ * @node_list: share obj list
++ */
++struct mtk_vcp_msg_queue {
++	struct list_head msg_list;
++	wait_queue_head_t wq;
++	/* protect msg_list and node_list */
++	spinlock_t lock;
++	atomic_t cnt;
++	struct list_head node_list;
++};
++
++/**
++ * struct mtk_vcp_ipi_desc - store the ack handler
++ *
++ * @lock:    protect ack handler data
++ * @handler: calling this handler when kernel receive ack
++ * @priv:    private data when calling handler to process
++ */
++struct mtk_vcp_ipi_desc {
++	/* protect handler and priv */
++	struct mutex lock;
++	vcp_ipi_handler_t handler;
++	void *priv;
++};
++
++/**
++ * struct mtk_vcp_share_obj - share buffer used to send data to vcp
++ *
++ * @id:        message index
++ * @len:       message size
++ * @share_buf: message data
++ */
++struct mtk_vcp_share_obj {
++	unsigned int id;
++	unsigned int len;
++	unsigned char share_buf[VCP_SHARE_BUF_SIZE];
++};
++
++/* enum mtk_vcp_ipi_msg_status - the status when send message to vcp */
++enum mtk_vcp_ipi_msg_status {
++	VCODEC_IPI_MSG_STATUS_OK         = 0,
++	VCODEC_IPI_MSG_STATUS_FAIL       = -1,
++	VCODEC_IPI_MSG_STATUS_MAX_INST   = -2,
++	VCODEC_IPI_MSG_STATUS_ILSEQ      = -3,
++	VCODEC_IPI_MSG_STATUS_INVALID_ID = -4,
++	VCODEC_IPI_MSG_STATUS_DMA_FAIL   = -5,
++};
++
++/**
++ * struct mtk_vcp_msg_node - share buffer used to send data to vcp
++ *
++ * @ipi_data: share obj data
++ * @list:     list to store msg node
++ */
++struct mtk_vcp_msg_node {
++	struct mtk_vcp_share_obj ipi_data;
++	struct list_head list;
++};
++
++/**
++ * struct mtk_vcp - vcp firmware private data
++ *
++ * @is_init_done:  vcp is ready to use
++ *
++ * @ipi_mutex:     used to protect ipi data
++ * @msg_signaled:  whether receive ack from vcp
++ * @msg_wq:        wake message queue
++ *
++ * @ipi_desc:      store ack handler
++ * @ipi_id_ack:    the ack handler status
++ *
++ * @msg_queue:     process vcp message
++ * @share_data:    temp share obj data
++ *
++ * @vcp_notify:    register notifier to vcp
++ * @msg_thread:    process VCP message queue
++ *
++ * @vsi_addr:      vsi virtual data address
++ * @vsi_core_addr: vsi core virtual data address
++ * @iova_addr:     vsi iova address
++ * @vsi_size:      vsi size
++ *
++ * @pdev:          platform device
++ * @vcp_device:    vcp private data
++ * @feature_id:     registered VCP feature id
++ * @mailbox_id:     registered VCP mailbox id
++ * @is_register_done: feature registration state
++ * @is_ipi_registered: mailbox IPC registration state
++ * @is_notify_registered: notifier registration state
++ */
++struct mtk_vcp {
++	bool is_init_done;
++
++	/* serialize ipi message send/receive */
++	struct mutex ipi_mutex;
++	bool msg_signaled[VCP_IPI_MAX];
++	wait_queue_head_t msg_wq[VCP_IPI_MAX];
++
++	struct mtk_vcp_ipi_desc ipi_desc[VCP_IPI_MAX];
++	int ipi_id_ack[VCP_IPI_MAX];
++
++	struct mtk_vcp_msg_queue msg_queue;
++	struct mtk_vcp_share_obj share_data;
++
++	struct notifier_block vcp_notify;
++	struct task_struct *msg_thread;
++
++	void *vsi_addr;
++	void *vsi_core_addr;
++	dma_addr_t iova_addr;
++	int vsi_size;
++
++	struct platform_device *pdev;
++	struct mtk_vcp_device *vcp_device;
++	int feature_id;
++	int mailbox_id;
++	bool is_register_done;
++	bool is_ipi_registered;
++	bool is_notify_registered;
++};
++
++#endif
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vpu.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vpu.c
+index 281dba2ed..c0ce9f7dc 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vpu.c
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vpu.c
+@@ -130,3 +130,4 @@ struct mtk_vcodec_fw *mtk_vcodec_fw_vpu_init(void *priv, enum mtk_vcodec_fw_use
+ 
+ 	return fw;
+ }
++EXPORT_SYMBOL_GPL(mtk_vcodec_fw_vpu_init);
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index da051e8cb..d4b3f5283 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -356,7 +356,6 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 	struct mtk_vcodec_dec_dev *dev;
+ 	struct video_device *vfd_dec;
+ 	phandle rproc_phandle;
+-	enum mtk_vcodec_fw_type fw_type;
+ 	int i, ret;
+ 
+ 	dev = devm_kzalloc_obj(&pdev->dev, *dev);
+@@ -375,20 +374,20 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 	dev->vdec_pdata = of_device_get_match_data(&pdev->dev);
+ 	if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vpu",
+ 				  &rproc_phandle)) {
+-		fw_type = VPU;
++		dev->fw_init = mtk_vcodec_fw_vpu_init;
+ 	} else if (!of_property_read_u32(pdev->dev.of_node, "mediatek,scp",
+ 					 &rproc_phandle)) {
+-		fw_type = SCP;
++		dev->fw_init = mtk_vcodec_fw_scp_init;
+ 	} else if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vcp",
+ 					 &rproc_phandle)) {
+-		fw_type = VCP;
++		dev->fw_init = mtk_vcodec_fw_vcp_init;
+ 	} else {
+ 		dev_dbg(&pdev->dev, "Could not get vdec IPI device");
+ 		return -ENODEV;
+ 	}
+ 	dma_set_max_seg_size(&pdev->dev, UINT_MAX);
+ 
+-	dev->fw_handler = mtk_vcodec_fw_select(dev, fw_type, DECODER);
++	dev->fw_handler = mtk_vcodec_fw_select(dev, DECODER, dev->fw_init);
+ 	if (IS_ERR(dev->fw_handler))
+ 		return PTR_ERR(dev->fw_handler);
+ 
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+index c9d27534c..15e437323 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+@@ -251,6 +251,7 @@ struct mtk_vcodec_dec_ctx {
+  * @vdecsys_regmap: VDEC_SYS register space passed through syscon
+  *
+  * @fw_handler: used to communicate with the firmware.
++ * @fw_init: firmware-specific init callback selected at probe time
+  * @id_counter: used to identify current opened instance
+  *
+  * @dec_mutex: decoder hardware lock
+@@ -292,6 +293,7 @@ struct mtk_vcodec_dec_dev {
+ 	struct regmap *vdecsys_regmap;
+ 
+ 	struct mtk_vcodec_fw *fw_handler;
++	struct mtk_vcodec_fw *(*fw_init)(void *priv, enum mtk_vcodec_fw_use fw_use);
+ 	u64 id_counter;
+ 
+ 	/* decoder hardware mutex lock */
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+index 3b8bb1f21..02c3b3a93 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+@@ -246,7 +246,6 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 	struct mtk_vcodec_enc_dev *dev;
+ 	struct video_device *vfd_enc;
+ 	phandle rproc_phandle;
+-	enum mtk_vcodec_fw_type fw_type;
+ 	int ret;
+ 
+ 	dev = devm_kzalloc_obj(&pdev->dev, *dev);
+@@ -258,17 +257,17 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 
+ 	if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vpu",
+ 				  &rproc_phandle)) {
+-		fw_type = VPU;
++		dev->fw_init = mtk_vcodec_fw_vpu_init;
+ 	} else if (!of_property_read_u32(pdev->dev.of_node, "mediatek,scp",
+ 					 &rproc_phandle)) {
+-		fw_type = SCP;
++		dev->fw_init = mtk_vcodec_fw_scp_init;
+ 	} else {
+ 		dev_err(&pdev->dev, "[MTK VCODEC] Could not get venc IPI device");
+ 		return -ENODEV;
+ 	}
+ 	dma_set_max_seg_size(&pdev->dev, UINT_MAX);
+ 
+-	dev->fw_handler = mtk_vcodec_fw_select(dev, fw_type, ENCODER);
++	dev->fw_handler = mtk_vcodec_fw_select(dev, ENCODER, dev->fw_init);
+ 	if (IS_ERR(dev->fw_handler))
+ 		return PTR_ERR(dev->fw_handler);
+ 
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
+index 0cddfa135..934ff6481 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
+@@ -174,6 +174,7 @@ struct mtk_vcodec_enc_ctx {
+  * @venc_pdata: encoder IC-specific data
+  *
+  * @fw_handler: used to communicate with the firmware.
++ * @fw_init: firmware-specific init callback selected at probe time
+  * @id_counter: used to identify current opened instance
+  *
+  * @enc_mutex: encoder hardware lock.
+@@ -201,6 +202,7 @@ struct mtk_vcodec_enc_dev {
+ 	const struct mtk_vcodec_enc_pdata *venc_pdata;
+ 
+ 	struct mtk_vcodec_fw *fw_handler;
++	struct mtk_vcodec_fw *(*fw_init)(void *priv, enum mtk_vcodec_fw_use fw_use);
+ 	u64 id_counter;
+ 
+ 	/* encoder hardware mutex lock */
 -- 
 2.51.0.windows.2
 
