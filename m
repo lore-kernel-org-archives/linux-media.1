@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
 	t=1795854622;
-	b=I7essGrDbkBRkBL+95y6qdPPolqf7wTDJLBqexE5hlJVzsmp3HdOLivfD7t9kYOHvp6h
-	 w0uvBq2jkRQyIv0Tf1rrbke/ZatMZtD7ttPf0F9Dn/iRMBNXhuSHtAoqDLfR73hhQ7YSd
-	 hurKN5FonP44BKJqGqMEO+7SwtCrMh36wiez5yyHQWz+wKsrLLV56mxejEZGxcUrrCMjc
-	 gVi99YPF4nK3ItDDgMrOX1EyZ4B61W+XNpKaSIFfN/Vv79JZpJ5CzVXGwbLTL5DXyCoil
-	 wn8XGp0L/JwPpJ97Ce+QNpyX/EGUL3Qby6Uyi7iBwBrOAGsdY2ZzNcD+MRSzsC5DIBQ==
+	b=Qb7EEwhRQDGTgRwWn9VEpT80yEL2Is7D4hXCu0y/62+2d8RnanC3VWJYdOgtce2POpRK
+	 7jApdZE4nZaFEMxPh67HzlTA+/r6I7XiW8fIkgkGGyBA3WkPLkLL74uWdUNgdujU3BmMT
+	 BaS0DvogY/GY1ghnnFkU2tfy6yiCY2y7l9e/UVgWV4P+0RupS2miuY7I7gUl45B4oAy16
+	 cNCDEKjnfoQNwdifArDf8n3plbjoukUdK8WvMl6VuHHTTUI7EyvizpjsG7C+oobxqyydA
+	 DQ7tq4hRQb7pj/p6qQoP/TaZGruaeLbBT0n1KuSsMmILMpfBln9aagoZB63Zh9PjRHg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795854622;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=R2eFuVKMuKx/HT5/2aCPbO7MjOp+iQ1ERiIlQILhiRQ=;
-	b=LCZzKlVpZ7IJKg8juLxIOyA0vtXJDVJAujzkOafHym1k+o2ZJKCfLSSyiuMIqgQzNaA/
-	 bE9bOcy5bZPhrOWW9Vz8P9lg7CKJPKYRt7ndO2oU0REKH3k8+YXdOn1qKZInt9gUJTK8W
-	 Cy1kfpxn8qSbb1ngbZjnrgoFOJFb6zjj9POShlUIqHyYt9HteJCHT1WrFvGQlPo6mQltA
-	 ux7xMHmGdaH0WFY0+2Y/sW9rrm62+LmrubsVvUQzeqZIoHWrWg2hl1VHxQyegFDTbvRKz
-	 DkpwHM1CY8tEb02QdXFaSBqlWU77XgjdEpm4DLYid4YA+irCSp+FlQjDZ4LeacIhNGg==
+	bh=6Xs2Yaw3Rv/sna20eduxHz1FO7cB7nwgMOoC4joObOI=;
+	b=arjPCtQu/JNt2DC6q1KJ4CBNHXEES2gCXGivUD+K/8v3kmBGuktuwwK7KE7NbMiCGb5K
+	 SIWV72+1zq/zdd6g1eXZIlXOj/NH7xZZD2qsDCTGeLR8rTHrtzO2ve/g5aLGUXPeTO3wN
+	 jeWl4au1rw+92rveM6/LBfQW2pKmfIBTWI7gXdR4j/dROAR3xSzJrVJZRwiqEh5zxKAhq
+	 qVEK4V3oKyhiOB5uKVtVL3QOqqxZKkiuo9OGHraU3SNoX9QkZ3rwV0ihvegoVc5KakFeb
+	 c8V6jE87d1wmODp81egtlca5qlB8Y8bUj3mghkZ883LVgR9lCcz8r392Vk3bGgIOAng==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SuhvrpyW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBWT1xak;
 	arc=fail smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52637606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5261B606A31F;
 	Sat, 28 Nov 2026 08:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SuhvrpyW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBWT1xak
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795854621;
-	b=yGD1cac/w6hBae7Dc9oQR0fwLCwlNFcClPTOdfKnV4NGi+KTVMWrz3aQ+f9PfF7JcrCD
-	 BkUkzH87erqlWS5+YUARGMsHtYVGWY2jdLDsvzxbeoR8NqxaQAqnag5XuQdkL62Cy29/q
-	 s65yK2K83PRJVcrx4pM5Xb2BKsEWdd4IDsIgrg7RflqqoLaWyxxtIE2/lh9bdbWitTAXl
-	 pIiOXO1nbRzC1CTXhCd6dkHbqmb+OKpwf6/MwTv5xYK72mstHkEE47GU+aEgJw5qTGL01
-	 /uuAn61RngRdcAonosQchczMDbAfpJs3wBlAkRjMzuFE9jx/zccKFywYGi8DYLJ1aHA==
+	b=G+l8prINuteL4xFEhTNVuMCmLxVdmDqvfBbi+F2g+2FCZ76eZiAToEB+kRu0zJthClQk
+	 Kb7/95gFTGfzNl2n4/wQUClHLIFqXmF+wEQU/pq3gUnb1vyG9Lavsh4B1leG9VIrBWHM0
+	 NeeMZS1MIJ+znHD+VA6/qocwoDgY0VbRR2n7SmbhCWAHrjWO3dZPq78mshVMU85LhoKPF
+	 JD5JX1HjP0Ox3lcpmwq+pM0tYFmZN+0knYNb99oY008xk21X28DdGjTr1f/kPPDIyG3ad
+	 W0wX//LE5DB+M3rROidNN4KG5WecWvVqZQwDUfLU889LOmh+vQSNyW9wjlgYEr32PTA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795854621;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=R2eFuVKMuKx/HT5/2aCPbO7MjOp+iQ1ERiIlQILhiRQ=;
-	b=O+tT53Ghj+fTfurnHZXpQ9ZnCj4iLhvvvpcjfFvg/ylc3/a1YvMhFfpSydddAq5HqGLz
-	 UcpMUuuTT4ZZPBl3DrC3NUl5yq8MgRiZh+5LgJx7gguX/eQB3o+9GJ0ZaFkXMbK+qLcJN
-	 HGel5QyZsoM8bMu4OGvSiG4EXF9cX81+tgZb9h6vKlyOS/Z9jgZarHQCA7cAbKJeVMDJf
-	 0EDAaKZowYOrXleJV0gZ3SxgaPLVqQSRCAL71HuSXwhDvR2DI/Anj1g1jOIfiz6LRqVcy
-	 +GEwJ8KTcGo6RzWyU7qnxMvi11ldDQHIWvquDd/lZSW4iSvqzxNdZ/Qz2YZoP67toBA==
+	bh=6Xs2Yaw3Rv/sna20eduxHz1FO7cB7nwgMOoC4joObOI=;
+	b=RbW+8LY/owqkAktKfAQLxFi2JGswsdZ7bUXsFqOhSUHefQPHFyhUz1c5QTR/tEQR03fY
+	 79tIenPCxPQlqdLvrP3KCw1GZePhz9W/Qxdpw5ri1TLYuyWzYZU7MSs1FIy55TZplkZuM
+	 vcKdmDcCuIi9u8zndFenECVKntHWtMEqP+ezUM6QD8R5kSnAMyDHKL7dzLwrRI5e7SdSF
+	 ZemJ8/3LsX1cMYaGXy4ih1RE2Smlrh8IDABT2e3MWzcRT9xQsgwJ0iTvUWFTqXS+AqsqB
+	 B3wG5ZJSEyv6/IF7//hCt7CaIGpa3ZH8xBulnpxvhhAS5HkAdKSW6qj1uoWCQ8yiGOw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 134D01F0089A;
-	Sat, 28 Nov 2026 08:30:09 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id C34521F00899;
+	Sat, 28 Nov 2026 08:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795854621;
-	bh=R2eFuVKMuKx/HT5/2aCPbO7MjOp+iQ1ERiIlQILhiRQ=;
+	bh=6Xs2Yaw3Rv/sna20eduxHz1FO7cB7nwgMOoC4joObOI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SuhvrpyWvW9we7JcIUNK8BjGD2ZyoMuYwY3K5l3dqfVIKncWBCo8EnSbHrsMeMPqG
-	 Juou09bfzCJ3eYg7sUoJ49CwyG3+VsgygWgyIMJFV/QWmQGxabCOLaqv10Tj+4lXlA
-	 It2xRruoI0O6T8zshWPu5B4J1Z2Cf/dcI6NGfdsJpnMZGviEZU21PNJpnhipoWzbK1
-	 4ow9EPE1pKBYVZZTie8Y969x8upxTlH02i94AuogY1ufziiW4xav795wqkhzNTaX1s
-	 IfOfvcnvu214OePIzNeMN/Yjo9f7vK61bmILuo/a+aBgYVrsEyWhYC+w0PMjsbqSeX
-	 0lOaq7BmXUAPA==
+	b=WBWT1xakvp6TOabNVPUBleITFt/5LBvZu14WC5pWgKmjbIewH6FB6kTlScPkLbmjT
+	 2OQpSTc8TNO3EGer/zljti1/511kAg8Xhs9Hn/2Izv+uwVyY1eRNq2n0/lQrYUm1VS
+	 pCU0ruVbACQ6Oe0kgIiXNY97uddBcCaY033Lw3wbB91SOlYr2lCu5Q5gR56bwlCeHz
+	 PyqKxeX7lIkDEREqxt333cDOIARP8IV0ebuoczk3zD1LW95eyvCrvQNNbpOm1SoyvH
+	 NxUjnSgjlcsGCKLqTAIYOEezYg49JVshEHylQiGkqqzEd0CbmKh2RNxQG9LVjmit9z
+	 ReoG2GZNiUqjQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9413B4E04A;
+	by lkml.kernel.org (Postfix) with ESMTP id 4F95E4E042;
 	Sat, 28 Nov 2026 08:30:08 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sat, 28 Nov 2026 08:30:10 +0000
-Subject: [PATCH v6 4/4] arm64: dts: rockchip: Add IEP2 deinterlacer to
- RK3588
+Date: Sat, 28 Nov 2026 08:30:08 +0000
+Subject: [PATCH v6 2/4] iommu/rockchip: Add rockchip_iommu_restore()
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261128-iep2-v6-4-5f4f10a0dbeb@gmail.com>
+Message-Id: <20261128-iep2-v6-2-5f4f10a0dbeb@gmail.com>
 References: <20261128-iep2-v6-0-5f4f10a0dbeb@gmail.com>
 In-Reply-To: <20261128-iep2-v6-0-5f4f10a0dbeb@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -99,11 +98,11 @@ Cc: linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org,
  Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Alex Bee <knaerzche@gmail.com>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795854607; l=1631;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795854607; l=2899;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=pLFuCmNVRbb5CYDpQgDI0o9UDTdkG7B7CO7SPDGMaZU=;
- b=DjEC58q6wp80xCKxtbYHGEqqSMvv8+VI1JCLLwNVjznFZD2Do6rjtj0aFp76OH2ADcxrfQR1W
- 4rLY1lGdrqEBgDL7e7+lFt5ZcLJ2Hx4AY6YrN9DFwrnIxbhIjiaINS6
+ bh=eh3M8wWr/iZXtAkts9MsMMEhyAO/8EyRUsXN3kJyTV8=;
+ b=+ixln+dh2caPsEfMR8HKdbF8MchW7FqW9HpLyoYmqiHwcWzYBvIYfVo++dOmwrYJvXB28DyWn
+ SBUMp/AZSblAwXdn4gUu1/Lc/8dzpyEe6nfzsuQm9rOYeZyVChi/7d8
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -114,47 +113,99 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
-share GIC SPI 117 and sit in the VDPU power domain.
+Some masters reset their IOMMU along with themselves. The RK3588 IEP2
+does: after its soft reset, paging is off and its DMA is untranslated.
 
+Add a helper to reprogram the IOMMU of such a master, so that its
+driver need not attach and detach an empty domain to do it. rkvdec
+does the same with rkvdec_iommu_restore().
+
+Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/iommu/rockchip-iommu.c        | 38 +++++++++++++++++++++++++++++++++++
+ include/soc/rockchip/rockchip_iommu.h | 17 ++++++++++++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..5297519bd251 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
- 		#iommu-cells = <0>;
- 	};
+diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
+index 21af2f621c76..e16d47d5e689 100644
+--- a/drivers/iommu/rockchip-iommu.c
++++ b/drivers/iommu/rockchip-iommu.c
+@@ -27,6 +27,8 @@
+ #include <linux/spinlock.h>
+ #include <linux/string_choices.h>
  
-+	iep: deinterlace@fdbb0000 {
-+		compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
-+		reg = <0x0 0xfdbb0000 0x0 0x500>;
-+		interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>, <&cru CLK_IEP2P0_CORE>;
-+		clock-names = "aclk", "hclk", "sclk";
-+		resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>, <&cru SRST_IEP2P0_CORE>;
-+		reset-names = "axi", "ahb", "core";
-+		power-domains = <&power RK3588_PD_VDPU>;
-+		iommus = <&iep_mmu>;
-+	};
++#include <soc/rockchip/rockchip_iommu.h>
 +
-+	iep_mmu: iommu@fdbb0800 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbb0800 0x0 0x100>;
-+		interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VDPU>;
-+		#iommu-cells = <0>;
-+	};
+ #include "iommu-pages.h"
+ 
+ /** MMU register offsets */
+@@ -1349,6 +1351,42 @@ static int __maybe_unused rk_iommu_resume(struct device *dev)
+ 	return rk_iommu_enable(iommu);
+ }
+ 
++/**
++ * rockchip_iommu_restore() - Reprogram the IOMMU of a master after its reset
++ * @dev: master device, runtime active, with no DMA in flight
++ *
++ * Some masters reset their IOMMU with themselves, which turns paging off.
++ * This bypasses the IOMMU group mutex: the caller must own the IOMMU
++ * exclusively and call this right after its own reset.
++ *
++ * Context: may sleep.
++ *
++ * Return: 0 on success or a negative error code.
++ */
++int rockchip_iommu_restore(struct device *dev)
++{
++	struct rk_iommu *iommu;
++	int ret;
 +
- 	vdec0: video-codec@fdc38000 {
- 		compatible = "rockchip,rk3588-vdec";
- 		reg = <0x0 0xfdc38000 0x0 0x100>,
++	if (!device_iommu_mapped(dev) ||
++	    dev->iommu->iommu_dev->ops != &rk_iommu_ops)
++		return 0;
++
++	iommu = rk_iommu_from_dev(dev);
++	if (!iommu || iommu->domain == &rk_identity_domain)
++		return 0;
++
++	ret = pm_runtime_get_if_in_use(iommu->dev);
++	if (ret <= 0)
++		return ret;
++
++	ret = rk_iommu_enable(iommu);
++	pm_runtime_put(iommu->dev);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(rockchip_iommu_restore);
++
+ static const struct dev_pm_ops rk_iommu_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(rk_iommu_suspend, rk_iommu_resume, NULL)
+ 	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+diff --git a/include/soc/rockchip/rockchip_iommu.h b/include/soc/rockchip/rockchip_iommu.h
+new file mode 100644
+index 000000000000..79fdd898a0fc
+--- /dev/null
++++ b/include/soc/rockchip/rockchip_iommu.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef __SOC_ROCKCHIP_IOMMU_H__
++#define __SOC_ROCKCHIP_IOMMU_H__
++
++struct device;
++
++#ifdef CONFIG_ROCKCHIP_IOMMU
++int rockchip_iommu_restore(struct device *dev);
++#else
++static inline int rockchip_iommu_restore(struct device *dev)
++{
++	return 0;
++}
++#endif
++
++#endif /* __SOC_ROCKCHIP_IOMMU_H__ */
 
 -- 
 2.55.0
