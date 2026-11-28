@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795829080;
-	b=MpsWr4mG9dhxV/c8ajLaiDdvdy3QtGa4rQfPBPRe7ucDPMGJcQnqQdF+TIdHY8bjMwn+
-	 yt6BhPln0hP528iRjxaCeFflDRfr+NAVPXY6F+oZfrG2MnGOJndV7lmFqcOI8tHXGYMTs
-	 n4YzCG1gauMT6KUV5cFnZFlv0htkdqmjM7CQPScg2DmZ1w1INYRTWVLAxoXFWgG7JuiCu
-	 xRkGTE6SKSdMjYPUrBOSsYrdhwMoIbhcm5kxzTjiDCaSniMKfzdEQz6Oegeur6vbmeP80
-	 DRH9Fzc0uwFDAmgDhhVNwHO0J8pkqs6bUKFogEqYVEF+oNlSGRdV3JXTm+U4b/vlrDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795829080;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hXkDVuAr9qA224/tgLfxZAkp54fhq25Xt/MuC3ZvONk=;
-	b=YS//UPdfqS0GO9JBec7HADhfxfdew6fJqIvDH0IE35MGtvN8WKKnNOw2qz5KK59CwJVe
-	 MOlDts3/6c6j66ypf73ZbuPxDuz33TgNJa+UsM9ZifCJQYTAQNtp53XE3EsM3rmWk8bco
-	 6zQRnQ1B9OMUS0ia8HUEzhvQNOTmo25cEi0XaEFN/mHGxKo2qUEEGoKxBWezO2ABK1GVH
-	 9nftsmiv+qIkPuVVMUwEzOGCJhVyd9jOpBPmJLiMID70zQfPCPtCLyDeqaUek9n3OxLlm
-	 dSozQ8JwzReZEQNoBiAiN4YC72kXqAbx3Qn0+/JP91/maEKhxUtXqmyUVIzoRvidmyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ld1gFwTL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83189606A31C;
-	Sat, 28 Nov 2026 01:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795833406;
+	b=EK9wSnQQpbPZamc4uXZtFOmuyzg+Hwg3muV5mMUb60MUfjM8T7K0dOgaIinQYMai84WS
+	 0Fqd9dFhg2zd9b7yxU28uU1O4M7QWOcSYM7ADXxdW6BC8pJrfXB7i2d8Cs5ez7kd+yLjr
+	 lXKQLRnVhEMUnHGEQ1arCKfPfChn3WKFey79EPVUoF8WJCu6NScW1w+XJIi3C/hc863UW
+	 /TDQByEAlTqhrZI94padDluKQlbQaU4ilhCqiSH4SYK0NV0F0OJxzl/ODmt8C6umEWY+B
+	 ZZlz8V/lyr0REUNNiRWDQMtlYObXxmKgU1C5Vv13Ap44c1tWfMnWtskuUKHl0jMzYJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795833406;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=MTrl40wuvNgA7pyYqP5WH0Tjsk6yd2f8SAlFn28+DFY=;
+	b=a65RcX9nO3uPGUvZboiKcfdw3FE5YbZ9mDYUiHC2kNpM2iFiNC7EBbNJwb+dMtBTdmDL
+	 wtwYqlAUfwSHRl6AmMDrt5i+urRkYUJ00LBJh9TIhXpQ8nd7xEKNYbnC5zI8zDiSEozDj
+	 vJIisIyOYY5MFqvA7VSKkUXTF7jukj1f/Gx3/WYaOWQFrh4O5jf2/KxqmmKZoB0oald/6
+	 wXmBCHnze7Q8ZPMWJfOeIf6N0I71klJPzCmP9zAldYbqntOBd0XXUjk05iqkVthl1OIvv
+	 Tl8cKA/NihdSvd9Y70xMi5EVsRfum3ps+PIptwMFZ95mpXQRQQjcbxga9IiiViy5PoA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FTzmWO+p;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCE0E606A31C;
+	Sat, 28 Nov 2026 02:36:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE0E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ld1gFwTL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795829080;
-	b=qPVUF+LC05Xe4XkAbOhGzjBeBf/XtVIHukzt4Xw7v9EyEWYj19mAL99lJ4HM7qj1Fuht
-	 3HdjX+jbXrU1AuuDQqagyInsycvtdizAD8lpWQvq54WoIkbEEVdxWmpJxIOxEYk2d7v+g
-	 KFYcbdCg0UrtgSYhTuFPWKLWWyPj7ZfXWiGUVdaaeSaisogo5cd6+CObr72s6tghPpN8+
-	 M81zDIRbaJloWotnvdSuBrcQwlaR8cUjil12fSQXmzubI/zjkojQLcEov7NACNuQxjc8f
-	 znWVfiGX+nB0/S+DOuJ5mJO2zZlydYOOD0x6UskEXcrkl7rjg7lkKlxW5MdFu4uXYtg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795829080;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hXkDVuAr9qA224/tgLfxZAkp54fhq25Xt/MuC3ZvONk=;
-	b=j4Agak9L2F5nfvYCgRhrg8k+qFlSUsev1AGS6UtMYFU5DpRSLIyZBzP8YtiZZJjCxHOi
-	 AJfx2496YNoOtrzIkZSyzb8tXkEbopwP9Wlkmc5gb9XU30RNTTC4mlCOOP4nvRO2eX61I
-	 IfN6l8/3MTxo0alf0SmUBF8T8L6fjMwwGPi6HOI2nkqI5+/jS6eSRmI6qm2B7M2PCVab5
-	 +YN4HKOYE2Az+MNhMu5Jlx0sSSmRiunMb2wqMF30ejpvT5MOgdVICzBPk5FLQqmxgr4X+
-	 qjBNxs/cdNicsLDTNQW49cqrQWgsOfOErVCr+coXAMExh9/SuhDBxSvUIkn+mvuoI1g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B79031F000C1;
-	Sat, 28 Nov 2026 01:24:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795829080;
-	bh=hXkDVuAr9qA224/tgLfxZAkp54fhq25Xt/MuC3ZvONk=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Ld1gFwTLygpNhJGL/S4tCL5j8T6dKiSU85IUiXCSHHGt478lD6ZH4fyW5FqtO9/XR
-	 eeu//WkyWnRNCEmarWiKSZbbuTmkWfaBdLc6gZM3wp5Vx84grblRcMKQ2zuM5jWdtH
-	 5ybcfK5dqdfF+GExbKJjcXiZumFhrMxOi27kEM2aCwciwptwWqh4/agb2abpETp3tu
-	 SbjOfYjzC6YXqUDCi8LyA/P6a1nKxeuSaX7vj5btei5rXsDZ4DOzfAIruqAmKQu24x
-	 aO2xIXvQA2NcB+PRzwlXmxkWeLovTU3/k432XnnaXZ3kdJQc8RIFMGjiohW23GBCEa
-	 34ZT5u1JXqwLg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 345D74DEF4;
-	Sat, 28 Nov 2026 01:24:39 +0000 (UTC)
-From: Silvio Unkovic via B4 Relay <devnull+silvio.unkovic.pm.me@kernel.org>
-Date: Sat, 28 Nov 2026 02:24:29 +0100
-Subject: [PATCH] media: gspca: ov534: Relabel the 137 fps QVGA mode as 143
- fps
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FTzmWO+p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=MTrl40wuvNgA7pyYqP5WH0Tjsk6yd2f8SA
+	lFn28+DFY=; b=FTzmWO+pB+EIJ75xxyhoB19Sn7CzWdd80Xpd55uT1L2YjJqDL8
+	bwCYSvOfZRHnrOpx+vtJDASGokqqqdm6WAaPRRP6bpZ4n6s2C9Soo03MXIc6V5TV
+	1L7rmMZXeuMs9eVtv70Iw2iu27dsScZWMlydvzhbzgjDXM6hmnB+cjEDQ=
+Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.233])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBH1EgsPgprzkoFAQ--.3888S2;
+	Sat, 28 Nov 2026 10:36:29 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Stefan Schmidt <stefan.schmidt@linaro.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] media: iris: fill in a default colorspace for decoded formats
+Date: Sat, 28 Nov 2026 10:36:28 +0800
+Message-ID: <20261128023628.24408-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,103 +67,134 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261128-pseye-ov534-v1-1-a71e4661d994@pm.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyML3YLi1MpU3fwyU2MTXYNEs5SURGPzxERLYyWgjoKi1LTMCrBp0bE
- QfnFpUlZqcgnICKXaWgBGSfMvbwAAAA==
-X-Change-ID: 20261128-pseye-ov534-0a6dda37aa93
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Silvio Unkovic <silvio.unkovic@pm.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795829078; l=3137;
- i=silvio.unkovic@pm.me; s=20261128; h=from:subject:message-id;
- bh=8fULFlrKgnlUMHAfhORSxpngQfJXvNB/Ft2M6SHjW8A=;
- b=o4SsLptTWwuz1h/BEDYhy/x32HByRpK63H8pC0OsR9Gs21cPx1UEFR5pIwZyfQ77zSSkqPVSW
- apN0Zshs4RgB2by3nGhTwEWS4K0EDPff/LsqJfZeMDKrz1IsZaI6ufr
-X-Developer-Key: i=silvio.unkovic@pm.me; a=ed25519;
- pk=EnRsDjntfFouyIMyaboNgoB+wQ65iMW873YmPIjPiII=
-X-Endpoint-Received: by B4 Relay for silvio.unkovic@pm.me/20261128 with
- auth_id=1673
-X-Original-From: Silvio Unkovic <silvio.unkovic@pm.me>
-Reply-To: silvio.unkovic@pm.me
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBH1EgsPgprzkoFAQ--.3888S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3JrW5XF1UCrWDJrW3CFyfJFb_yoW7AFyrpr
+	1Fkrs8AF4UJr17AwsrJw40q3ZavayFgrya9rZrGrWUCFs8u3WfWr4vkF13uayUJrnxZ34Y
+	vF1jyrZ8Can8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kI
+	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
+	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
+	67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
+	IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
+	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggA9sI
 
-From: Silvio Unkovic <silvio.unkovic@pm.me>
+v4l2-compliance fails the format ioctls on the decoder because the capture
+and output colour fields are left at V4L2_COLORSPACE_DEFAULT:
 
-The OV772x QVGA rate table has an entry labelled 137 fps using the
-register values r11=0x02, r0d=0xc1, re5=0x02.  On a PlayStation Eye
-(1415:2000) this setting delivers about 143 fps: 143.27 fps measured
-shortly after plugging in, drifting down to about 141.3 fps as the
-camera warms up.  All other entries in both tables deliver their
-labelled rate to within 0.1% and do not drift.
+  fail: v4l2-test-formats.cpp(414): !colorspace
+  fail: v4l2-test-formats.cpp(537): testColorspace(...)
 
-No combination of the three registers used by the table gives 137 fps,
-so relabel the entry with the rate it really produces.  The images in
-this mode are valid.
+A decoder cannot know the stream's colours before it parses a frame, but
+the format still has to round-trip a valid, self-consistent set.  Default
+to BT.709 limited range and keep the value when the client passes
+V4L2_COLORSPACE_DEFAULT back on S_FMT/TRY_FMT, so G_FMT -> S_FMT stays
+idempotent.  The description parsed from the bitstream is still reported
+through the source-change path once it is known.
 
-Note that set_frame_rate() selects the highest entry not above the
-requested rate, so a request for exactly 137 fps now selects 125 fps
-instead of this mode.
+Tested on a Snapdragon 8 Elite (SM8750) tablet with vpu35 firmware:
+v4l2-compliance -d /dev/video17 loses the eight format/colour failures
+and decoding is unchanged (H.264 and HEVC both decode with framemd5
+identical to the software decoder).
 
-Assisted-by: Claude:claude-fable-5-2
-Signed-off-by: Silvio Unkovic <silvio.unkovic@pm.me>
+v3 only rewrites this commit message: the diff below is byte-for-byte the
+v2 diff, so the code was neither rebased nor retested for v3.
+
+Two of the three patches are withdrawn.
+
+1/3, "media: iris: report a platform bus_info prefix", duplicates a fix
+that is already in mainline:
+
+commit 1facae9bc3c1 ("media: iris: Fix bus_info prefix in VIDIOC_QUERYCAP")
+
+That is Vishnu Reddy's, from 2026-09-29, and it already carries its own
+Fixes tag and a stable Cc.  My tree predates it, which is why I still saw
+the failure; sorry for the noise, please drop 1/3.  Bryan asked for a
+Fixes tag and a stable Cc on that patch - there is nothing left to tag
+there now that the fix is upstream, so the Fixes tag below is for 2/3.
+
+3/3, "media: iris: seed the crop rectangle when only CAPTURE is
+formatted", does not apply to mainline anymore: in v7.4-rc3
+iris_vdec_s_fmt() seeds inst->crop from the user format in both switch
+branches (iris_vdec.c:271-274 and :309-312), so a CAPTURE-only S_FMT no
+longer leaves a 0x0 crop.  Dropped.
+
+The *_DEFAULT initialisers themselves predate this series: they came in
+with the reqbuf ioctl commit that created iris_vdec.c, which is the Link
+tag below.  The ioctl path that stores and returns them untouched is the
+s_fmt/g_fmt/try_fmt commit, which is the Fixes tag.
+
+AI assistance was used to prepare this change; I reviewed every line, and
+all measurements above are mine.
+
+Fixes: b530b95de22c ("media: iris: implement s_fmt, g_fmt and try_fmt ioctls")
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=38fc8beaba55
+Cc: stable@vger.kernel.org
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
-Tested on a PlayStation Eye (1415:2000, bcdDevice 2.00, sensor OV772x)
-on 7.3.4 with ov534 rebuilt with this patch.  Rates were measured with
-"v4l2-ctl --stream-mmap" in YUYV:
 
-  label  measured        label  measured
-  187    187.34          75     74.93
-  150    149.87          60     59.95
-  137    143.27..141.3   50     49.96
-  125    124.89          37     37.47
-  100    99.91           30     29.97
+ drivers/media/platform/qcom/iris/iris_vdec.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
-With the patch VIDIOC_ENUM_FRAMEINTERVALS lists 143 instead of 137 and
-the other modes are unchanged.  This mode uses the same r0d/re5 pair as
-the commented-out 205 fps entry, and it is the only one whose rate
-drifts, so its clock may not be locked; I have not confirmed that.
-Dropping the entry instead would also be fine with me.
-
-Tool use: an AI coding assistant (Claude Code) did the measurements and
-the analysis of the rate table, wrote the patch and drafted this
-changelog, working on my machine with the camera attached.  I loaded
-the modules, and reviewed the change and the results.
----
- drivers/media/usb/gspca/ov534.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/ov534.c b/drivers/media/usb/gspca/ov534.c
-index bdff64a29..5b7bd1922 100644
---- a/drivers/media/usb/gspca/ov534.c
-+++ b/drivers/media/usb/gspca/ov534.c
-@@ -116,7 +116,7 @@ static const struct v4l2_pix_format ov767x_mode[] = {
- 		.colorspace = V4L2_COLORSPACE_JPEG},
- };
+diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+index 0dd33ff447bb..2238ef1a2794 100644
+--- a/drivers/media/platform/qcom/iris/iris_vdec.c
++++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+@@ -37,6 +37,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	f->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
+ 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_INPUT);
+ 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 	inst->buffers[BUF_INPUT].min_count = iris_vpu_buf_count(inst, BUF_INPUT);
+ 	inst->buffers[BUF_INPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
  
--static const u8 qvga_rates[] = {187, 150, 137, 125, 100, 75, 60, 50, 37, 30};
-+static const u8 qvga_rates[] = {187, 150, 143, 125, 100, 75, 60, 50, 37, 30};
- static const u8 vga_rates[] = {60, 50, 40, 30, 15};
+@@ -49,10 +53,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	f->fmt.pix_mp.plane_fmt[0].bytesperline = ALIGN(DEFAULT_WIDTH, 128);
+ 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
+ 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
+-	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_DEFAULT;
+-	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_DEFAULT;
+-	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
+-	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_DEFAULT;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 	inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
+ 	inst->buffers[BUF_OUTPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
+ 	inst->frame_rate = MAXIMUM_FPS;
+@@ -207,6 +211,19 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 	if (pixmp->field == V4L2_FIELD_ANY)
+ 		pixmp->field = V4L2_FIELD_NONE;
  
- static const struct framerates ov772x_framerates[] = {
-@@ -828,7 +828,7 @@ static void set_frame_rate(struct gspca_dev *gspca_dev)
- /*		{205, 0x01, 0xc1, 0x02},  * 205 FPS: video is partly corrupt */
- 		{187, 0x01, 0x81, 0x02}, /* 187 FPS or below: video is valid */
- 		{150, 0x01, 0xc1, 0x04},
--		{137, 0x02, 0xc1, 0x02},
-+		{143, 0x02, 0xc1, 0x02}, /* measured 141-143 FPS, not crystal-stable */
- 		{125, 0x02, 0x81, 0x02},
- 		{100, 0x02, 0xc1, 0x04},
- 		{75, 0x03, 0xc1, 0x04},
++	/*
++	 * A decoder cannot know the colour description of the stream before it
++	 * has parsed a frame, but the format has to be self-consistent and
++	 * must round-trip: keep the defaults when the client passes
++	 * V4L2_COLORSPACE_DEFAULT back instead of clearing them.
++	 */
++	if (pixmp->colorspace == V4L2_COLORSPACE_DEFAULT) {
++		pixmp->colorspace = V4L2_COLORSPACE_REC709;
++		pixmp->xfer_func = V4L2_XFER_FUNC_709;
++		pixmp->ycbcr_enc = V4L2_YCBCR_ENC_709;
++		pixmp->quantization = V4L2_QUANTIZATION_LIM_RANGE;
++	}
++
+ 	pixmp->num_planes = 1;
+ 
+ 	return 0;
 
----
-base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
-change-id: 20261128-pseye-ov534-0a6dda37aa93
-
-Best regards,
---  
-Silvio Unkovic <silvio.unkovic@pm.me>
-
+-- 
+2.53.0
 
