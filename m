@@ -1,68 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795859431;
-	b=116qeVDZiO9ydaoaR4Lk3kA+Y4i/A4VOrDyMXtBDKJTDy93uHfECX/XVo5w12PyH5qV0
-	 mmwgrEdN2FywktS0Saff0P4B62tNE/r9bwxWyOUuw5l3I9sC7kaz0kI7N5Uxgh9I6kSs/
-	 mOciVEI61Z89KvAO15K1r0/OwgUCCC1sctd7z0BGi5ZVFnWVZYPmhSjSEPtx2ZrlVqnGc
-	 +xr/g72DjmvFa7aaenK3cW1Am7qWOI93jiCOY9myXB8N+HDehRU3ukLzpsqQdfuq7CYTn
-	 Ayb2es0iIpKaPLhIkFkSMJIcfuagj5CTbKMxi01o3DLMYiOihdTnP9wQV9MYkuSbTEA==
+	t=1795859432;
+	b=i9GTW/0Zi7429DKn+J+hn2Z1d/HQEZt5tGaCtrjzDPe/CZmnX3oPHxkMreFBifZekLed
+	 HNmqnrlz/uQ/nEY+T/z/ayUMRRkWse5UJ+d3xQbeTa0oqETeu4/jP42J3ceUU7l0RTQTx
+	 whnviHVEw0WieMC1Z3wuaIbm7sm24ZGCJEprdfaF65mI9L3FAu7TBfNwH/R3Bq/PPw8iG
+	 Ymp0kD2+rK7BGofLBD94GdL0ZTE77jcLlN4FosxbqmK62UQEUzQzjylUOXFPX8Qgi2iqR
+	 hxfkdFuSOhtlllaF0Zon5HdvporCrIPIAmETVKSF+BwEA+tOsDrk3d6Yy8cgy8lXybQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795859431;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795859432;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 Content-Type:X-MTK;
-	bh=SBXrMA4OPvMSxgKPEkxv8IegE/u3Mj36yDglY+dCJGM=;
-	b=vz00knNOZI+M1BQHKQZZP8xQ+2NQA2KIfk1l+L4RrWTtgjvkbyyJ8qwBF9mNYLH78pyc
-	 5V8ZJrUxebQTxfRbyFy7c81oPeK29Djqr3m4e9dbVHdOfbneaxFsGRJvveC2Ulczx0jrY
-	 iqnf+39q1oBph0e++sFv8CgGGMPzOtKLrAJpETsUY2A+4rRfxB3oOq+NkRLCTVHRaru9T
-	 90ULAdZ3gxNoT4NFnJIepNiTq2e24qafpmgFm38tYDXJbY5v+XKJd/ZGSGVKRqnUmwFas
-	 8n2U6WwCoFmY8RI1GJlBOgWSa5YOvy2VywMnKwlZMSjWKWlpPvlY7ebmg7il6+USMqg==
+	bh=baUYHR5wTu52eu3mVvRNk5AgjTdw7T9iomS5gMvEAog=;
+	b=4AHY0iMiQXOH75pHtJgjH5M/0a36jgWemoRAkwr7P8f0N88S+yD4lRTehEYGGsrXsRzB
+	 v0CwLUDcBd3YOL3YJZ+8WWAfhccOEkioXWyqc2MCjJP9wsTgGzpc39LU6+AcNtCSQPj5n
+	 H2E07wX7qbjkcuFAN2lpIvw5p1XPTN+R7NOKA4kY9Lkz3aDzI0zAYA3P9MH69eJzz4tSC
+	 EEzwiryxurk5AkEqPhnmhyYYw/brx9WRSywnMIkEmhOD/qG1+OjiPlpgnmYHKUXmujp81
+	 UWpD3jJNMTbUj5vtlc9fqKVgFA7WtabNejhEHLhnonM00VZzjlxzPfjg64R0d9k52kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mediatek.com;
 	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=X4q42k32;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Xtikojin;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1BE606A323;
-	Sat, 28 Nov 2026 09:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F1BE606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB58F606A688;
+	Sat, 28 Nov 2026 09:50:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB58F606A688
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=X4q42k32
-X-UUID: 2226036aeb1111f1b9cf3d4034dccee2-20261128
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Xtikojin
+X-UUID: 23b4e6baeb1111f1a7aecdb2598be72c-20261128
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=SBXrMA4OPvMSxgKPEkxv8IegE/u3Mj36yDglY+dCJGM=;
-	b=X4q42k32NcLBJQAhn3yAUrxQrfWZLMxuKxStU04Lz4syf1Dkdc/Rm0Cu2T5VJckzoRqiu14mujNnU3cigN+Xe5r5pLyLsKhX146irHWeY1ScWUGoSAraGYLvKRmK51Pg7ObzGum9JxMqacCNXIH+R7egnishFSWo+EkNYCEfu7U=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=baUYHR5wTu52eu3mVvRNk5AgjTdw7T9iomS5gMvEAog=;
+	b=XtikojinhkSUPQPMXplvmEMVxnL9IYNYkq1miHXcdlgXwXHD08fcQ3way8P9NTl0tqBd3HR2Ll4m0O3mum45YxcZ+GTbJ16oHeccjeqI2yM+oikbQaGi/+Pac0q1ADMfyR8fXEx+G6y5s/a3NlPPRtRGZGElfK9aRlGj6Spbjt0=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:6dc13f13-1598-42b0-972c-00fa12a2de55,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:b0318ac,CLOUDID:2e16e766-4b51-4c95-bb1b-80ac6aad9c96,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.21,REQID:2b1d88eb-e552-4b7f-9f1f-d5f7e1ad9f98,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:3f912d1a-ae4c-4a2b-b1c4-72e411efd0c9,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
+	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
+	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2226036aeb1111f1b9cf3d4034dccee2-20261128
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw01.mediatek.com
+X-UUID: 23b4e6baeb1111f1a7aecdb2598be72c-20261128
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 111388127; Sat, 28 Nov 2026 17:50:24 +0800
+	with ESMTP id 1064624419; Sat, 28 Nov 2026 17:50:27 +0800
 Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sat, 28 Nov 2026 17:50:22 +0800
+ 15.2.2562.56; Sat, 28 Nov 2026 17:50:25 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 17:50:21 +0800
+ 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 17:50:24 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -78,9 +78,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
 	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v13 05/10] media: mediatek: vcodec: Add VP9 Probability Size Configuration
-Date: Sat, 28 Nov 2026 17:50:09 +0800
-Message-ID: <20261128095014.3128536-6-kyrie.wu@mediatek.com>
+Subject: [PATCH v13 07/10] media: mediatek: vcodec: add decoder compatible to support MT8189
+Date: Sat, 28 Nov 2026 17:50:11 +0800
+Message-ID: <20261128095014.3128536-8-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261128095014.3128536-1-kyrie.wu@mediatek.com>
 References: <20261128095014.3128536-1-kyrie.wu@mediatek.com>
@@ -97,143 +97,73 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-Introduce support for using different probability buffer sizes for
-different stateless decoders: in particular, the VP9 decoder can use
-a different size on different SoCs because of different
-hardware capabilities.
-
-Move the hardcoded single probability buffer size value to
-decoder params, introduce a new VP9_4K_PROB_BUF_SIZE and assign:
-  - VP9_PROB_BUF_SIZE (2560 lines) to legacy SoCs;
-  - VP9_4K_PROB_BUF_SIZE (3840 lines) to newer SoCs (MT8196, MT8189).
+MT8189 is pure single core architecture. Add its compatible to
+initialize platform data.
 
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h         | 2 ++
- .../mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c    | 1 +
- .../mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c   | 9 +++++++++
- .../mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c   | 4 ++--
- 4 files changed, 14 insertions(+), 2 deletions(-)
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |  1 +
+ .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  4 ++++
+ .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 21 +++++++++++++++++++
+ 3 files changed, 26 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-index bbfa6954d..0bde1c5b5 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-@@ -82,10 +82,12 @@ struct vdec_pic_info {
-  * struct mtk_vcodec_dec_params - decoder supported parameters
-  * @level: decoder supported vcodec level
-  * @profile: decoder supported vcodec profile
-+ * @prob_size: vp9 decoder probability size
-  */
- struct mtk_vcodec_dec_params {
- 	s64 level;
- 	s64 profile;
-+	size_t prob_size;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
+index 80cb46f1c..2bde871c0 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
+@@ -71,6 +71,7 @@ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata;
++extern const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index b8f19c481..a052f4d95 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -540,6 +540,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
+ 		.compatible = "mediatek,mt8196-vcodec-dec",
+ 		.data = &mtk_vdec_8196_pdata,
+ 	},
++	{
++		.compatible = "mediatek,mt8189-vcodec-dec",
++		.data = &mtk_vdec_8189_pdata,
++	},
+ 	{},
  };
  
- /**
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
-index bf3569e6b..bfa62974b 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
-@@ -632,5 +632,6 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_4_0,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+		.prob_size = 2560,
- 	},
- };
 diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-index 5f2797971..7702c596d 100644
+index 7702c596d..10f9d5bfb 100644
 --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
 +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-@@ -10,6 +10,9 @@
- #include "mtk_vcodec_dec_pm.h"
- #include "vdec_drv_if.h"
- 
-+#define VP9_PROB_BUF_SIZE 2560
-+#define VP9_4K_PROB_BUF_SIZE 3840
+@@ -1053,3 +1053,24 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
+ 		.prob_size = VP9_PROB_BUF_SIZE,
+ 	},
+ };
 +
- /**
-  * struct mtk_stateless_control  - CID control type
-  * @cfg: control configuration
-@@ -892,6 +895,7 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_4_0,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
- 
-@@ -945,6 +949,7 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_1,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
- 
-@@ -965,6 +970,7 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_1,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
- 
-@@ -985,6 +991,7 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
- 
-@@ -1005,6 +1012,7 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
++const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata = {
++	MTK_STATELESS_DEC_DATA,
++	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
++	.fw_type = SCP,
++	.fw_init = mtk_vcodec_fw_scp_init,
++	.chip_model = 8189,
++	.h264_params = {
++		.level = V4L2_MPEG_VIDEO_H264_LEVEL_5_2,
++		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
++	},
++	.h265_params = {
++		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
++		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
++	},
++	.vp9_params = {
++		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
++		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
 +		.prob_size = VP9_4K_PROB_BUF_SIZE,
- 	},
- };
- 
-@@ -1042,5 +1050,6 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
- 	.vp9_params = {
- 		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_4_1,
- 		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
-index e3c768b0d..bc21935b7 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
-@@ -22,7 +22,6 @@
- #define VP9_RESET_FRAME_CONTEXT_ALL 3
- 
- #define VP9_TILE_BUF_SIZE 4096
--#define VP9_PROB_BUF_SIZE 2560
- #define VP9_COUNTS_BUF_SIZE 16384
- 
- #define HDR_FLAG(x) (!!((hdr)->flags & V4L2_VP9_FRAME_FLAG_##x))
-@@ -551,6 +550,7 @@ static int vdec_vp9_slice_alloc_working_buffer(struct vdec_vp9_slice_instance *i
- 					       struct vdec_vp9_slice_vsi *vsi)
- {
- 	struct mtk_vcodec_dec_ctx *ctx = instance->ctx;
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
- 	enum vdec_vp9_slice_resolution_level level;
- 	/* super blocks */
- 	unsigned int max_sb_w;
-@@ -621,7 +621,7 @@ static int vdec_vp9_slice_alloc_working_buffer(struct vdec_vp9_slice_instance *i
- 	}
- 
- 	if (!instance->prob.va) {
--		instance->prob.size = VP9_PROB_BUF_SIZE;
-+		instance->prob.size = pdev->vdec_pdata->vp9_params.prob_size;
- 		if (mtk_vcodec_mem_alloc(ctx, &instance->prob))
- 			goto err;
- 	}
++	},
++};
 -- 
 2.51.0.windows.2
 
