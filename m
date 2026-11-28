@@ -1,88 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795880121;
-	b=PokQmjgZ0vJCdYhUae3eJln0I7VDfLupxcOIYRI85Sl1ilFPeUzlDto8/kHJLrRyfSkR
-	 uo7vKQb4DEIO+0v40kDDeb6DVQhhzqq17fV/ieHv+FVe+hc3LoRdmNfrwSp0nrcRS+pvS
-	 fIzn3EIubbIq0dyD5jfwC0ZTkcHc2mZqLTMT8CM1Sz51dHcl0xKJCwXSDFdtzbWm/0LIO
-	 ko4iJ7NbTQ2ELWuZKbL6ud2TOJgSfN7pLg+0S0pyXyo29MnnUpmtbShXOjuPQbcYu+TNH
-	 ychqxROmOiF9xgiZz/SZwTCN19xZ/d6Ws3X7Vi+UzEfDbEyKIVpdNy9vFMoZjt+Huuw==
+	t=1795880124;
+	b=Xrx/Qu4jf5CkShI6WbrT5dJSqpe10t2okapB5XnC56RUyZ27CC4OPSHM8Ef8sclSLd1H
+	 IdQmqzGOgUPE1MQrWFEMkt8LFrP6EcqaDz6A8WEpg2rUIidFFQ2FjvrajrDvkQ8FX7JlT
+	 0wBt0lHdfm1mJsTzD3XRJmnltSiacF7YQX0xPz3gvRGEnN19k7aCkYUlXp/hM8FSgf0sg
+	 OpUmN0t29GrMMxKKWEJme7vijkDAASaXcpqNlScCewGNaTZm3/h6r4bU4VWSkh1K90Tox
+	 BCxtTLY+9V21I8ZSGzJR9GNCRtiCIJOmud60jLGLDRbl4LtQSl2x1jHFasadBp5GvYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795880121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795880124;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=2gzKBHAENFoQ+wCxaZUD5NGLvIPO/pOAHR4djcvLRmA=;
-	b=eaBNqLTC6tO9N7AwBS/9A9JET42hYFc3cLg4kyE9UFGZLe1DIV5RFiD6a+UejDkDgfbG
-	 yZm/dvdDgdRAzwLFYgWTuo/EHlMMmeFnS2VT0+rqB6jIyAU99oXY8b3x/Bmxtt8SNVkTo
-	 i/A4NEHIklXixne/ZemobCEpJooiDtqUq68b4IbnR6tb5Hy673gAKtLEzyCMV2bZbZU0P
-	 QdvniztGtRv535Gax9aFQhrmraWzMU7kL7i8EFc/3uWm3P7bqLADRDpB7t2AloBs2zGos
-	 sPFHL/xtSvow23XAfzBazsju06Qmd0mPgle6ryfx1CrDK1Kt39FYjsh1Hcs7fWFaFcQ==
+	bh=OPDZCl80ucoRcFw+rfeWFDnofPgw+y6THl/lFgLOQIE=;
+	b=qhCvFX8CqpSLYv0LwMdS9AR5eaHdWpEN12FF2uaq3OuHcExGj3SrOVYgew/Ds/p5dmPb
+	 UrrZJh9Pc47faypzX2LuorbGqr9OeGwpECYLkEkynYGhaWJnpnXyja/BdCUGH+zbFxri4
+	 EusAA/HvnYvPs/VtK1WsgT6CLuAZs7SrN7CSKUb0N9IsbRw8MBxPCQIKgU11ZaoKFqg4D
+	 j5xTYEGncYzH6DENFAhcxE/HQBCpue+yXA3oBr7KVA+Q+RvLzrrIsCDTUFq6Mgbfyg6QX
+	 h9SW5o4QXJZiyFSWHbu7m65ov13TkLxnapJx6Q9fyOfMs/qly8MZMw04oZNMOfm0new==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eSzKkzeO;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vh4J8m92;
 	arc=none smtp.remote-ip=209.85.128.52
 Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC7C606A321
-	for <linux-media@vger.kernel.org>; Sat, 28 Nov 2026 15:35:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC7C606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46737606A31C
+	for <linux-media@vger.kernel.org>; Sat, 28 Nov 2026 15:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46737606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eSzKkzeO
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb69f5b161so59834485e9.0
-        for <linux-media@vger.kernel.org>; Sat, 28 Nov 2026 07:35:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vh4J8m92
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so114987205e9.1
+        for <linux-media@vger.kernel.org>; Sat, 28 Nov 2026 07:35:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795880119; x=1796484919; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2gzKBHAENFoQ+wCxaZUD5NGLvIPO/pOAHR4djcvLRmA=;
-        b=eSzKkzeO9z6ZPH/q5qorpyPTPn4WuZHmBVaecx4fZ133hEzbLQ8hzhw3e+1cL/jHV+
-         b+aFf8/emiwyCttfw51l2cD36l6NcLK0RSxp7Lw5eNH4WkykPrjhQT+m8PjCa4hZx792
-         IyddtYl4UjOKQBkzIcZERVJ4Fo5IB1dXbEV68i/2btl+IDS9LIRINnDNybb2qozYgriv
-         fNKkKI21G2bgO5GsUBOMPjsvd56e5C/veidLUojEF615Rm2RugrIfnmEO/2h0osWG3zZ
-         2U3BGO58ec1Uz1Wi+hwDr4NpFWkXwttBNOM+0YMzWrDxAxE8ZtDiNDUrpTyj5bv1Evz4
-         gr0A==
+        d=gmail.com; s=20260707; t=1795880121; x=1796484921; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OPDZCl80ucoRcFw+rfeWFDnofPgw+y6THl/lFgLOQIE=;
+        b=Vh4J8m92U7pP028aM2/ISZUVuC6lkE0oxMFU/ttDkTeIF39KQQOVkmRlKUN9UJ/HC/
+         5U/+ebFAJYFlrzl5gO/9m6Zygrh5sxjNrl2NtUuJ6jicRrXR1xSnEwc83rk+Mq8esNaD
+         WSMN/3RZAZjeHZJh3SIY86NR3z7AmpCM16Wf0xuxpBdHnQWy7MAbRKmchEOvS3mS3JHS
+         Bs4yZc/DfKotbJoNOBcIEpqt2YiPfM7cRJdE4I3gO5HmUusseoxXV7qjmsoPaF/BG4bg
+         9cCr7q3DfFbrqEOuojDpCfotukqd5Gnas0/L90dl3vdUWv9ysGe/4nDnV32mAdBo7C7z
+         Kfmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795880119; x=1796484919;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2gzKBHAENFoQ+wCxaZUD5NGLvIPO/pOAHR4djcvLRmA=;
-        b=yDmY7y5ejfjAdLRnosOOzDRSWksiLKqLUYuD/Dg77o69YTSVOWc8c3LFhfn0LtMtZ3
-         acbvRciKghIxU9CCyiirw4wu0IzCdCCmmNP4pnSr+LC5cKTv0p3mVrCPCwH3Q+0O2gUm
-         RuG01SQXG5sC+3eL3PKnOip7G9dk1CpZ5o40dMWyGfaYw2fR5GQddUcLjas8dm2mvifP
-         ExAgsHGla1E576uTycnnYf7u5RxO4HWSzYwl1wZqM1HM0CtDs7P6VsU90cGW+TXPvyiz
-         VUWYazFysioCt3X19kfXjJYGLDzpV+RkEv3UUDzluDMAjnq+CN7UCrAuXCm3394VtaXq
-         e4ug==
-X-Forwarded-Encrypted: i=1; AL+hErG26XlsaTZVC5Dnp+QjGWgnwaOAMI9OaGuOEI0myr4EeGCvUXhiV6cA1OsJs1ISAc/wJvmbjlv3rSrZHA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3fmOBa0zH/I7VmKuU+4yfOtdUzbM7LG7HgfBcfaNl3/70tzia
-	qoWWSmnwBXJopomnKXltf/wSZO2ET6UMDyoazuGLOzfOys+b5Y+ijOn2
-X-Gm-Gg: AZFdTZeSMcvQZEoXXWrdUvMUf+UglzJg8LZqrg8OzeCHYsqEQnko0u7j6M3+UzwRKZg
-	Ob232jl/1bBQQYTZJAu9kKWgLhcnNziFjp09/m2XbNOIKp+EyNodJSZSoxQHy/2ZNDwdhJcdhbj
-	UX6xEXpU9WhRWERCblMNGg5UbBLf7Sxhc+Zfjl029+I3JwFcgN4mg9mYSkiPcgOCHjpkQ4oA7/6
-	m8Fumghf+bCM9azcmKgdly0UJFpAuu1AWjDX2IO+s1bzIhS7WFWZh1o9z6iBoHKhMKiQXYYVQKl
-	vASlaiC09T93I3tXjkAQLIXJqpU8LobRz+7cjl20Vu0ptik7KbgJhZzS7fJYmpbcleQund0Vd52
-	0QnCvqwyqZa4PDKjchS/2Jw62JEhTDWhr57ZQD+nOR8e3u39Jb8O41E7kkW1I/N21q58qvJVKGt
-	DsjoQY4LoPA/AxcY6BYUTml26dpUTjsVOGsQ72ZF2EaHyOi8uC+wLrp9u5Ju/UHaZ3PqPFHkKrZ
-	h11DdklseLCd89rsFooZz3WW/I8wAOwSRyeMwdlUl4Qan9iUVuEwFH6m9w7IdpbhPyBuPKtKjEh
-	YIK/o+sqAJ1cmvwne/B+DI3J52t5HvdqCeEqCvd2
-X-Received: by 2002:a05:600c:4e02:b0:4a4:4d57:8462 with SMTP id 5b1f17b1804b1-4bb88812b1cmr556620835e9.24.1795880119211;
-        Sat, 28 Nov 2026 07:35:19 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795880121; x=1796484921;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OPDZCl80ucoRcFw+rfeWFDnofPgw+y6THl/lFgLOQIE=;
+        b=LXJk9M9Hb078QNN3QFdIJAPhd//I0evDu9ykMBEa+WjkGlJN4todfHkZvr5v5PB/ub
+         5BjAVBeo1vcuvkC3pHrp6hb3XaAmda983svbXzllKxOEXIVVgRWYl+lllOsmMctHCFmc
+         hILIPNzFho/8gD2Fp1QDZM/TIafWDynJTMinbbf+AtPUDkDvGZlcQPVaHaWmpEPMGV+M
+         R7L+dgfZtei3EQ97V8VrRS02pEI+F8+YGpwcqS5rH8xQqeGiNwVqIXRnhWROMkq5TuGp
+         7X+mE4fBiJBM4X4HTFkRjFiDUGFNz+uL5MI+Z0BNnSvwThv/9cxlgMoMI8mU1nepfsoW
+         ExlQ==
+X-Forwarded-Encrypted: i=1; AL+hErE9tkmjdibeQ6kz/7YLEnN06aHOTsscYmRsCqQtwiVmhhSt8D+S2J0P1Db/zC+emhOwX/2GoB2AC8F/vA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z84/4K7/FUEkudaM0bBKtNdorFcZUVWOeq1ioicQyDsGSh4WAa4
+	ZG0wrE25VsBo1aIc6Z70y18nZ5wb97ebpRyJjFXakVZ5AZrwfZJ1US+2
+X-Gm-Gg: AZFdTZfLmttzQMdgt/alwhddumB2xqwlbmhHOIvzlywMoKWNkVxW7J0TIxGpFqCQae9
+	mt9c8rFW6ZOOiCX6nkhdRvFFRSEXL88a4LAhB03ahYQ1EDqIf06bsLFfppzVtdkZCE5+bVuEwt8
+	63t5k85AVX9Df+uBx1SsM46Te1Te86y4vLbQpQv5A+MEf8pt3h0/K6yhExdReNvOKLfkXmR8MTZ
+	RGDXxMqAEuSYX2o7S+zFum87FV4g614ziPvF0ZV2A7hBV8tnGCmvtVYJ96TnKwJ+Gq8ktSokyPQ
+	X7Ge4WEnw6CW7faUJ5ABtlWvUesFbiMsszN1Gr+jzVV61l9s6/pKNDW0mUI3z3wVRVRW9Q5byCE
+	nu/UURI6siW5gqpNzx3H+/yjSGLeoYAEIy02DIx9YRCREyTm3vSf9VjQ7V8fbNMrPhLncb6fvRW
+	iqhEZIHraaFeQaEviVy815RZVIFh050hyzQfGr3oEQeIpMJe/yOoNwEccA6owRoHwmYByCx1Xw4
+	B9/EqF2yY3LdKeGJ4kmxXrRmHLRFIlN8jbQj8TIm7hRuzdjdk/mCDg6/ttooCe6kfIYhJ1rBeD9
+	hh4efbha38MgCN8PEex8kR3YtRgyTU4n+TovFXl7
+X-Received: by 2002:a05:600c:4e0b:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4bb887fb66cmr593468135e9.5.1795880121168;
+        Sat, 28 Nov 2026 07:35:21 -0800 (PST)
 Received: from [192.168.0.15] ([2a02:a312:c59b:a180:251a:f25f:80fa:af1d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9067846esm561359015e9.4.2026.11.28.07.35.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9067846esm561359015e9.4.2026.11.28.07.35.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Nov 2026 07:35:18 -0800 (PST)
+        Sat, 28 Nov 2026 07:35:20 -0800 (PST)
 From: Artur Kowalski <arturkow2000@gmail.com>
-Subject: [PATCH 0/4] ARM: tegra: Fix warm restarts on Tegra20
-Date: Sat, 28 Nov 2026 16:34:56 +0100
-Message-Id: <20261128-t20-soft-reset-v1-0-0db458c5996b@gmail.com>
+Date: Sat, 28 Nov 2026 16:34:57 +0100
+Subject: [PATCH 1/4] mfd: tps6586x: Leave warm and soft restarts to other
+ handlers
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,10 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQ6CMBAF0KtM/ppJ2oqE9CrGBdSpDAsgnWJMC
- Hc36vJt3gGTomKIdKDIS03XBZF8Q0jTsDyF9YFICC503oeea3Bsa65cxKRyHlx/SW5sr9KiIWx
- Fsr5/4e3+t+3jLKl+F5znB7VTWRZyAAAA
-X-Change-ID: 20261128-t20-soft-reset-fa083c0b45e4
+Message-Id: <20261128-t20-soft-reset-v1-1-0db458c5996b@gmail.com>
+References: <20261128-t20-soft-reset-v1-0-0db458c5996b@gmail.com>
+In-Reply-To: <20261128-t20-soft-reset-v1-0-0db458c5996b@gmail.com>
 To: Lee Jones <lee@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
  Jonathan Hunter <jonathanh@nvidia.com>, Hans Verkuil <hverkuil@kernel.org>, 
  Dmitry Osipenko <digetx@gmail.com>, 
@@ -107,72 +107,46 @@ Cc: mfd@lists.linux.dev, linux-tegra@vger.kernel.org,
  Thierry Reding <treding@nvidia.com>, linux-media@vger.kernel.org, 
  clamor95@gmail.com, Artur Kowalski <arturkow2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2489;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1156;
  i=arturkow2000@gmail.com; s=default; h=from:subject:message-id;
- bh=dU0F1WkbTG8tFNzFBXxX/HgRAHkTJjQlSwyPPAIbYfM=;
- b=owGbwMvMwCVmYeTc/TaVxZzxtFoSQzbXl/UBP2p+Kpy3rF/9YXNZ3e8iixmz5b98nOivaGb/b
- 5JvR9jejlIWBjEuBlkxRRazh0JfeOZ5vd/wcmsnzBxWJpAhDFycAjCRD/aMDLs+LZzxss7hRKui
- 3pyuTSq9LS3/3ynsOPfPWHdJtlVgwFpGhmt7Ty4T0W3/9cbL2pVdJNx1m9NZo10d5yd0PYhasMB
- xIwMA
+ bh=FHhG5PpLJ8sBoWRAgEyavLjNn+Vpbum5Z4mXHlUvn24=;
+ b=owGbwMvMwCVmYeTc/TaVxZzxtFoSQzbXl63uaa5fTqyS9o1cHizZdj2/KkBUbtHh5O+VJ/w+l
+ RQndSZ2lLIwiHExyIopspg9FPrCM8/r/YaXWzth5rAygQxh4OIUgIm0zWH4Z3+xP7ZLvNYjSYDr
+ zGJjjnPXr+lbHvVrZeWKepPeKMCSzfDPZrZktCcHe0KJy4/bjx69L58vn2f8V6Cl+LHj3OU1Ndl
+ MAA==
 X-Developer-Key: i=arturkow2000@gmail.com; a=openpgp;
  fpr=F60710C8D69E03A01A2801CD87A47D20C2709637
 
-On Tegra20 boards with a TPS6586x PMIC, every restart is a cold restart:
-the PMIC restart handler has a higher priority than the PMC one and
-power cycles the whole board, regardless of the configured reboot mode.
-That includes RAM, which makes pstore unreliable, and was the main
-motivation for this series. Testing has also shown that warm reboots
-are more reliable on my TF101: on cold reboots the board tends to just
-power off, which breaks automated kernel build/deploy/reboot loops,
-while with warm reboots (and the latest U-Boot) I haven't observed any
-boot issues.
+The restart handler resets the PMIC, which power cycles the whole
+system, including RAM, so a ramoops/pstore log of a crash doesn't
+survive the restart. Its priority is above that of the Tegra PMC
+restart handler, which resets the SoC and keeps the RAM contents, so the
+PMIC handler is always used.
 
-This series does three things:
-- it fixes warm reboots on boards with a TPS6586x,
-- it registers the PMC restart handler much earlier, so that kernel
-  panics that happen before the regulator driver is brought up are able
-  to reset the board,
-- it improves the old workaround for the boot ROM hanging on a warm
-  reset, which now also covers emergency restarts. Without it, boards
-  that don't have a PMIC restart handler, and therefore reset through
-  the PMC, hang if the restart was triggered by a panic.
+Let the reboot mode select between them: return without resetting the
+PMIC for warm and soft restarts, so the next handler performs them.
+Cold restarts, the default, keep using the PMIC.
 
-Patches were created with help of Claude. I've tested them on ASUS
-TF101.
-
----
-Patch 4 is a cleanup of the old workaround, requires patch 3.
-
-To: Lee Jones <lee@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-To: Jonathan Hunter <jonathanh@nvidia.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-To: Dmitry Osipenko <digetx@gmail.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: mfd@lists.linux.dev
-Cc: linux-tegra@vger.kernel.org
-Cc: Thierry Reding <treding@nvidia.com>
-Cc: linux-media@vger.kernel.org
-Cc: clamor95@gmail.com
 Signed-off-by: Artur Kowalski <arturkow2000@gmail.com>
-
 ---
-Artur Kowalski (4):
-      mfd: tps6586x: Leave warm and soft restarts to other handlers
-      soc/tegra: pmc: Register restart handler from early init on ARM
-      soc/tegra: pmc: Power up VDE partition before restarting Tegra20
-      media: tegra-vde: Drop warm restart workaround
+ drivers/mfd/tps6586x.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- drivers/media/platform/nvidia/tegra-vde/vde.c | 24 +------
- drivers/mfd/tps6586x.c                        |  3 +
- drivers/soc/tegra/pmc.c                       | 99 ++++++++++++++++++++++-----
- 3 files changed, 86 insertions(+), 40 deletions(-)
----
-base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
-change-id: 20261128-t20-soft-reset-fa083c0b45e4
+diff --git a/drivers/mfd/tps6586x.c b/drivers/mfd/tps6586x.c
+index f524bbdc8f3b..a92a88ac987d 100644
+--- a/drivers/mfd/tps6586x.c
++++ b/drivers/mfd/tps6586x.c
+@@ -480,6 +480,9 @@ static int tps6586x_restart_handler(struct sys_off_data *data)
+ {
+ 	int ret;
+ 
++	if (data->mode == REBOOT_WARM || data->mode == REBOOT_SOFT)
++		return NOTIFY_DONE;
++
+ 	/* Put the PMIC into hard reboot state. This takes at least 20ms. */
+ 	ret = tps6586x_set_bits(data->dev, TPS6586X_SUPPLYENE, SOFT_RST_BIT);
+ 	if (ret)
 
-Best regards,
---  
-Artur Kowalski <arturkow2000@gmail.com>
+-- 
+2.56.1
 
